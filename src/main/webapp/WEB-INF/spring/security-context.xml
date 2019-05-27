@@ -34,9 +34,8 @@
 	<sec:authentication-manager>
 		<sec:authentication-provider>
 			<sec:jdbc-user-service data-source-ref="dataSource"
-				users-by-username-query="select emp_id, emp_pwd, enabled from employee where id=?"
+				users-by-username-query="select emp_id, emp_pwd, enabled from employee where emp_id=?"
 				authorities-by-username-query="select id, authority from authorities where id= ?" />
-			<sec:password-encoder ref="pwdEncoder"/>
 		</sec:authentication-provider>
 	</sec:authentication-manager>
 	

@@ -8,9 +8,12 @@
 		<put-attribute name="footer" value="/WEB-INF/tiles/layout/footer.jsp" />
 	</definition>
 	
-	<definition name="*" extends="layouts-tiles">
-		<put-attribute name="section" value="/WEB-INF/views/{1}.jsp"></put-attribute>
+	<definition name="empty" template="/WEB-INF/tiles/layout/index.jsp"/>
+		
+	<definition name="login" extends="empty"> 
+		<put-attribute name="content" value="/WEB-INF/views/users/login.jsp"/>
 	</definition>
+	
 	<definition name="*/*" extends="layouts-tiles">
 		<put-attribute name="section" value="/WEB-INF/views/{1}/{2}.jsp" />
 	</definition>
