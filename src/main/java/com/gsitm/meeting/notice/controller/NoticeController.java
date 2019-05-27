@@ -22,14 +22,14 @@ public class NoticeController {
 	@Autowired
 	private NoticeService noticeService;
 	
-	// °øÁö»çÇ× ÀüÃ¼List
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼List
 	@GetMapping("/list")
 	public String noticeList(Model model) {
 		model.addAttribute("list", noticeService.noticeList());
-		return "notice/noticeTest11";
+		return "notice/noticeList";
 	}
 	
-	// °øÁö»çÇ× ±ÛÀÐ±â
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ð±ï¿½
 	@GetMapping("/read/{noticeNum}")
 	public String noticeRead(Model model, @PathVariable int noticeNum) {
 		model.addAttribute("notice", noticeService.noticeRead(noticeNum));
