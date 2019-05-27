@@ -18,15 +18,15 @@ public class BranchService {
 	@Autowired
 	private Gson gson;
 	
-	public List<Branch> branchList(){
+	public String branchList(){
 		System.out.println(brDao.branchList());
 		return gson.toJson(brDao.branchList());
 	}
 	
-	public Branch branchOne(String branchId) {
+	public String branchOne(String branchId) {
 		System.out.println(brDao.branchOne(branchId));
-		return brDao.branchOne(branchId);
-	}
-	
+		return gson.toJson(brDao.branchOne(branchId));
+		}
+		
 	
 }
