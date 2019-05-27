@@ -8,13 +8,37 @@ public class MeetingRoom {
 	private int mrLimit;
 	private int mrPrice;
 	private int mrArea;
-	private int mrNetwork;
+	private String mrNetwork;
 	private String mrType;
 	private String empId;
 	private String mrLocation;
 	private String mrImg;
 	
+	//단기예약메인페이지 관리자이름
+	private String empName;
+	//회의실 위치
+	private String brLocation;
 	
+	public String getBrLocation() {
+		return brLocation;
+	}
+
+
+	public void setBrLocation(String brLocation) {
+		this.brLocation = brLocation;
+	}
+
+
+	public String getEmpName() {
+		return empName;
+	}
+
+
+	public void setEmpName(String empName) {
+		this.empName = empName;
+	}
+
+
 	public MeetingRoom() {
 		super();
 	}
@@ -80,12 +104,12 @@ public class MeetingRoom {
 	}
 
 
-	public int getMrNetwork() {
+	public String getMrNetwork() {
 		return mrNetwork;
 	}
 
 
-	public void setMrNetwork(int mrNetwork) {
+	public void setMrNetwork(String mrNetwork) {
 		this.mrNetwork = mrNetwork;
 	}
 

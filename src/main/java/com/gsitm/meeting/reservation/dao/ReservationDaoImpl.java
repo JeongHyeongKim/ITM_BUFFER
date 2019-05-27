@@ -19,14 +19,13 @@ public class ReservationDaoImpl implements ReservationDao {
 
 	@Override
 	public List<Reservation> resList() {
-		// TODO Auto-generated method stub
-		return null;
+		return session.selectList(namespace + ".resList");
 	}
 
 	@Override
 	public List<MeetingRoom> meetingRoomList() {
 		// TODO Auto-generated method stub
-		return null;
+		return session.selectList(namespace + ".meetingRoomList");
 	}
 
 }

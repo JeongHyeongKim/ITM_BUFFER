@@ -20,6 +20,17 @@ public class Reservation {
 	private int resCost;
 	private int resOutside;
 	
+	//예약현황
+	private String empName;
+	
+	public String getEmpName() {
+		return empName;
+	}
+
+	public void setEmpName(String empName) {
+		this.empName = empName;
+	}
+
 	public Reservation() {
 		
 	}
