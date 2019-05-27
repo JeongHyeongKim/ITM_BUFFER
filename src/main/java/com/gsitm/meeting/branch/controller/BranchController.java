@@ -4,8 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.gsitm.meeting.branch.dto.Branch;
 import com.gsitm.meeting.branch.service.BranchService;
 
 @Controller
@@ -21,10 +24,34 @@ public class BranchController {
 		return "branch/branchList";
 	}
 	
+	@GetMapping("/read/{brId}")
+	public String branchOne(Model model, @PathVariable String brId) {
+		model.addAttribute("branch", brService.branchOne(brId));
+		return "branch/branchRead"; // 
+	}
+	
+	@PostMapping("/write")
+	public String branchInsert(Branch branch) {
+		brService.branchInsert(branch);
+		return "redirect:/branch/list";
+	}
+	
+	@PostMapping("/update")
+	public String branchUpdate(Branch branch) {
+		brService.branchUpdate(branch);
+		return "redirect:/branch/list";
+	}
+	
+	@PostMapping("/delete")
+	public String branchDelete(String brId) {
+		brService.branchDelete(brId);
+		return "redirect:/branch/list";
+	}
+	
 	
 	/*public String branchOne(Model model) {
 		model.addAttribute("branchOne", brService.branchList());
 		return "branch/branchOne";
-		//ÇÏ³ª¸¸ Á¶È¸ÇÒ¶§°¡ ÇÊ¿äÇÑ°¡? ÀÏ´Ü ¸¸µé¾î³õÀ½
+		//ï¿½Ï³ï¿½ï¿½ï¿½ ï¿½ï¿½È¸ï¿½Ò¶ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½ï¿½Ñ°ï¿½? ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	}*/
 }

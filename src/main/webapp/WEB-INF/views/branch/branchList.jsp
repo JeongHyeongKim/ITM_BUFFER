@@ -11,20 +11,21 @@
 		var branchList = JSON.parse('${branchList}')
 		console.log(branchList);
 		
-		$.each(noticeList, function(i, $list) {
+		$.each(branchList, function(i, $List) {
 			var $tr = $("<tr></tr>").appendTo($("#branchList"));
-			var $link = $("<a>").attr("href", "/meeting/branch/read/" + $list.noticeId);
-			var $deleteBtn = $("<button></button>").attr("class", "noticeDelete").data("noticeId", $list.noticeId);
+			var $link = $("<a>").attr("href", "/meeting/branch/read/" + $List.brId);
+			var $deleteBtn = $("<button></button>").attr("class", "branchDelete").data("brId", $List.brId);
 			
-			$("<td></td>").text($list.noticeId).appendTo($tr);
-			$("<td></td>").text($list.noticeTitle).wrapInner($link).appendTo($tr);
-			$("<td></td>").text($list.noticeWriter).appendTo($tr);
-			$("<td></td>").text($list.noticeDate).appendTo($tr);
-			$("<td></td>").text(" - ").wrapInner($deleteBtn).appendTo($tr);
+			$("<td></td>").text($List.brId).appendTo($tr);
+			$("<td></td>").text($List.brName).wrapInner($link).appendTo($tr);
+			$("<td></td>").text($List.brLocation).appendTo($tr);
+			$("<td></td>").text($List.brTel).appendTo($tr);
+			$("<td></td>").text($List.brImg).appendTo($tr);
+			$("<td></td>").text("삭제").wrapInner($deleteBtn).appendTo($tr);
 		})
 		
-		$(".noticeDelete").on("click",function(){
-			console.log($(".noticeDelete").data("noticeId"));
+		$(".branchDelete").on("click",function(){
+			console.log($(".branchDelete").data("brId"));
 		})
 	})
 </script>
@@ -33,8 +34,12 @@
 <body class="app sidebar-mini rtl">
 	<main class="app-content">
 		<div class="app-title">
-			<h3>공지사항</h3>
+			<div>
+			<h1>회의실 /교육실 관리</h1>
+			<p >지사관리</p>
+			</div>
 		</div>
+		
 		<div>
 			<button id="branchInsert">글쓰기</button>
 		</div>

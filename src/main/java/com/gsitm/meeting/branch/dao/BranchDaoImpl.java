@@ -21,26 +21,36 @@ public class BranchDaoImpl implements BranchDao{
 		return session.selectList(namespace+".branchList");
 	}
 
-	@Override
-	public int branchDelete(String branchId) {
-		return session.delete(namespace+".branchDelete");
-		
-	}
+
 
 	@Override
 	public Branch branchOne(String branchId) {
-		return session.selectOne(namespace+".branchOne");
+		return session.selectOne(namespace+".branchOne", branchId);
 	}
 
-	@Override
-	public int branchUpdate() {
-		return session.update(namespace+".branchUpdate");
-		
-	}
+
 
 	@Override
-	public int branchCreate(String brId, String brName, String brLocation, String brTel, String brImg) {
-		return session.insert(namespace+".branchInsert");
+	public void branchDelete(String branchId) {
+		session.delete(namespace+".branchDelete",branchId);
 	}
+
+
+
+	@Override
+	public void branchUpdate(Branch branch) {
+		session.update(namespace+".branchUpdate", branch);
+	}
+
+
+
+	@Override
+	public void branchCreate(Branch branch) {
+		session.insert(namespace+".branchCreate", branch);
+	}
+
+
+
+	
 
 }

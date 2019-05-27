@@ -26,7 +26,20 @@ public class BranchService {
 	public String branchOne(String branchId) {
 		System.out.println(brDao.branchOne(branchId));
 		return gson.toJson(brDao.branchOne(branchId));
-		}
+	}
+	
+	public void branchInsert(Branch branch) {
+		brDao.branchCreate(branch);
+	}
+	
+	
+	public void branchUpdate(Branch branch) {
+		brDao.branchUpdate(branch);
+	}
+	
+	public void branchDelete(String brId) {
+		brDao.branchDelete(brId);
+	}
 		
 	
 }

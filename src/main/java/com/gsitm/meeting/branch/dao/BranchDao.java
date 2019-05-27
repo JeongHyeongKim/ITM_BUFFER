@@ -8,17 +8,16 @@ import com.gsitm.meeting.branch.dto.Branch;
 
 public interface BranchDao {
 	
-	
-	
+
 	public List<Branch> branchList();
 	
-	public int branchDelete(String branchId);
+	public void branchDelete(String branchId);
 	
 	public Branch branchOne(String branchId);
 	
-	public int branchUpdate();
+	public void branchUpdate(Branch branch);
 	
-	public int branchCreate(String brId, String brName, String brLocation, String brTel, String brImg);
+	public void branchCreate(Branch branch);
 
 }
 	
