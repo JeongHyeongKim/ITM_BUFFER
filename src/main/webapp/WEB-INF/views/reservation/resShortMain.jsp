@@ -30,10 +30,10 @@
           <div class="tile p-0">
             <ul class="nav flex-column nav-tabs user-tabs">
               <li class="nav-item"><a class="nav-link">지사 선택</a></li>
-              <li class="nav-item"><a class="nav-link active" href="#main-building" data-toggle="tab">본사</a></li>
-              <li class="nav-item"><a class="nav-link" href="#samhwan-building" data-toggle="tab">삼환빌딩</a></li>
-              <li class="nav-item"><a class="nav-link" href="#gangseo-building" data-toggle="tab">GS강서타워</a></li>
-              <li class="nav-item"><a class="nav-link" href="#gangbuk-building" data-toggle="tab">데이터센터</a></li>
+              <li class="nav-item"><a class="nav-link active" href="#meeting-room" data-toggle="tab">본사</a></li>
+              <li class="nav-item"><a class="nav-link" href="#meeting-room" data-toggle="tab">삼환빌딩</a></li>
+              <li class="nav-item"><a class="nav-link" href="#meeting-room" data-toggle="tab">GS강서타워</a></li>
+              <li class="nav-item"><a class="nav-link" href="#meeting-room" data-toggle="tab">데이터센터</a></li>
             </ul>
           </div>
         </div>
@@ -41,7 +41,7 @@
           <div class="tab-content">
           
           <!-- 본사 -->
-            <div class="tab-pane active" id="main-building">
+            <div class="tab-pane active" id="meeting-room">
             <c:forEach items="${resShortMain}" var="resShortList">
               <div class="timeline-post">
                 <div class="post-media"><a href="#"><img src="https://s3.amazonaws.com/uifaces/faces/twitter/jsa/48.jpg"></a>
