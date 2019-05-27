@@ -74,11 +74,11 @@
             <div class="col-md-3">
 	          <div class="tile p-0">
 	            <ul class="nav flex-column nav-tabs user-tabs">
-	              <li class="nav-item"><a class="nav-link active" data-toggle="tab">지사 선택</a></li>
-	              <li class="nav-item"><a class="nav-link" href="#user-timeline" data-toggle="tab">본사</a></li>
-	              <li class="nav-item"><a class="nav-link" href="#user-timeline" data-toggle="tab">삼환 빌딩</a></li>
-	              <li class="nav-item"><a class="nav-link" href="#user-timeline" data-toggle="tab">GS 강서빌딩</a></li>
-	              <li class="nav-item"><a class="nav-link" href="#user-settings" data-toggle="tab">GS 강북빌딩</a></li>
+	              <li class="nav-item"><a class="nav-link">지사 선택</a></li>
+	              <li class="nav-item"><a class="nav-link active" href="#main-building" data-toggle="tab">본사</a></li>
+	              <li class="nav-item"><a class="nav-link" href="#samhwan-building" data-toggle="tab">삼환빌딩</a></li>
+	              <li class="nav-item"><a class="nav-link" href="#gangseo-building" data-toggle="tab">GS강서타워</a></li>
+	              <li class="nav-item"><a class="nav-link" href="#gangbuk-building" data-toggle="tab">데이터센터</a></li>
 	            </ul>
 	          </div>
 	        </div>

@@ -28,4 +28,6 @@ public class ReservationDaoImpl implements ReservationDao {
 		return session.selectList(namespace + ".meetingRoomList");
 	}
 
+	
+
 }

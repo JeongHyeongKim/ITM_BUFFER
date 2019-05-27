@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.google.gson.Gson;
 import com.gsitm.meeting.reservation.dao.ReservationDaoImpl;
 import com.gsitm.meeting.reservation.dto.Reservation;
 import com.gsitm.meeting.room.dto.MeetingRoom;
@@ -15,12 +16,17 @@ public class ReservationService {
 	@Autowired
 	private ReservationDaoImpl resDao;
 	
+	@Autowired
+	private Gson gson;
+	
 	public List<Reservation> resList(){
-		//System.out.println("È®ÀÎ: "+resDao.resList());
+		//System.out.println("È®ï¿½ï¿½: "+resDao.resList());
+		//return gson.toJson(resDao.resList());
 		return resDao.resList();
 	}
 	public List<MeetingRoom> meetingRoomList(){
-		System.out.println(resDao.meetingRoomList());
+		//System.out.println(resDao.meetingRoomList());
+		//return gson.toJson(resDao.meetingRoomList());
 		return resDao.meetingRoomList();
 	}
 }
