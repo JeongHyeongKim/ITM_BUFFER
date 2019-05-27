@@ -3,5 +3,18 @@
 
 <!-- 게시판 네임스페이스(사용영역) 설정 -->
 <mapper namespace="com.gsitm.meeting.mappers.reservationMapper">
-
+	<select id="resList" resultType="reservation">
+		select e.EMP_NAME empName,res_time resDate 
+		from employee e ,reservation r
+		where e.emp_id = r.emp_id
+	</select>
+	
+	<select id="meetingRoomList" resultType="MeetingRoom">
+		select mr_name mrName, r.br_id brId, mr_limit mrLimit,b.BR_LOCATION brLocation, mr_area mrArea, mr_network mrNetwork, 
+		mr_type mrType, e.emp_name empName, mr_location mrLocation, mr_img mrImg
+		from branch b, meeting_room r, employee e
+		where  b.BR_ID=r.br_id 
+		and r.emp_id = e.emp_id
+		and br_name='본사'
+	</select>
 </mapper>
