@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 게시판 네임스페이스(사용영역) 설정 -->
+<mapper namespace="com.gsitm.meeting.mappers.branchMapper">
+
+	<select id="branchList" resultType="branch">
+		select br_id brId, br_name brName, br_location brLocation, br_tel brTel, br_img brImg
+		from branch
+	</select>
+	
+
+	<select id="branchOne" resultType="branch">
+		select br_id brId, br_name brName, br_location brLocation, br_tel brTel, br_img brImg
+		 from branch
+		 where br_id = #{brId}
+	</select>
+	
+	<insert id="branchInsert">
+		insert into branch (br_id,br_name, br_location, br_tel, br_img)
+		values (#{brId}, #{brName}, #{brLocation}, #{brTel}, #{brImg})
+	</insert>
+	
+	<update id="branchUpdate">
+		update branch
+		set br_name = #{brName}, br_location = #{brLocation}, br_tel=#{brTel}, br_img=#{brImg}
+		where br_id=#{brId} 
+	</update>
+	
+	<delete id="branchDelete">
+		delete branch
+		where br_id=#{brId}
+	</delete>	
+	
+
+</mapper>
