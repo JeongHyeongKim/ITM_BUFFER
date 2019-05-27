@@ -54,5 +54,6 @@
 	<tx:annotation-driven />
 	
 	<bean id="gson" class="com.google.gson.Gson" />
-		
+	
+	<bean id="pwdEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
 </beans>
