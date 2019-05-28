@@ -1,70 +1,110 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
+
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-<title>Áö»ç ¼öÁ¤</title>
-</head>
-<body>
-	<main class="app-content">
-	<div class="app-title">
-        <div>
-          <h1>È¸ÀÇ½Ç/±³À°½Ç °ü¸®</h1>
-          <p>>Áö»ç°ü¸®</p>
-        </div>
-        <ul class="app-breadcrumb breadcrumb">
-          <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i>È¸ÀÇ½Ç ±³À°½Ç °ü¸® / Áö»ç°ü¸®</li>
-        </ul>
-      </div>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>ì§€ì‚¬ ìˆ˜ì •</title>
+	<script type="text/javascript">
 	
-<div class="row">
-        <div class="col-md-4">
-			<div class="tile">
-	          	<img class="user-img" src="https://s3.amazonaws.com/uifaces/faces/twitter/jsa/128.jpg">
-	          	<input class="form-control" type="file">
-			</div>
-        </div>
-        <div class="col-md-8">
-          <div class="tile">
-            <h3 class="tile-title">Register</h3>
-            <div class="tile-body">
-              <form class="form-horizontal">
-                <div class="form-group row">
-                  <label class="control-label col-md-3">Áö»ç ÀÌ¸§ : </label>
-                  <div class="col-md-8">
-                    <input class="form-control" type="text" placeholder="Enter full name">
-                  </div>
-                </div>
-                <div class="form-group row">
-                  <label class="control-label col-md-3">Áö»ç ÁÖ¼Ò : </label>
-                  <div class="col-md-8">
-                    <input class="form-control col-md-8" type="email" placeholder="Enter email address">
-                  </div>
-                </div>
-                <div class="form-group row">
-                  <label class="control-label col-md-3">´ëÇ¥ ¹øÈ£ : </label>
-                  <div class="col-md-8">
-                    <textarea class="form-control" rows="4" placeholder="Enter your address"></textarea>
-                  </div>
-                </div>
-                
-              </form>
-            </div>
-            <div class="tile-footer">
-              <div class="row">
-                <div class="col-md-8 col-md-offset-3">
-                  <button class="btn btn-primary" type="button"><i class="fa fa-fw fa-lg fa-check-circle"></i>Register</button>&nbsp;&nbsp;&nbsp;<a class="btn btn-secondary" href="#"><i class="fa fa-fw fa-lg fa-times-circle"></i>Cancel</a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        </div>
- 
+	$(function(){
+		
+	var branch = JSON.parse('${branch}')
+	console.log(branch);
+	console.log(${branch});
+	
 
-          
+	var name = branch.brName;
+	var address = branch.brLocation;
+	var tel = branch.brTel;
+	var img = branch.brImg
+	console.log(name);	
+	
+	document.getElementById("brName").value=name;
+	document.getElementById("brAddress").value=address;
+	document.getElementById("brTel").value=tel;
+	//ì„ì‹œì´ê¸° ë•Œë¬¸ì— ì´ë¯¸ì§€ëŠ” ë„£ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.
+	
+	
+	$("#write").on("click", function() {
+        
+        var formData = new FormData();
+        formData.set("brName", $("#brName").val());
+        formData.set("brAddress", $("#brAddress").val());
+        formData.set("brTel", $("#brTel").val());
+        formData.set("brImg", $("#nickname").val());
+        formData.set("_csrf", "${_csrf.token}");
+		
+        $.ajax({
+           url : "/meeting/branch/update",
+           method : "post",
+           data : formData,
+           success : function() {
+        	   console.log("check")
+           }
+        })
+	})
+	});
+	</script>
+</head>
 
-	</main>
+<body>
+    <main class="app-content">
+        <div class="app-title">
+            <div>
+                <h1>íšŒì˜ì‹¤/êµìœ¡ì‹¤ ê´€ë¦¬</h1>
+                <p>>ì§€ì‚¬ê´€ë¦¬</p>
+            </div>
+            <ul class="app-breadcrumb breadcrumb">
+                <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i>íšŒì˜ì‹¤ êµìœ¡ì‹¤ ê´€ë¦¬ / ì§€ì‚¬ê´€ë¦¬</li>
+            </ul>
+        </div>
+
+			
+        <div class="row">
+        <!--form action="" method="">-->
+            <div class="col-md-4">
+                <div class="tile">
+                    <img class="user-img" src="https://s3.amazonaws.com/uifaces/faces/twitter/jsa/128.jpg" height=235px >
+                    <input class="form-control" type="file" id="brImg">
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="tile">
+                    <div class="tile-body">
+                        <div class="form-horizontal">
+                            <div class="form-group row">
+                                <label class="control-label col-md-3">ì§€ì‚¬ ì´ë¦„ :</label>
+                                <div class="col-md-8">
+                                    <input class="form-control" type="text" placeholder="ì§€ì‚¬ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”" id="brName" >
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="control-label col-md-3">ì§€ì‚¬ ì£¼ì†Œ : </label>
+                                <div class="col-md-8">
+                                    <input class="form-control"  placeholder="ì£¼ì†Œë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”" id="brAddress" >
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="control-label col-md-3">ëŒ€í‘œ ë²ˆí˜¸ : </label>
+                                <div class="col-md-8">
+                                    <input class="form-control" type="text" placeholder="ëŒ€í‘œë²ˆí˜¸ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”" id="brTel">
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="tile-footer">
+                        <div class="row">
+                            <div class="col-md-8 col-md-offset-3">
+                                <button class="btn btn-primary" type="button" id="write"><i class="fa fa-fw fa-lg fa-check-circle"></i>í™•ì¸</button>&nbsp;&nbsp;&nbsp;<a class="btn btn-secondary" href="#"><i class="fa fa-fw fa-lg fa-times-circle"></i>ì·¨ì†Œ</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
 </body>
+
 </html>

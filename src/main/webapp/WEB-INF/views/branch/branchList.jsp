@@ -1,9 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script type="text/javascript">
 	$(function(){
@@ -21,7 +21,7 @@
 			$("<td></td>").text($List.brLocation).appendTo($tr);
 			$("<td></td>").text($List.brTel).appendTo($tr);
 			$("<td></td>").text($List.brImg).appendTo($tr);
-			$("<td></td>").text("»èÁ¦").wrapInner($deleteBtn).appendTo($tr);
+			$("<td></td>").text("ì‚­ì œ").wrapInner($deleteBtn).appendTo($tr);
 		})
 		
 		$(".branchDelete").on("click",function(){
@@ -29,28 +29,28 @@
 		})
 	})
 </script>
-	<title>Áö»çÁ¶È¸</title>
+	<title>ì§€ì‚¬ì¡°íšŒ</title>
 </head>
 <body class="app sidebar-mini rtl">
 	<main class="app-content">
 		<div class="app-title">
 			<div>
-			<h1>È¸ÀÇ½Ç /±³À°½Ç °ü¸®</h1>
-			<p >Áö»ç°ü¸®</p>
+			<h1>íšŒì˜ì‹¤ /êµìœ¡ì‹¤ ê´€ë¦¬</h1>
+			<p >ì§€ì‚¬ê´€ë¦¬</p>
 			</div>
 		</div>
 		
 		<div>
-			<button id="branchInsert">±Û¾²±â</button>
+			<button id="branchInsert">ê¸€ì“°ê¸°</button>
 		</div>
 		<div>
 			<table id="branchList">
 				<tr>
-					<td>Áö»ç¹øÈ£</td>
-					<td>Áö»çÀÌ¸§</td>
-					<td>Áö»çÀ§Ä¡</td>
-					<td>ÀüÈ­¹øÈ£</td>
-					<td>Áö»ç»çÁø</td>
+					<td>ì§€ì‚¬ë²ˆí˜¸</td>
+					<td>ì§€ì‚¬ì´ë¦„</td>
+					<td>ì§€ì‚¬ìœ„ì¹˜</td>
+					<td>ì „í™”ë²ˆí˜¸</td>
+					<td>ì§€ì‚¬ì‚¬ì§„</td>
 				</tr>
 			</table>
 		</div>
