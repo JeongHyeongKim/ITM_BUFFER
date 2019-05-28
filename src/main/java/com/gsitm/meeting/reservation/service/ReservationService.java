@@ -9,6 +9,7 @@ import com.google.gson.Gson;
 import com.gsitm.meeting.reservation.dao.ReservationDaoImpl;
 import com.gsitm.meeting.reservation.dto.Reservation;
 import com.gsitm.meeting.room.dto.MeetingRoom;
+import com.gsitm.meeting.users.dto.Employee;
 
 @Service
 public class ReservationService {
@@ -24,9 +25,12 @@ public class ReservationService {
 		//return gson.toJson(resDao.resList());
 		return resDao.resList();
 	}
-	public List<MeetingRoom> meetingRoomList(){
+	public List<MeetingRoom> meetingRoomList(String brId){
 		//System.out.println(resDao.meetingRoomList());
 		//return gson.toJson(resDao.meetingRoomList());
-		return resDao.meetingRoomList();
+		return resDao.meetingRoomList(brId);
+	}
+	public List<Employee> meetingPeopleList(){
+		return resDao.meetingPeopleList();
 	}
 }

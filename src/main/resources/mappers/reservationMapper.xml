@@ -9,12 +9,15 @@
 		where e.emp_id = r.emp_id
 	</select>
 	
-	<select id="meetingRoomList" resultType="MeetingRoom">
+	<select id="meetingRoomList" resultType="MeetingRoom" parameterType="string">
 		select mr_name mrName, r.br_id brId, mr_limit mrLimit,b.BR_LOCATION brLocation, mr_area mrArea, mr_network mrNetwork, 
 		mr_type mrType, e.emp_name empName, mr_location mrLocation, mr_img mrImg
 		from branch b, meeting_room r, employee e
 		where  b.BR_ID=r.br_id 
 		and r.emp_id = e.emp_id
-		and br_name='본사'
+		and b.br_id=#{brId}
+	</select>
+	<select id="meetingPeopleList" resultType="Employee">
+		SELECT EMP_ID empId, EMP_NAME empName FROM EMPLOYEE
 	</select>
 </mapper>

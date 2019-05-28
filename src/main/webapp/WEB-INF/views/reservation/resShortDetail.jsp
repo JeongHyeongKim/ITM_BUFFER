@@ -8,26 +8,9 @@
 <title>Insert title here</title>
 <script type="text/javascript">
 	 $(function(){
-		var resShortList = '${resShortMain}';
+		var resShortDetail = '${resShortDetail}';
 		//console.log("확인: "+resList[0]);
 	}) 
-</script>
-<script>
-$(function() {
-		$('.nav-link').click(function() {
-			var buildingName = $(this).attr('value');
-			var data = {"brId" : buildingName};
-			$.ajax({
-	              url : "/meeting/reservation/resShortMain/" + buildingName,
-	              type : "get",
-	             
-	              success : function(data) {
-	                 console.log(data)
-	              }
-	           })
-		});
-		     
-	});
 </script>
 </head>
 <body>
@@ -47,73 +30,23 @@ $(function() {
           <div class="tile p-0">
             <ul class="nav flex-column nav-tabs user-tabs">
               <li class="nav-item"><a class="nav-link">지사 선택</a></li>
-              <li class="nav-item"><a class="nav-link active" href="#meeting-room" data-toggle="tab" value="br_0001">본사</a></li>
-              <li class="nav-item"><a class="nav-link" href="#meeting-room" data-toggle="tab" value="br_0002">삼환빌딩</a></li>
-              <li class="nav-item"><a class="nav-link" href="#meeting-room" data-toggle="tab" value="br_0003">GS강서타워</a></li>
-              <li class="nav-item"><a class="nav-link" href="#meeting-room" data-toggle="tab" value="br_0004">데이터센터</a></li>
+              <li class="nav-item"><a class="nav-link active" href="#meeting-room" data-toggle="tab">본사</a></li>
+              <li class="nav-item"><a class="nav-link" href="#meeting-room" data-toggle="tab">삼환빌딩</a></li>
+              <li class="nav-item"><a class="nav-link" href="#meeting-room" data-toggle="tab">GS강서타워</a></li>
+              <li class="nav-item"><a class="nav-link" href="#meeting-room" data-toggle="tab">데이터센터</a></li>
             </ul>
           </div>
         </div>
+       </div>
         <div class="col-md-9">
           <div class="tab-content">
-          
-          <!-- 회의실 정보 -->
-            <div class="tab-pane active" id="meeting-room" onclick="location.href ='resShortDetail'">
-            <c:forEach items="${resShortMain}" var="resShortList">
-              <div class="timeline-post">
-                <div class="post-media"><a href="#"><img src="https://s3.amazonaws.com/uifaces/faces/twitter/jsa/48.jpg"></a>
-                  <div class="content">
-                    <h5><a href="#"><label id="mrName">${resShortList.mrName }</label></a></h5>
-                    <p class="text-muted"><small>${resShortList.brLocation } ${resShortList.mrLocation }</small></p>
-                  </div>
-                </div>
-                <div class="post-content">
-                	<table>
-                		<tr>	
-                			<td><b>공간유형</b></td>
-                			<c:if test="${resShortList.mrType eq 'mr_type_0'}">
-    							<td>회의실</td>
-							</c:if>
-							<c:if test="${resShortList.mrType eq 'mr_type_1'}">
-    							<td>대회의실</td>
-							</c:if>
-							<c:if test="${resShortList.mrType eq 'mr_type_2'}">
-    							<td>교육실</td>
-							</c:if>
-						</tr>
-						<tr>
-							<td><b>예약시간</b></td>
-							<td>최소 30분부터</td>
-						</tr> 
-						<tr>
-							<td><b>수용인원</b></td>
-							<td>${resShortList.mrLimit }인</td>
-						</tr>
-						<tr>
-							<td><b>관리자</b></td> 
-							<td>${resShortList.empName }</td>
-						</tr>
-                	</table>
-                </div>
-                <ul class="post-utility">
-                  <li class="likes"><i class="fa fa-fw fa-lg fa-wifi"></i>wifi</li>
-                  <li class="shares"><i class="fa fa-fw fa-lg fa-laptop"></i>laptop</li>
-                  <li class="likes"><i class="fa fa-fw fa-lg fa-chalkboard"></i>White Board</li>
-                  <li class="shares"><i class="fa fa-fw fa-lg fa-video"></i>Beam project</li>
-                  <!-- <li class="comments"><a data-toggle="modal" href="#myModal"><span onclick="writeLongtermReservation();">장기 예약 신청</span></a></li> -->
-                </ul>
-              </div>
-              </c:forEach>
-              </div>
- 		
- 				<!-- Modal -->
-				  <div class="modal fade" id="myModal" role="dialog">
+ 			<!-- Modal -->
+				<div class="modal fade" id="myModal" role="dialog">
 				    <div class="modal-dialog">
-				    
 				      <!-- Modal content-->
 				      <div class="modal-content">
 				        <div class="modal-header">
-				        	<h4 class="modal-title">장기 예약 신청</h4>
+				        	<h4 class="modal-title">예약 신청</h4>
 				        	<button type="button" class="close" data-dismiss="modal">×</button>
 				        </div>
 				        <div class="modal-body">
@@ -175,45 +108,73 @@ $(function() {
 				                   </div>
 				                </div>
 					        </div>
-				      </form>
+				        </form>
 				      </div>
 				    </div>
 				  </div>
          	   </div>
-          
           <!-- Modal -->
-				  <div class="modal fade" id="meetingPeople" role="dialog">
-				    <div class="modal-dialog">
-				      <!-- Modal content-->
-				      <div class="modal-content">
-				        <div class="modal-header">
-				        	<h4 class="modal-title">참석자 선택</h4>
-				        	<button type="button" class="close" data-dismiss="modal">×</button>
-				        </div>
-				        <div class="modal-body">
-				          <form>
-				          <c:forEach items="${meetingPeopleList}" var="meetingPeopleList">
-			                  <div class="row mb-4">
-			                    <div class="col-md-4">
-			                      <input type=checkbox name=meetingPerson value="${meetingPeopleList.empName}">${meetingPeopleList.empName}<br> 
-			                    </div>
+			<div class="modal fade" id="meetingPeople" role="dialog">
+			  <div class="modal-dialog">
+				<!-- Modal content-->
+				  <div class="modal-content">
+				    <div class="modal-header">
+				       <h4 class="modal-title">참석자 선택</h4>
+				        <button type="button" class="close" data-dismiss="modal">×</button>
+				    </div>
+				    <div class="modal-body">
+				      <form>
+				        <c:forEach items="${meetingPeopleList}" var="meetingPeopleList">
+			               <div class="row mb-4">
+			                  <div class="col-md-4">
+			                    <input type=checkbox name=meetingPerson value="${meetingPeopleList.empName}">${meetingPeopleList.empName}<br> 
 			                  </div>
-			               </c:forEach>
-			                  <div class="modal-footer">
-					        	<div class="row mb-10">
-				                   <div class="col-md-12">
-				                     <button class="btn btn-primary" data-dismiss="modal" type="button"><i class="fa fa-fw fa-lg fa-check-circle"></i>선택</button>
-				                   </div>
-				                </div>
-					        </div>
-				      	  </form>
-				        </div>
+			                </div>
+			             </c:forEach>
+			             <div class="modal-footer">
+					       <div class="row mb-10">
+				             <div class="col-md-12">
+				                <button class="btn btn-primary" data-dismiss="modal" type="button"><i class="fa fa-fw fa-lg fa-check-circle"></i>선택</button>
+				             </div>
+				           </div>
+					      </div>  
+				      	</form>
+				       </div>
 				      </div>
 				   </div>
          	     </div>
-    		  </div>
             </div>
         </div>
+        <div class="row">
+        <div class="col-md-12">
+          <div class="tile row">
+            <div class="col-md-9">
+              <div id="calendar"></div>
+            </div>
+          </div>
+        </div>
+      </div>
 	</main>
+	<script type="text/javascript" src="/meeting/resources/js/plugins/fullcalendar.min.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function() {
+      	$('#calendar').fullCalendar({
+      		header: {
+      			left: 'prev,next today',
+      			center: 'title',
+      			right: 'month,agendaWeek,agendaDay'
+      		},
+      		editable: true,
+      		droppable: true, // this allows things to be dropped onto the calendar
+      		drop: function() {
+      			// is the "remove after drop" checkbox checked?
+      			if ($('#drop-remove').is(':checked')) {
+      				// if so, remove the element from the "Draggable Events" list
+      				$(this).remove();
+      			}
+      		}
+      	});
+      });
+    </script>
 </body>
 </html>
