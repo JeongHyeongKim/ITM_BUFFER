@@ -599,7 +599,7 @@ pre code {
 .row {
   display: -webkit-box;
   display: -ms-flexbox;
-  display: flex;
+ /*  display: flex; */
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
   margin-right: -15px;
@@ -1967,7 +1967,7 @@ pre code {
 .form-control {
   display: block;
   width: 100%;
-  padding: 0.375rem 0.75rem;
+  padding: 0.375rem 0.9em;
   font-size: 0.875rem;
   line-height: 1.5;
   color: #495057;
@@ -12885,7 +12885,7 @@ temporary rendered events).
   font-weight: normal;
   /* undo jqui's ui-widget-header bold */
   margin-bottom: 5px;
-  cursor: all-scroll;
+  /* cursor: all-scroll; */
 }
 
 /* overpower some of bootstrap's and jqui's styles on <a> tags */
@@ -12897,12 +12897,44 @@ temporary rendered events).
   text-decoration: none;
   /* if <a> has an href */
 }
-
-.fc-event[href],
-.fc-event.fc-draggable {
-  cursor: pointer;
-  /* give events with links and draggable events a hand mouse pointer */
+.fc-event:focus {
+  text-decoration: none;
 }
+.fc-event:focus {
+  border-color: #e9ecef #e9ecef #dee2e6;
+}
+
+.fc-event.active{
+  color: #495057;
+  background-color: #FFF;
+  border-color: #dee2e6 #dee2e6 #FFF;
+}
+.fc-event.active {
+  color: #FFF;
+  background-color: #009688;
+}
+.fc-event.active {
+  color: rgba(0, 0, 0, 0.9);
+}
+.fc-event.active {
+  color: #FFF;
+}
+.fc-event.active {
+  border-left-color: #009688;
+  border-bottom: 0;
+}
+.fc-event:active {
+  background-color: #eee !important;
+  border-bottom: 0;
+}
+
+.fc-event:focus {
+  color: rgba(0, 0, 0, 0.7);
+}
+.fc-event:focus {
+  color: rgba(255, 255, 255, 0.75);
+}
+
 
 .fc-not-allowed,
 .fc-not-allowed .fc-event {

@@ -26,7 +26,7 @@
   <body class="app sidebar-mini rtl">
     <!-- Navbar-->   
     <header class="app-header">
-    <a class="app-header__logo" href="#"><img src="/meeting/resources/img/logo.png" style="width:200px; height:50px; margin-left:-10px;"></a>
+    <a class="app-header__logo" href="/meeting/reservation/list"><img src="/meeting/resources/img/logo.png" style="width:200px; height:50px; margin-left:-10px;"></a>
 		<!-- Sidebar toggle button-->
 		<a class="app-sidebar__toggle" href="#" data-toggle="sidebar" aria-label="Hide Sidebar"></a>
       <!-- Navbar Right Menu-->
@@ -48,9 +48,6 @@
     <!-- The javascript plugin to display page loading on top-->
     <script src="/meeting/resources/js/plugins/pace.min.js"></script>
     <!-- Page specific javascripts-->
-    <script src="/meeting/resources/js/plugins/jquery-ui.custom.min.js"></script>
-    <script src="/meeting/resources/js/plugins/moment.min.js"></script>
-    <script src="/meeting/resources/js/plugins/fullcalendar.min.js"></script>
     
     <!-- Google analytics script-->
     <script type="text/javascript">
