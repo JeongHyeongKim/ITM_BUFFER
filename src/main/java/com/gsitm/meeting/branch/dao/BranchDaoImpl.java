@@ -51,6 +51,15 @@ public class BranchDaoImpl implements BranchDao{
 
 
 
+	@Override
+	public String BranchGetRecent() {
+		return session.selectOne(namespace+".branchMostRecent");
+	}
+	
+	
+
+
+
 	
 
 }

@@ -18,6 +18,8 @@ public interface BranchDao {
 	public void branchUpdate(Branch branch);
 	
 	public void branchCreate(Branch branch);
+	
+	public String BranchGetRecent();
 
 }
 	

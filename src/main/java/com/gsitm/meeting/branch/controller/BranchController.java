@@ -27,17 +27,18 @@ public class BranchController {
 	@GetMapping("/read/{brId}")
 	public String branchOne(Model model, @PathVariable String brId) {
 		model.addAttribute("branch", brService.branchOne(brId));
-		return "branch/branchRead"; // 
+		return "branch/branchRead"; // 리다이렉트 없이 바로 전달하면 경로로 설정
 	}
 	
 	@PostMapping("/write")
 	public String branchInsert(Branch branch) {
 		brService.branchInsert(branch);
-		return "redirect:/branch/list";
+		return "redirect:/branch/list"; //리턴중, 리다이렉트는 url형식으로 전달된다.
 	}
 	
 	@PostMapping("/update")
 	public String branchUpdate(Branch branch) {
+		System.out.println("update!!!!!!!!!!!!!!!!!!!!!");
 		brService.branchUpdate(branch);
 		return "redirect:/branch/list";
 	}
@@ -48,10 +49,10 @@ public class BranchController {
 		return "redirect:/branch/list";
 	}
 	
+	@GetMapping("/create")
+	public String branchCreate() { // 글 입력폼만 있는 페이지로 이동함.
+		return "branch/branchCreate";
+	}
 	
-	/*public String branchOne(Model model) {
-		model.addAttribute("branchOne", brService.branchList());
-		return "branch/branchOne";
-		//�ϳ��� ��ȸ�Ҷ��� �ʿ��Ѱ�? �ϴ� ��������
-	}*/
+	
 }

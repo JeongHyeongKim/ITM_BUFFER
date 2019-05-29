@@ -29,6 +29,7 @@ public class BranchService {
 	}
 	
 	public void branchInsert(Branch branch) {
+		String recentId = brDao.BranchGetRecent();
 		brDao.branchCreate(branch);
 	}
 	

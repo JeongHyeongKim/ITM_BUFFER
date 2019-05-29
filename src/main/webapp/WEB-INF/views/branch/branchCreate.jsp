@@ -8,11 +8,6 @@
 	<script type="text/javascript">
 	
 	$(function(){
-		
-		var branch = JSON.parse('${branch}')
-		//console.log(branch);
-		//console.log(${branch});
-		
 	
 		var name = branch.brName;
 		var address = branch.brLocation;
@@ -24,25 +19,24 @@
 		document.getElementById("brAddress").value=address;
 		document.getElementById("brTel").value=tel;
 		//임시이기 때문에 이미지는 넣지 않았습니다.
-	
+		
+		
 		$("#write").on("click", function() {
 	        
 	        var formData = new FormData();
-	        formData.append("_csrf","${_csrf.token}");
-	        formData.append("brId", branch.brId);
+	        formData.append("${_csrf.parameterName}", "${_csrf.token}");
 	        formData.append("brName", $("#brName").val());
 	        formData.append("brAddress", $("#brAddress").val());
 	        formData.append("brTel", $("#brTel").val());
 	        formData.append("brImg", $("#brImg").val());
-	       	
-			//console.log(formData.get("brId"));
+	       
+			console.log(formData.get("brId"));
 	        $.ajax({
-	           url : "/meeting/branch/update",
+	           url : "/meeting/branch/insert",
 	           type : "post",
+	           contentType: false,	
 	           processData: false,
-	           contentType: false,
-	           dataType: "text",
-	           data : "hohoho",
+	           data : formData,
 	           success : function() {
 	        	   console.log("check")
 	           },
@@ -63,7 +57,7 @@
                 <p>>지사관리</p>
             </div>
             <ul class="app-breadcrumb breadcrumb">
-                <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i>회의실 교육실 관리 / 지사관리</li>
+                <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i>회의실 교육실 관리 / 지사추가</li>
             </ul>
         </div>
 
@@ -71,7 +65,7 @@
         <div class="row">
         <!--form action="" method="">-->
             <div class="col-md-4">
-                <div class="tile" style="text-align:center">
+                <div class="tile">
                     <img class="user-img" src="https://s3.amazonaws.com/uifaces/faces/twitter/jsa/128.jpg" height=235px >
                     <input class="form-control" type="file" id="brImg">
                 </div>

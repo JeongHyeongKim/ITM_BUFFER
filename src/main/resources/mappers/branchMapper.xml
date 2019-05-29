@@ -30,7 +30,11 @@
 	<delete id="branchDelete">
 		delete branch
 		where br_id=#{brId}
-	</delete>	
+	</delete>
+	
+	<select id="branchMostRecent" resultType="string">
+		select max(br_id) brId from branch
+	</select>
 	
 
 </mapper>
