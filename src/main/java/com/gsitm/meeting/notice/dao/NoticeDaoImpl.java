@@ -1,6 +1,7 @@
 package com.gsitm.meeting.notice.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +15,12 @@ public class NoticeDaoImpl implements NoticeDao{
 	@Autowired
 	private SqlSession session;
 	
-	// session.selectOne(namespace + id); ·Î Àâ±â
+	// session.selectOne(namespace + id); ï¿½ï¿½ ï¿½ï¿½ï¿½
 	private String namespace = "com.gsitm.meeting.mappers.noticeMapper";
 
 	@Override
-	public List<Notice> noticeList() {
-		return session.selectList(namespace + ".noticeList");
+	public List<Notice> noticeList(Map map) {
+		return session.selectList(namespace + ".noticeList", map);
 	}
 
 	@Override
@@ -40,6 +41,11 @@ public class NoticeDaoImpl implements NoticeDao{
 	@Override
 	public void noticeUpdate(Notice notice) {
 		session.update(namespace + ".noticeUpdate", notice);
+	}
+
+	@Override
+	public int noticeCount() {
+		return session.selectOne(namespace + ".noticeCount");
 	}
 	
 }

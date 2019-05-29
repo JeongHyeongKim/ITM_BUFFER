@@ -27,8 +27,8 @@ public class ReservationService {
 	}
 	public List<MeetingRoom> meetingRoomList(String brId){
 		//System.out.println(resDao.meetingRoomList());
-		//return gson.toJson(resDao.meetingRoomList());
 		return resDao.meetingRoomList(brId);
+		
 	}
 	public List<Employee> meetingPeopleList(){
 		return resDao.meetingPeopleList();

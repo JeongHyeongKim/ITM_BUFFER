@@ -14,24 +14,26 @@
 </script>
 <script>
 $(function() {
-		$('.nav-link').click(function() {
+		/* $('.nav-link').click(function() {
 			var buildingName = $(this).attr('value');
+			console.log(buildingName);
 			var data = {"brId" : buildingName};
 			$.ajax({
 	              url : "/meeting/reservation/resShortMain/" + buildingName,
 	              type : "get",
 	             
 	              success : function(data) {
-	                 console.log(data)
+	                 console.log(data.brId)
 	              }
 	           })
 		});
-		     
+		 */     
 	});
 </script>
 </head>
 <body>
 	<main class="app-content">
+	
 	<div class="app-title">
         <div>
           <h1><i class="fa fa-building"></i>회의실 예약</h1>
@@ -47,10 +49,10 @@ $(function() {
           <div class="tile p-0">
             <ul class="nav flex-column nav-tabs user-tabs">
               <li class="nav-item"><a class="nav-link">지사 선택</a></li>
-              <li class="nav-item"><a class="nav-link active" href="#meeting-room" data-toggle="tab" value="br_0001">본사</a></li>
-              <li class="nav-item"><a class="nav-link" href="#meeting-room" data-toggle="tab" value="br_0002">삼환빌딩</a></li>
-              <li class="nav-item"><a class="nav-link" href="#meeting-room" data-toggle="tab" value="br_0003">GS강서타워</a></li>
-              <li class="nav-item"><a class="nav-link" href="#meeting-room" data-toggle="tab" value="br_0004">데이터센터</a></li>
+              <li class="nav-item"><a class="nav-link active" href="/meeting/reservation/resShortMain/br_0001">본사</a></li>
+              <li class="nav-item"><a class="nav-link" href="/meeting/reservation/resShortMain/br_0002">삼환빌딩</a></li>
+              <li class="nav-item"><a class="nav-link" href="/meeting/reservation/resShortMain/br_0003">GS강서타워</a></li>
+              <li class="nav-item"><a class="nav-link" href="/meeting/reservation/resShortMain/br_0004">데이터센터</a></li>
             </ul>
           </div>
         </div>
@@ -59,7 +61,7 @@ $(function() {
           
           <!-- 회의실 정보 -->
             <div class="tab-pane active" id="meeting-room" onclick="location.href ='resShortDetail'">
-            <c:forEach items="${resShortMain}" var="resShortList">
+            <c:forEach items='${resShortMain}' var="resShortList">
               <div class="timeline-post">
                 <div class="post-media"><a href="#"><img src="https://s3.amazonaws.com/uifaces/faces/twitter/jsa/48.jpg"></a>
                   <div class="content">

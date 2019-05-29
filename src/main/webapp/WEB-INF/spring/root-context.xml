@@ -53,6 +53,8 @@
 	<!-- Transactional 애노테이션 사용을 위한 설정 -->
 	<tx:annotation-driven />
 	
+	<bean id="pagingUtil" class="com.gsitm.meeting.util.PagingUtil"></bean>
+	
 	<bean id="gson" class="com.google.gson.Gson" />
 	
 	<bean id="pwdEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />

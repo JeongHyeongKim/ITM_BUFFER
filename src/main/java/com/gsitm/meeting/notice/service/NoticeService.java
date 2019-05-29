@@ -1,6 +1,7 @@
 package com.gsitm.meeting.notice.service;
 
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,18 +9,33 @@ import org.springframework.stereotype.Service;
 import com.google.gson.Gson;
 import com.gsitm.meeting.notice.dao.NoticeDaoImpl;
 import com.gsitm.meeting.notice.dto.Notice;
+import com.gsitm.meeting.util.Pagination;
+import com.gsitm.meeting.util.Paging;
+import com.gsitm.meeting.util.PagingUtil;
 
 @Service
 public class NoticeService {
-
+	
+	@Autowired
+	private PagingUtil pUtil;
 	@Autowired
 	private NoticeDaoImpl noticeDao;
 	
 	@Autowired
 	private Gson gson;
 	
-	public String noticeList(){
-		return gson.toJson(noticeDao.noticeList());
+	public String noticeList(int pageNo){
+		Integer count = noticeDao.noticeCount();
+		
+		Pagination p = pUtil.getPagination(count, pageNo);
+		Map<String, Integer> map = new HashMap<>();
+		map.put("minRow", p.getEndRowNum());
+		map.put("maxRow", p.getStartRowNum());
+
+		Map<String, Object> result = new HashMap<>();
+		result.put("pagination", p);
+		result.put("list", noticeDao.noticeList(map));
+		return gson.toJson(result);
 	}
 	
 	public String noticeRead(int noticeNum) {

@@ -3,10 +3,18 @@
 
 <!-- 게시판 네임스페이스(사용영역) 설정 -->
 <mapper namespace="com.gsitm.meeting.mappers.noticeMapper">
+	<select id="noticeCount" resultType="int">
+		select count(*) from notice
+	</select>
 	
 	<select id="noticeList" resultType="notice">
-		select notice_id noticeId, notice_title noticeTitle, notice_content noticeContent, 
-		notice_writer noticeWriter, notice_date noticeDate from notice
+		<![CDATA[
+		select notice_id as noticeId, notice_title as noticeTitle, notice_title as noticeTitle, notice_writer as noticeWriter, notice_date as noticeDate from
+				(select rownum rnum, b.* from
+					(select * from notice) b
+				where rownum <= #{minRow})
+			where rnum >= #{maxRow}
+			]]>
 	</select>
 	
 	<select id="noticeRead" resultType="notice">
@@ -25,4 +33,5 @@
 	<update id="noticeUpdate">
 		update notice set notice_title = #{noticeTitle}, notice_content = #{noticeContent} where notice_id = #{noticeId}
 	</update>
+	
 </mapper>

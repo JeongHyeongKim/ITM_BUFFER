@@ -7,10 +7,12 @@
 <script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script type="text/javascript">
 	$(function(){
+		var result = JSON.parse('${result}');
 		
-		var noticeList = JSON.parse('${list}')
-		console.log(noticeList);
-		
+		var noticeList = result.list;
+		var pagination = result.pagination;
+		console.log(pagination)
+		// 공지사항 LIST
 		$.each(noticeList, function(i, $list) {
 			var $tr = $("<tr></tr>").appendTo($("#noticeTable"));
 			var $link = $("<a>").attr("href", "/meeting/notice/read/" + $list.noticeId);
@@ -19,11 +21,30 @@
 			$("<td></td>").text($list.noticeTitle).wrapInner($link).appendTo($tr);
 			$("<td></td>").text($list.noticeWriter).appendTo($tr);
 			$("<td></td>").text($list.noticeDate).appendTo($tr);
-			
 		})
-	
+		
+		// pagination
+		var $pagination = $(".pagination");
+		
+		var $prevItem = $("<a></a>").attr("href","/meeting/notice/list/"+pagination.prev).attr("class","page-link").text("prev");
+		$("<li></li>").attr("class","page-item").wrapInner($prevItem).appendTo($pagination);
+		
+		for(var i=pagination.startPageNo; i<=pagination.endPageNo; i++){
+			var $pageItem = $("<a></a>").attr("href","/meeting/notice/list/"+i).attr("class","page-link").text(i);
+			if(pagination.pageNo == i){
+				$("<li></li>").attr("class","page-item active").wrapInner($pageItem).appendTo($pagination);
+			} else{
+				$("<li></li>").attr("class","page-item").wrapInner($pageItem).appendTo($pagination);	
+			}
+		}
+		
+		var $nextItem = $("<a></a>").attr("href","/meeting/notice/list/"+pagination.next).attr("class","page-link").text("next");
+		$("<li></li>").attr("class","page-item").wrapInner($nextItem).appendTo($pagination);
 	})
 </script>
+<style type="text/css">
+	#paging{margin-left : 70%;}
+</style>
 <title>Insert title here</title>
 </head>
 <body class="app sidebar-mini rtl">
@@ -45,8 +66,16 @@
               </thead>
             </table>
           </div>
-        </div>
-        <div class="clearfix"></div>
+		<div id="paging">
+		<nav aria-label="Page navigation example">
+			<ul class="pagination">
+				
+			</ul>
+		</nav>
+		</div>
+	
+	</div>
+        
 </main>
 <!-- Essential javascripts for application to work-->
     <script src="/meeting/resources/js/jquery-3.2.1.min.js"></script>

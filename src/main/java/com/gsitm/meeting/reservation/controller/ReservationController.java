@@ -28,10 +28,11 @@ public class ReservationController {
 	}
 	
 	@GetMapping("/resShortMain/{brId}")
-	public ResponseEntity<List<MeetingRoom>> meetingRoomList(Model model,@PathVariable String brId) {
-		//model.addAttribute("resShortMain",resService.meetingRoomList(brId));
-		//model.addAttribute("meetingPeopleList",resService.meetingPeopleList());
-		return new ResponseEntity<List<MeetingRoom>>(resService.meetingRoomList(brId), HttpStatus.OK);
+	public String meetingRoomList(Model model,@PathVariable String brId) {
+		System.out.println(resService.meetingRoomList(brId));
+		model.addAttribute("resShortMain",resService.meetingRoomList(brId));
+		model.addAttribute("meetingPeopleList",resService.meetingPeopleList());
+		return "reservation/resShortMain";
 	}
 	
 	@GetMapping("/resShortDetail")
