@@ -72,7 +72,7 @@ $(function() {
               <div class="timeline-post">
                 <div class="post-media"><a href="#"><img src="https://s3.amazonaws.com/uifaces/faces/twitter/jsa/48.jpg"></a>
                   <div class="content">
-                    <h5><a href="#"><label id="mrName">${resShortList.mrName }</label></a></h5>
+                    <h4><a href="#"><label id="mrName">${resShortList.mrName }</label></a></h4>
                     <p class="text-muted"><small>${resShortList.brLocation } ${resShortList.mrLocation }</small></p>
                   </div>
                 </div>
