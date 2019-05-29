@@ -46,8 +46,12 @@
     <script src="/meeting/resources/js/bootstrap.min.js"></script>
     <script src="/meeting/resources/js/main.js"></script>
     <!-- The javascript plugin to display page loading on top-->
-    <script src="/meeting/resources/js/plugins/pace.min.js"></script>
+    <script src="/meeting/resources/js/pace.min.js"></script>
     <!-- Page specific javascripts-->
+    <script src="/meeting/resources/js/jquery-ui.custom.min.js"></script>
+    <script src="/meeting/resources/js/moment.min.js"></script>
+    <script src="/meeting/resources/js/fullcalendar.min.js"></script>
+    
     <!-- Google analytics script-->
     <script type="text/javascript">
       if(document.location.hostname == 'pratikborsadiya.in') {
