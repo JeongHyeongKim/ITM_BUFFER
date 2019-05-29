@@ -30,6 +30,23 @@ public class BranchService {
 	
 	public void branchInsert(Branch branch) {
 		String recentId = brDao.BranchGetRecent();
+		String brId = recentId.split("/")[1]; // 숫자 뒤에 있는거 자르고 쓰기
+		int brIdInt = Integer.parseInt(brId)+1;
+		String nextId=null;
+		if(brIdInt==999) {
+			brIdInt=0;
+			nextId="000"+brIdInt;
+			branch.setBrId(nextId);
+		}else if(brIdInt==99) {
+			brIdInt=100;
+			nextId="0"+brIdInt;
+			branch.setBrId(nextId);
+		}else if(brIdInt==9) {
+			brIdInt=10;
+			nextId="00"+brIdInt;
+			branch.setBrId(nextId);
+		}
+		
 		brDao.branchCreate(branch);
 	}
 	
