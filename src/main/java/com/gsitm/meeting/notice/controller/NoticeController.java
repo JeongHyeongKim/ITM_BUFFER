@@ -41,12 +41,17 @@ public class NoticeController {
 		return "redirect:/notice/list";
 	}
 	
-	@PostMapping("/delete")
-	public ResponseEntity<Void> noticeDelete(int noticeId) {
+	@PostMapping("/delete/{noticeId}")
+	public ResponseEntity<Void> noticeDelete(@PathVariable int noticeId) {
 		int result = noticeService.noticeDelete(noticeId);
 		return new ResponseEntity<>(result == 1 ? HttpStatus.OK : HttpStatus.BAD_REQUEST);
 	}
 	
+	@GetMapping("/update/{noticeId}")
+	public String noticeUpdate(Model model,@PathVariable int noticeId) {
+		model.addAttribute("list",noticeService.noticeRead(noticeId));
+		return "notice/noticeUpdate";
+	}
 	@PostMapping("/update")
 	public String noticeUpdate(Notice notice) {
 		noticeService.noticeUpdate(notice);
