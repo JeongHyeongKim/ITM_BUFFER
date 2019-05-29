@@ -11,7 +11,7 @@
 	<definition name="empty" template="/WEB-INF/tiles/layout/index.jsp"/>
 		
 	<definition name="login" extends="empty"> 
-		<put-attribute name="content" value="/WEB-INF/views/users/login.jsp"/>
+		<put-attribute name="content" value="/WEB-INF/views/login.jsp"/>
 	</definition>
 	
 	<definition name="*/*" extends="layouts-tiles">

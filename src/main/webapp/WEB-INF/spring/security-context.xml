@@ -17,9 +17,9 @@
 		<sec:form-login 
 			username-parameter="id"
 			password-parameter="pwd" 
-			login-page="/users/login"
-			default-target-url="/" 
-			login-processing-url="/users/login"/>
+			login-page="/login"
+			default-target-url="/reservation/resShortMain/br_0001" 
+			login-processing-url="/login"/>
 			<!-- 
 			authentication-failure-url="/users/login?job=false"
 			authentication-failure-handler-ref="loginFailureHandler"

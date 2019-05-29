@@ -14,9 +14,9 @@ public class MeetingRoom {
 	private String mrLocation;
 	private String mrImg;
 	
-	//´Ü±â¿¹¾à¸ÞÀÎÆäÀÌÁö °ü¸®ÀÚÀÌ¸§
+	//ï¿½Ü±â¿¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½
 	private String empName;
-	//È¸ÀÇ½Ç À§Ä¡
+	//È¸ï¿½Ç½ï¿½ ï¿½ï¿½Ä¡
 	private String brLocation;
 	
 	public String getBrLocation() {
@@ -151,6 +151,40 @@ public class MeetingRoom {
 
 	public void setMrImg(String mrImg) {
 		this.mrImg = mrImg;
+	}
+
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("MeetingRoom [mrId=");
+		builder.append(mrId);
+		builder.append(", mrName=");
+		builder.append(mrName);
+		builder.append(", brId=");
+		builder.append(brId);
+		builder.append(", mrLimit=");
+		builder.append(mrLimit);
+		builder.append(", mrPrice=");
+		builder.append(mrPrice);
+		builder.append(", mrArea=");
+		builder.append(mrArea);
+		builder.append(", mrNetwork=");
+		builder.append(mrNetwork);
+		builder.append(", mrType=");
+		builder.append(mrType);
+		builder.append(", empId=");
+		builder.append(empId);
+		builder.append(", mrLocation=");
+		builder.append(mrLocation);
+		builder.append(", mrImg=");
+		builder.append(mrImg);
+		builder.append(", empName=");
+		builder.append(empName);
+		builder.append(", brLocation=");
+		builder.append(brLocation);
+		builder.append("]");
+		return builder.toString();
 	}
 	
 	
