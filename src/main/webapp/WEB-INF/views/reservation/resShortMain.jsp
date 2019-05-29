@@ -49,7 +49,7 @@ $(function() {
           <div class="tile p-0">
             <ul class="nav flex-column nav-tabs user-tabs">
               <li class="nav-item"><a class="nav-link">지사 선택</a></li>
-              <li class="nav-item"><a class="nav-link active" href="/meeting/reservation/resShortMain/br_0001">본사</a></li>
+              <li class="nav-item"><a class="nav-link" href="/meeting/reservation/resShortMain/br_0001" id="br_0001">본사</a></li>
               <li class="nav-item"><a class="nav-link" href="/meeting/reservation/resShortMain/br_0002">삼환빌딩</a></li>
               <li class="nav-item"><a class="nav-link" href="/meeting/reservation/resShortMain/br_0003">GS강서타워</a></li>
               <li class="nav-item"><a class="nav-link" href="/meeting/reservation/resShortMain/br_0004">데이터센터</a></li>
