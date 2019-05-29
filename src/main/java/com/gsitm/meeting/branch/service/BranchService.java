@@ -18,9 +18,8 @@ public class BranchService {
 	@Autowired
 	private Gson gson;
 	
-	public String branchList(){
-		System.out.println(brDao.branchList());
-		return gson.toJson(brDao.branchList());
+	public List<Branch> branchList(){
+		return brDao.branchList();
 	}
 	
 	public String branchOne(String branchId) {

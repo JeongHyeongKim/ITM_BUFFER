@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+ <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -10,23 +11,7 @@
 		
 		var branchList = JSON.parse('${branchList}')
 		console.log(branchList);
-		
-		$.each(branchList, function(i, $List) {
-			var $tr = $("<tr></tr>").appendTo($("#branchList"));
-			var $link = $("<a>").attr("href", "/meeting/branch/read/" + $List.brId);
-			var $deleteBtn = $("<button></button>").attr("class", "branchDelete").data("brId", $List.brId);
-			
-			$("<td></td>").text($List.brId).appendTo($tr);
-			$("<td></td>").text($List.brName).wrapInner($link).appendTo($tr);
-			$("<td></td>").text($List.brLocation).appendTo($tr);
-			$("<td></td>").text($List.brTel).appendTo($tr);
-			$("<td></td>").text($List.brImg).appendTo($tr);
-			$("<td></td>").text("삭제").wrapInner($deleteBtn).appendTo($tr);
-		})
-		
-		$(".branchDelete").on("click",function(){
-			console.log($(".branchDelete").data("brId"));
-		})
+
 	})
 </script>
 	<title>지사조회</title>
@@ -40,20 +25,49 @@
 			</div>
 		</div>
 		
-		<div>
-			<button id="branchInsert">글쓰기</button>
+		<div style="text-align:right">
+			<a class="btn btn-primary btn-sm" href="/meeting/branch/create">+</a>&nbsp;&nbsp;<a class="btn btn-primary btn-sm" href="/meeting/branch/delete">-</a>
 		</div>
 		<div>
-			<table id="branchList">
-				<tr>
-					<td>지사번호</td>
-					<td>지사이름</td>
-					<td>지사위치</td>
-					<td>전화번호</td>
-					<td>지사사진</td>
-				</tr>
-			</table>
-		</div>
+		<c:forEach items='${branchList}' var="branchList">
+			<div class="row">
+                <div class="col-md-4" style="text-align:center">
+                    <img class="user-img" src=${branchList.brImg}  height=235px >
+                </div>
+                <div class="col-md-8">
+                
+                <div class="tile">
+                    <div class="tile-body">
+                        <div class="form-horizontal">
+                            <div class="form-group row">
+                                <label class="control-label">지사 이름 :</label>
+                                <div class="col-md-8">
+                                    ${branchList.brName} 
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="control-label">지사 주소 : </label>
+                                <div class="col-md-8">
+                                    ${branchList.brLocation} 
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="control-label">대표 번호 : </label>
+                                <div class="col-md-8">
+                                    ${branchList.brTel}
+                                </div>
+                            </div>
+
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            </div>
+           </c:forEach>
+        </div>
+		
+
 	</main>
 
 </body>

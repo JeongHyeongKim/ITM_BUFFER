@@ -57,19 +57,19 @@
                     <div class="tile-body">
                         <div class="form-horizontal">
                             <div class="form-group row">
-                                <label class="control-label col-md-3">지사 이름 :</label>
+                                <label class="control-label">지사 이름 :</label>
                                 <div class="col-md-8">
                                     <input class="form-control" type="text" placeholder="지사를 입력해주세요" id="brName" name="brName">
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="control-label col-md-3">지사 주소 : </label>
+                                <label class="control-label">지사 주소 : </label>
                                 <div class="col-md-8">
                                     <input class="form-control"  placeholder="주소를 입력해주세요" id="brAddress" name="brLocation">
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="control-label col-md-3">대표 번호 : </label>
+                                <label class="control-label">대표 번호 : </label>
                                 <div class="col-md-8">
                                     <input class="form-control" type="text" placeholder="대표번호를 입력해주세요" id="brTel" name="brTel">
                                 </div>
