@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -52,7 +53,9 @@
 	<div class="app-title">
 		<h3>공지사항</h3>
 	</div>
-	
+	<security:authorize access="isAuthenticated()">
+    authenticated as <security:authentication property="principal.username" /> 
+	</security:authorize>
 	<div class="col-md-12">
           <div class="tile">
             <table class="table table-striped-3" id="noticeTable">

@@ -3,5 +3,23 @@
 
 <!-- 게시판 네임스페이스(사용영역) 설정 -->
 <mapper namespace="com.gsitm.meeting.mappers.employeeMapper">
-
+	<select id="getStoredId" resultType="string">
+		select emp_id empId from employee where emp_id = #{id}
+	</select>
+	
+	<select id="getLoginFailureCnt" resultType="int">
+		select emp_failure_cnt empFailureCnt from employee where emp_id = #{empId}
+	</select>
+	
+	<update id="addLoginFailureCnt">
+		update employee set emp_failure_cnt = #{loginFailureCnt} where emp_id = #{loginId}
+	</update>
+	
+	<update id="resetLoginCnt">
+		update employee set emp_failure_cnt = 0 where emp_id = #{id}
+	</update>
+	
+	<update id="lockAccount">
+		update employee set enabled = 'disabled' where emp_id = #{id}
+	</update>
 </mapper>

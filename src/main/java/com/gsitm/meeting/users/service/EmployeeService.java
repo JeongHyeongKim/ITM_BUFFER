@@ -10,4 +10,8 @@ public class EmployeeService {
 
 	@Autowired
 	private EmployeeDaoImpl empDao;
+	
+	public void lockAccount(String id) {
+		empDao.lockAccount(id);
+	}
 }
