@@ -5,8 +5,7 @@
 <mapper namespace="com.gsitm.meeting.mappers.branchMapper">
 
 	<select id="branchList" resultType="branch">
-		select br_id brId, br_name brName, br_location brLocation, br_tel brTel, br_img brImg
-		from branch
+		select br_id brId, br_name brName, br_location brLocation, br_tel brTel, br_img brImg from branch order by br_id asc
 	</select>
 	
 
@@ -34,6 +33,10 @@
 	
 	<select id="branchMostRecent" resultType="string">
 		select max(br_id) brId from branch
+	</select>
+	
+	<select id="meetingRoomInBranch" resultType="meetingroom">
+		select mr_name mrName from meeting_room where br_id = #{brId}
 	</select>
 	
 

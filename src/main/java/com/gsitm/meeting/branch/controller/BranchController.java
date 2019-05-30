@@ -21,12 +21,15 @@ public class BranchController {
 	@GetMapping("/list")
 	public String branchList(Model model) {
 		model.addAttribute("branchList", brService.branchList());
+		//model.addAttribute("meetingRoomList", brService.meetingRoomListInBranch(brId));
 		return "branch/branchList";
 	}
 	
 	@GetMapping("/read/{brId}")
 	public String branchOne(Model model, @PathVariable String brId) {
 		model.addAttribute("branch", brService.branchOne(brId));
+		model.addAttribute("meetingRoomList", brService.meetingRoomListInBranch(brId));
+		System.out.println("check");
 		return "branch/branchRead"; // 리다이렉트 없이 바로 전달하면 경로로 설정
 	}
 	

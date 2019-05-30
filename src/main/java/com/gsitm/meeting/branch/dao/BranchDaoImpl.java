@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.gsitm.meeting.branch.dto.Branch;
+import com.gsitm.meeting.room.dto.MeetingRoom;
 
 @Repository
 public class BranchDaoImpl implements BranchDao{
@@ -54,6 +55,13 @@ public class BranchDaoImpl implements BranchDao{
 	@Override
 	public String BranchGetRecent() {
 		return session.selectOne(namespace+".branchMostRecent");
+	}
+
+
+
+	@Override
+	public List<MeetingRoom> meetingRoomListInBranch(String branchId) {
+		return session.selectList(namespace+".meetingRoomInBranch",branchId);
 	}
 	
 	

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.google.gson.Gson;
 import com.gsitm.meeting.branch.dao.BranchDaoImpl;
 import com.gsitm.meeting.branch.dto.Branch;
+import com.gsitm.meeting.room.dto.MeetingRoom;
 
 @Service
 public class BranchService {
@@ -64,6 +65,12 @@ public class BranchService {
 	
 	public void branchDelete(String brId) {
 		brDao.branchDelete(brId);
+	}
+	
+	public List<MeetingRoom> meetingRoomListInBranch(String brId){
+		System.out.println("check");
+		System.out.println("check"+brDao.meetingRoomListInBranch(brId));
+		return brDao.meetingRoomListInBranch(brId);
 	}
 		
 	

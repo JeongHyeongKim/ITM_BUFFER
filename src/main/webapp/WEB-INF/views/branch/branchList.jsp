@@ -11,6 +11,7 @@
 		
 		var branchList = JSON.parse('${branchList}')
 		console.log(branchList);
+		
 
 	})
 </script>
@@ -55,6 +56,14 @@
                                 <label class="control-label">대표 번호 : </label>
                                 <div class="col-md-8">
                                     ${branchList.brTel}
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="control-label">대표 번호 : </label>
+                                <div class="col-md-8">
+                                    <c:forEach items='${meetingRoomList}' var="meetingRoomList">
+                                    	${meetingRoomList.mrName}  &nbsp; <p>/</p> &nbsp;
+                                    </c:forEach>
                                 </div>
                             </div>
 

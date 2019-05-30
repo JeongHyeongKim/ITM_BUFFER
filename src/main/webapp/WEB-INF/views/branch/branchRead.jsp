@@ -1,15 +1,45 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+ <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 
 <head>
+
+<style>
+	.filebox label {
+		display: inline-block;
+		padding: .5em .75em;
+		color: #FFF;
+		line-height: normal; 
+		vertical-align: middle; 
+		cursor: pointer; 
+		border: 1px solid #ebebeb; 
+		border-bottom-color: #e2e2e2; 
+		border-radius: .25em; 
+		
+	}
+	
+	.filebox input[type="file"] { /* 파일 필드 숨기기 */ 
+		position: absolute; 
+		width: 1px; 
+		height: 1px; 
+		padding: 0; 
+		margin: -1px; 
+		overflow: hidden; 
+		clip:rect(0,0,0,0); 
+		border: 0; 
+	}
+
+
+</style>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>지사 수정</title>
 	<script type="text/javascript">
 	
 	$(function(){
 		
-		var branch = JSON.parse('${branch}')
+		var branch = JSON.parse('${branch}');
+		//var meetingRoomList = JSON.parse('${meetingRoomList}');
 		//console.log(branch);
 		//console.log(${branch});
 		
@@ -25,6 +55,7 @@
 		document.getElementById("brAddress").value=address;
 		document.getElementById("brTel").value=tel;
 		document.getElementById("brId").value=brId;
+		
 		
 	});
 	</script>
@@ -47,39 +78,50 @@
         	<input type="hidden" name="brId"  id="brId">
         	<input type="hidden" name="_csrf" value="${_csrf.token}">
             <div class="col-md-4">
-                <div class="tile" style="text-align:center">
-                    <img class="user-img" src="https://s3.amazonaws.com/uifaces/faces/twitter/jsa/128.jpg" height=235px >
-                    <input class="form-control" type="file" id="brImg" name="brImg">
+            <div></div>
+                <div style="text-align:center">
+                    <img class="user-img" src="https://s3.amazonaws.com/uifaces/faces/twitter/jsa/128.jpg" height=235px style="border-radius: 10px;">
+                    <div class="filebox" style="text-align:right"> <label style="background-color: #009688; color:#FFF">업로드</label> <input type="file" id="brImg" name="brImg"> </div>
                 </div>
             </div>
-            <div class="col-md-8">
-                <div class="tile">
+            
+            
+            <div class="col-md-8" style="border-left: 1px solid; padding-left:50px">
+                <div>
                     <div class="tile-body">
                         <div class="form-horizontal">
-                            <div class="form-group row">
-                                <label class="control-label">지사 이름 :</label>
+                            <div class="form-group row" style="padding-top:25px">
+                                <label class="control-label" style="padding-top:10px">지사 이름 :</label>
                                 <div class="col-md-8">
                                     <input class="form-control" type="text" placeholder="지사를 입력해주세요" id="brName" name="brName">
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="control-label">지사 주소 : </label>
+                                <label class="control-label" style="padding-top:10px">지사 주소 : </label>
                                 <div class="col-md-8">
                                     <input class="form-control"  placeholder="주소를 입력해주세요" id="brAddress" name="brLocation">
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="control-label">대표 번호 : </label>
+                                <label class="control-label" style="padding-top:10px">대표 번호 : </label>
                                 <div class="col-md-8">
                                     <input class="form-control" type="text" placeholder="대표번호를 입력해주세요" id="brTel" name="brTel">
                                 </div>
                             </div>
 
+                             <div class="form-group row">
+                                <label class="control-label" style="padding-top:10px">회의실 목록 </label>
+                                <div class="col-md-8" style="padding-top:10px">
+                                    <c:forEach items='${meetingRoomList}' var="meetingRoomList">
+                                    	${meetingRoomList.mrName}  &nbsp; / &nbsp;
+                                    </c:forEach>
+                                </div>
+                            </div> 
                         </div>
                     </div>
                     <div class="tile-footer">
                         <div class="row">
-                            <div class="col-md-8 col-md-offset-3">
+                            <div class="col-md-8 col-md-offset-3" style="text-align:right">
                                 <button class="btn btn-primary" type="submit" ><i class="fa fa-fw fa-lg fa-check-circle"></i>확인</button>&nbsp;&nbsp;&nbsp;<a class="btn btn-secondary" href="/meeting/branch/list"><i class="fa fa-fw fa-lg fa-times-circle"></i>취소</a>
                             </div>
                         </div>

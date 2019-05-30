@@ -24,10 +24,5 @@ public class DepartmentController {
 		return "department/departmentList";
 	}
 	
-	/*@GetMapping("One")
-	public Department departmentOne(Model model) {
-		model.addAttribute("departmentOne", deptService.departmentOne());
-	}*/
-	//update매서드를 실행하기 전에 한 객체를 불러오는 것도 필요한데 여기를 어떻게 처리해야 할까?
-	//service와 다오 임플리먼트에서는 이 부분들에 대해 하나의id값을 불러와서 처리하는데, 여기 controller에서는 어떻게 해야할지?
+	
 }
