@@ -8,49 +8,6 @@
 	<script type="text/javascript">
 	
 	$(function(){
-		
-		var branch = JSON.parse('${branch}')
-		//console.log(branch);
-		//console.log(${branch});
-		
-		var id = branch.brId;
-		var name = branch.brName;
-		var address = branch.brLocation;
-		var tel = branch.brTel;
-		var img = branch.brImg
-		//console.log(name);	
-		
-		document.getElementById("brName").value=name;
-		document.getElementById("brAddress").value=address;
-		document.getElementById("brTel").value=tel;
-		document.getElementById("brId").value=brId;
-		//임시이기 때문에 이미지는 넣지 않았습니다.
-	
-		$("#write").on("click", function() {
-	        
-	        var formData = new FormData();
-	        formData.append("_csrf","${_csrf.token}");
-	        formData.append("brId", branch.brId);
-	        formData.append("brName", $("#brName").val());
-	        formData.append("brAddress", $("#brAddress").val());
-	        formData.append("brTel", $("#brTel").val());
-	        formData.append("brImg", $("#brImg").val());
-	       	
-			//console.log(formData.get("brId"));
-	        $.ajax({
-	           url : "/meeting/branch/insert",
-	           type : "POST",
-	           processData: false,
-	           contentType: false,
-	           data : formData,
-	           success : function() {
-	        	   console.log("check")
-	           },
-	           error : function(){
-	        	   console.log("false")
-	           }
-	        })
-		})
 	});
 	</script>
 </head>
@@ -67,13 +24,14 @@
             </ul>
         </div>
 
-		<form action="" method="/meeting/branch/insert">
+		<form action="/meeting/branch/write" method="POST">
         <div class="row">
-        	
+        	<input type="hidden" name="brId" value="0">
+        	<input type="hidden" name="_csrf" value="${_csrf.token}">
             <div class="col-md-4">
                 <div class="tile" style="text-align:center">
                     <img class="user-img" src="https://s3.amazonaws.com/uifaces/faces/twitter/jsa/128.jpg" height=235px >
-                    <input class="form-control" type="file" id="brImg">
+                    <input class="form-control" type="file" name="brImg">
                 </div>
             </div>
             <div class="col-md-8">
@@ -81,21 +39,21 @@
                     <div class="tile-body">
                         <div class="form-horizontal">
                             <div class="form-group row">
-                                <label class="control-label col-md-3">지사 이름 :</label>
+                                <label class="control-label">지사 이름 :</label>
                                 <div class="col-md-8">
-                                    <input class="form-control" type="text" placeholder="지사를 입력해주세요" id="brName" >
+                                    <input class="form-control" type="text" placeholder="지사를 입력해주세요" name="brName" >
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="control-label col-md-3">지사 주소 : </label>
+                                <label class="control-label">지사 주소 : </label>
                                 <div class="col-md-8">
-                                    <input class="form-control"  placeholder="주소를 입력해주세요" id="brAddress" >
+                                    <input class="form-control"  placeholder="주소를 입력해주세요" name="brLocation" >
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="control-label col-md-3">대표 번호 : </label>
+                                <label class="control-label">대표 번호 : </label>
                                 <div class="col-md-8">
-                                    <input class="form-control" type="text" placeholder="대표번호를 입력해주세요" id="brTel">
+                                    <input class="form-control" type="text" placeholder="대표번호를 입력해주세요" name="brTel">
                                 </div>
                             </div>
 
@@ -104,7 +62,7 @@
                     <div class="tile-footer">
                         <div class="row">
                             <div class="col-md-8 col-md-offset-3">
-                                <button class="btn btn-primary" type="button" id="write"><i class="fa fa-fw fa-lg fa-check-circle"></i>확인</button>&nbsp;&nbsp;&nbsp;<a class="btn btn-secondary" href="/meeting/branch/list"><i class="fa fa-fw fa-lg fa-times-circle"></i>취소</a>
+                                <button class="btn btn-primary" type="submit" id="write"><i class="fa fa-fw fa-lg fa-check-circle"></i>확인</button>&nbsp;&nbsp;&nbsp;<a class="btn btn-secondary" href="/meeting/branch/list"><i class="fa fa-fw fa-lg fa-times-circle"></i>취소</a>
                             </div>
                         </div>
                     </div>

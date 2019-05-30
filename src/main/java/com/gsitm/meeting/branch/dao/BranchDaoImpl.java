@@ -46,7 +46,7 @@ public class BranchDaoImpl implements BranchDao{
 
 	@Override
 	public void branchCreate(Branch branch) {
-		session.insert(namespace+".branchCreate", branch);
+		session.insert(namespace+".branchInsert", branch);
 	}
 
 

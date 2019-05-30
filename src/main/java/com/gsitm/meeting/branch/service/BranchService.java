@@ -28,24 +28,32 @@ public class BranchService {
 	}
 	
 	public void branchInsert(Branch branch) {
+		System.out.println("branch_insert");
 		String recentId = brDao.BranchGetRecent();
-		String brId = recentId.split("/")[1]; // 숫자 뒤에 있는거 자르고 쓰기
+		System.out.println(recentId);
+		String brId = recentId.split("_")[1]; // 숫자 뒤에 있는거 자르고 쓰기
 		int brIdInt = Integer.parseInt(brId)+1;
+		System.out.println(brIdInt);
 		String nextId=null;
-		if(brIdInt==999) {
-			brIdInt=0;
-			nextId="000"+brIdInt;
+		if(brIdInt>999) {
+			//brIdInt=0;
+			nextId="br_"+brIdInt;
+			System.out.println("nextId : "+nextId);
 			branch.setBrId(nextId);
-		}else if(brIdInt==99) {
-			brIdInt=100;
-			nextId="0"+brIdInt;
-			branch.setBrId(nextId);
-		}else if(brIdInt==9) {
-			brIdInt=10;
-			nextId="00"+brIdInt;
-			branch.setBrId(nextId);
+		}else if(brIdInt>99) {
+			//brIdInt=100;
+			nextId="br_0"+brIdInt;
+			System.out.println("nextId : "+nextId);
+		}else if(brIdInt>9) {
+			//brIdInt=10;
+			nextId="br_00"+brIdInt;
+			System.out.println("nextId : "+nextId);
+		}else if(brIdInt>=0) {
+			nextId="br_000"+brIdInt;
+			System.out.println("nextId : "+nextId);
 		}
-		
+		System.out.println(nextId);
+		branch.setBrId(nextId);
 		brDao.branchCreate(branch);
 	}
 	

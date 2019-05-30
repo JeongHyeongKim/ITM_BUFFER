@@ -32,6 +32,7 @@ public class BranchController {
 	
 	@PostMapping("/write")
 	public String branchInsert(Branch branch) {
+		System.out.println("insert!!!!!!!!!!!!!!!!!!!!");
 		brService.branchInsert(branch);
 		return "redirect:/branch/list"; //리턴중, 리다이렉트는 url형식으로 전달된다.
 	}
