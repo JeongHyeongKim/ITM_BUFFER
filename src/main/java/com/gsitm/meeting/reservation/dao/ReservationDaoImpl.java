@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.gsitm.meeting.branch.dto.Branch;
 import com.gsitm.meeting.reservation.dto.Reservation;
 import com.gsitm.meeting.room.dto.MeetingRoom;
 import com.gsitm.meeting.users.dto.Employee;
@@ -34,12 +35,17 @@ public class ReservationDaoImpl implements ReservationDao {
 		// TODO Auto-generated method stub
 		return session.selectList(namespace + ".meetingPeopleList");
 	}
-
+	@Override
 	public List<Reservation> resList() {
 		// TODO Auto-generated method stub
 		return session.selectList(namespace + ".resList" );
 	}
-
+	@Override
+	public List<Branch> branchList() {
+		// TODO Auto-generated method stub
+		return session.selectList(namespace+".branchList");
+	}
+	
 	
 	
 	

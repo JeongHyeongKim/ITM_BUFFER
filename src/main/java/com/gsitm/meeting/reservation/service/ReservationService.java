@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.google.gson.Gson;
+import com.gsitm.meeting.branch.dto.Branch;
 import com.gsitm.meeting.reservation.dao.ReservationDaoImpl;
 import com.gsitm.meeting.reservation.dto.Reservation;
 import com.gsitm.meeting.room.dto.MeetingRoom;
@@ -32,5 +33,8 @@ public class ReservationService {
 	}
 	public List<Employee> meetingPeopleList(){
 		return resDao.meetingPeopleList();
+	}
+	public List<Branch> branchList(){
+		return resDao.branchList();
 	}
 }

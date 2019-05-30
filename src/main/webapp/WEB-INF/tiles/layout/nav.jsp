@@ -14,9 +14,9 @@
         </div>
       </div>
       <ul class="app-menu">
-        <li><a class="app-menu__item" href="/meeting/reservation/resShortMain/br_0001"><i class="app-menu__icon fa fa-tasks"></i><span class="app-menu__label">예약</span></a></li>
-        <li><a class="app-menu__item" href="/meeting/notice/list/1"><i class="app-menu__icon fa fa-check"></i><span class="app-menu__label">공지사항</span></a></li>
-        <li><a class="app-menu__item" href="#"><i class="app-menu__icon fa fa-user"></i><span class="app-menu__label">마이페이지</span></a></li>
+        <li><a class="app-menu__item" href="/meeting/reservation/resShortMain/br_0001"><i class="app-menu__icon fa fa-calendar-check-o"></i><span class="app-menu__label">예약</span></a></li>
+        <li><a class="app-menu__item" href="/meeting/notice/list/1"><i class="app-menu__icon fa fa-file-text-o"></i><span class="app-menu__label">공지사항</span></a></li>
+        <li><a class="app-menu__item" href="#"><i class="app-menu__icon fa fa-id-card"></i><span class="app-menu__label">마이페이지</span></a></li>
       </ul>
     </aside>
   </body>

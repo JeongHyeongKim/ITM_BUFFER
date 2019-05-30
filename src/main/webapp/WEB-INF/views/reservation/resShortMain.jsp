@@ -69,7 +69,7 @@
                   <li class="likes"><i class="fa fa-fw fa-lg fa-wifi"></i>wifi</li>
                   <li class="shares"><i class="fa fa-fw fa-lg fa-laptop"></i>laptop</li>
                   <li class="likes"><i class="fa fa-fw fa-lg fa-edit"></i>White Board</li>
-                  <li class="shares"><i class="fa fa-fw fa-lg fa-video"></i>Beam project</li>
+                  <li class="shares"><i class="fa fa-fw fa-lg fa-video-camera"></i>Beam project</li>
                   <!-- <li class="comments"><a data-toggle="modal" href="#myModal"><span onclick="writeLongtermReservation();">장기 예약 신청</span></a></li> -->
                 </ul>
               </div>

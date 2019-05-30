@@ -24,6 +24,7 @@ public class ReservationController {
 	@GetMapping("/list")
 	public String resList(Model model) {
 		model.addAttribute("list",resService.resList());
+		model.addAttribute("branchList",resService.branchList());
 		return "reservation/resList";
 	}
 	
