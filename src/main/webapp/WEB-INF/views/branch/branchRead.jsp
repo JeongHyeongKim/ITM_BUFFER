@@ -29,6 +29,20 @@
 		clip:rect(0,0,0,0); 
 		border: 0; 
 	}
+	.meetingRoomList{
+		display: block;
+	    width: 100%;
+	    padding: 0.375rem 0.75rem;
+	    font-size: 0.875rem;
+	    line-height: 1.5;
+	    color: #495057;
+	    background-color: #FFF;
+	    background-clip: padding-box;
+	    border: 2px solid #ced4da;
+	    border-radius: 4px;
+	    margin-left:-10px;
+	    margin-top:-10px;
+	}
 
 
 </style>
@@ -38,7 +52,7 @@
 	
 	$(function(){
 		
-		var branch = JSON.parse('${branch}');
+		var branch = JSON.parse('${branch}'); 
 		//var meetingRoomList = JSON.parse('${meetingRoomList}');
 		//console.log(branch);
 		//console.log(${branch});
@@ -90,31 +104,33 @@
                 <div>
                     <div class="tile-body">
                         <div class="form-horizontal">
-                            <div class="form-group row" style="padding-top:25px">
-                                <label class="control-label" style="padding-top:10px">지사 이름 :</label>
+                            <div class="form-group row" style="padding-top:25px; ">
+                                <label class="control-label" style="padding-top:10px">지사 &nbsp이름</label>
                                 <div class="col-md-8">
                                     <input class="form-control" type="text" placeholder="지사를 입력해주세요" id="brName" name="brName">
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="control-label" style="padding-top:10px">지사 주소 : </label>
+                                <label class="control-label" style="padding-top:10px">지사 &nbsp주소</label>
                                 <div class="col-md-8">
                                     <input class="form-control"  placeholder="주소를 입력해주세요" id="brAddress" name="brLocation">
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="control-label" style="padding-top:10px">대표 번호 : </label>
+                                <label class="control-label" style="padding-top:10px">대표 &nbsp번호</label> 
                                 <div class="col-md-8">
                                     <input class="form-control" type="text" placeholder="대표번호를 입력해주세요" id="brTel" name="brTel">
                                 </div>
                             </div>
 
                              <div class="form-group row">
-                                <label class="control-label" style="padding-top:10px">회의실 목록 </label>
+                                <label class="control-label" style="padding-top:10px">회의실목록</label>
                                 <div class="col-md-8" style="padding-top:10px">
+                                	<div class="meetingRoomList">
                                     <c:forEach items='${meetingRoomList}' var="meetingRoomList">
-                                    	${meetingRoomList.mrName}  &nbsp; / &nbsp;
+                                    	${meetingRoomList.mrName} &nbsp / &nbsp
                                     </c:forEach>
+                                	</div>
                                 </div>
                             </div> 
                         </div>
