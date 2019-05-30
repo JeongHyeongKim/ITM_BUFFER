@@ -1,12 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
 <main class="app-content">
 	<div class="app-title">
         <div>
@@ -16,7 +9,7 @@
         <ul class="app-breadcrumb breadcrumb">
           <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
         </ul>
-      </div>
+    </div>
     <div class="row">
         <div class="col-md-12">
           	<div class="tile row">
@@ -32,13 +25,13 @@
 	                  </label>
 	                </p>
                 	<!-- <button class="btn btn-warning" type="button" data-toggle="modal" onclick="">회의실 바로 예약하기</button> -->
-            	</div>
-            	<div class="col-md-9">
+            	 </div>
+            	 <div class="col-md-9">
              	 	<div id="calendar"></div>
-            	</div>
+            	 </div>
           	</div>
         </div>
-      </div>
+    </div>
 </main>
 <!-- Essential javascripts for application to work-->
 <!-- Page specific javascripts-->
@@ -58,5 +51,3 @@
       	});
       });
     </script>
-</body>
-</html>

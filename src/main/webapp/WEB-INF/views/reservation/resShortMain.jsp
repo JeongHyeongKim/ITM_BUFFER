@@ -1,46 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-<title>Insert title here</title>
-<script type="text/javascript">
-	 $(function(){
-		var resShortList = '${resShortMain}'
-		//console.log("확인: "+resList[0]);
-		console.log(resShortList[1])
-		var BrId = resShortList[1].brId;
-		var recentURL = window.location.href;
-		var splitURL = recentURL.split("/");
-		var lastURL = splitURL[splitURL.length-1];
-		$("#"+lastURL).attr("class","nav-link active");
-		
-	}) 
-</script>
-<script>
-$(function() {
-		/* $('.nav-link').click(function() {
-			var buildingName = $(this).attr('value');
-			console.log(buildingName);
-			var data = {"brId" : buildingName};
-			$.ajax({
-	              url : "/meeting/reservation/resShortMain/" + buildingName,
-	              type : "get",
-	             
-	              success : function(data) {
-	                 console.log(data.brId)
-	              }
-	           })
-		});
-		 */     
-	});
-</script>
-</head>
-<body>
-	<main class="app-content">
-	
+<main class="app-content">
 	<div class="app-title">
         <div>
           <h1><i class="fa fa-building"></i>회의실 예약</h1>
@@ -222,7 +183,5 @@ $(function() {
          	     </div>
     		  </div>
             </div>
-        </div>
-	</main>
-</body>
-</html>
+     </div>
+</main>
