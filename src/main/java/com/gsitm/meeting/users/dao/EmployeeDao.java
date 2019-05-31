@@ -2,6 +2,8 @@ package com.gsitm.meeting.users.dao;
 
 import java.util.Map;
 
+import com.gsitm.meeting.users.dto.Employee;
+
 public interface EmployeeDao {
 
 	public String getStoredId(String id);
@@ -13,4 +15,6 @@ public interface EmployeeDao {
 	public void resetLoginCnt(String id);
 	
 	public void lockAccount(String id);
+	
+	public Employee getCurrentId(String empId);
 }

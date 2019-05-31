@@ -6,6 +6,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.gsitm.meeting.users.dto.Employee;
+
 @Repository
 public class EmployeeDaoImpl implements EmployeeDao{
 
@@ -37,6 +39,11 @@ public class EmployeeDaoImpl implements EmployeeDao{
 	@Override
 	public void lockAccount(String id) {
 		session.update(namespace + ".lockAccount", id);
+	}
+
+	@Override
+	public Employee getCurrentId(String empId) {
+		return session.selectOne(namespace + ".getCurrentId", empId); 
 	}
 
 }

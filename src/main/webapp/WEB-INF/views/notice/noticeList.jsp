@@ -53,9 +53,7 @@
 	<div class="app-title">
 		<h3>공지사항</h3>
 	</div>
-	<security:authorize access="isAuthenticated()">
-    authenticated as <security:authentication property="principal.username" /> 
-	</security:authorize>
+
 	<div class="col-md-12">
           <div class="tile">
             <table class="table table-striped-3" id="noticeTable">

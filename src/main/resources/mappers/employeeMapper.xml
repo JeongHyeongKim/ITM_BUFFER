@@ -22,4 +22,9 @@
 	<update id="lockAccount">
 		update employee set enabled = 'disabled' where emp_id = #{id}
 	</update>
+	
+	<select id="getCurrentId" resultType="employee">
+		select emp_name empName, dept_name deptName from employee, department 
+		where employee.dept_id = department.dept_id and  emp_id = #{empId}
+	</select>
 </mapper>

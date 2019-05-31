@@ -12,6 +12,28 @@ public class Employee {
 	private int empFailureCnt;
 	private String empEmail;
 	
+	private String deptName;
+	
+	public Employee(String empId, String empName, String empPwd, String deptId, String brId, String empLevel,
+			String empEnabled, int empFailureCnt, String empEmail, String deptName) {
+		super();
+		this.empId = empId;
+		this.empName = empName;
+		this.empPwd = empPwd;
+		this.deptId = deptId;
+		this.brId = brId;
+		this.empLevel = empLevel;
+		this.empEnabled = empEnabled;
+		this.empFailureCnt = empFailureCnt;
+		this.empEmail = empEmail;
+		this.deptName = deptName;
+	}
+	public String getDeptName() {
+		return deptName;
+	}
+	public void setDeptName(String deptName) {
+		this.deptName = deptName;
+	}
 	public Employee() {
 		super();
 	}
