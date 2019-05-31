@@ -71,7 +71,7 @@
 			                  <div class="row mb-4">
 			                    <div class="col-md-4">
 			                      <label>신청자 명</label>
-			                      <input class="form-control" type="text">
+			                      <input class="form-control" type="text" id="name">
 			                    </div>
 			                    <div class="col-md-4">
 			                      <label>간편 작성</label><br>
@@ -193,3 +193,16 @@
       });
       $('#demoSelect').select2();
     </script>
+    <script>
+    
+	$(function(){
+		$.ajax({
+			url : "/meeting/users/getCurrentId",
+			mathod : "post",
+			data : "_csrf=${_csrf.token}",
+			success : function(emp){
+				
+			}
+		})
+	})
+</script>
