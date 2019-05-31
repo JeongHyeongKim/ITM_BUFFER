@@ -21,6 +21,6 @@
 		SELECT EMP_ID empId, EMP_NAME empName FROM EMPLOYEE
 	</select>
 	<select id="branchList" resultType="branch">
-		select br_name brName from branch
+		select br_name brName,br_id brId from branch
 	</select>
 </mapper>
