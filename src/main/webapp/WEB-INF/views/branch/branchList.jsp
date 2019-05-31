@@ -21,7 +21,7 @@
 	<main class="app-content">
 		<div class="app-title">
 			<div>
-			<h1>회의실 /교육실 관리</h1>
+			<h1>회의실 / 교육실 관리</h1>
 			<p >지사관리</p>
 			</div>
 		</div>
@@ -31,47 +31,55 @@
 		</div>
 		<div>
 		<c:forEach items='${branchList}' var="branchList">
-			<div class="row">
-                <div class="col-md-4" style="text-align:center">
-                    <img class="user-img" src=${branchList.brImg}  height=235px >
-                </div>
-                <div class="col-md-8">
-                
-                <div class="tile">
-                    <div class="tile-body">
-                        <div class="form-horizontal">
-                            <div class="form-group row">
-                                <label class="control-label">지사 이름 :</label>
-                                <div class="col-md-8">
-                                    ${branchList.brName} 
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="control-label">지사 주소 : </label>
-                                <div class="col-md-8">
-                                    ${branchList.brLocation} 
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="control-label">대표 번호 : </label>
-                                <div class="col-md-8">
-                                    ${branchList.brTel}
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="control-label">대표 번호 : </label>
-                                <div class="col-md-8">
-                                    <c:forEach items='${meetingRoomList}' var="meetingRoomList">
-                                    	${meetingRoomList.mrName}  &nbsp; <p>/</p> &nbsp;
-                                    </c:forEach>
-                                </div>
-                            </div>
-
-                        </div>
-                        
+			<div class="row" style="border-top:1px solid; border-bottom:1px solid; padding-top:15px;padding-bottom:15px">
+                <div class="col-md-4">
+                    <div></div>
+                    <div style="text-align:center">
+                        <%-- <img class="user-img" src="${branchList.brImg}" height=235px style="border-radius: 10px;"> --%>
+						<img class="user-img" src="https://s3.amazonaws.com/uifaces/faces/twitter/jsa/128.jpg" height=235px style="border-radius: 10px;">
                     </div>
                 </div>
-            </div>
+
+
+                <div class="col-md-8" style="border-left: 1px solid; padding-left:50px">
+                    <div>
+                        <div class="tile-body">
+                            <div class="form-horizontal">
+                                <div class="form-group row" style="padding-top:25px; ">
+                                    <label class="control-label" >지사 &nbsp이름</label>
+                                    <div class="col-md-8">
+                                        ${branchList.brName}
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="control-label" >지사 &nbsp주소</label>
+                                    <div class="col-md-8">
+                                        ${branchList.brLocation}
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="control-label" >대표 &nbsp번호</label>
+                                    <div class="col-md-8">
+                                        ${branchList.brTel}
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="control-label" style="padding-top:10px">회의실목록</label>
+                                    <div class="col-md-8" style="padding-top:10px">
+                                         <div class="meetingRoomList">
+                                            <c:forEach items='${meetingRoomListOrderByBranch}' var="meetingRoomList" varStatus="status">
+                                            	<c:if test="${meetingRoomList.BRID eq branchList.brId}">
+    												${meetingRoomList.MRNAME} &nbsp / &nbsp
+												</c:if>
+                                            </c:forEach>
+                                        </div> 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
            </c:forEach>
         </div>

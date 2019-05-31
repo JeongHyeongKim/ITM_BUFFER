@@ -1,11 +1,15 @@
 package com.gsitm.meeting.branch.service;
 
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.gsitm.meeting.branch.dao.BranchDaoImpl;
 import com.gsitm.meeting.branch.dto.Branch;
 import com.gsitm.meeting.room.dto.MeetingRoom;
@@ -20,6 +24,7 @@ public class BranchService {
 	private Gson gson;
 	
 	public List<Branch> branchList(){
+		System.out.println(brDao.branchList());
 		return brDao.branchList();
 	}
 	
@@ -71,6 +76,22 @@ public class BranchService {
 		System.out.println("check");
 		System.out.println("check"+brDao.meetingRoomListInBranch(brId));
 		return brDao.meetingRoomListInBranch(brId);
+	}
+	
+	public List<HashMap<String,String>> meetingRoomListOrderByBranch(){
+		List<HashMap<String,String>> buffer=brDao.meetingRoomListOrderByBranch();
+		
+		/*for(int i=0;i<buffer.size();i++) {
+			Iterator iterator = buffer.get(i).entrySet().iterator();
+			while (iterator.hasNext()) { 
+	            Map.Entry mapElement = (Map.Entry)iterator.next(); 
+	            String new_key = mapElement.getKey().toString().split("=")[1];
+	            String new_value = mapElement.getValue().toString().split("=")[1];
+	            
+	        }
+		}*/
+		
+		return brDao.meetingRoomListOrderByBranch();
 	}
 		
 	

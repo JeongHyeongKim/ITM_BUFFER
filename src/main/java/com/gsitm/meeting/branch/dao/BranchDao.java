@@ -1,5 +1,6 @@
 package com.gsitm.meeting.branch.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -23,6 +24,8 @@ public interface BranchDao {
 	public String BranchGetRecent();
 	
 	public List<MeetingRoom> meetingRoomListInBranch(String branchId);
+	
+	public List<HashMap<String,String>> meetingRoomListOrderByBranch();
 
 }
 	

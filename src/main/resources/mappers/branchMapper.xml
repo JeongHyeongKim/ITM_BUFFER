@@ -39,5 +39,9 @@
 		select mr_name mrName from meeting_room where br_id = #{brId}
 	</select>
 	
+	<select id="meetingRoomListOrderByBranch" resultType="java.util.HashMap">
+		select  br.br_id brId, mr.mr_name mrName from meeting_room mr, branch br where br.br_id = mr.br_id
+	</select>
+	
 
 </mapper>

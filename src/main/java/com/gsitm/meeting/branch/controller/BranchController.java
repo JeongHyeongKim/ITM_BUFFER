@@ -21,21 +21,19 @@ public class BranchController {
 	@GetMapping("/list")
 	public String branchList(Model model) {
 		model.addAttribute("branchList", brService.branchList());
-		//model.addAttribute("meetingRoomList", brService.meetingRoomListInBranch(brId));
+		model.addAttribute("meetingRoomListOrderByBranch", brService.meetingRoomListOrderByBranch());
 		return "branch/branchList";
 	}
 	
 	@GetMapping("/read/{brId}")
 	public String branchOne(Model model, @PathVariable String brId) {
 		model.addAttribute("branch", brService.branchOne(brId));
-		model.addAttribute("meetingRoomList", brService.meetingRoomListInBranch(brId));
-		System.out.println("check");
+		model.addAttribute("meetingRoomList", brService.meetingRoomListInBranch(brId)); // 해당 지사에 소속되어 있는 회의실 리스트 출력
 		return "branch/branchRead"; // 리다이렉트 없이 바로 전달하면 경로로 설정
 	}
 	
 	@PostMapping("/write")
 	public String branchInsert(Branch branch) {
-		System.out.println("insert!!!!!!!!!!!!!!!!!!!!");
 		brService.branchInsert(branch);
 		return "redirect:/branch/list"; //리턴중, 리다이렉트는 url형식으로 전달된다.
 	}

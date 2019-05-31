@@ -1,5 +1,6 @@
 package com.gsitm.meeting.branch.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -63,6 +64,17 @@ public class BranchDaoImpl implements BranchDao{
 	public List<MeetingRoom> meetingRoomListInBranch(String branchId) {
 		return session.selectList(namespace+".meetingRoomInBranch",branchId);
 	}
+
+
+
+	@Override
+	public List<HashMap<String, String>> meetingRoomListOrderByBranch() {
+		return session.selectList(namespace+".meetingRoomListOrderByBranch");
+	}
+
+
+
+	
 	
 	
 
