@@ -36,8 +36,7 @@
                 <div class="row" style="border-top:1px solid; border-bottom:1px solid; padding-top:15px;padding-bottom:15px">
                     <div class="col-md-4">
 
-                        <div style="text-align:center">
-                        <div class="animated-checkbox" style="text-align:left; padding-left:70px;"> <input type="checkbox"><span class="label-text"></span></div>
+                        <div style="text-align:center">	
                             <%-- <img class="user-img" src="${branchList.brImg}" height=235px style="border-radius: 10px;"> --%>
                             <div> <img class="user-img" src="https://s3.amazonaws.com/uifaces/faces/twitter/jsa/128.jpg" height=235px style="border-radius: 10px;"></div>
                         </div>

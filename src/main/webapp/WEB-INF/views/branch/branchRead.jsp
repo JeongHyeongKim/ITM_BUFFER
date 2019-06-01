@@ -134,10 +134,40 @@
                                 </div>
                             </div>
                         </div>
+                        
+                        <div class="bs-component">
+                <!--  modal start -->
+              <div class="modal fade" id="confirm" role="dialog">
+				    <div class="modal-dialog">
+				      <!-- Modal content-->
+				      <div class="modal-content">
+				        <div class="modal-header">
+				        	<h4 class="modal-title">Confirm</h4>
+				        	<button type="button" class="close" data-dismiss="modal">×</button>
+				        </div>	
+				        <div class="modal-body">
+				          <form>
+			                 
+			                  <div class="row">
+			                    <!--  모달 컨텐츠 내용 마저 만들어라. -->
+			                  </div>
+					        <div class="modal-footer" style="margin-top:20px">
+					        	<div class="row mb-10">
+				                   <div class="col-md-12">
+				                     <button class="btn btn-success" data-dismiss="modal" type="button"><i class="fa fa-fw fa-lg fa-check-circle"></i>예약신청</button>
+				                   </div>
+				                </div>
+					        </div> 
+				      	</form>
+				      </div>
+				      </div>
+				   </div>
+         	     </div>
+              <!-- modal end -->
                         <div class="tile-footer">
                             <div class="row">
                                 <div class="col-md-8 col-md-offset-3" style="text-align:right">
-                                    <button class="btn btn-primary" type="submit"><i class="fa fa-fw fa-lg fa-check-circle"></i>확인</button>&nbsp;&nbsp;&nbsp;<a class="btn btn-secondary" href="/meeting/branch/list"><i class="fa fa-fw fa-lg fa-times-circle"></i>취소</a>
+                                    <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#confirm"><i class="fa fa-fw fa-lg fa-check-circle"></i>확인</button>&nbsp;&nbsp;&nbsp;<a class="btn btn-secondary" href="/meeting/branch/list"><i class="fa fa-fw fa-lg fa-times-circle"></i>취소</a>
                                 </div>
                             </div>
                         </div>

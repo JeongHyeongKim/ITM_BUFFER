@@ -45,7 +45,6 @@ public class BranchService {
 			//brIdInt=0;
 			nextId="br_"+brIdInt;
 			System.out.println("nextId : "+nextId);
-			branch.setBrId(nextId);
 		}else if(brIdInt>99) {
 			//brIdInt=100;
 			nextId="br_0"+brIdInt;
@@ -60,6 +59,11 @@ public class BranchService {
 		}
 		System.out.println(nextId);
 		branch.setBrId(nextId);
+		System.out.println(branch.getBrId());
+		System.out.println(branch.getBrLocation());
+		System.out.println(branch.getBrName());
+		System.out.println(branch.getBrTel());
+		System.out.println(branch.getBrImg());
 		brDao.branchCreate(branch);
 	}
 	
