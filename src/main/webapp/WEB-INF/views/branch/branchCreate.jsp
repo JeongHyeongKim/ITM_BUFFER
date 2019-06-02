@@ -7,8 +7,7 @@
     <title>지사 수정</title>
 	<script type="text/javascript">
 	
-	$(function(){
-	});
+
 	</script>
 </head>
 

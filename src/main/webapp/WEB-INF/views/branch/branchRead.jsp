@@ -20,7 +20,6 @@
         }
 
         .filebox input[type="file"] {
-            /* 파일 필드 숨기기 */
             position: absolute;
             width: 1px;
             height: 1px;
@@ -45,6 +44,10 @@
             margin-left: -10px;
             margin-top: -10px;
         }
+        
+        h5{
+            font-family: "Lato", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            }
     </style>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>지사 수정</title>
@@ -68,9 +71,26 @@
             document.getElementById("brAddress").value = address;
             document.getElementById("brTel").value = tel;
             document.getElementById("brId").value = brId;
-
+            
+            
+            $('#modalOpen').click(function(){
+            	document.getElementById("brName").value = name;
+                document.getElementById("brAddress").value = address;
+                document.getElementById("brTel").value = tel;
+            	
+            	document.getElementById("modalBranchName").innerHTML=name
+            	document.getElementById("modalBranchLocation").innerHTML=address
+            	document.getElementById("modalBranchTel").innerHTML=tel
+            })
+            
+            $('#finallyConfirm').click(function(){
+                $('#branchDataUpdate').submit();
+            });
 
         });
+        
+        
+        
     </script>
 </head>
 
@@ -86,7 +106,7 @@
             </ul>
         </div>
 
-        <form action="/meeting/branch/update" method="POST">
+        <form action="/meeting/branch/update" method="POST" id="branchDataUpdate">
             <div class="row">
                 <input type="hidden" name="brId" id="brId">
                 <input type="hidden" name="_csrf" value="${_csrf.token}">
@@ -142,23 +162,36 @@
 				      <!-- Modal content-->
 				      <div class="modal-content">
 				        <div class="modal-header">
-				        	<h4 class="modal-title">Confirm</h4>
+				        	<h4 class="modal-title" style="text-align:center;">아래 내용이 맞습니까?</h4>
 				        	<button type="button" class="close" data-dismiss="modal">×</button>
 				        </div>	
-				        <div class="modal-body">
-				          <form>
-			                 
-			                  <div class="row">
-			                    <!--  모달 컨텐츠 내용 마저 만들어라. -->
+				        <div class="modal-body"> 
+			                  <div class="row mb-4">
+			                    <div class="col-md-4">
+			                      <label>지사 이름</label>
+			                      <h5 id="modalBranchName"></h5>
+			                    </div>
+			                  </div>
+			                  <div class="row mb-4">
+			                    <div class="col-md-4">
+			                      <label>지사 주소</label>
+			                      <h5 id="modalBranchLocation"></h5>
+			                    </div>
+			                  </div>
+			                  <div class="row mb-4">
+			                    <div class="col-md-4">
+			                      <label>대표 번호</label>
+			                      <h5 id="modalBranchTel"></h5>
+			                    </div>
 			                  </div>
 					        <div class="modal-footer" style="margin-top:20px">
 					        	<div class="row mb-10">
 				                   <div class="col-md-12">
-				                     <button class="btn btn-success" data-dismiss="modal" type="button"><i class="fa fa-fw fa-lg fa-check-circle"></i>예약신청</button>
+				                     <button class="btn btn-success" id="finallyConfirm" type="button"><i class="fa fa-fw fa-lg fa-check-circle" ></i>확인</button>
+				                     <button class="btn btn-success"  type="button"><i class="fa fa-fw fa-lg fa-check-circle"></i>취소</button>
 				                   </div>
 				                </div>
 					        </div> 
-				      	</form>
 				      </div>
 				      </div>
 				   </div>
@@ -167,13 +200,14 @@
                         <div class="tile-footer">
                             <div class="row">
                                 <div class="col-md-8 col-md-offset-3" style="text-align:right">
-                                    <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#confirm"><i class="fa fa-fw fa-lg fa-check-circle"></i>확인</button>&nbsp;&nbsp;&nbsp;<a class="btn btn-secondary" href="/meeting/branch/list"><i class="fa fa-fw fa-lg fa-times-circle"></i>취소</a>
+                                    <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#confirm" id="modalOpen"><i class="fa fa-fw fa-lg fa-check-circle"></i>확인</button>&nbsp;&nbsp;&nbsp;
+                                    <a class="btn btn-secondary" href="/meeting/branch/list"><i class="fa fa-fw fa-lg fa-times-circle"></i>취소</a>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> 
         </form>
     </main>
 </body>
