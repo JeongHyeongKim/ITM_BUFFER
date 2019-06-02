@@ -16,30 +16,38 @@ public class DepartmentDaoImpl implements DepartmentDao{
 	
 	private String namespace = "com.gsitm.meeting.mappers.departmentMapper";
 
-	@Override
-	public int departmentCreate(String deptId, String deptName, String deptCost, String brId) {
-		return session.insert(namespace+"departmentInsert");
-	}
+
 
 	@Override
 	public List<Department> departmentList() {
-		return session.selectList(namespace+"departmentList");
+		return session.selectList(namespace+".departmentList");
 	}
 
 	@Override
 	public Department departmentOne(String deptId) {
-		return session.selectOne(namespace+"departmentOne");
+		return session.selectOne(namespace+".departmentOne", deptId);
 	}
 
 	@Override
-	public int departmentUpdate(String deptId, String deptName, String deptCost, String brId) {
-		return session.update(namespace+"departmentUpdate");
+	public void departmentCreate(Department department) {
+		session.insert(namespace+".departmentInsert", department);
+		
 	}
 
 	@Override
-	public int departmentDelete(String deptId) {
-		return session.delete(namespace+"departmentDelete");
+	public void departmentUpdate(Department department) {
+		session.update(namespace+".departmentUpdate", department);
 	}
+
+	@Override
+	public void departmentDelete(String deptId) {
+		session.delete(namespace+".departmentDelete", deptId);
+		
+	}
+
+	
+
+
 
 
 }

@@ -10,11 +10,10 @@
     <script type="text/javascript">
         $(function() {
 
-            var branchList = JSON.parse('${branchList}')
-            console.log(branchList);
+            
 
 
-        })
+        });
     </script>
     <title>지사조회</title>
 </head>

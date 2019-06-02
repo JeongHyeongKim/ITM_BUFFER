@@ -21,4 +21,15 @@ public class DepartmentService {
 	public Department departmentOne(String deptId) {
 		return deptDao.departmentOne(deptId);
 	}
+	
+	public void departmentCreate(Department department) {
+		deptDao.departmentCreate(department);
+	}
+	public void departmentUpdate(Department department) {
+		deptDao.departmentUpdate(department);
+	}
+	
+	public void departmentDelete(String deptId) {
+		deptDao.departmentDelete(deptId);
+	}
 }

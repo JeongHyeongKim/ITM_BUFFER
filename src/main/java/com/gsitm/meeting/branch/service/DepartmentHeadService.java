@@ -18,7 +18,23 @@ public class DepartmentHeadService {
 		return deptHeadDao.departmentHeadList();
 	}
 	
-	public DepartmentHead departmentHeadOne(String empId) {
-		return deptHeadDao.departmentHeadOne(empId);
+	public DepartmentHead departmentHeadOneByEmpId(String empId) {
+		return deptHeadDao.departmentHeadOneByEmpId(empId);
+	}
+	
+	public DepartmentHead departmentHeadOneByDeptId(String deptId) {
+		return deptHeadDao.departmentHeadOneByDeptId(deptId);
+	}
+	
+	public void departmentHeadCreate(DepartmentHead departmentHead){
+		deptHeadDao.departmentHeadCreate(departmentHead);
+	}
+	
+	public void departmentHeadUpdate(DepartmentHead departmentHead) {
+		deptHeadDao.departmentHeadUpdate(departmentHead);
+	}
+	
+	public void departmentHeadDelete(String empId) {
+		deptHeadDao.departmentHeadDelete(empId);
 	}
 }

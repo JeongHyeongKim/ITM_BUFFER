@@ -9,13 +9,19 @@
 	from departmentHead
 </select>
 
-<select id="departmentHeadOne" resultType="departmentHead">
+<select id="departmentHeadOneByEmpId" resultType="departmentHead">
 	select emp_id empId, dept_id deptId
 	from departmentHead
 	where emp_id=#{empId}
 </select>
 
-<insert id="departmentHeadInsert">
+<select id="departmentHeadOneByDeptId" resultType="departmentHead">
+	select emp_id empId, dept_id deptId
+	from departmentHead
+	where dept_id=#{deptId}
+</select>
+
+<insert id="departmentHeadCreate">
 	insert into departmentHead (emp_id, dept_id)
 	values (#{empId}, #{deptId})
 </insert>

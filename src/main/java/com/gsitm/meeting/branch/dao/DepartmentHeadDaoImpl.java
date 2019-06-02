@@ -16,36 +16,40 @@ public class DepartmentHeadDaoImpl implements DepartmentHeadDao{
 	
 	private String namespace = "com.gsitm.meeting.mappers.departmentHeadMapper";
 
-	@Override
-	public int departmentHeadCreate(String empId, String deptId) {
-		// TODO Auto-generated method stub
-		return session.insert(namespace+"departmentHeadInsert");
-	}
+
 
 	@Override
 	public List<DepartmentHead> departmentHeadList() {
-		// TODO Auto-generated method stub
-		return session.selectList(namespace+"departmentHeadList");
+		return session.selectList(namespace+".departmentHeadList");
 	}
 
 	@Override
-	public DepartmentHead departmentHeadOne(String empId) {
-		// TODO Auto-generated method stub
-		return session.selectOne(namespace+"departmentHeadOne");
+	public DepartmentHead departmentHeadOneByEmpId(String empId) {
+		return session.selectOne(namespace+".departmentHeadOneByEmpId");
 	}
 
+
 	@Override
-	public int departmentHeadUpdate(String empId, String deptId) {
-			
-		return session.update(namespace+"departmentHeadUpdate");
+	public void departmentHeadCreate(DepartmentHead departmentHead) {
+		session.insert(namespace+".departmentHeadCreate", departmentHead);
 		
 	}
 
 	@Override
-	public int departmentHeadDelete(String empId) {
-		// TODO Auto-generated method stub
-		return session.delete(namespace+"departmentHeadDelete");
+	public void departmentHeadUpdate(DepartmentHead departmentHead) {
+		session.update(namespace+".departmentHeadUpdate", departmentHead);
 		
 	}
+
+	@Override
+	public void departmentHeadDelete(String empId) {
+		session.delete(namespace+".departmentHradDelete", empId);
+	}
+
+	@Override
+	public DepartmentHead departmentHeadOneByDeptId(String deptId) {
+		return session.selectOne(namespace+".departmentHeadHeadOneByDeptId");
+	}
+	
 
 }
