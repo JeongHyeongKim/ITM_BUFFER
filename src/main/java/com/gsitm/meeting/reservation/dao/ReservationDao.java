@@ -12,4 +12,7 @@ public interface ReservationDao {
 	public List<MeetingRoom> meetingRoomList(String brId);
 	public List<Employee> meetingPeopleList();
 	public List<Branch> branchList();
+	public void writeReservation(Reservation reservation);
+	public List<MeetingRoom> mrTypeList();
+	public List<MeetingRoom> mrLimitList();
 }

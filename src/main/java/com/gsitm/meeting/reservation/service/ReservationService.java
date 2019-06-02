@@ -37,4 +37,14 @@ public class ReservationService {
 	public List<Branch> branchList(){
 		return resDao.branchList();
 	}
+	public void writeReservation(Reservation reservation) {
+		// TODO Auto-generated method stub
+		resDao.writeReservation(reservation);
+	}
+	public List<MeetingRoom> mrTypeList(){
+		return resDao.mrTypeList();
+	}
+	public List<MeetingRoom> mrLimitList(){
+		return resDao.mrLimitList();
+	}
 }

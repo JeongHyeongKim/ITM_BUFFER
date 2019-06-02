@@ -9,8 +9,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.gsitm.meeting.branch.dto.Branch;
+import com.gsitm.meeting.reservation.dto.Reservation;
 import com.gsitm.meeting.reservation.service.ReservationService;
 import com.gsitm.meeting.room.dto.MeetingRoom;
 
@@ -23,11 +26,18 @@ public class ReservationController {
 	
 	@GetMapping("/list")
 	public String resList(Model model) {
-		model.addAttribute("list",resService.resList());
+		model.addAttribute("resList",resService.resList());
 		model.addAttribute("branchList",resService.branchList());
+		model.addAttribute("mrTypeList",resService.mrTypeList());
+		model.addAttribute("mrLimitList",resService.mrLimitList());
 		return "reservation/resList";
 	}
-	
+	@PostMapping("/writeReservation")
+	public String writeReservation(Reservation reservation) {
+		System.out.println("ddd");
+		resService.writeReservation(reservation);
+		return "redirect:/reservation/list"; //리턴중, 리다이렉트는 url형식으로 전달된다.
+	}
 	@GetMapping("/resShortMain/{brId}")
 	public String meetingRoomList(Model model,@PathVariable String brId) {
 		System.out.println(resService.meetingRoomList(brId));

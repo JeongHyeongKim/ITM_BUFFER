@@ -4,11 +4,15 @@
 <!-- 게시판 네임스페이스(사용영역) 설정 -->
 <mapper namespace="com.gsitm.meeting.mappers.reservationMapper">
 	<select id="resList" resultType="reservation">
-		select e.EMP_NAME empName,res_time resDate 
-		from employee e ,reservation r
+		select e.EMP_NAME empName,res_start_time resStartDate ,m.mr_name,r.emp_id empId
+		from employee e ,reservation r,meeting_room m
 		where e.emp_id = r.emp_id
+		and m.mr_id = r.mr_id
 	</select>
-	
+	<insert id="writeReservation">
+	insert into reservation (RES_ID,EMP_ID, MR_ID, RES_START_TIME, RES_END_TIME,RES_TIME,RES_PURPOSE,RES_ATTEND_CNT,RES_ADD_REQUEST,RES_STATE,RES_SNACK,RES_TYPE,RES_CANCLE,RES_COST,RES_OUTSIDE)
+	values (#{resId}, #{empId}, #{meId}, #{resStartDate}, #{resEndDate},#{resDate},#{resPurpose},#{resAttendCnt},#{resAddRequest},#{resState},#{resSnack},#{resType},#{resCancle},#{resCost},#{resOutside})
+	</insert>
 	<select id="meetingRoomList" resultType="MeetingRoom" parameterType="string">
 		select mr_name mrName, r.br_id brId, mr_limit mrLimit,b.BR_LOCATION brLocation, mr_area mrArea, mr_network mrNetwork, 
 		mr_type mrType, e.emp_name empName, mr_location mrLocation, mr_img mrImg
@@ -22,5 +26,11 @@
 	</select>
 	<select id="branchList" resultType="branch">
 		select br_name brName,br_id brId from branch
+	</select>
+	<select id="mrTypeList" resultType="MeetingRoom">
+		select distinct(mr_type) mrType from meeting_room 
+	</select>
+	<select id="mrLimitList" resultType="MeetingRoom">
+		select distinct(mr_limit) mrLimit from meeting_room
 	</select>
 </mapper>

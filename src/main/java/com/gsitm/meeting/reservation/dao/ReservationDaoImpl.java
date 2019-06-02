@@ -45,6 +45,23 @@ public class ReservationDaoImpl implements ReservationDao {
 		// TODO Auto-generated method stub
 		return session.selectList(namespace+".branchList");
 	}
+
+	@Override
+	public void writeReservation(Reservation reservation) {
+		// TODO Auto-generated method stub
+		session.insert(namespace+".writeReservation", reservation);
+	}
+
+	@Override
+	public List<MeetingRoom> mrTypeList() {
+		// TODO Auto-generated method stub
+		return session.selectList(namespace+".mrTypeList");
+	}
+
+	public List<MeetingRoom> mrLimitList() {
+		// TODO Auto-generated method stub
+		return session.selectList(namespace+".mrLimitList");
+	}
 	
 	
 	
