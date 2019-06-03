@@ -12,8 +12,8 @@
 		and m.br_id = #{brId}
 	</select>
 	<insert id="writeReservation">
-	insert into reservation (RES_ID,EMP_ID, MR_ID, RES_START_TIME, RES_END_TIME,RES_TIME,RES_PURPOSE,RES_ATTEND_CNT,RES_ADD_REQUEST,RES_STATE,RES_SNACK,RES_TYPE,RES_CANCLE,RES_COST,RES_OUTSIDE)
-	values (#{resId}, #{empId}, #{meId}, #{resStartDate}, #{resEndDate},#{resDate},#{resPurpose},#{resAttendCnt},#{resAddRequest},#{resState},#{resSnack},#{resType},#{resCancle},#{resCost},#{resOutside})
+		insert into reservation (RES_ID,EMP_ID, MR_ID, RES_START_TIME, RES_END_TIME,RES_TIME,RES_PURPOSE,RES_ATTEND_CNT,RES_ADD_REQUEST,RES_STATE,RES_SNACK,RES_TYPE,RES_CANCLE,RES_COST,RES_OUTSIDE)
+		values (#{resId}, #{empId}, #{meId}, #{resStartDate}, #{resEndDate},#{resDate},#{resPurpose},#{resAttendCnt},#{resAddRequest},#{resState},#{resSnack},#{resType},#{resCancle},#{resCost},#{resOutside})
 	</insert>
 	<select id="meetingRoomList" resultType="MeetingRoom" parameterType="string">
 		select mr_name mrName, r.br_id brId, mr_limit mrLimit,b.BR_LOCATION brLocation, mr_area mrArea, mr_network mrNetwork, 

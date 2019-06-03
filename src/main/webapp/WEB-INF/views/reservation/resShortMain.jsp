@@ -17,10 +17,9 @@
           <div class="tile p-0">
             <ul class="nav flex-column nav-tabs user-tabs">
               <li class="nav-item"><a class="nav-link" >지사 선택</a></li>
-              <li class="nav-item"><a class="nav-link" href="/meeting/reservation/resShortMain/br_0001" id="br_0001" >본사</a></li>
-              <li class="nav-item"><a class="nav-link" href="/meeting/reservation/resShortMain/br_0002" id="br_0002" >삼환빌딩</a></li>
-              <li class="nav-item"><a class="nav-link" href="/meeting/reservation/resShortMain/br_0003" id="br_0003" >GS강서타워</a></li>
-              <li class="nav-item"><a class="nav-link" href="/meeting/reservation/resShortMain/br_0004" id="br_0004" >데이터센터</a></li>
+              <c:forEach items="${branchList}" var="branchList">
+              	<li class="nav-item"><a class="nav-link" href="/meeting/reservation/resShortMain/${branchList.brId}" id="${branchList.brId}" >${branchList.brName}</a></li>
+              </c:forEach>
             </ul>
           </div>
         </div>
@@ -28,17 +27,17 @@
           <div class="tab-content">
           
           <!-- 회의실 정보 -->
-            <div class="tab-pane active" id="meeting-room" onclick="location.href ='resShortDetail'">
+            
             <c:forEach items='${resShortMain}' var="resShortList">
-              <div class="timeline-post">
-                <div class="post-media"><a href="#"><img src="https://s3.amazonaws.com/uifaces/faces/twitter/jsa/48.jpg"></a>
-                  <div class="content">
-                    <h4><a href="#"><label id="mrName">${resShortList.mrName }</label></a></h4>
-                    <p class="text-muted"><small>${resShortList.brLocation } ${resShortList.mrLocation }</small></p>
-                  </div>
-                </div>
-                <div class="post-content">
-                	<table>
+             <div class="tab-pane active" id="meeting-room" onclick="location.href ='/meeting/reservation/resShortDetail/${resShortList.brId}'">
+              <div class="card">
+                <h4 class="card-header">${resShortList.mrName }</h4>
+                <div class="card-body">
+                  <h5 class="card-title">${resShortList.brLocation } ${resShortList.mrLocation }</h5>
+                  <h6 class="card-subtitle text-muted"><b>관리자</b> ${resShortList.empName}</h6>
+                </div><img style="height: 200px; width: 100%; display: block;" src="${resShortList.mrImg }" alt="Card image">
+                <div class="card-body">
+                  <p class="card-text"><table>
                 		<tr>	
                 			<td><b>공간유형</b></td>
                 			<c:if test="${resShortList.mrType eq 'mr_type_0'}">
@@ -63,18 +62,16 @@
 							<td><b>관리자</b></td> 
 							<td>${resShortList.empName }</td>
 						</tr>
-                	</table>
+                	</table></p>
+	                  <i class="fa fa-fw fa-lg fa-wifi"></i>wifi
+	                  <i class="fa fa-fw fa-lg fa-laptop"></i>laptop
+	                  <i class="fa fa-fw fa-lg fa-edit"></i>White Board
+	                  <i class="fa fa-fw fa-lg fa-video-camera"></i>Beam project
                 </div>
-                <ul class="post-utility">
-                  <li class="likes"><i class="fa fa-fw fa-lg fa-wifi"></i>wifi</li>
-                  <li class="shares"><i class="fa fa-fw fa-lg fa-laptop"></i>laptop</li>
-                  <li class="likes"><i class="fa fa-fw fa-lg fa-edit"></i>White Board</li>
-                  <li class="shares"><i class="fa fa-fw fa-lg fa-video-camera"></i>Beam project</li>
-                  <!-- <li class="comments"><a data-toggle="modal" href="#myModal"><span onclick="writeLongtermReservation();">장기 예약 신청</span></a></li> -->
-                </ul>
+                <div class="card-footer text-muted"></div>
               </div>
-              </c:forEach>
               </div>
+               </c:forEach>
  		
  				<!-- Modal -->
 				  <div class="modal fade" id="myModal" role="dialog">

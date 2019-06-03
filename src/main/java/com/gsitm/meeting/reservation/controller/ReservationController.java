@@ -39,6 +39,7 @@ public class ReservationController {
 	}
 	@GetMapping("/resShortMain/{brId}")
 	public String meetingRoomList(Model model,@PathVariable String brId) {
+		model.addAttribute("branchList",resService.branchList());
 		model.addAttribute("resShortMain",resService.meetingRoomList(brId));
 		model.addAttribute("meetingPeopleList",resService.meetingPeopleList());
 		return "reservation/resShortMain";
