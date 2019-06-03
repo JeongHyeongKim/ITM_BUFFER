@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core"%>
+<link href="/meeting/resources/css/jquery.datetimepicker.css" rel="stylesheet" /> 
+
 <link href="/meeting/resources/css/fullcalendar.min.css" rel="stylesheet" />
 <link href="/meeting/resources/css/fullcalendar.print.min.css" rel="stylesheet" media="print" />
-<link rel="stylesheet" type="text/css" href="/meeting/resources/css/jquery.datetimepicker.css"/>
 <main class="app-content">
 	<div class="app-title">
         <div>
@@ -21,7 +22,7 @@
 				<div class="tile-body" style="width:100%;text-align:right">
 	              <form class="row">
 	                <div class="form-group col-md-3">
-	                  <select name='fruits' class="form-control">
+	                  <select name='branch' class="form-control">
 						<option value='' selected>--지사구분--</option>
 						<c:forEach items="${branchList}" var="branchList">
 							<option value='${branchList.brName}'>${branchList.brName}</option>
@@ -29,7 +30,7 @@
 					    </select>
 				     </div>
 				     <div class="form-group col-md-3">
-	                  <select name='fruits' class="form-control">
+	                  <select name='meetingRoom' class="form-control">
 						<option value='' selected>--회의실구분--</option>
 						<c:forEach items="${mrTypeList}" var="mrTypeList">
 							<c:if test="${mrTypeList.mrType eq 'mr_type_0'}">
@@ -45,7 +46,7 @@
 					    </select>
 				     </div>
 					  <div class="form-group col-md-3">
-				       <select name='fruits' class="form-control">
+				       <select name='meetingPeople' class="form-control">
 						<option value='' selected>--수용인원--</option>
 							<c:forEach items="${mrLimitList}" var="mrLimitList">
 								<option value='${mrLimitList.mrLimit}'>${mrLimitList.mrLimit}</option>
@@ -54,7 +55,7 @@
 	                </div>
 	                <div class="form-group col-md-3"> 
 	                  <div class="tile-body">
-						 <input class="form-control" id="searchDate" type="text" placeholder="예약일">
+						 <input class="form-control" id="searchDate" type="text" placeholder="예약일" name="filter-date">
 					  </div>
 	                </div>
 	               <div class="form-group col-md-3"></div>
@@ -178,52 +179,29 @@
 </main>
 <!-- Essential javascripts for application to work-->
 <!-- Page specific javascripts-->
-<script src="/meeting/resources/js/moment.min.js" type="text/javascript"></script>
-<script src="/meeting/resources/js/fullcalendar.min.js" type="text/javascript"></script>
-<script src="/meeting/resources/js/jquery-ui.min.js" type="text/javascript"></script>
+<script src="/meeting/resources/js/plugins/moment.min.js" type="text/javascript"></script>
+<script src="/meeting/resources/js/plugins/fullcalendar.min.js" type="text/javascript"></script>
+<script src="/meeting/resources/js/plugins/jquery-ui.min.js" type="text/javascript"></script>
 <!-- PAGE LEVEL SCRIPTS-->
 <!-- <script src="/meeting/resources/js/calendar-demo.js" type="text/javascript"></script> -->
-<script src="/meeting/resources/js/jquery.datetimepicker.js"></script>
-<script src="/meeting/resources/js/plugins/bootstrap-datepicker.min.js"></script>
+<!-- <script src="/meeting/resources/js/plugins/jquery.datetimepicker.js"></script> -->
+<!-- <script src="/meeting/resources/js/plugins/bootstrap-datepicker.min.js"></script> -->
+<script src="/meeting/resources/js/plugins/jquery.datetimepicker.full.js"></script> 
+
     <script type="text/javascript">
-    $.datetimepicker.setDateFormatter({
-        parseDate: function (date, format) {
-            var d = moment(date, format);
-            return d.isValid() ? d.toDate() : false;
-        },
-        formatDate: function (date, format) {
-            return moment(date).format(format);
-        },
-    });
-      $('#sl').click(function(){
-      	$('#tl').loadingBtn();
-      	$('#tb').loadingBtn({ text : "Signing In"});
-      });
+   
+     //var newDt = Moment(new Date(date)).format('YYYY-MM-DD'); 
+    
       
-      $('#el').click(function(){
-      	$('#tl').loadingBtnComplete();
-      	$('#tb').loadingBtnComplete({ html : "Sign In"});
+      $('#resStartTime').datetimepicker({
+    	  'step': 30 
       });
-      
-      $('#resStartTime').datepicker({
-      	format: "yy/mm/dd",
-      	autoclose: true,
-      	todayHighlight: true
+      $('#resEndTime').datetimepicker({
+    	  'step': 30 
       });
-      $('#resEndTime').datepicker({
-        	format: "yy/mm/dd",
-        	autoclose: true,
-        	todayHighlight: true
-        });
       $('#searchDate').datetimepicker({
-    	 /*  defaultTime: false,
-    	  formatTime: 'H:i'  */
-    	  format: 'HH:mm',
-          pickDate: false,
-          pickSeconds: false,
-          pick12HourFormat: false  
+    	  'step': 30 
       });
-      /* $('#demoSelect').select2(); */
     </script>
     <!-- <script>
     
@@ -255,43 +233,15 @@
         eventLimit: true, // allow "more" link when too many events
         
         events: [
-        	{ 
-                title: 'empId', 
-                start: '2019-06-02',
-                backgroundColor: '#2ecc71'
+        	 <c:forEach items="${resList}" var="list" varStatus="status">
+            { 
+               id : '${list.resId}',
+               title : '${list.empName}',
+               start : '${list.resStartDate}',
+               end : '${list.resEndDate}'
             },
-            {
-                title: 'Long Event',
-                start: '2019-06-07',
-                end: '2017-06-10',
-                backgroundColor: '#2ecc71'
-            },
-            {
-                title: 'Conference',
-                start: '2019-06-11',
-                end: '2017-06-13',
-                backgroundColor: '#23B7E5'
-            },
-            {
-                title: 'Meeting',
-                start: '2019-06-12T10:30:00',
-                end: '2017-10-12T12:30:00'
-            },
-            {
-                title: 'Dinner',
-                start: '2019-06-12T20:00:00'
-            },
-            {
-                title: 'Birthday Party',
-                start: '2019-06-13T07:00:00',
-                backgroundColor: '#F39C12'
-            },
-            {
-                title: 'Click for Google',
-                url: 'http://google.com/',
-                start: '2019-06-28'
-            } 
-        ]
+        	</c:forEach> 
+            ]
     });
     
 }); 
