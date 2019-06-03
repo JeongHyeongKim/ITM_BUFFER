@@ -22,4 +22,17 @@ public class EmployeeController {
 		return null;
 	}
 	
+	/////////////////////
+	@GetMapping("/user/deptCost")
+	public String getDeptCost(String empId) {
+		return empService.getDeptCost(empId);
+	}
+	
+	@GetMapping("/users/mypage")
+	public String myReservation(Model model, Principal principal) {
+		System.out.println(empService.getReservationByEmpId(principal.getName()));
+		model.addAttribute("myCost",empService.getDeptCost(principal.getName()));
+		model.addAttribute("myInfo",empService.getReservationByEmpId(principal.getName()));
+		return "/users/mypage";
+	}
 }

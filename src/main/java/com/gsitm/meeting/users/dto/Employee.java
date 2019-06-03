@@ -91,7 +91,31 @@ public class Employee {
 	public void setEmpEmail(String empEmail) {
 		this.empEmail = empEmail;
 	}
-	
-	
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Employee [empId=");
+		builder.append(empId);
+		builder.append(", empName=");
+		builder.append(empName);
+		builder.append(", empPwd=");
+		builder.append(empPwd);
+		builder.append(", deptId=");
+		builder.append(deptId);
+		builder.append(", brId=");
+		builder.append(brId);
+		builder.append(", empLevel=");
+		builder.append(empLevel);
+		builder.append(", empEnabled=");
+		builder.append(empEnabled);
+		builder.append(", empFailureCnt=");
+		builder.append(empFailureCnt);
+		builder.append(", empEmail=");
+		builder.append(empEmail);
+		builder.append(", deptName=");
+		builder.append(deptName);
+		builder.append("]");
+		return builder.toString();
+	}
 
 }

@@ -23,4 +23,12 @@ public class EmployeeService {
 	public Employee getCurrentId(String id) {
 		return (empDao.getCurrentId(id));
 	}
+	
+	public String getDeptCost(String empId) {
+		return gson.toJson(empDao.getDeptCost(empId));
+	}
+	
+	public String getReservationByEmpId(String empId) {
+		return gson.toJson(empDao.getReservationByEmpId(empId));
+	}
 }

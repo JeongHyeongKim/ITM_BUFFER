@@ -72,7 +72,8 @@
               </form>
             </div>
             <div class="tile-footer">
-              <button class="btn btn-primary" type="button" id="noticeUpdate"><i class="fa fa-fw fa-lg fa-check-circle"></i>글수정</button>&nbsp;&nbsp;&nbsp;<a class="btn btn-secondary" href="#"><i class="fa fa-fw fa-lg fa-times-circle"></i>글삭제</a>
+              <button class="btn btn-primary" type="button" id="noticeUpdate"><i class="fa fa-fw fa-lg fa-check-circle"></i>글수정</button>&nbsp;&nbsp;&nbsp;
+              <button class="btn btn-secondary" type="button" id="noticeDelete"><i class="fa fa-fw fa-lg fa-check-circle"></i>글삭제</button>
             </div>
           </div>
         </div>

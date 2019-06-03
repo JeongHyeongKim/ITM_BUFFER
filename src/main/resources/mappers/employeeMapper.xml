@@ -27,4 +27,16 @@
 		select emp_name empName, dept_name deptName from employee, department 
 		where employee.dept_id = department.dept_id and  emp_id = #{empId}
 	</select>
+	
+	<select id="getDeptCost" resultType="int">
+		select dept_cost deptCost from employee, department 
+		where employee.dept_id = department.dept_id and employee.emp_id=#{empId}
+	</select>
+	
+	<select id="getReservationByEmpId" resultType="reservation">
+		select res_id resId, emp_id empId, mr_id mrId, res_start_time resStartTime, 
+		res_end_time resEndTime, res_time resTime, res_purpose resPurpose, res_attend_cnt resAttendCnt,
+		res_add_request resAddRequest, res_state resState, res_snack resSnack, res_type resType, 
+		res_cancle resCancle, res_cost resCost, res_outside resOutside from reservation where emp_id=#{empId}
+	</select>
 </mapper>

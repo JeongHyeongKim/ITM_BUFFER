@@ -55,7 +55,7 @@ public class NoticeController {
 	@PostMapping("/update")
 	public String noticeUpdate(Notice notice) {
 		noticeService.noticeUpdate(notice);
-		return "redirect:/notice/list";
+		return "redirect:/notice/list/1";
 	}
 
 }
