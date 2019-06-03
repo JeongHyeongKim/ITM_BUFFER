@@ -24,9 +24,9 @@ public class ReservationController {
 	@Autowired
 	private ReservationService resService;
 	
-	@GetMapping("/list")
-	public String resList(Model model) {
-		model.addAttribute("resList",resService.resList());
+	@GetMapping("/list/{brId}")
+	public String resList(Model model,@PathVariable String brId) {
+		model.addAttribute("resList",resService.resList(brId));
 		model.addAttribute("branchList",resService.branchList());
 		model.addAttribute("mrTypeList",resService.mrTypeList());
 		model.addAttribute("mrLimitList",resService.mrLimitList());
@@ -34,13 +34,11 @@ public class ReservationController {
 	}
 	@PostMapping("/writeReservation")
 	public String writeReservation(Reservation reservation) {
-		System.out.println("ddd");
 		resService.writeReservation(reservation);
 		return "redirect:/reservation/list"; //리턴중, 리다이렉트는 url형식으로 전달된다.
 	}
 	@GetMapping("/resShortMain/{brId}")
 	public String meetingRoomList(Model model,@PathVariable String brId) {
-		System.out.println(resService.meetingRoomList(brId));
 		model.addAttribute("resShortMain",resService.meetingRoomList(brId));
 		model.addAttribute("meetingPeopleList",resService.meetingPeopleList());
 		return "reservation/resShortMain";

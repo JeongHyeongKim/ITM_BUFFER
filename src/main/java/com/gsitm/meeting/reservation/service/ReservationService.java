@@ -21,10 +21,10 @@ public class ReservationService {
 	@Autowired
 	private Gson gson;
 	
-	public List<Reservation> resList(){
+	public List<Reservation> resList(String brId){
 		//System.out.println("Ȯ��: "+resDao.resList());
 		//return gson.toJson(resDao.resList());
-		return resDao.resList();
+		return resDao.resList(brId);
 	}
 	public List<MeetingRoom> meetingRoomList(String brId){
 		//System.out.println(resDao.meetingRoomList());

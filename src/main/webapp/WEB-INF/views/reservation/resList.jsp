@@ -164,7 +164,7 @@
             	<c:forEach items="${branchList}" var="branchList">
 					<div class="fc-event">
 					        <label class="btn btn-primary" style="width:100%;">
-					           <input id="${branchList.brId}" type="radio" name="options" style="display:none;margin:10px"> ${branchList.brName}
+					           <input id="${branchList.brId}" type="radio" name="options" style="display:none;margin:10px"onClick="location.href='/meeting/reservation/list/${branchList.brId}'"> ${branchList.brName}
 					        </label>
 					</div>
 					</c:forEach>	
@@ -177,15 +177,11 @@
           	</div>
         </div>
 </main>
-<!-- Essential javascripts for application to work-->
-<!-- Page specific javascripts-->
+<%-- Essential javascripts for application to work--%>
+<%-- Page specific javascripts--%>
 <script src="/meeting/resources/js/plugins/moment.min.js" type="text/javascript"></script>
 <script src="/meeting/resources/js/plugins/fullcalendar.min.js" type="text/javascript"></script>
 <script src="/meeting/resources/js/plugins/jquery-ui.min.js" type="text/javascript"></script>
-<!-- PAGE LEVEL SCRIPTS-->
-<!-- <script src="/meeting/resources/js/calendar-demo.js" type="text/javascript"></script> -->
-<!-- <script src="/meeting/resources/js/plugins/jquery.datetimepicker.js"></script> -->
-<!-- <script src="/meeting/resources/js/plugins/bootstrap-datepicker.min.js"></script> -->
 <script src="/meeting/resources/js/plugins/jquery.datetimepicker.full.js"></script> 
 
     <script type="text/javascript">
@@ -232,13 +228,14 @@
         droppable: true, // this allows things to be dropped onto the calendar
         eventLimit: true, // allow "more" link when too many events
         
-        events: [
-        	 <c:forEach items="${resList}" var="list" varStatus="status">
+        events : [
+        	 <c:forEach items="${resList}" var="list" varStatus="status"> 
             { 
-               id : '${list.resId}',
-               title : '${list.empName}',
+               id : '${list.resId}', 
+               title : '${list.mrName}-${list.empName}',
                start : '${list.resStartDate}',
-               end : '${list.resEndDate}'
+               end : '${list.resEndDate}',
+               backgroundColor:'#ffc107'
             },
         	</c:forEach> 
             ]

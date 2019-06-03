@@ -7,9 +7,9 @@ public class Reservation {
 	private String resId;
 	private String empId;
 	private String mrId;
-	private Date resStartDate;
-	private Date resEndDate;
-	private Date resDate;
+	private String resStartDate;
+	private String resEndDate;
+	private String resDate;
 	private String resPurpose;
 	private int resAttendCnt;
 	private String resAddRequest;
@@ -69,27 +69,27 @@ public class Reservation {
 		this.mrId = mrId;
 	}
 
-	public Date getResStartDate() {
+	public String getResStartDate() {
 		return resStartDate;
 	}
 
-	public void setResStartDate(Date resStartDate) {
+	public void setResStartDate(String resStartDate) {
 		this.resStartDate = resStartDate;
 	}
 
-	public Date getResEndDate() {
+	public String getResEndDate() {
 		return resEndDate;
 	}
 
-	public void setResEndDate(Date resEndDate) {
+	public void setResEndDate(String resEndDate) {
 		this.resEndDate = resEndDate;
 	}
 
-	public Date getResDate() {
+	public String getResDate() {
 		return resDate;
 	}
 
-	public void setResDate(Date resDate) {
+	public void setResDate(String resDate) {
 		this.resDate = resDate;
 	}
 

@@ -36,9 +36,9 @@ public class ReservationDaoImpl implements ReservationDao {
 		return session.selectList(namespace + ".meetingPeopleList");
 	}
 	@Override
-	public List<Reservation> resList() {
+	public List<Reservation> resList(String brId) {
 		// TODO Auto-generated method stub
-		return session.selectList(namespace + ".resList" );
+		return session.selectList(namespace + ".resList" ,brId);
 	}
 	@Override
 	public List<Branch> branchList() {
