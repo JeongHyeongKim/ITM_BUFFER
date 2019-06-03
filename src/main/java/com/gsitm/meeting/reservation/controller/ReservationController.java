@@ -1,5 +1,6 @@
 package com.gsitm.meeting.reservation.controller;
 
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import com.gsitm.meeting.branch.dto.Branch;
 import com.gsitm.meeting.reservation.dto.Reservation;
 import com.gsitm.meeting.reservation.service.ReservationService;
 import com.gsitm.meeting.room.dto.MeetingRoom;
+import com.gsitm.meeting.users.service.EmployeeService;
 
 @Controller
 @RequestMapping("/reservation")
@@ -24,8 +26,12 @@ public class ReservationController {
 	@Autowired
 	private ReservationService resService;
 	
+	@Autowired
+	private EmployeeService empService;
+	
 	@GetMapping("/list/{brId}")
-	public String resList(Model model,@PathVariable String brId) {
+	public String resList(Model model,@PathVariable String brId, Principal principal) {
+		model.addAttribute("deptCost", empService.getDeptCost(principal.getName()));
 		model.addAttribute("resList",resService.resList(brId));
 		model.addAttribute("branchList",resService.branchList());
 		model.addAttribute("mrTypeList",resService.mrTypeList());

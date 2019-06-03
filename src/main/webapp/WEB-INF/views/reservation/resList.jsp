@@ -16,6 +16,18 @@
           <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
         </ul>
     </div>
+    <div class="col-md-12">
+    	<div class="tile">
+    		<div id="scheduledMeeting" style="display: inline-block;">
+    			<h3 class="tile-title">예정된 회의실 사용예정 : </h3>
+    			<h3 class="tile-title">본사 - 산토리니</h3>
+    		</div>
+    		<div id="deptCost" style="float: right;">
+    			<h3 class="tile-title">팀별회의실 누적금액 : </h3>
+    			<h3 class="tile-title" id="cost"> </h3>
+    		</div>
+    	</div>
+    </div>
     <div class="row">
 		<div class="col-md-12">
 			<div class="tile">
@@ -175,6 +187,23 @@
 	            </div> 
           	</div>
           	</div>
+		          	<div class="col-md-6">
+		          <div class="tile">
+		            <h3 class="tile-title">Line Chart</h3>
+		            <div class="embed-responsive embed-responsive-16by9">
+		              <canvas class="embed-responsive-item" id="lineChartDemo"></canvas>
+		            </div>
+		          </div>
+		        </div>
+		        
+		        <div class="col-md-6">
+          <div class="tile">
+            <h3 class="tile-title">Bar Chart</h3>
+            <div class="embed-responsive embed-responsive-16by9">
+              <canvas class="embed-responsive-item" id="barChartDemo"></canvas>
+            </div>
+          </div>
+        </div>
         </div>
 </main>
 <%-- Essential javascripts for application to work--%>
@@ -183,11 +212,10 @@
 <script src="/meeting/resources/js/plugins/fullcalendar.min.js" type="text/javascript"></script>
 <script src="/meeting/resources/js/plugins/jquery-ui.min.js" type="text/javascript"></script>
 <script src="/meeting/resources/js/plugins/jquery.datetimepicker.full.js"></script> 
-
+<script type="text/javascript" src="/meeting/resources/js/plugins/chart.js"></script>
     <script type="text/javascript">
    
      //var newDt = Moment(new Date(date)).format('YYYY-MM-DD'); 
-    
       
       $('#resStartTime').datetimepicker({
     	  'step': 30 
@@ -241,6 +269,8 @@
             ]
     });
     
+    var deptCost = JSON.parse('${deptCost}');
+    $("#cost").text(deptCost);
 }); 
 
 </script>
