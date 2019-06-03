@@ -8,12 +8,27 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript">
+		var buffer;
         $(function() {
-
-            
+        	
+			
+			$('#finallyConfirm').click(function(){
+				console.log(buffer);
+				document.getElementById("hiddenBrId").value=buffer;
+                $('#deleteBranch').submit();
+            });
+			
+			
 
 
         });
+        
+        function modelOpen(brId){
+			buffer=brId;
+			console.log(buffer);
+        }
+        
+		
     </script>
     <title>지사조회</title>
 </head>
@@ -28,12 +43,43 @@
         </div>
 
         <div style="text-align:right">
-            <a class="btn btn-primary btn-sm" href="/meeting/branch/create">+</a>&nbsp;&nbsp;<a class="btn btn-primary btn-sm" href="/meeting/branch/delete">-</a>
+            <a class="btn btn-primary btn-sm" href="/meeting/branch/create">회의실 추가</a>
         </div>
         <div>
             <c:forEach items='${branchList}' var="branchList">
-                <div class="row" style="border-top:1px solid; border-bottom:1px solid; padding-top:15px;padding-bottom:15px">
-                    <div class="col-md-4">
+            <!--  modal start -->
+              <div class="modal fade" id="confirm" role="dialog"> 
+				    <div class="modal-dialog">
+				      <!-- Modal content-->
+				      <div class="modal-content">
+				        <div class="modal-header">
+				        	<h4 class="modal-title" style="text-align:center;">정말로 삭제하시겠습니까?</h4>
+				        	<button type="button" class="close" data-dismiss="modal">×</button>
+				        </div>	
+				        <div class="modal-body"> 
+					        <div class="modal-footer" style="margin-top:20px">
+					        	<div class="row mb-10">
+				                   <div class="col-md-12">
+
+				                   <form action="/meeting/branch/delete" method="POST" id="deleteBranch">
+				                   
+				                  	<input type="hidden" name="_csrf" value="${_csrf.token}">
+				                  	<input type="hidden" name="brId" id="hiddenBrId">
+				                     <button class="btn btn-success" id="finallyConfirm" type="button" ><i class="fa fa-fw fa-lg fa-check-circle" ></i>확인</button>
+				                     <button class="btn btn-success"  type="button"><i class="fa fa-fw fa-lg fa-check-circle"></i>취소</button>
+				                     </form>
+				                     
+				                   </div>
+				                </div>
+					        </div> 
+				      </div>
+				      </div>
+				   </div>
+         	     </div>
+              <!-- modal end -->
+                <div class="row" style="border-top:1px solid; border-bottom:1px solid; padding-top:15px;padding-bottom:15px" >
+                <!-- onclick="location.href='/meeting/branch/read/${branchList.brId}';" -->
+                    <div class="col-md-4"> 
 
                         <div style="text-align:center">	
                             <%-- <img class="user-img" src="${branchList.brImg}" height=235px style="border-radius: 10px;"> --%>
@@ -41,32 +87,38 @@
                         </div>
                     </div> 
 
-
+					
                     <div class="col-md-8" style="border-left: 1px solid; padding-left:50px">
+                    <div style="text-align:right;">
+                                    <a class="btn btn-primary" href="#confirm" data-toggle="modal" style="text-align:right;" onclick="modelOpen('${branchList.brId}')"><i class="fa fa-lg fa-trash"></i></a>
+                                            
+                                    </div>
                         <div>
                             <div class="tile-body">
                                 <div class="form-horizontal">
-                                    <div class="form-group row" style="padding-top:25px; ">
-                                        <label class="control-label">지사 &nbsp이름</label>
+                                    <div class="form-group row" style="padding-top:25px; "> 
                                         <div class="col-md-8">
-                                            ${branchList.brName}
+                                            <h2>${branchList.brName}</h2>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">  
+                                        
+                                        <div class="col-md-8">
+                                        	<img  src="/meeting/resources/img/house.png" width="30px" height="30px">
+                                            &nbsp&nbsp ${branchList.brLocation}
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="control-label">지사 &nbsp주소</label>
                                         <div class="col-md-8">
-                                            ${branchList.brLocation}
+                                        <img  src="/meeting/resources/img/phone.png" width="30px" height="30px">
+                                        
+                                            &nbsp&nbsp ${branchList.brTel}
                                         </div>
                                     </div>
-                                    <div class="form-group row">
-                                        <label class="control-label">대표 &nbsp번호</label>
-                                        <div class="col-md-8">
-                                            ${branchList.brTel}
-                                        </div>
-                                    </div>
+                                    
 
                                     <div class="form-group row">
-                                        <label class="control-label" style="padding-top:10px">회의실목록</label>
+                                        <img  src="/meeting/resources/img/meetingroom.png" width="30px" height="30px">
                                         <div class="col-md-8" style="padding-top:10px">
                                             <div class="meetingRoomList">
                                                 <c:forEach items='${meetingRoomListOrderByBranch}' var="meetingRoomList" varStatus="status">
@@ -74,6 +126,7 @@
                                                         ${meetingRoomList.MRNAME} &nbsp / &nbsp
                                                     </c:if>
                                                 </c:forEach>
+                                                
                                             </div>
                                         </div>
                                     </div>
@@ -83,7 +136,10 @@
                     </div>
                 </div>
             </c:forEach>
+            
+            
         </div>
+
 
 
     </main>

@@ -47,6 +47,7 @@ public class BranchController {
 	
 	@PostMapping("/delete")
 	public String branchDelete(String brId) {
+		System.out.println(brId);
 		brService.branchDelete(brId);
 		return "redirect:/branch/list";
 	}
