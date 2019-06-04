@@ -15,4 +15,5 @@ public interface ReservationDao {
 	public void writeReservation(Reservation reservation);
 	public List<MeetingRoom> mrTypeList();
 	public List<MeetingRoom> mrLimitList();
+	public List<Reservation> mrReservationList(String mrId);
 }

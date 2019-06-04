@@ -16,19 +16,22 @@
           <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
         </ul>
     </div>
+    
+    <div class="row">
     <div class="col-md-12">
     	<div class="tile">
-    		<div id="scheduledMeeting" style="display: inline-block;">
-    			<h3 class="tile-title">예정된 회의실 사용예정 : </h3>
-    			<h3 class="tile-title">본사 - 산토리니</h3>
-    		</div>
-    		<div id="deptCost" style="float: right;">
-    			<h3 class="tile-title">팀별회의실 누적금액 : </h3>
-    			<h3 class="tile-title" id="cost"> </h3>
+    		<div class="tile-body" style="width:100%;">
+		    	<div id="scheduledMeeting" style="display: inline-block;">
+		    		<h3 class="tile-title">예정된 회의실 사용예정 : </h3>
+		    		<h3 class="tile-title">본사 - 산토리니</h3>
+		    	</div>
+		    	<div id="deptCost" style="display: inline-block;text-align:right">
+		    		<h3 class="tile-title">팀별회의실 누적금액 : </h3>
+		    		<h3 class="tile-title" id="cost"> </h3>
+		    	</div>
     		</div>
     	</div>
     </div>
-    <div class="row">
 		<div class="col-md-12">
 			<div class="tile">
 				<div class="tile-body" style="width:100%;text-align:right">
@@ -214,8 +217,6 @@
 <script src="/meeting/resources/js/plugins/jquery.datetimepicker.full.js"></script> 
 <script type="text/javascript" src="/meeting/resources/js/plugins/chart.js"></script>
     <script type="text/javascript">
-   
-     //var newDt = Moment(new Date(date)).format('YYYY-MM-DD'); 
       
       $('#resStartTime').datetimepicker({
     	  'step': 30 
@@ -227,7 +228,7 @@
     	  'step': 30 
       });
     </script>
-    <!-- <script>
+    <%-- <script>
     
 	$(function(){
 		$.ajax({
@@ -239,7 +240,7 @@
 			}
 		})
 	})
-</script> -->
+</script> --%>
 
 <script>
  $(document).ready(function() { 

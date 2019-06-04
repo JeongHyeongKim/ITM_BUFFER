@@ -3,7 +3,7 @@
 
 <!-- 게시판 네임스페이스(사용영역) 설정 -->
 <mapper namespace="com.gsitm.meeting.mappers.reservationMapper">
-	<select id="resList" resultType="reservation" parameterType="string">
+	<select id="resList" resultType="Reservation" parameterType="string">
 		select r.res_id resId,e.EMP_NAME empName, to_char(res_start_time,'YYYY-MM-DD"T"HH24:MI:SS') resStartDate,to_char(res_end_time,'YYYY-MM-DD"T"HH24:MI:SS') redEndDate ,m.mr_name mrName,r.emp_id empId
 		from employee e ,reservation r,meeting_room m
 		where e.emp_id = r.emp_id
@@ -16,17 +16,25 @@
 		values (#{resId}, #{empId}, #{meId}, #{resStartDate}, #{resEndDate},#{resDate},#{resPurpose},#{resAttendCnt},#{resAddRequest},#{resState},#{resSnack},#{resType},#{resCancle},#{resCost},#{resOutside})
 	</insert>
 	<select id="meetingRoomList" resultType="MeetingRoom" parameterType="string">
-		select mr_name mrName, r.br_id brId, mr_limit mrLimit,b.BR_LOCATION brLocation, mr_area mrArea, mr_network mrNetwork, 
+		select mr_name mrName, r.br_id brId,r.mr_id mrId, mr_limit mrLimit,b.BR_LOCATION brLocation, mr_area mrArea, mr_network mrNetwork, 
 		mr_type mrType, e.emp_name empName, mr_location mrLocation, mr_img mrImg
 		from branch b, meeting_room r, employee e
 		where  b.BR_ID=r.br_id 
 		and r.emp_id = e.emp_id
 		and b.br_id=#{brId}
 	</select>
+	<select id="mrReservationList" resultType="Reservation" parameterType="string">
+		select r.res_id resId,e.EMP_NAME empName, to_char(res_start_time,'YYYY-MM-DD"T"HH24:MI:SS') resStartDate,to_char(res_end_time,'YYYY-MM-DD"T"HH24:MI:SS') redEndDate ,m.mr_name mrName,r.emp_id empId
+		from employee e ,reservation r,meeting_room m
+		where e.emp_id = r.emp_id
+		and m.mr_id = r.mr_id
+		and r.res_state='res_2'
+		and r.mr_id=#{mrId}
+	</select>
 	<select id="meetingPeopleList" resultType="Employee">
 		SELECT EMP_ID empId, EMP_NAME empName FROM EMPLOYEE
 	</select>
-	<select id="branchList" resultType="branch">
+	<select id="branchList" resultType="Branch">
 		select br_name brName,br_id brId from branch
 	</select>
 	<select id="mrTypeList" resultType="MeetingRoom">

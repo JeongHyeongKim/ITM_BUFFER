@@ -51,9 +51,9 @@ public class ReservationController {
 		return "reservation/resShortMain";
 	}
 	
-	@GetMapping("/resShortDetail")
-	public String resshortDetail(Model model) {
-		//model.addAttribute("",resService.)
+	@GetMapping("/resShortDetail/{mrId}")
+	public String resshortDetail(Model model,@PathVariable String mrId) {
+		model.addAttribute("mrReservationList",resService.mrReservationList(mrId));
 		return "reservation/resShortDetail";
 	}
 }

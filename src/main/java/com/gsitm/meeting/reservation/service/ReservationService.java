@@ -47,4 +47,7 @@ public class ReservationService {
 	public List<MeetingRoom> mrLimitList(){
 		return resDao.mrLimitList();
 	}
+	public List<Reservation> mrReservationList(String mrId){
+		return resDao.mrReservationList(mrId);
+	}
 }

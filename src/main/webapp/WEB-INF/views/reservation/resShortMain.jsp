@@ -4,7 +4,7 @@
 <main class="app-content">
 	<div class="app-title">
         <div>
-          <h1><i class="fa fa-building"></i>회의실 예약</h1>
+          <h1><i class="fa fa-calendar"></i>회의실 예약</h1>
           <p>지사를 선택한 뒤, 회의실을 확인하세요</p>
         </div>
         <ul class="app-breadcrumb breadcrumb">
@@ -29,7 +29,7 @@
           <!-- 회의실 정보 -->
             
             <c:forEach items='${resShortMain}' var="resShortList">
-             <div class="tab-pane active" id="meeting-room" onclick="location.href ='/meeting/reservation/resShortDetail/${resShortList.brId}'">
+             <div class="tab-pane active" id="meeting-room" onclick="location.href ='/meeting/reservation/resShortDetail/${resShortList.mrId}'">
               <div class="card">
                 <h4 class="card-header">${resShortList.mrName }</h4>
                 <div class="card-body">
