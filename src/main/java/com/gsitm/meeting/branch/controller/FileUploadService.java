@@ -4,8 +4,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 import org.springframework.web.multipart.MultipartFile;
-
-import com.gsitm.meeting.branch.dao.BranchDaoImpl;
 import com.gsitm.meeting.branch.service.BranchService;
 
 public class FileUploadService { // 미완성
