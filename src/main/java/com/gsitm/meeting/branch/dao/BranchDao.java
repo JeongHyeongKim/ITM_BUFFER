@@ -26,6 +26,8 @@ public interface BranchDao {
 	public List<MeetingRoom> meetingRoomListInBranch(String branchId);
 	
 	public List<HashMap<String,String>> meetingRoomListOrderByBranch();
+	
+	public String branchGetRecentImgId();
 
 }
 	

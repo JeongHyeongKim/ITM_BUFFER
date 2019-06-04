@@ -84,6 +84,14 @@ public class BranchService {
 		
 		return brDao.meetingRoomListOrderByBranch();
 	}
+	public int branchGetRecentImgId() {
+		String recentId = brDao.branchGetRecentImgId();
+		recentId = recentId.split("brimg")[1]; // 숫자부분 추출
+		
+		int brIdInt = Integer.parseInt(recentId.split(".")[0])+1;
+		return brIdInt;
+		
+	}
 		
 	
 }

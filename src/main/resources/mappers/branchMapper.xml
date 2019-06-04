@@ -43,5 +43,9 @@
 		select  br.br_id brId, mr.mr_name mrName from meeting_room mr, branch br where br.br_id = mr.br_id
 	</select>
 	
+	<select id="branchImgMostRecent" resultType="string">
+		select max(br_img) brImg from branch
+	</select>
+	
 
 </mapper>

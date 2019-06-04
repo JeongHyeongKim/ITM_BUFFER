@@ -7,6 +7,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.gsitm.meeting.branch.dto.Branch;
 import com.gsitm.meeting.branch.service.BranchService;
@@ -17,6 +20,7 @@ public class BranchController {
 	
 	@Autowired
 	private BranchService brService;
+	private FileUploadService fileUploadService;
 	
 	@GetMapping("/list")
 	public String branchList(Model model) {
@@ -57,5 +61,13 @@ public class BranchController {
 		return "branch/branchCreate";
 	}
 	
+	
+	@RequestMapping( "/upload" )
+	public String upload(Model model,@RequestParam("email") String email,@RequestParam("file1") MultipartFile file) {
+		
+		String url = fileUploadService.restore(file);
+		model.addAttribute("url", url);
+		return "result";
+	}
 	
 }

@@ -74,6 +74,13 @@ public class BranchDaoImpl implements BranchDao{
 
 
 
+	@Override
+	public String branchGetRecentImgId() {
+		return session.selectOne(namespace+".branchImgMostRecent");
+	}
+
+
+
 	
 	
 	
