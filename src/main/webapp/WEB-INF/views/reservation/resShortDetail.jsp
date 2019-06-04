@@ -18,8 +18,8 @@
         </ul>
     </div>
     <div class="row">
-		<div class="col-md-12">
-			<div class="tile row" style="width:100%;text-align:right;">
+		<div class="col-md-12" style="width:100%;text-align:right;">
+			<div class="tile row">
 	          <div id="calendar"></div>
 	          <div style="padding-top:50px"><input type="button" value="예약신청" class="btn btn-primary"/></div>
           	</div>
