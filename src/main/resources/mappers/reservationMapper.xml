@@ -15,7 +15,7 @@
 		insert into reservation (RES_ID,EMP_ID, MR_ID, RES_START_TIME, RES_END_TIME,RES_TIME,RES_PURPOSE,RES_ATTEND_CNT,RES_ADD_REQUEST,RES_STATE,RES_SNACK,RES_TYPE,RES_CANCLE,RES_COST,RES_OUTSIDE)
 		values (#{resId}, #{empId}, #{meId}, #{resStartDate}, #{resEndDate},#{resDate},#{resPurpose},#{resAttendCnt},#{resAddRequest},#{resState},#{resSnack},#{resType},#{resCancle},#{resCost},#{resOutside})
 	</insert>
-	<select id="meetingRoomList" resultType="com.gsitm.meeting.reservation.dto.ReservationDTO$ReservationTest" parameterType="string">
+	<select id="meetingRoomList" resultType="com.gsitm.meeting.room.dto.MeetingRoomDTO$MeetingRoomTest" parameterType="string">
 		select mr_name mrName, r.br_id brId,r.mr_id mrId, mr_limit mrLimit,b.BR_LOCATION brLocation, mr_area mrArea, mr_network mrNetwork, 
 		mr_type mrType, e.emp_name empName, mr_location mrLocation, mr_img mrImg
 		from branch b, meeting_room r, employee e
@@ -31,16 +31,16 @@
 		and r.res_state='res_2'
 		and r.mr_id=#{mrId}
 	</select>
-	<select id="meetingPeopleList" resultType="Employee">
+	<select id="meetingPeopleList" resultType="EmployeeVO">
 		SELECT EMP_ID empId, EMP_NAME empName FROM EMPLOYEE
 	</select>
-	<select id="branchList" resultType="Branch">
+	<select id="branchList" resultType="BranchVO">
 		select br_name brName,br_id brId from branch
 	</select>
-	<select id="mrTypeList" resultType="MeetingRoom">
+	<select id="mrTypeList" resultType="MeetingRoomVO">
 		select distinct(mr_type) mrType from meeting_room 
 	</select>
-	<select id="mrLimitList" resultType="MeetingRoom">
+	<select id="mrLimitList" resultType="MeetingRoomVO">
 		select distinct(mr_limit) mrLimit from meeting_room
 	</select>
 </mapper>

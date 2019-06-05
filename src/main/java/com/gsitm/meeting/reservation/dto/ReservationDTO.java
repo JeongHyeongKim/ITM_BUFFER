@@ -20,11 +20,14 @@ public class ReservationDTO {
 		private String resCancle;
 		private int resCost;
 		private int resOutside;
+		
+		
 		//예약자 이름
 		private String empName;
 		//예약정보 중 회의실 이름
 		private String mrName;
 		
+
 		public String getMrName() {
 			return mrName;
 		}
@@ -160,13 +163,12 @@ public class ReservationDTO {
 		public void setResOutside(int resOutside) {
 			this.resOutside = resOutside;
 		}
-
+		
+		
 		public ReservationTest() {
 			super();
 		}
-	
-		
-	
+
 		@Override
 		public String toString() {
 			StringBuilder builder = new StringBuilder();
@@ -210,8 +212,7 @@ public class ReservationDTO {
 
 		public ReservationTest(String resId, String empId, String mrId, String resStartDate, String resEndDate,
 				String resDate, String resPurpose, int resAttendCnt, String resAddRequest, String resState,
-				int resSnack, String resType, String resCancle, int resCost, int resOutside, String empName,
-				String mrName) {
+				int resSnack, String resType, String resCancle, int resCost, int resOutside,String empName, String mrName) {
 			super();
 			this.resId = resId;
 			this.empId = empId;
@@ -231,6 +232,8 @@ public class ReservationDTO {
 			this.empName = empName;
 			this.mrName = mrName;
 		}
+	
+		
 
 		
 	}
