@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.gsitm.meeting.branch.dao.DepartmentHeadDaoImpl;
-import com.gsitm.meeting.branch.dto.DepartmentHead;
+import com.gsitm.meeting.branch.dto.DepartmentHeadDTO;
 
 @Service
 public class DepartmentHeadService {
@@ -14,23 +14,23 @@ public class DepartmentHeadService {
 	@Autowired
 	private DepartmentHeadDaoImpl deptHeadDao;
 	
-	public List<DepartmentHead> departmentHeadList(){
+	public List<DepartmentHeadDTO> departmentHeadList(){
 		return deptHeadDao.departmentHeadList();
 	}
 	
-	public DepartmentHead departmentHeadOneByEmpId(String empId) {
+	public DepartmentHeadDTO departmentHeadOneByEmpId(String empId) {
 		return deptHeadDao.departmentHeadOneByEmpId(empId);
 	}
 	
-	public DepartmentHead departmentHeadOneByDeptId(String deptId) {
+	public DepartmentHeadDTO departmentHeadOneByDeptId(String deptId) {
 		return deptHeadDao.departmentHeadOneByDeptId(deptId);
 	}
 	
-	public void departmentHeadCreate(DepartmentHead departmentHead){
+	public void departmentHeadCreate(DepartmentHeadDTO departmentHead){
 		deptHeadDao.departmentHeadCreate(departmentHead);
 	}
 	
-	public void departmentHeadUpdate(DepartmentHead departmentHead) {
+	public void departmentHeadUpdate(DepartmentHeadDTO departmentHead) {
 		deptHeadDao.departmentHeadUpdate(departmentHead);
 	}
 	

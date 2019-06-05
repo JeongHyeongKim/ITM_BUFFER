@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.gsitm.meeting.branch.dto.Branch;
+import com.gsitm.meeting.branch.dto.BranchDTO;
 import com.gsitm.meeting.branch.service.BranchService;
 
 @Controller
@@ -37,13 +37,13 @@ public class BranchController {
 	}
 	
 	@PostMapping("/write")
-	public String branchInsert(Branch branch) {
+	public String branchInsert(BranchDTO branch) {
 		brService.branchInsert(branch);
 		return "redirect:/branch/list"; //리턴중, 리다이렉트는 url형식으로 전달된다.
 	}
 	
 	@PostMapping("/update")
-	public String branchUpdate(Branch branch) {
+	public String branchUpdate(BranchDTO branch) {
 		System.out.println("update!!!!!!!!!!!!!!!!!!!!!");
 		brService.branchUpdate(branch);
 		return "redirect:/branch/list";

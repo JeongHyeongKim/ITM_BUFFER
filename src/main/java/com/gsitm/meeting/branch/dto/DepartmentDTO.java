@@ -1,12 +1,12 @@
 package com.gsitm.meeting.branch.dto;
 
-public class Department {
+public class DepartmentDTO {
 	private String deptId;
 	private String deptName;
 	private int deptCost;
 	private String brId;
 	
-	public Department() {
+	public DepartmentDTO() {
 		super();
 	}
 	public String getDeptId() {

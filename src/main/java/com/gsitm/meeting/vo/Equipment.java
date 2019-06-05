@@ -1,4 +1,4 @@
-package com.gsitm.meeting.room.dto;
+package com.gsitm.meeting.vo;
 
 public class Equipment {
 	

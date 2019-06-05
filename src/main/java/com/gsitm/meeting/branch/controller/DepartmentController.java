@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.gsitm.meeting.branch.dto.Department;
+import com.gsitm.meeting.branch.dto.DepartmentDTO;
 import com.gsitm.meeting.branch.service.DepartmentService;
 
 @Controller
@@ -33,13 +33,13 @@ public class DepartmentController {
 	}
 	
 	@PostMapping("/write")
-	public String departmentInsert(Department department) { //실제로 데이터가 입력되는 매서드
+	public String departmentInsert(DepartmentDTO department) { //실제로 데이터가 입력되는 매서드
 		deptService.departmentCreate(department);
 		return "redirect:/department/list";
 	}
 	
 	@PostMapping("/update")
-	public String departmentUpdate(Department department) {
+	public String departmentUpdate(DepartmentDTO department) {
 		deptService.departmentUpdate(department);
 		return "redirect:/department/list";
 	}

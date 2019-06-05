@@ -6,10 +6,10 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.gsitm.meeting.branch.dto.Branch;
-import com.gsitm.meeting.reservation.dto.Reservation;
-import com.gsitm.meeting.room.dto.MeetingRoom;
-import com.gsitm.meeting.users.dto.Employee;
+import com.gsitm.meeting.branch.dto.BranchDTO;
+import com.gsitm.meeting.reservation.dto.ReservationDTO;
+import com.gsitm.meeting.room.dto.MeetingRoomDTO;
+import com.gsitm.meeting.users.dto.EmployeeDTO;
 
 @Repository
 public class ReservationDaoImpl implements ReservationDao {
@@ -25,46 +25,46 @@ public class ReservationDaoImpl implements ReservationDao {
 	}*/
 
 	@Override
-	public List<MeetingRoom> meetingRoomList(String brId) {
+	public List<MeetingRoomDTO> meetingRoomList(String brId) {
 		// TODO Auto-generated method stub
 		return session.selectList(namespace + ".meetingRoomList", brId);
 	}
 
 	@Override
-	public List<Employee> meetingPeopleList() {
+	public List<EmployeeDTO> meetingPeopleList() {
 		// TODO Auto-generated method stub
 		return session.selectList(namespace + ".meetingPeopleList");
 	}
 	@Override
-	public List<Reservation> resList(String brId) {
+	public List<ReservationDTO> resList(String brId) {
 		// TODO Auto-generated method stub
 		return session.selectList(namespace + ".resList" ,brId);
 	}
 	@Override
-	public List<Branch> branchList() {
+	public List<BranchDTO> branchList() {
 		// TODO Auto-generated method stub
 		return session.selectList(namespace+".branchList");
 	}
 
 	@Override
-	public void writeReservation(Reservation reservation) {
+	public void writeReservation(ReservationDTO reservation) {
 		// TODO Auto-generated method stub
 		session.insert(namespace+".writeReservation", reservation);
 	}
 
 	@Override
-	public List<MeetingRoom> mrTypeList() {
+	public List<MeetingRoomDTO> mrTypeList() {
 		// TODO Auto-generated method stub
 		return session.selectList(namespace+".mrTypeList");
 	}
 
-	public List<MeetingRoom> mrLimitList() {
+	public List<MeetingRoomDTO> mrLimitList() {
 		// TODO Auto-generated method stub
 		return session.selectList(namespace+".mrLimitList");
 	}
 
 	@Override
-	public List<Reservation> mrReservationList(String mrId) {
+	public List<ReservationDTO> mrReservationList(String mrId) {
 		// TODO Auto-generated method stub
 		return session.selectList(namespace+".mrReservationList",mrId);
 	}

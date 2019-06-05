@@ -2,14 +2,14 @@ package com.gsitm.meeting.branch.dao;
 
 import java.util.List;
 
-import com.gsitm.meeting.branch.dto.Department;
+import com.gsitm.meeting.branch.dto.DepartmentDTO;
 
 public interface DepartmentDao {
 	
-	public void  departmentCreate(Department department);
-	public List<Department>  departmentList();
-	public Department departmentOne(String deptId);
-	public void departmentUpdate(Department department);
+	public void  departmentCreate(DepartmentDTO department);
+	public List<DepartmentDTO>  departmentList();
+	public DepartmentDTO departmentOne(String deptId);
+	public void departmentUpdate(DepartmentDTO department);
 	public void departmentDelete(String deptId);
 
 }

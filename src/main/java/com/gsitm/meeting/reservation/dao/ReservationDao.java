@@ -2,18 +2,18 @@ package com.gsitm.meeting.reservation.dao;
 
 import java.util.List;
 
-import com.gsitm.meeting.branch.dto.Branch;
-import com.gsitm.meeting.reservation.dto.Reservation;
-import com.gsitm.meeting.room.dto.MeetingRoom;
-import com.gsitm.meeting.users.dto.Employee;
+import com.gsitm.meeting.branch.dto.BranchDTO;
+import com.gsitm.meeting.reservation.dto.ReservationDTO;
+import com.gsitm.meeting.room.dto.MeetingRoomDTO;
+import com.gsitm.meeting.users.dto.EmployeeDTO;
 
 public interface ReservationDao {
-	public List<Reservation> resList(String brId);
-	public List<MeetingRoom> meetingRoomList(String brId);
-	public List<Employee> meetingPeopleList();
-	public List<Branch> branchList();
-	public void writeReservation(Reservation reservation);
-	public List<MeetingRoom> mrTypeList();
-	public List<MeetingRoom> mrLimitList();
-	public List<Reservation> mrReservationList(String mrId);
+	public List<ReservationDTO> resList(String brId);
+	public List<MeetingRoomDTO> meetingRoomList(String brId);
+	public List<EmployeeDTO> meetingPeopleList();
+	public List<BranchDTO> branchList();
+	public void writeReservation(ReservationDTO reservation);
+	public List<MeetingRoomDTO> mrTypeList();
+	public List<MeetingRoomDTO> mrLimitList();
+	public List<ReservationDTO> mrReservationList(String mrId);
 }

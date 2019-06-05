@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.gsitm.meeting.notice.dto.Notice;
+import com.gsitm.meeting.notice.dto.NoticeDTO;
 import com.gsitm.meeting.notice.service.NoticeService;
 
 @Controller
@@ -36,7 +36,7 @@ public class NoticeController {
 	}
 	
 	@PostMapping("/write")
-	public String noticeInsert(Notice notice) {
+	public String noticeInsert(NoticeDTO notice) {
 		noticeService.noticeInsert(notice);
 		return "redirect:/notice/list";
 	}
@@ -53,9 +53,14 @@ public class NoticeController {
 		return "notice/noticeUpdate";
 	}
 	@PostMapping("/update")
-	public String noticeUpdate(Notice notice) {
+	public String noticeUpdate(NoticeDTO notice) {
 		noticeService.noticeUpdate(notice);
 		return "redirect:/notice/list/1";
 	}
 
+	//noticeDTO사용예제
+	public String noticeTest(Model model) {
+		model.addAttribute("test",noticeService.noticeTest());
+		return "notice/noticeTestPage";
+	}
 }

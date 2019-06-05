@@ -2,7 +2,7 @@ package com.gsitm.meeting.reservation.dto;
 
 import java.util.Date;
 
-public class Recognition {
+public class RecognitionDTO {
 	
 	private String recId;
 	private String deptHeadId;
@@ -11,7 +11,7 @@ public class Recognition {
 	private String resId;
 	private Date recRefuse;
 	
-	public Recognition() {
+	public RecognitionDTO() {
 		super();
 	}
 	public String getRecId() {

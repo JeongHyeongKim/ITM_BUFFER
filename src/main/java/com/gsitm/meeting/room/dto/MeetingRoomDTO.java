@@ -1,6 +1,6 @@
 package com.gsitm.meeting.room.dto;
 
-public class MeetingRoom {
+public class MeetingRoomDTO {
 	
 	private String mrId;
 	private String mrName;
@@ -39,7 +39,7 @@ public class MeetingRoom {
 	}
 
 
-	public MeetingRoom() {
+	public MeetingRoomDTO() {
 		super();
 	}
 

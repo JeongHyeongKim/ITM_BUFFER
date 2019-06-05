@@ -7,8 +7,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.gsitm.meeting.branch.dto.Branch;
-import com.gsitm.meeting.room.dto.MeetingRoom;
+import com.gsitm.meeting.branch.dto.BranchDTO;
+import com.gsitm.meeting.room.dto.MeetingRoomDTO;
 
 @Repository
 public class BranchDaoImpl implements BranchDao{
@@ -19,14 +19,14 @@ public class BranchDaoImpl implements BranchDao{
 	private String namespace = "com.gsitm.meeting.mappers.branchMapper";
 
 	@Override
-	public List<Branch> branchList() {
+	public List<BranchDTO> branchList() {
 		return session.selectList(namespace+".branchList");
 	}
 
 
 
 	@Override
-	public Branch branchOne(String branchId) {
+	public BranchDTO branchOne(String branchId) {
 		return session.selectOne(namespace+".branchOne", branchId);
 	}
 
@@ -40,14 +40,14 @@ public class BranchDaoImpl implements BranchDao{
 
 
 	@Override
-	public void branchUpdate(Branch branch) {
+	public void branchUpdate(BranchDTO branch) {
 		session.update(namespace+".branchUpdate", branch);
 	}
 
 
 
 	@Override
-	public void branchCreate(Branch branch) {
+	public void branchCreate(BranchDTO branch) {
 		session.insert(namespace+".branchInsert", branch);
 	}
 
@@ -61,7 +61,7 @@ public class BranchDaoImpl implements BranchDao{
 
 
 	@Override
-	public List<MeetingRoom> meetingRoomListInBranch(String branchId) {
+	public List<MeetingRoomDTO> meetingRoomListInBranch(String branchId) {
 		return session.selectList(namespace+".meetingRoomInBranch",branchId);
 	}
 

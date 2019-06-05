@@ -6,8 +6,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.gsitm.meeting.reservation.dto.Reservation;
-import com.gsitm.meeting.users.dto.Employee;
+import com.gsitm.meeting.reservation.dto.ReservationDTO;
+import com.gsitm.meeting.users.dto.EmployeeDTO;
 
 @Repository
 public class EmployeeDaoImpl implements EmployeeDao{
@@ -43,7 +43,7 @@ public class EmployeeDaoImpl implements EmployeeDao{
 	}
 
 	@Override
-	public Employee getCurrentId(String empId) {
+	public EmployeeDTO getCurrentId(String empId) {
 		return session.selectOne(namespace + ".getCurrentId", empId); 
 	}
 
@@ -53,7 +53,7 @@ public class EmployeeDaoImpl implements EmployeeDao{
 	}
 
 	@Override
-	public Reservation getReservationByEmpId(String empId) {
+	public ReservationDTO getReservationByEmpId(String empId) {
 		return session.selectOne(namespace + ".getReservationByEmpId", empId);
 	}
 

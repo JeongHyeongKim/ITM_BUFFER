@@ -8,8 +8,8 @@ import org.springframework.stereotype.Service;
 
 import com.google.gson.Gson;
 import com.gsitm.meeting.branch.dao.BranchDaoImpl;
-import com.gsitm.meeting.branch.dto.Branch;
-import com.gsitm.meeting.room.dto.MeetingRoom;
+import com.gsitm.meeting.branch.dto.BranchDTO;
+import com.gsitm.meeting.room.dto.MeetingRoomDTO;
 
 @Service
 public class BranchService {
@@ -20,7 +20,7 @@ public class BranchService {
 	@Autowired
 	private Gson gson;
 	
-	public List<Branch> branchList(){
+	public List<BranchDTO> branchList(){
 		System.out.println(brDao.branchList());
 		return brDao.branchList();
 	}
@@ -30,7 +30,7 @@ public class BranchService {
 		return gson.toJson(brDao.branchOne(branchId));
 	}
 	
-	public void branchInsert(Branch branch) {
+	public void branchInsert(BranchDTO branch) {
 		System.out.println("branch_insert");
 		String recentId = brDao.BranchGetRecent();
 		System.out.println(recentId);
@@ -65,7 +65,7 @@ public class BranchService {
 	}
 	
 	
-	public void branchUpdate(Branch branch) {
+	public void branchUpdate(BranchDTO branch) {
 		brDao.branchUpdate(branch);
 	}
 	
@@ -73,7 +73,7 @@ public class BranchService {
 		brDao.branchDelete(brId);
 	}
 	
-	public List<MeetingRoom> meetingRoomListInBranch(String brId){
+	public List<MeetingRoomDTO> meetingRoomListInBranch(String brId){
 		System.out.println("check");
 		System.out.println("check"+brDao.meetingRoomListInBranch(brId));
 		return brDao.meetingRoomListInBranch(brId);

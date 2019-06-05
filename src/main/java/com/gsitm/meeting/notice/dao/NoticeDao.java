@@ -3,19 +3,22 @@ package com.gsitm.meeting.notice.dao;
 import java.util.List;
 import java.util.Map;
 
-import com.gsitm.meeting.notice.dto.Notice;
+import com.gsitm.meeting.notice.dto.NoticeDTO;
 
 public interface NoticeDao {
 
-	public List<Notice> noticeList(Map map);
+	public List<NoticeDTO> noticeList(Map map);
 	
 	public int noticeCount();
 	
-	public Notice noticeRead(int noticeId);
+	public NoticeDTO noticeRead(int noticeId);
 	
-	public void noticeInsert(Notice notice);
+	public void noticeInsert(NoticeDTO notice);
 	
 	public int noticeDelete(int noticeId);
 	
-	public void noticeUpdate(Notice notice);
+	public void noticeUpdate(NoticeDTO notice);
+	
+	// DTO사용예제
+	public NoticeDTO.NoticeTest noticeTest();
 }

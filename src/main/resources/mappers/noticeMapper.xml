@@ -34,4 +34,7 @@
 		update notice set notice_title = #{noticeTitle}, notice_content = #{noticeContent} where notice_id = #{noticeId}
 	</update>
 	
+	<select id="noticeTest" resultType="com.gsitm.notice.dto.NoticeDTO$NoticeTest">
+		select notice_id noticeId, notice_title noticeTitle from notice where notice_id = 13
+	</select>
 </mapper>

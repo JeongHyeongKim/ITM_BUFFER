@@ -1,11 +1,11 @@
 package com.gsitm.meeting.branch.dto;
 
-public class DepartmentHead {
+public class DepartmentHeadDTO {
 	
 	private String empID;
 	private String deptId;
 	
-	public DepartmentHead() {
+	public DepartmentHeadDTO() {
 		super();
 	}
 	public String getEmpID() {

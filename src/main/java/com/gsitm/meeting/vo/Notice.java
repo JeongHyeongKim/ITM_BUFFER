@@ -1,4 +1,4 @@
-package com.gsitm.meeting.notice.dto;
+package com.gsitm.meeting.vo;
 
 import java.util.Date;
 

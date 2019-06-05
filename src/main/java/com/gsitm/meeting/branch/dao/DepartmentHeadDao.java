@@ -6,15 +6,15 @@ import com.gsitm.meeting.branch.dto.*;
 
 public interface DepartmentHeadDao {
 	
-	public void departmentHeadCreate(DepartmentHead departmentHead);
+	public void departmentHeadCreate(DepartmentHeadDTO departmentHead);
 	
-	public List<DepartmentHead> departmentHeadList();
+	public List<DepartmentHeadDTO> departmentHeadList();
 	
-	public DepartmentHead departmentHeadOneByEmpId(String empId);
+	public DepartmentHeadDTO departmentHeadOneByEmpId(String empId);
 	
-	public DepartmentHead departmentHeadOneByDeptId(String deptId);
+	public DepartmentHeadDTO departmentHeadOneByDeptId(String deptId);
 	
-	public void departmentHeadUpdate(DepartmentHead departmentHead);
+	public void departmentHeadUpdate(DepartmentHeadDTO departmentHead);
 	
 	public void departmentHeadDelete(String empId);
 	

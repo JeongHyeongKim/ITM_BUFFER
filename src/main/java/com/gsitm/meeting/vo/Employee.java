@@ -1,4 +1,4 @@
-package com.gsitm.meeting.users.dto;
+package com.gsitm.meeting.vo;
 
 public class Employee {
 	

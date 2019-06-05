@@ -1,13 +1,13 @@
 package com.gsitm.meeting.reservation.dto;
 
-public class Attendee {
+public class AttendeeDTO {
 	
 	private String resId;
 	private String attendId;
 	private String attendType;
 	private String deptId;
 	
-	public Attendee () {
+	public AttendeeDTO () {
 		super();
 	}
 

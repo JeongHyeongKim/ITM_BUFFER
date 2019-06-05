@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.gsitm.meeting.branch.dto.Branch;
-import com.gsitm.meeting.reservation.dto.Reservation;
+import com.gsitm.meeting.branch.dto.BranchDTO;
+import com.gsitm.meeting.reservation.dto.ReservationDTO;
 import com.gsitm.meeting.reservation.service.ReservationService;
-import com.gsitm.meeting.room.dto.MeetingRoom;
+import com.gsitm.meeting.room.dto.MeetingRoomDTO;
 import com.gsitm.meeting.users.service.EmployeeService;
 
 @Controller
@@ -39,7 +39,7 @@ public class ReservationController {
 		return "reservation/resList";
 	}
 	@PostMapping("/writeReservation")
-	public String writeReservation(Reservation reservation) {
+	public String writeReservation(ReservationDTO reservation) {
 		resService.writeReservation(reservation);
 		return "redirect:/reservation/list"; //리턴중, 리다이렉트는 url형식으로 전달된다.
 	}

@@ -1,6 +1,6 @@
 package com.gsitm.meeting.branch.dto;
 
-public class Branch {
+public class BranchDTO {
 	
 	private String brId;
 	private String brName;
@@ -8,7 +8,7 @@ public class Branch {
 	private String brTel;
 	private String brImg;
 	
-	public Branch() {
+	public BranchDTO() {
 		super();
 	}
 
