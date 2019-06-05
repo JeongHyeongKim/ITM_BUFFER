@@ -38,7 +38,7 @@ public class BranchController {
 	public String branchInsert( @RequestParam("brId")String brId, @RequestParam("brName") String brName,
 			@RequestParam("brLocation") String brLocation, @RequestParam("brTel") String brTel,
 			@RequestParam("brImg") MultipartFile brImg) {
-		String url = fileUploadService.restore(brImg);
+		String url = fileUploadService.restore(brImg,"");
 		Branch branch = new Branch(brId, brName, brLocation, brTel, url);
 		
 		brService.branchInsert(branch);
@@ -68,7 +68,7 @@ public class BranchController {
 	@RequestMapping( "/upload" )
 	public String upload(Model model,@RequestParam("email") String email,@RequestParam("file1") MultipartFile file) {
 		
-		String url = fileUploadService.restore(file);
+		String url = fileUploadService.restore(file,"");
 		model.addAttribute("url", url);
 		return "result";
 	}
