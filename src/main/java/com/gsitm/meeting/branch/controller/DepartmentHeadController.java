@@ -8,8 +8,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.gsitm.meeting.branch.dto.DepartmentHeadDTO;
+
 import com.gsitm.meeting.branch.service.DepartmentHeadService;
+import com.gsitm.meeting.vo.DepartmentHead;
 
 @Controller
 @RequestMapping("/departmentHead")
@@ -31,7 +32,7 @@ public class DepartmentHeadController {
 	}
 	
 	@PostMapping("/write")
-	public String departmentHeadInsert(DepartmentHeadDTO departmentHead) {
+	public String departmentHeadInsert(DepartmentHead departmentHead) {
 		deptHeadService.departmentHeadCreate(departmentHead);
 		return "redirect/departmentHead/list";
 	}
@@ -48,7 +49,7 @@ public class DepartmentHeadController {
 	}
 	
 	@PostMapping("/update")
-	public String departmentHeadUpdate(DepartmentHeadDTO departmentHead) {
+	public String departmentHeadUpdate(DepartmentHead departmentHead) {
 		deptHeadService.departmentHeadUpdate(departmentHead);
 		return "redirect:/departmentHead/list";
 	}

@@ -2,19 +2,21 @@ package com.gsitm.meeting.branch.dao;
 
 import java.util.List;
 
-import com.gsitm.meeting.branch.dto.*;
+import com.gsitm.meeting.vo.DepartmentHead;
+
+
 
 public interface DepartmentHeadDao {
 	
-	public void departmentHeadCreate(DepartmentHeadDTO departmentHead);
+	public void departmentHeadCreate(DepartmentHead departmentHead);
 	
-	public List<DepartmentHeadDTO> departmentHeadList();
+	public List<DepartmentHead> departmentHeadList();
 	
-	public DepartmentHeadDTO departmentHeadOneByEmpId(String empId);
+	public DepartmentHead departmentHeadOneByEmpId(String empId);
 	
-	public DepartmentHeadDTO departmentHeadOneByDeptId(String deptId);
+	public DepartmentHead departmentHeadOneByDeptId(String deptId);
 	
-	public void departmentHeadUpdate(DepartmentHeadDTO departmentHead);
+	public void departmentHeadUpdate(DepartmentHead departmentHead);
 	
 	public void departmentHeadDelete(String empId);
 	

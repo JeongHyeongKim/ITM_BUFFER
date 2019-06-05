@@ -6,7 +6,9 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.gsitm.meeting.branch.dto.DepartmentDTO;
+import com.gsitm.meeting.vo.Department;
+
+
 
 @Repository
 public class DepartmentDaoImpl implements DepartmentDao{
@@ -19,23 +21,23 @@ public class DepartmentDaoImpl implements DepartmentDao{
 
 
 	@Override
-	public List<DepartmentDTO> departmentList() {
+	public List<Department> departmentList() {
 		return session.selectList(namespace+".departmentList");
 	}
 
 	@Override
-	public DepartmentDTO departmentOne(String deptId) {
+	public Department departmentOne(String deptId) {
 		return session.selectOne(namespace+".departmentOne", deptId);
 	}
 
 	@Override
-	public void departmentCreate(DepartmentDTO department) {
+	public void departmentCreate(Department department) {
 		session.insert(namespace+".departmentInsert", department);
 		
 	}
 
 	@Override
-	public void departmentUpdate(DepartmentDTO department) {
+	public void departmentUpdate(Department department) {
 		session.update(namespace+".departmentUpdate", department);
 	}
 

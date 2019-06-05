@@ -6,7 +6,9 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.gsitm.meeting.branch.dto.DepartmentHeadDTO;
+import com.gsitm.meeting.vo.DepartmentHead;
+
+
 
 @Repository
 public class DepartmentHeadDaoImpl implements DepartmentHeadDao{
@@ -19,24 +21,24 @@ public class DepartmentHeadDaoImpl implements DepartmentHeadDao{
 
 
 	@Override
-	public List<DepartmentHeadDTO> departmentHeadList() {
+	public List<DepartmentHead> departmentHeadList() {
 		return session.selectList(namespace+".departmentHeadList");
 	}
 
 	@Override
-	public DepartmentHeadDTO departmentHeadOneByEmpId(String empId) {
+	public DepartmentHead departmentHeadOneByEmpId(String empId) {
 		return session.selectOne(namespace+".departmentHeadOneByEmpId");
 	}
 
 
 	@Override
-	public void departmentHeadCreate(DepartmentHeadDTO departmentHead) {
+	public void departmentHeadCreate(DepartmentHead departmentHead) {
 		session.insert(namespace+".departmentHeadCreate", departmentHead);
 		
 	}
 
 	@Override
-	public void departmentHeadUpdate(DepartmentHeadDTO departmentHead) {
+	public void departmentHeadUpdate(DepartmentHead departmentHead) {
 		session.update(namespace+".departmentHeadUpdate", departmentHead);
 		
 	}
@@ -47,7 +49,7 @@ public class DepartmentHeadDaoImpl implements DepartmentHeadDao{
 	}
 
 	@Override
-	public DepartmentHeadDTO departmentHeadOneByDeptId(String deptId) {
+	public DepartmentHead departmentHeadOneByDeptId(String deptId) {
 		return session.selectOne(namespace+".departmentHeadHeadOneByDeptId");
 	}
 	
