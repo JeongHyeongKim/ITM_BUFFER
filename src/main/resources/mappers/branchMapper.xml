@@ -4,12 +4,12 @@
 <!-- 게시판 네임스페이스(사용영역) 설정 -->
 <mapper namespace="com.gsitm.meeting.mappers.branchMapper">
 
-	<select id="branchList" resultType="branch">
+	<select id="branchList" resultType="branchVO">
 		select br_id brId, br_name brName, br_location brLocation, br_tel brTel, br_img brImg from branch order by br_id asc
 	</select>
 	
 
-	<select id="branchOne" resultType="branch">
+	<select id="branchOne" resultType="branchVO">
 		select br_id brId, br_name brName, br_location brLocation, br_tel brTel, br_img brImg
 		 from branch
 		 where br_id = #{brId}
@@ -35,7 +35,7 @@
 		select max(br_id) brId from branch
 	</select>
 	
-	<select id="meetingRoomInBranch" resultType="meetingroom">
+	<select id="meetingRoomInBranch" resultType="meetingroomVO">
 		select mr_name mrName from meeting_room where br_id = #{brId}
 	</select>
 	

@@ -5,25 +5,26 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
-import com.gsitm.meeting.branch.dto.BranchDTO;
-import com.gsitm.meeting.room.dto.MeetingRoomDTO;
+import com.gsitm.meeting.vo.Branch;
+import com.gsitm.meeting.vo.MeetingRoom;
+
 
 public interface BranchDao {
 	
 
-	public List<BranchDTO> branchList();
+	public List<Branch> branchList();
 	
 	public void branchDelete(String branchId);
 	
-	public BranchDTO branchOne(String branchId);
+	public Branch branchOne(String branchId);
 	
-	public void branchUpdate(BranchDTO branch);
+	public void branchUpdate(Branch branch);
 	
-	public void branchCreate(BranchDTO branch);
+	public void branchCreate(Branch branch);
 	
 	public String BranchGetRecent();
 	
-	public List<MeetingRoomDTO> meetingRoomListInBranch(String branchId);
+	public List<MeetingRoom> meetingRoomListInBranch(String branchId);
 	
 	public List<HashMap<String,String>> meetingRoomListOrderByBranch();
 	
