@@ -4,11 +4,11 @@
 <!-- 게시판 네임스페이스(사용영역) 설정 -->
 <mapper namespace="com.gsitm.meeting.mappers.departmentMapper">
 
-	<select id="departmentList" resultType="department">
+	<select id="departmentList" resultType="departmentVO">
 		select dept_id deptId, dept_name deptName, dept_cost deptCost, br_id brId from department
 	</select>
 	
-	<select id="departmentOne" resultType="department">
+	<select id="departmentOne" resultType="departmentVO">
 		select dept_id deptId, dept_name deptName, dept_cost deptCost, br_id brId
 		from department
 		where dept_id = #{deptId}
