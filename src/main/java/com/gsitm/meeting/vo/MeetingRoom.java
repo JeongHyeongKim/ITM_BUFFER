@@ -13,31 +13,6 @@ public class MeetingRoom {
 	private String empId;
 	private String mrLocation;
 	private String mrImg;
-	
-	//�ܱ⿹����������� �������̸�
-	private String empName;
-	//ȸ�ǽ� ��ġ
-	private String brLocation;
-	
-	public String getBrLocation() {
-		return brLocation;
-	}
-
-
-	public void setBrLocation(String brLocation) {
-		this.brLocation = brLocation;
-	}
-
-
-	public String getEmpName() {
-		return empName;
-	}
-
-
-	public void setEmpName(String empName) {
-		this.empName = empName;
-	}
-
 
 	public MeetingRoom() {
 		super();
@@ -179,10 +154,6 @@ public class MeetingRoom {
 		builder.append(mrLocation);
 		builder.append(", mrImg=");
 		builder.append(mrImg);
-		builder.append(", empName=");
-		builder.append(empName);
-		builder.append(", brLocation=");
-		builder.append(brLocation);
 		builder.append("]");
 		return builder.toString();
 	}

@@ -14,14 +14,14 @@
         </div>
         <ul class="app-breadcrumb breadcrumb">
           <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
-          <li class="breadcrumb-item"><a href="resShortMain.jsp">회의실 예약</a></li>
+          <li class="breadcrumb-item"><a href="/meeting/reservation/resShortMain/br_0001">회의실 예약</a></li>
         </ul>
     </div>
     <div class="row">
 		<div class="col-md-12" style="width:100%;text-align:right;">
 			<div class="tile row">
 	          <div id="calendar"></div>
-	          <div style="padding-top:50px"><input type="button" value="예약신청" class="btn btn-primary"/></div>
+	          <div style="padding-top:50px"><input type="button" value="예약신청" class="btn btn-primary" onclick="location.href='/meeting/reservation/resWrite'"/></div>
           	</div>
          </div>
      </div>

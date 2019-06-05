@@ -20,27 +20,6 @@ public class Reservation {
 	private int resCost;
 	private int resOutside;
 	
-	//������Ȳ
-	private String empName;
-	//예약정보 중 회의실 이름
-	private String mrName;
-	
-	public String getMrName() {
-		return mrName;
-	}
-
-	public void setMrName(String mrName) {
-		this.mrName = mrName;
-	}
-
-	public String getEmpName() {
-		return empName;
-	}
-
-	public void setEmpName(String empName) {
-		this.empName = empName;
-	}
-
 	public Reservation() {
 		
 	}
