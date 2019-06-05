@@ -9,9 +9,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
-
-import com.gsitm.meeting.branch.dto.BranchDTO;
 import com.gsitm.meeting.branch.service.BranchService;
 import com.gsitm.meeting.vo.Branch;
 
@@ -38,7 +35,12 @@ public class BranchController {
 	}
 	
 	@PostMapping("/write")
-	public String branchInsert(Branch branch) {
+	public String branchInsert( @RequestParam("brId")String brId, @RequestParam("brName") String brName,
+			@RequestParam("brLocation") String brLocation, @RequestParam("brTel") String brTel,
+			@RequestParam("brImg") MultipartFile brImg) {
+		String url = fileUploadService.restore(brImg);
+		Branch branch = new Branch(brId, brName, brLocation, brTel, url);
+		
 		brService.branchInsert(branch);
 		return "redirect:/branch/list"; //리턴중, 리다이렉트는 url형식으로 전달된다.
 	}

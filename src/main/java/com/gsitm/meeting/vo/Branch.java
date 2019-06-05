@@ -11,6 +11,14 @@ public class Branch {
 	public Branch() {
 		super();
 	}
+	
+	public Branch(String brId, String brName, String brLocation, String brTel, String brImg) {
+		this.brId = brId;
+		this.brName = brName;
+		this.brLocation = brLocation;
+		this.brTel = brTel;
+		this.brImg = brImg;
+	}
 
 	public String getBrId() {
 		return brId;

@@ -23,7 +23,7 @@
             </ul>
         </div>
 
-		<form action="/meeting/branch/write" method="POST">
+		<form action="/meeting/branch/write" method="POST" enctype="multipart/form-data">
         <div class="row">
         	<input type="hidden" name="brId" value="0">
         	<input type="hidden" name="_csrf" value="${_csrf.token}">
@@ -46,7 +46,7 @@
                             <div class="form-group row">
                                 <label class="control-label">지사 주소 : </label>
                                 <div class="col-md-8">
-                                    <input class="form-control"  placeholder="주소를 입력해주세요" name="brLocation" >
+                                    <input class="form-control"  type="text" placeholder="주소를 입력해주세요" name="brLocation" >
                                 </div>
                             </div>
                             <div class="form-group row">
