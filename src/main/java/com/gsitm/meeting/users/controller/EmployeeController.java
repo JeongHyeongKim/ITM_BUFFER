@@ -29,10 +29,9 @@ public class EmployeeController {
 	}
 	
 	@GetMapping("/users/mypage")
-	public String myReservation(Model model, Principal principal) {
-		System.out.println(empService.getReservationByEmpId(principal.getName()));
+	public String myReservation(Model model, Principal principal, String searchtype) {
 		model.addAttribute("myCost",empService.getDeptCost(principal.getName()));
-		model.addAttribute("myInfo",empService.getReservationByEmpId(principal.getName()));
+		model.addAttribute("myInfo",empService.getReservationByEmpId(principal.getName(), searchtype));
 		return "/users/mypage";
 	}
 }

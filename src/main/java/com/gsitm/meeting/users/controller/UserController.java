@@ -33,9 +33,7 @@ public class UserController {
 	
 	@PostMapping("/users/getCurrentId")
 	public ResponseEntity<Employee> getCurrentId(Model model, Principal principal) {
-		
 		Employee userId = empService.getCurrentId(principal.getName());
-		System.out.println(userId);
 		return new ResponseEntity<>(userId, userId != null ? HttpStatus.OK : HttpStatus.BAD_REQUEST);
 	}
 }

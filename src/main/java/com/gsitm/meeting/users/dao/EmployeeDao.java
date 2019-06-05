@@ -1,10 +1,12 @@
 package com.gsitm.meeting.users.dao;
 
+import java.util.List;
 import java.util.Map;
+
+import org.apache.ibatis.annotations.Param;
 
 import com.gsitm.meeting.users.dto.EmployeeDTO;
 import com.gsitm.meeting.vo.Employee;
-import com.gsitm.meeting.vo.Reservation;
 
 public interface EmployeeDao {
 
@@ -22,5 +24,5 @@ public interface EmployeeDao {
 	
 	public int getDeptCost(String empId);
 	
-	public EmployeeDTO.MyPageInfo getReservationByEmpId(String empId);
+	public List<EmployeeDTO.MyPageInfo> getReservationByEmpId(String empId, @Param("searchtype")String searchtype);
 }

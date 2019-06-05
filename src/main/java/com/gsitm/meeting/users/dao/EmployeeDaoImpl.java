@@ -1,5 +1,6 @@
 package com.gsitm.meeting.users.dao;
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -8,7 +9,6 @@ import org.springframework.stereotype.Repository;
 
 import com.gsitm.meeting.users.dto.EmployeeDTO;
 import com.gsitm.meeting.vo.Employee;
-import com.gsitm.meeting.vo.Reservation;
 
 @Repository
 public class EmployeeDaoImpl implements EmployeeDao{
@@ -54,8 +54,8 @@ public class EmployeeDaoImpl implements EmployeeDao{
 	}
 
 	@Override
-	public EmployeeDTO.MyPageInfo getReservationByEmpId(String empId) {
-		return session.selectOne(namespace + ".getReservationByEmpId", empId);
+	public List<EmployeeDTO.MyPageInfo> getReservationByEmpId(String empId, String searchtype) {
+		return session.selectList(namespace + ".getReservationByEmpId", empId);
 	}
 
 }

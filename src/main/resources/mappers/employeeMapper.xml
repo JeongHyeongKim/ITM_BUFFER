@@ -38,5 +38,22 @@
 		to_char(res_end_time) resEndTime, to_char(res_time) resDate, res_purpose resPurpose, res_state resState, res_type resType, res_cost resCost 
 		from reservation, branch, meeting_room
 		where reservation.mr_id = meeting_room.mr_id and meeting_room.br_id = branch.br_id and reservation.emp_id = #{empId}
+		<if test="searchtype !=null">
+			<if test="searchtype == 'schduledMeeting'.toString()">
+				and res_state = 'res_2' 
+			</if>
+			<if test="searchtype == 'oneWeek'.toString()">
+				<![CDATA[and ((sysdate - 7) < res_start_time)]]>
+			</if>
+			<if test="searchtype == 'oneMonth'.toString()">
+				<![CDATA[and ((sysdate - 30) < res_start_time)]]> 
+			</if>
+			<if test="searchtype == 'sixMonth'.toString()">
+				<![CDATA[and ((sysdate - 180) < res_start_time)]]> 
+			</if>
+			<if test="searchtype == 'oneYear'.toString()">
+				<![CDATA[and ((sysdate - 365) < res_start_time)]]> 
+			</if>
+		</if>
 	</select>
 </mapper>

@@ -12,18 +12,51 @@
 		
 		$("#deptCost").text(myCost +"(원)");
 		
-		var $meetingList = $("#meetingList");
-		var $divCol12 = $("<div></div>").attr("class","col-md-12");
-		var $divTile = $("<div></div>").attr("class","tile");
+		$.each(myInfo, function(i, $list) {
+			var $meetingList = $("#meetingList");
+			var $divCol12 = $("<div></div>").attr("class","col-md-12").appendTo($meetingList);
+			var $divTile = $("<div></div>").attr("class","tile").appendTo($divCol12);
+			
+			$("<p class='tile-title'></p>").text($list.resStartTime).appendTo($divTile);
+			$("<hr>").appendTo($divTile);
+			var $divBlock = $("<div></div>").css("display","inline-block").appendTo($divTile);
+			$("<p></p>").text("10 : 30 - 11 : 00").appendTo($divBlock);
+			$("<p></p>").text($list.brName + " - " + $list.mrName).appendTo($divBlock);
+			var currentState = mappingState($list.resState);
+			
+			var $divBtn = $("<div></div>").css("float","right").appendTo($divTile);
+			$("<button></button>").attr("class","btn btn-warning").text(currentState).appendTo($divBtn);
+			
+		})
 		
-		// 정보뿌리기부터
+		function mappingState(resState){
+			var state = null;
+			if(resState == "res_0"){
+				return state = "1차승인대기"
+			} else if(resState == "res_1"){
+				return state = "2차승인대기"
+			} else if(resState == "res_2"){
+				return state = "예약완료"
+			} else if(resState == "res_3"){
+				return state = "반려된예약"
+			} else if(resState == "res_4"){
+				return state = "취소된예약"
+			} else if(resState == "res_5"){
+				return state = "사용종료"
+			} else {
+				return state = "미사용"
+			} 
+		}
 		$("#oneWeek").on("click",function(){
 			
 		})
 	})
 </script>
 <style type="text/css">
-	#meetingInfo{display: inline-block;}
+	#meetingInfo{
+		display: inline-block;
+		
+	}
 	#deptCostInfo{ float : right;}
 	#mypageTitle{background-color: gray;}
 	#btnGroup{margin-left:2%;}
