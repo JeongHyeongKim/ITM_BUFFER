@@ -68,9 +68,5 @@ public class ReservationDaoImpl implements ReservationDao {
 		// TODO Auto-generated method stub
 		return session.selectList(namespace+".mrReservationList",mrId);
 	}
-	
-	
-	
-	
 
 }

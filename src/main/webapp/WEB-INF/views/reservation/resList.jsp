@@ -156,10 +156,10 @@
 			                    <div class="col-md-4">
 			                      <label>간식</label><br>
 			                      <div class="animated-checkbox">
-					              <label>
-					                <input type="checkbox" name="resSnack"><span class="label-text">간식 있음</span>
-					              </label>
-					            </div>
+						              <label>
+						                <input type="checkbox" name="resSnack"><span class="label-text">간식 있음</span>
+						              </label>
+					              </div>
 			                    </div>
 			                  </div>
 					        <div class="modal-footer" style="margin-top:20px">
@@ -216,7 +216,7 @@
 <script src="/meeting/resources/js/plugins/jquery-ui.min.js" type="text/javascript"></script>
 <script src="/meeting/resources/js/plugins/jquery.datetimepicker.full.js"></script> 
 <script type="text/javascript" src="/meeting/resources/js/plugins/chart.js"></script>
-    <script type="text/javascript">
+<script type="text/javascript">
       
       $('#resStartTime').datetimepicker({
     	  'step': 30 
@@ -227,7 +227,7 @@
       $('#searchDate').datetimepicker({
     	  'step': 30 
       });
-    </script>
+</script>
     <%-- <script>
     
 	$(function(){

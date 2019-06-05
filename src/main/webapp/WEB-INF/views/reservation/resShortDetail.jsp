@@ -18,10 +18,9 @@
         </ul>
     </div>
     <div class="row">
-		<div class="col-md-12" style="width:100%;text-align:right;">
+		<div class="col-md-12" style="width:100%;">
 			<div class="tile row">
 	          <div id="calendar"></div>
-	          <div style="padding-top:50px"><input type="button" value="예약신청" class="btn btn-primary" onclick="location.href='/meeting/reservation/resWrite'"/></div>
           	</div>
          </div>
      </div>
@@ -31,7 +30,9 @@
 <script src="/meeting/resources/js/plugins/fullcalendar.min.js" type="text/javascript"></script>
 <script src="/meeting/resources/js/plugins/jquery-ui.min.js" type="text/javascript"></script>
 <script src="/meeting/resources/js/plugins/jquery.datetimepicker.full.js"></script> 
+<script src="/meeting/resources/js/plugins/sweetalert.min.js"></script>
 <script>
+
  $(document).ready(function() { 
     $('#calendar').fullCalendar({
         header: {
@@ -47,7 +48,7 @@
         eventLimit: true, // allow "more" link when too many events
         
         events : [
-        	 <c:forEach items="${mrReservationList}" var="list" varStatus="status"> 
+        	 <c:forEach items="${mrReservationList}" var="list" varStatus="status">  
             { 
                id : '${list.resId}', 
                title : '${list.mrName}-${list.empName}',
@@ -56,8 +57,33 @@
                backgroundColor:'#ffc107'
             },
         	</c:forEach> 
-            ]
+            ],
+        dayClick: function(date, allDay, jsEvent, view) {
+        	var str="";
+        	var yy=date.format("YYYY");
+        	var mm=date.format("MM");
+        	var dd=date.format("DD");
+        	str = yy+"/"+mm+"/"+dd+" ";
+        	swal({
+          		title: "예약 신청",
+          		text: str+"에 예약을 진행하시겠습니까?",
+          		
+          		showCancelButton: true,
+          		confirmButtonText: "예약 신청",
+          		cancelButtonText: "취소",
+          		closeOnConfirm: false,
+          		closeOnCancel: false
+          	}, function(isConfirm) {
+          		if (isConfirm) {
+          			window.sessionStorage.setItem("currentDate",str);
+          			document.location.href="/meeting/reservation/resWrite";
+          		} else {
+          			location.reload();
+          		}
+          	});
+        }
     });
+    
     
 }); 
 

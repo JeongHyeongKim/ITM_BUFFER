@@ -17,11 +17,13 @@
 	</insert>
 	<select id="meetingRoomList" resultType="com.gsitm.meeting.room.dto.MeetingRoomDTO$MeetingRoomTest" parameterType="string">
 		select mr_name mrName, r.br_id brId,r.mr_id mrId, mr_limit mrLimit,b.BR_LOCATION brLocation, mr_area mrArea, mr_network mrNetwork, 
-		mr_type mrType, e.emp_name empName, mr_location mrLocation, mr_img mrImg
-		from branch b, meeting_room r, employee e
+		mr_type mrType, e.emp_name empName, mr_location mrLocation, mr_img mrImg, LISTAGG(eq.eq_id,',') WITHIN GROUP(ORDER BY r.mr_id) AS eqId 
+		from branch b, meeting_room r, employee e,equipment eq
 		where  b.BR_ID=r.br_id 
 		and r.emp_id = e.emp_id
+		and r.mr_id = eq.mr_id
 		and b.br_id=#{brId}
+		group by mr_name,r.br_id,r.mr_id,mr_limit,b.BR_LOCATION,mr_area,mr_network,mr_type,e.emp_name,mr_location,mr_img
 	</select>
 	<select id="mrReservationList" resultType="com.gsitm.meeting.reservation.dto.ReservationDTO$ReservationTest" parameterType="string">
 		select r.res_id resId,e.EMP_NAME empName, to_char(res_start_time,'YYYY-MM-DD"T"HH24:MI:SS') resStartDate,to_char(res_end_time,'YYYY-MM-DD"T"HH24:MI:SS') redEndDate ,m.mr_name mrName,r.emp_id empId
