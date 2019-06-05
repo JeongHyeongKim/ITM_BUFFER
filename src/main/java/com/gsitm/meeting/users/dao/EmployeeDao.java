@@ -2,8 +2,9 @@ package com.gsitm.meeting.users.dao;
 
 import java.util.Map;
 
-import com.gsitm.meeting.reservation.dto.ReservationDTO;
 import com.gsitm.meeting.users.dto.EmployeeDTO;
+import com.gsitm.meeting.vo.Employee;
+import com.gsitm.meeting.vo.Reservation;
 
 public interface EmployeeDao {
 
@@ -17,9 +18,9 @@ public interface EmployeeDao {
 	
 	public void lockAccount(String id);
 	
-	public EmployeeDTO getCurrentId(String empId);
+	public Employee getCurrentId(String empId);
 	
 	public int getDeptCost(String empId);
 	
-	public ReservationDTO getReservationByEmpId(String empId);
+	public EmployeeDTO.MyPageInfo getReservationByEmpId(String empId);
 }

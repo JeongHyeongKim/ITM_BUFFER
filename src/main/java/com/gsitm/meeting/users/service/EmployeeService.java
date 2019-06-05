@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.google.gson.Gson;
 import com.gsitm.meeting.users.dao.EmployeeDaoImpl;
-import com.gsitm.meeting.users.dto.EmployeeDTO;
+import com.gsitm.meeting.vo.Employee;
 
 @Service
 public class EmployeeService {
@@ -20,7 +20,7 @@ public class EmployeeService {
 		empDao.lockAccount(id);
 	}
 	
-	public EmployeeDTO getCurrentId(String id) {
+	public Employee getCurrentId(String id) {
 		return (empDao.getCurrentId(id));
 	}
 	

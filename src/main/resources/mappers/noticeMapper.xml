@@ -7,7 +7,7 @@
 		select count(*) from notice
 	</select>
 	
-	<select id="noticeList" resultType="notice">
+	<select id="noticeList" resultType="noticeVO">
 		<![CDATA[
 		select notice_id as noticeId, notice_title as noticeTitle, notice_title as noticeTitle, notice_writer as noticeWriter, notice_date as noticeDate from
 				(select rownum rnum, b.* from
@@ -17,7 +17,7 @@
 			]]>
 	</select>
 	
-	<select id="noticeRead" resultType="notice">
+	<select id="noticeRead" resultType="noticeVO">
 		select notice_id noticeId, notice_title noticeTitle, notice_content noticeContent, 
 		notice_writer noticeWriter, notice_date noticeDate from notice where notice_id = #{noticeId}
 	</select>
@@ -34,7 +34,8 @@
 		update notice set notice_title = #{noticeTitle}, notice_content = #{noticeContent} where notice_id = #{noticeId}
 	</update>
 	
-	<select id="noticeTest" resultType="com.gsitm.notice.dto.NoticeDTO$NoticeTest">
+	<select id="noticeTest" resultType="com.gsitm.meeting.notice.dto.NoticeDTO$NoticeTest">
 		select notice_id noticeId, notice_title noticeTitle from notice where notice_id = 13
 	</select>
+	
 </mapper>

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.gsitm.meeting.users.dto.EmployeeDTO;
 import com.gsitm.meeting.users.service.EmployeeService;
+import com.gsitm.meeting.vo.Employee;
 
 @Controller
 public class UserController {
@@ -31,9 +32,9 @@ public class UserController {
 	}
 	
 	@PostMapping("/users/getCurrentId")
-	public ResponseEntity<EmployeeDTO> getCurrentId(Model model, Principal principal) {
+	public ResponseEntity<Employee> getCurrentId(Model model, Principal principal) {
 		
-		EmployeeDTO userId = empService.getCurrentId(principal.getName());
+		Employee userId = empService.getCurrentId(principal.getName());
 		System.out.println(userId);
 		return new ResponseEntity<>(userId, userId != null ? HttpStatus.OK : HttpStatus.BAD_REQUEST);
 	}

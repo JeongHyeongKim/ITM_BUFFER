@@ -23,7 +23,7 @@
 		update employee set enabled = 'disabled' where emp_id = #{id}
 	</update>
 	
-	<select id="getCurrentId" resultType="employee">
+	<select id="getCurrentId" resultType="employeeVO">
 		select emp_name empName, dept_name deptName from employee, department 
 		where employee.dept_id = department.dept_id and  emp_id = #{empId}
 	</select>
@@ -33,10 +33,10 @@
 		where employee.dept_id = department.dept_id and employee.emp_id=#{empId}
 	</select>
 	
-	<select id="getReservationByEmpId" resultType="reservation">
-		select res_id resId, emp_id empId, mr_id mrId, res_start_time resStartTime, 
-		res_end_time resEndTime, res_time resTime, res_purpose resPurpose, res_attend_cnt resAttendCnt,
-		res_add_request resAddRequest, res_state resState, res_snack resSnack, res_type resType, 
-		res_cancle resCancle, res_cost resCost, res_outside resOutside from reservation where emp_id=#{empId}
+	<select id="getReservationByEmpId" resultType="com.gsitm.meeting.users.dto.EmployeeDTO$MyPageInfo">
+		select res_id resId, reservation.emp_id empId, reservation.mr_id mrId, mr_name mrName, br_name brName, to_char(res_start_time) resStartTime,
+		to_char(res_end_time) resEndTime, to_char(res_time) resDate, res_purpose resPurpose, res_state resState, res_type resType, res_cost resCost 
+		from reservation, branch, meeting_room
+		where reservation.mr_id = meeting_room.mr_id and meeting_room.br_id = branch.br_id and reservation.emp_id = #{empId}
 	</select>
 </mapper>

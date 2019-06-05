@@ -2,120 +2,141 @@ package com.gsitm.meeting.users.dto;
 
 public class EmployeeDTO {
 	
-	private String empId;
-	private String empName;
-	private String empPwd;
-	private String deptId;
-	private String brId;
-	private String empLevel;
-	private String empEnabled;
-	private int empFailureCnt;
-	private String empEmail;
-	
-	private String deptName;
-	
-	public EmployeeDTO(String empId, String empName, String empPwd, String deptId, String brId, String empLevel,
-			String empEnabled, int empFailureCnt, String empEmail, String deptName) {
-		super();
-		this.empId = empId;
-		this.empName = empName;
-		this.empPwd = empPwd;
-		this.deptId = deptId;
-		this.brId = brId;
-		this.empLevel = empLevel;
-		this.empEnabled = empEnabled;
-		this.empFailureCnt = empFailureCnt;
-		this.empEmail = empEmail;
-		this.deptName = deptName;
+	public static class MyPageInfo {
+		
+		private String resId;
+		private String empId;
+		private String mrId;
+		private String mrName;
+		private String brName;
+		private String resStartTime;
+		private String resEndTime;
+		private String resDate;
+		private String resPurpose;
+		private String resState;
+		private String resType;
+		private int resCost;
+		public String getResId() {
+			return resId;
+		}
+		public void setResId(String resId) {
+			this.resId = resId;
+		}
+		public String getEmpId() {
+			return empId;
+		}
+		public void setEmpId(String empId) {
+			this.empId = empId;
+		}
+		public String getMrId() {
+			return mrId;
+		}
+		public void setMrId(String mrId) {
+			this.mrId = mrId;
+		}
+		public String getMrName() {
+			return mrName;
+		}
+		public void setMrName(String mrName) {
+			this.mrName = mrName;
+		}
+		public String getBrName() {
+			return brName;
+		}
+		public void setBrName(String brName) {
+			this.brName = brName;
+		}
+		public String getResStartTime() {
+			return resStartTime;
+		}
+		public void setResStartTime(String resStartTime) {
+			this.resStartTime = resStartTime;
+		}
+		public String getResEndTime() {
+			return resEndTime;
+		}
+		public void setResEndTime(String resEndTime) {
+			this.resEndTime = resEndTime;
+		}
+		public String getResDate() {
+			return resDate;
+		}
+		public void setResDate(String resDate) {
+			this.resDate = resDate;
+		}
+		public String getResPurpose() {
+			return resPurpose;
+		}
+		public void setResPurpose(String resPurpose) {
+			this.resPurpose = resPurpose;
+		}
+		public String getResState() {
+			return resState;
+		}
+		public void setResState(String resState) {
+			this.resState = resState;
+		}
+		public String getResType() {
+			return resType;
+		}
+		public void setResType(String resType) {
+			this.resType = resType;
+		}
+		public int getResCost() {
+			return resCost;
+		}
+		public void setResCost(int resCost) {
+			this.resCost = resCost;
+		}
+		public MyPageInfo(String resId, String empId, String mrId, String mrName, String brName, String resStartTime,
+				String resEndTime, String resDate, String resPurpose, String resState, String resType, int resCost) {
+			super();
+			this.resId = resId;
+			this.empId = empId;
+			this.mrId = mrId;
+			this.mrName = mrName;
+			this.brName = brName;
+			this.resStartTime = resStartTime;
+			this.resEndTime = resEndTime;
+			this.resDate = resDate;
+			this.resPurpose = resPurpose;
+			this.resState = resState;
+			this.resType = resType;
+			this.resCost = resCost;
+		}
+		public MyPageInfo() {
+			super();
+		}
+		@Override
+		public String toString() {
+			StringBuilder builder = new StringBuilder();
+			builder.append("getMyPageInfo [resId=");
+			builder.append(resId);
+			builder.append(", empId=");
+			builder.append(empId);
+			builder.append(", mrId=");
+			builder.append(mrId);
+			builder.append(", mrName=");
+			builder.append(mrName);
+			builder.append(", brName=");
+			builder.append(brName);
+			builder.append(", resStartTime=");
+			builder.append(resStartTime);
+			builder.append(", resEndTime=");
+			builder.append(resEndTime);
+			builder.append(", resDate=");
+			builder.append(resDate);
+			builder.append(", resPurpose=");
+			builder.append(resPurpose);
+			builder.append(", resState=");
+			builder.append(resState);
+			builder.append(", resType=");
+			builder.append(resType);
+			builder.append(", resCost=");
+			builder.append(resCost);
+			builder.append("]");
+			return builder.toString();
+		}
+		
 	}
-	public String getDeptName() {
-		return deptName;
-	}
-	public void setDeptName(String deptName) {
-		this.deptName = deptName;
-	}
-	public EmployeeDTO() {
-		super();
-	}
-	public String getEmpId() {
-		return empId;
-	}
-	public void setEmpId(String empId) {
-		this.empId = empId;
-	}
-	public String getEmpName() {
-		return empName;
-	}
-	public void setEmpName(String empName) {
-		this.empName = empName;
-	}
-	public String getEmpPwd() {
-		return empPwd;
-	}
-	public void setEmpPwd(String empPwd) {
-		this.empPwd = empPwd;
-	}
-	public String getDeptId() {
-		return deptId;
-	}
-	public void setDeptId(String deptId) {
-		this.deptId = deptId;
-	}
-	public String getBrId() {
-		return brId;
-	}
-	public void setBrId(String brId) {
-		this.brId = brId;
-	}
-	public String getEmpLevel() {
-		return empLevel;
-	}
-	public void setEmpLevel(String empLevel) {
-		this.empLevel = empLevel;
-	}
-	public String getEmpEnabled() {
-		return empEnabled;
-	}
-	public void setEmpEnabled(String empEnabled) {
-		this.empEnabled = empEnabled;
-	}
-	public int getEmpFailureCnt() {
-		return empFailureCnt;
-	}
-	public void setEmpFailureCnt(int empFailureCnt) {
-		this.empFailureCnt = empFailureCnt;
-	}
-	public String getEmpEmail() {
-		return empEmail;
-	}
-	public void setEmpEmail(String empEmail) {
-		this.empEmail = empEmail;
-	}
-	@Override
-	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("Employee [empId=");
-		builder.append(empId);
-		builder.append(", empName=");
-		builder.append(empName);
-		builder.append(", empPwd=");
-		builder.append(empPwd);
-		builder.append(", deptId=");
-		builder.append(deptId);
-		builder.append(", brId=");
-		builder.append(brId);
-		builder.append(", empLevel=");
-		builder.append(empLevel);
-		builder.append(", empEnabled=");
-		builder.append(empEnabled);
-		builder.append(", empFailureCnt=");
-		builder.append(empFailureCnt);
-		builder.append(", empEmail=");
-		builder.append(empEmail);
-		builder.append(", deptName=");
-		builder.append(deptName);
-		builder.append("]");
-		return builder.toString();
-	}
-
 }
