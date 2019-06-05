@@ -59,24 +59,24 @@
             //console.log(branch);
             //console.log(${branch});
 
-            var brId = branch.brId;
-            var name = branch.brName;
-            var address = branch.brLocation;
-            var tel = branch.brTel;
-            var img = branch.brImg
+            var brId = null;
+            var name = null;
+            var address = null;
+            var tel = null;
+            var img = null;
             //console.log(name);	
 
 
-            document.getElementById("brName").value = name;
-            document.getElementById("brAddress").value = address;
-            document.getElementById("brTel").value = tel;
-            document.getElementById("brId").value = brId;
+            document.getElementById("brName").value = branch.brName;
+            document.getElementById("brAddress").value = branch.brLocation;
+            document.getElementById("brTel").value = branch.brTel;
+            document.getElementById("brId").value = branch.brId;
             
             
             $('#modalOpen').click(function(){
-            	document.getElementById("brName").value = name;
-                document.getElementById("brAddress").value = address;
-                document.getElementById("brTel").value = tel;
+            	name=document.getElementById("brName").value;
+                address=document.getElementById("brAddress").value;
+                tel=document.getElementById("brTel").value;
             	
             	document.getElementById("modalBranchName").innerHTML=name
             	document.getElementById("modalBranchLocation").innerHTML=address

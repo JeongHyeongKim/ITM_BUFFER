@@ -23,7 +23,7 @@
             </ul>
         </div>
 
-		<form action="/meeting/branch/write" method="POST" enctype="multipart/form-data">
+		<form action="write" method="POST" enctype="multipart/form-data">
         <div class="row">
         	<input type="hidden" name="brId" value="0">
         	<input type="hidden" name="_csrf" value="${_csrf.token}">

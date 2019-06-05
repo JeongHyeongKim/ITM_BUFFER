@@ -33,9 +33,6 @@ public class FileUploadService { // 미완성
 			url = PREFIX_URL + saveFileName;
 		}
 		catch (IOException e) {
-			// 원래라면 RuntimeException 을 상속받은 예외가 처리되어야 하지만
-			// 편의상 RuntimeException을 던진다.
-			// throw new FileUploadException();	
 			throw new RuntimeException(e);
 		}
 		return url;

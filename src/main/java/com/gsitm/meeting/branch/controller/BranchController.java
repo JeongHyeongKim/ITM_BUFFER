@@ -1,6 +1,7 @@
 package com.gsitm.meeting.branch.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,11 +36,11 @@ public class BranchController {
 	}
 	
 	@PostMapping("/write")
-	public String branchInsert( @RequestParam("brId")String brId, @RequestParam("brName") String brName,
+	public String branchInsert( @RequestParam("brId") String brId, @RequestParam("brName") String brName,
 			@RequestParam("brLocation") String brLocation, @RequestParam("brTel") String brTel,
-			@RequestParam("brImg") MultipartFile brImg) {
+			@RequestParam("brImg") MultipartFile brImg, Model model) {
 		String url = fileUploadService.restore(brImg,"");
-		Branch branch = new Branch(brId, brName, brLocation, brTel, url);
+		Branch branch = new Branch(brId, brName, brLocation, brTel, url); //branchCreate와 왜 매핑이 안될까? 분명 url상 경로는 잘들어가는 중이다. 404 error
 		
 		brService.branchInsert(branch);
 		return "redirect:/branch/list"; //리턴중, 리다이렉트는 url형식으로 전달된다.
@@ -64,13 +65,5 @@ public class BranchController {
 		return "branch/branchCreate";
 	}
 	
-	
-	@RequestMapping( "/upload" )
-	public String upload(Model model,@RequestParam("email") String email,@RequestParam("file1") MultipartFile file) {
-		
-		String url = fileUploadService.restore(file,"");
-		model.addAttribute("url", url);
-		return "result";
-	}
 	
 }
