@@ -21,7 +21,7 @@
 	              <form class="row">
 	                <div class="form-group col-md-3">
 	                 	<label class="control-label">신청자 명</label>
-                  		<input class="form-control" type="text" >
+                  		<input class="form-control" type="text" id="resName" >
 				     </div>
 				     <div class="form-group col-md-3">
 	                 	<label class="control-label">회의실 명</label>
@@ -77,16 +77,22 @@
 	</div>
 </main>
 <script src="/meeting/resources/js/plugins/jquery.datetimepicker.full.js"></script> 
+<script>
+$(document).ready(function(){
+	 var resStartDate = sessionStorage.getItem("currentDate"); 
+	 resStartDate+="00:00";
+	 $('#resStartDate').val(resStartDate);
+
+ });
+</script>
 <script type="text/javascript">
-      console.log(sessionStorage.getItem("currentDate"))
-      $("#sendForm").on("click",function(){
-    	 /*  sessionStorage.removeAttribute("currentDate"); */
-      })
+      /* $("#sendForm").on("click",function(){
+    	 /* sessionStorage.removeAttribute("currentDate"); 
+      }) */
       $('#resStartDate').datetimepicker({
     	  'step': 30 
       });
       $('#resEndDate').datetimepicker({
     	  'step': 30 
       });
-
 </script>

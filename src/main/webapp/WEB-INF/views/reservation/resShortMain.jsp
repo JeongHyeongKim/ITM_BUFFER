@@ -31,7 +31,7 @@
             
             <c:forEach items='${resShortMain}' var="resShortList">
             <input type="hidden" value="${resShortList.mrName }" id="mrName">
-             <div class="tab-pane active" id="meeting-room" onclick="location.href='/meeting/reservation/resShortDetail/'${resShortList.mrId}">
+             <div class="tab-pane active" id="meeting-room" onclick="location.href='/meeting/reservation/resShortDetail/${resShortList.mrId}'">
               <div class="card">
                 <h4 class="card-header">${resShortList.mrName }</h4>
                 <div class="card-body">
