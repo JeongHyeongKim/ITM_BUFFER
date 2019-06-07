@@ -34,11 +34,11 @@
             </div>
         </div>
         <div class="col-md-9">
-            <div
-                class="tab-content">
+            <div class="tab-content">
                 <!-- 회의실 정보 -->
                 <c:forEach items='${resShortMain}' var="resShortList">
                     <input id="mrName" type="hidden" value="${resShortList.mrName }">
+                    <input id="brName" type="hidden" value="${resShortList.brName }">
                         <div class="tab-pane active" id="meeting-room" onclick="location.href='/meeting/reservation/resShortDetail/${resShortList.mrId}'">
                             <div class="card">
                                 <h4 class="card-header">${resShortList.mrName }</h4>
@@ -109,7 +109,23 @@
             </div>
         </main>
         <script>
-            $('#meeting-room').on("click", function () {
-                window.sessionStorage.setItem("mrName", resShortList.mrName);
+            
+            $(document).ready(function() { 
+            	$('#meeting-room').on("click", function () {
+            		window.sessionStorage.setItem("mrName",$('#mrName').val());
+            		window.sessionStorage.setItem("brName",$('#brName').val());
+            		
+                });
+            	
+            	$.ajax({
+                    url:"/meeting/users/getCurrentId",
+                    method :"post",
+                    data : "_csrf=${_csrf.token}",
+                    success : function(data){
+                       var emp = data
+                       window.sessionStorage.setItem("empName",emp.empName);
+                    }
+                 });
             });
+            
         </script>

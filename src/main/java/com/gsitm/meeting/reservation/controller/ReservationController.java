@@ -1,11 +1,10 @@
 package com.gsitm.meeting.reservation.controller;
 
 import java.security.Principal;
-import java.util.List;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,11 +12,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.gsitm.meeting.branch.dto.BranchDTO;
-import com.gsitm.meeting.vo.Reservation;
 import com.gsitm.meeting.reservation.dto.ReservationDTO;
 import com.gsitm.meeting.reservation.service.ReservationService;
-import com.gsitm.meeting.room.dto.MeetingRoomDTO;
 import com.gsitm.meeting.users.service.EmployeeService;
 
 @Controller

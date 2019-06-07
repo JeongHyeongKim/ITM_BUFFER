@@ -23,6 +23,7 @@
     <div class="row">
         <div class="col-md-12" style="width:100%;">
             <div class="tile row">
+            <h1 id="brName"></h1>
                 <div id="calendar"></div>
             </div>
         </div>
@@ -36,6 +37,7 @@
 <script src="/meeting/resources/js/plugins/sweetalert.min.js"></script>
 <script>
     $(document).ready(function() { 
+    	$("#brName").text(sessionStorage.getItem("brName")+" - "+sessionStorage.getItem("mrName"));
         $('#calendar').fullCalendar({
             header: {
                 left: 'prev,next today',
@@ -86,7 +88,15 @@
             }
         });
         
-        
+        $.ajax({
+            url:"/meeting/users/getCurrentId",
+            method :"post",
+            data : "_csrf=${_csrf.token}",
+            success : function(data){
+               var emp = data
+               console.log(emp.empName);
+            }
+         });
     }); 
     
     </script>

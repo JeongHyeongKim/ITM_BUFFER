@@ -19,7 +19,19 @@ public class MeetingRoomDTO {
 		private String brLocation;
 		//기자재 목록
 		private String eqId;
+		//회의실별 지사 이름
+		private String brName;
 		
+		public String getBrName() {
+			return brName;
+		}
+
+
+		public void setBrName(String brName) {
+			this.brName = brName;
+		}
+
+
 		public String getEqId() {
 			return eqId;
 		}
@@ -167,7 +179,7 @@ public class MeetingRoomDTO {
 
 		public MeetingRoomTest(String mrId, String mrName, String brId, int mrLimit, int mrPrice, int mrArea,
 				String mrNetwork, String mrType, String empId, String mrLocation, String mrImg, String empName,
-				String brLocation,String eqId) {
+				String brLocation,String eqId,String brName) {
 			super();
 			this.mrId = mrId;
 			this.mrName = mrName;
@@ -183,6 +195,7 @@ public class MeetingRoomDTO {
 			this.empName = empName;
 			this.brLocation = brLocation;
 			this.eqId = eqId;
+			this.brName = brName;
 		}
 
 
@@ -217,6 +230,8 @@ public class MeetingRoomDTO {
 			builder.append(brLocation);
 			builder.append(", eqId=");
 			builder.append(eqId);
+			builder.append(", brName=");
+			builder.append(brName);
 			builder.append("]");
 			return builder.toString();
 		}

@@ -228,19 +228,7 @@
     	  'step': 30 
       });
 </script>
-    <%-- <script>
-    
-	$(function(){
-		$.ajax({
-			url : "/meeting/users/getCurrentId",
-			mathod : "post",
-			data : "_csrf=${_csrf.token}",
-			success : function(emp){
-				
-			}
-		})
-	})
-</script> --%>
+
 
 <script>
  $(document).ready(function() { 
@@ -272,6 +260,16 @@
     
     var deptCost = JSON.parse('${deptCost}');
     $("#cost").text(deptCost);
+    
+    $.ajax({
+        url:"/meeting/users/getCurrentId",
+        method :"post",
+        data : "_csrf=${_csrf.token}",
+        success : function(data){
+           var emp = data
+           console.log(emp.empName);
+        }
+     })
 }); 
 
 </script>

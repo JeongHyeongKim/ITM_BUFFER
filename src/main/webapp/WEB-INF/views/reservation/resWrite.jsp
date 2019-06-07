@@ -22,14 +22,14 @@
             <div class="tile row">
                 <h3 class="tile-title">회의실 예약 신청 작성</h3>
                 <div class="tile-body" style="width:100%;">
-                    <form class="row">
+                    <form class="row" id="resForm" method="POST" action="#">
                         <div class="form-group col-md-3">
                             <label class="control-label">신청자 명</label>
-                            <input class="form-control" id="resName" type="text">
+                            <input class="form-control" id="resName" type="text" readonly>
                         </div>
                         <div class="form-group col-md-3">
                             <label class="control-label">회의실 명</label>
-                            <input class="form-control" type="text">
+                            <input class="form-control" id="resMrName" type="text" readonly>
                         </div>
                         <div class="form-group col-md-3">
                             <label class="control-label">회의 구분</label>
@@ -37,7 +37,7 @@
                         </div>
                         <div class="form-group col-md-3">
                             <label class="control-label">최근 회의 목록 불러오기</label>
-                            <input class="form-control" type="button" value="불러오기"/>
+                            <input class="form-control" type="button" value="불러오기" data-target="#MyReservationList" data-toggle="modal"/>
                         </div>
                         <div class="form-group col-md-3">
                             <label class="control-label">예약 시작 일자</label>
@@ -57,8 +57,8 @@
                             <label class="control-label">참석 인원 수</label>
                             <input class="form-control" min="1" type="number">
                         </div>
-                        <div class="form-group col-md-3">
-                            <label class="control-label">기자재</label>&nbsp;&nbsp;<input class="btn btn-outline-primary" data-target="#EquipList" data-toggle="modal" type="button" value="+">
+                        <div class="form-group col-md-3"> 
+                            <label class="control-label">기자재</label>&nbsp;&nbsp;<button class="btn btn-outline-primary" data-target="#EquipList" data-toggle="modal" type="button" >+</button>
                             <input class="form-control" placeholder="기자재를 선택하십시오" type="text">
                         </div>
                         <div class="form-group col-md-3">
@@ -80,14 +80,113 @@
                 </div>
             </div>
         </div>
+         <!-- Modal -->
+        <div class="modal fade" id="MyReservationList" role="dialog">
+			<div class="modal-dialog">
+				<!-- Modal content-->
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title">최근 나의 회의예약신청 목록</h4>
+						<button type="button" class="close" data-dismiss="modal">×</button>
+					</div>
+					<div class="modal-body">
+						<form action="/meeting/reservation/writeReservation" method="POST">
+							<div class="row mb-4">
+							</div>
+							<div class="row">
+							</div>
+							<div class="modal-footer" style="margin-top:20px">
+								<div class="row mb-10">
+									<div class="col-md-12">
+										<input type="submit" class="btn btn-success" data-dismiss="modal" value="예약 작성">
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+        <!-- Modal -->
+		<div class="modal fade" id="EquipList" role="dialog">
+			<div class="modal-dialog">
+				<!-- Modal content-->
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title">기자재 목록</h4>
+						<button type="button" class="close" data-dismiss="modal">×</button>
+					</div>
+					<div class="modal-body">
+						<form action="/meeting/reservation/writeReservation" method="POST">
+							<div class="row mb-4">
+							</div>
+							<div class="row">
+							</div>
+							<div class="modal-footer" style="margin-top:20px">
+								<div class="row mb-10">
+									<div class="col-md-12">
+										<input type="submit" class="btn btn-success" data-dismiss="modal" value="기자재 작성">
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
     </div>
 </main>
 <script src="/meeting/resources/js/plugins/jquery.datetimepicker.full.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.17.0/dist/jquery.validate.min.js"></script>
 <script>
     $(document).ready(function () {
         var resStartDate = sessionStorage.getItem("currentDate");
         resStartDate += "00:00";
         $('#resStartDate').val(resStartDate);
+        $('#resMrName').val(sessionStorage.getItem("mrName"));
+        $.ajax({
+            url:"/meeting/users/getCurrentId",
+            method :"post",
+            data : "_csrf=${_csrf.token}",
+            success : function(data){
+               var emp = data;
+               $('#resName').val(emp.empName);
+            }
+         });
+        $.validator.addMethod("compareDate", function(value, element, params){
+			 return this.optional(element) || (new Date(value) > new Date($(params).val()))
+     	}, "종료 날짜가 시작 날짜보다 빠릅니다.");
+		// END:
+		
+		// validate signup form on keyup and submit
+		$("#resForm").validate({
+			// TODO: 화면에 표시된 rule에 적합하도록 validation 체크 로직을 작성하시오.
+			rules : {
+		             resStartDate : {
+		                required: true
+		             },
+		             resEndDate : {
+		            	compareDate : "#resStartDate",
+		                required: true
+		             }
+			},
+			messages : {
+					resStartDate : {
+		            	required:"필수 항목입니다."
+		            },
+		            resEndDate : {
+		            	required:"필수 항목입니다.",
+		            	compareDate: '시작일은 종료일보다 반드시 빨라야 한다'
+
+		            }
+			},
+			
+			// validation에 실패했을 때 화면 처리
+			highlight : function(element, errorClass) {
+				$(element).next().find("." + errorClass).removeClass("checked");
+				
+			}
+		});
     });
 </script>
 <script type="text/javascript">
