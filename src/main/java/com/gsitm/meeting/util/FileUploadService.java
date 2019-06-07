@@ -1,18 +1,22 @@
-package com.gsitm.meeting.branch.controller;
+package com.gsitm.meeting.util;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import com.gsitm.meeting.branch.service.BranchService;
 
+@Service
 public class FileUploadService { // 미완성
 	
 	private static final String SAVE_PATH = "/upload";
 	private static final String PREFIX_URL = "/upload/";
+	@Autowired
 	private BranchService brService;
 	
-	public String restore(MultipartFile multipartFile, String object) { // 만들 객체마다 다른 기능을 써야한다.
+	public String restore(MultipartFile multipartFile) { // 만들 객체마다 다른 기능을 써야한다.
 		String url = null;
 		
 		try {
@@ -29,7 +33,7 @@ public class FileUploadService { // 미완성
 			System.out.println("size : " + size);
 			System.out.println("saveFileName : " + saveFileName);
 			
-			writeFile(multipartFile, saveFileName, object);
+			writeFile(multipartFile, saveFileName);
 			url = PREFIX_URL + saveFileName;
 		}
 		catch (IOException e) {
@@ -51,7 +55,7 @@ public class FileUploadService { // 미완성
 	
 	
 	// 파일을 실제로 write 하는 메서드
-	private boolean writeFile(MultipartFile multipartFile, String saveFileName,String object)
+	private boolean writeFile(MultipartFile multipartFile, String saveFileName)
 								throws IOException{
 		boolean result = false;
 

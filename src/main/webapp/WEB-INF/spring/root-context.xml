@@ -48,6 +48,13 @@
 		<property name="order" value="2" />
 	</bean>
 	
+
+    <bean id="filterMultipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="maxUploadSize" value="100000000" />
+        <property name="defaultEncoding" value="utf-8" />
+    </bean>
+
+	
 	<!-- AOP 자동 Proxy 객체 생성을 위한 AspectJ 설정 -->
 	<aop:aspectj-autoproxy />
 	<!-- Transactional 애노테이션 사용을 위한 설정 -->

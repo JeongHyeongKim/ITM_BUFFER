@@ -5,10 +5,6 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>지사 수정</title>
-	<script type="text/javascript">
-	
-
-	</script>
 </head>
 
 <body>
@@ -23,7 +19,7 @@
             </ul>
         </div>
 
-		<form action="write" method="POST" enctype="multipart/form-data">
+		<form action="/meeting/file/branchWrite" method="POST" enctype="multipart/form-data">
         <div class="row">
         	<input type="hidden" name="brId" value="0">
         	<input type="hidden" name="_csrf" value="${_csrf.token}">
