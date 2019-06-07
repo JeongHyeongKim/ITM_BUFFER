@@ -88,9 +88,13 @@ public class BranchService {
 	}
 	public int branchGetRecentImgId() {
 		String recentId = brDao.branchGetRecentImgId();
-		recentId = recentId.split("brimg")[1]; // 숫자부분 추출
+		System.out.println(recentId);
+		 recentId = recentId.split("brImg")[1]; // 숫자부분 추출
+		 System.out.println(recentId);
+
 		
-		int brIdInt = Integer.parseInt(recentId.split(".")[0])+1;
+		int brIdInt = Integer.parseInt((recentId.split("\\."))[0])+1;
+		System.out.println(brIdInt);
 		return brIdInt;
 		
 	}
