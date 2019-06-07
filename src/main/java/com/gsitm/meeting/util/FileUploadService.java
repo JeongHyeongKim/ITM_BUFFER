@@ -1,4 +1,4 @@
-package com.gsitm.meeting.branch.controller;
+package com.gsitm.meeting.util;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -12,7 +12,7 @@ public class FileUploadService { // 미완성
 	private static final String PREFIX_URL = "/upload/";
 	private BranchService brService;
 	
-	public String restore(MultipartFile multipartFile, String object) { // 만들 객체마다 다른 기능을 써야한다.
+	public String restore(MultipartFile multipartFile) { // 만들 객체마다 다른 기능을 써야한다.
 		String url = null;
 		
 		try {
@@ -29,7 +29,7 @@ public class FileUploadService { // 미완성
 			System.out.println("size : " + size);
 			System.out.println("saveFileName : " + saveFileName);
 			
-			writeFile(multipartFile, saveFileName, object);
+			writeFile(multipartFile, saveFileName);
 			url = PREFIX_URL + saveFileName;
 		}
 		catch (IOException e) {
@@ -42,7 +42,7 @@ public class FileUploadService { // 미완성
 	// 파일 아이디
 	private String genSaveFileName(String extName) { //.~~~으로 확장자만 불러온다.
 		String fileName = "brImg";
-		
+		brService = new BranchService();
 		int recentId = brService.branchGetRecentImgId();
 		
 		fileName += recentId+extName;
@@ -51,7 +51,7 @@ public class FileUploadService { // 미완성
 	
 	
 	// 파일을 실제로 write 하는 메서드
-	private boolean writeFile(MultipartFile multipartFile, String saveFileName,String object)
+	private boolean writeFile(MultipartFile multipartFile, String saveFileName)
 								throws IOException{
 		boolean result = false;
 

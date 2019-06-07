@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+
 import com.gsitm.meeting.branch.service.BranchService;
 import com.gsitm.meeting.vo.Branch;
 
@@ -19,7 +21,7 @@ public class BranchController {
 	
 	@Autowired
 	private BranchService brService;
-	private FileUploadService fileUploadService;
+	//private FileUploadService fileUploadService;
 	
 	@GetMapping("/list")
 	public String branchList(Model model) {
@@ -36,14 +38,21 @@ public class BranchController {
 	}
 	
 	@PostMapping("/write")
+//	public String branchInsert(MultipartHttpServletRequest request) { 
 	public String branchInsert( @RequestParam("brId") String brId, @RequestParam("brName") String brName,
 			@RequestParam("brLocation") String brLocation, @RequestParam("brTel") String brTel,
 			@RequestParam("brImg") MultipartFile brImg, Model model) {
-		String url = fileUploadService.restore(brImg,"");
-		Branch branch = new Branch(brId, brName, brLocation, brTel, url); //branchCreate와 왜 매핑이 안될까? 분명 url상 경로는 잘들어가는 중이다. 404 error
-		
-		brService.branchInsert(branch);
-		return "redirect:/branch/list"; //리턴중, 리다이렉트는 url형식으로 전달된다.
+/*		String brId = request.getParameter("brId");
+		String brName = request.getParameter("brName");
+		String brLocation = request.getParameter("brLocation");
+		String brTel = request.getParameter("brTel");
+		MultipartFile brImg = request.getFile("brImg");*/
+		System.out.println("asdf");
+		//String url = fileUploadService.restore(brImg,"");
+		//Branch branch = new Branch(brId, brName, brLocation, brTel, url); //branchCreate와 왜 매핑이 안될까? 분명 url상 경로는 잘들어가는 중이다. 404 error
+		//끝! ㅇ
+		//brService.branchInsert(branch);
+		return "redirect:/branch/list"; //리턴중, 리다이렉트는 url형식으로 전달된다. 
 	}
 	
 	@PostMapping("/update")
