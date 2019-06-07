@@ -11,12 +11,17 @@ import com.gsitm.meeting.branch.service.BranchService;
 @Service
 public class FileUploadService { // 미완성
 	
-	private static final String SAVE_PATH = "/upload";
-	private static final String PREFIX_URL = "/upload/";
 	@Autowired
 	private BranchService brService;
+	//https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/context/support/FileSystemXmlApplicationContext.html
+	//다음 주소에서 프로젝트 갱신을 할 수 있을 것 같다.
 	
-	public String restore(MultipartFile multipartFile) { // 만들 객체마다 다른 기능을 써야한다.
+	//할일 리스트
+	//1. 사진 폼에 올리면 그 사진으로  form이 바뀌며, 디폴트 사진을 다른 것으로 대체
+	//2. list에서 커서 색깔 제대로 잘 안바뀌는 오류 해결 요망
+	//3. 파일 올리기 했으면 파일 삭제하는 것도 해야지.
+	//4. 역시 바꿔치기도 해야지.
+	public String restore(MultipartFile multipartFile, String absoluteURL, String object) { // 만들 객체마다 다른 기능을 써야한다.
 		String url = null;
 		
 		try {
@@ -33,8 +38,8 @@ public class FileUploadService { // 미완성
 			System.out.println("size : " + size);
 			System.out.println("saveFileName : " + saveFileName);
 			
-			writeFile(multipartFile, saveFileName);
-			url = PREFIX_URL + saveFileName;
+			writeFile(multipartFile, saveFileName,absoluteURL, object);
+			url = absoluteURL +object+"/"+saveFileName;
 		}
 		catch (IOException e) {
 			throw new RuntimeException(e);
@@ -55,12 +60,12 @@ public class FileUploadService { // 미완성
 	
 	
 	// 파일을 실제로 write 하는 메서드
-	private boolean writeFile(MultipartFile multipartFile, String saveFileName)
+	private boolean writeFile(MultipartFile multipartFile, String saveFileName, String absoluteURL,String object)
 								throws IOException{
 		boolean result = false;
 
 		byte[] data = multipartFile.getBytes();
-		FileOutputStream fos = new FileOutputStream(SAVE_PATH + "/" + saveFileName);
+		FileOutputStream fos = new FileOutputStream(absoluteURL + "/" +object+"/"+ saveFileName);
 		fos.write(data);
 		fos.close();
 		

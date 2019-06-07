@@ -5,11 +5,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.google.gson.Gson;
 import com.gsitm.meeting.branch.dao.BranchDaoImpl;
-import com.gsitm.meeting.branch.dto.BranchDTO;
-import com.gsitm.meeting.room.dto.MeetingRoomDTO;
 import com.gsitm.meeting.vo.Branch;
 import com.gsitm.meeting.vo.MeetingRoom;
 
@@ -82,7 +79,7 @@ public class BranchService {
 	}
 	
 	public List<HashMap<String,String>> meetingRoomListOrderByBranch(){
-		List<HashMap<String,String>> buffer=brDao.meetingRoomListOrderByBranch();
+		//List<HashMap<String,String>> buffer=brDao.meetingRoomListOrderByBranch();
 		
 		return brDao.meetingRoomListOrderByBranch();
 	}
