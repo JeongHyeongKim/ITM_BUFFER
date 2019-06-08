@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.google.gson.Gson;
 import com.gsitm.meeting.branch.dto.BranchDTO;
 import com.gsitm.meeting.reservation.dao.ReservationDaoImpl;
+import com.gsitm.meeting.reservation.dto.EquipmentReservationDTO;
 import com.gsitm.meeting.reservation.dto.ReservationDTO;
 import com.gsitm.meeting.vo.Reservation;
 import com.gsitm.meeting.room.dto.MeetingRoomDTO;
@@ -48,5 +49,8 @@ public class ReservationService {
 	}
 	public List<ReservationDTO> mrReservationList(String mrId){
 		return resDao.mrReservationList(mrId);
+	}
+	public List<EquipmentReservationDTO> equipList(String mrId){
+		return resDao.equipList(mrId);
 	}
 }

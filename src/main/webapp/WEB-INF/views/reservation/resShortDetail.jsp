@@ -38,6 +38,7 @@
 <script>
     $(document).ready(function() { 
     	$("#brName").text(sessionStorage.getItem("brName")+" - "+sessionStorage.getItem("mrName"));
+    	
         $('#calendar').fullCalendar({
             header: {
                 left: 'prev,next today',
@@ -78,9 +79,12 @@
               		closeOnConfirm: false,
               		closeOnCancel: false
               	}, function(isConfirm) {
+              		var mrId = "";
+              		var sessionMrId = sessionStorage.getItem("mrId");
+              		mrId+=sessionMrId; 
               		if (isConfirm) {
-              			window.sessionStorage.setItem("currentDate",str);
-              			document.location.href="/meeting/reservation/resWrite";
+              			window.sessionStorage.setItem("currentDate",str);	
+              			document.location.href="/meeting/reservation/resWrite/"+mrId;
               		} else {
               			location.reload();
               		}

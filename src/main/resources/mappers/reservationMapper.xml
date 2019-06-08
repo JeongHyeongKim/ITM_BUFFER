@@ -26,7 +26,7 @@
 		group by b.br_name,mr_name,r.br_id,r.mr_id,mr_limit,b.BR_LOCATION,mr_area,mr_network,mr_type,e.emp_name,mr_location,mr_img
 	</select>
 	<select id="mrReservationList" resultType="com.gsitm.meeting.reservation.dto.ReservationDTO$ReservationTest" parameterType="string">
-		select r.res_id resId,e.EMP_NAME empName, to_char(res_start_time,'YYYY-MM-DD"T"HH24:MI:SS') resStartDate,to_char(res_end_time,'YYYY-MM-DD"T"HH24:MI:SS') redEndDate ,m.mr_name mrName,r.emp_id empId
+		select m.mr_id mrId,r.res_id resId,e.EMP_NAME empName, to_char(res_start_time,'YYYY-MM-DD"T"HH24:MI:SS') resStartDate,to_char(res_end_time,'YYYY-MM-DD"T"HH24:MI:SS') redEndDate ,m.mr_name mrName,r.emp_id empId
 		from employee e ,reservation r,meeting_room m
 		where e.emp_id = r.emp_id
 		and m.mr_id = r.mr_id
@@ -43,6 +43,11 @@
 		select distinct(mr_type) mrType from meeting_room 
 	</select>
 	<select id="mrLimitList" resultType="MeetingRoomVO">
-		select distinct(mr_limit) mrLimit from meeting_room
+		select distinct(mr_limit) mrLimit from meeting_room 
 	</select>
+	<select id="equipList" resultType="EquipmentReservationVO" parameterType="string">
+		select distinct(substr(eq_id,1,1)) eqId, mr_id mrId 
+		from equipment
+		where mr_id=#{mrId}
+	</select> 
 </mapper>

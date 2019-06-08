@@ -38,6 +38,7 @@
                 <!-- 회의실 정보 -->
                 <c:forEach items='${resShortMain}' var="resShortList">
                     <input id="mrName" type="hidden" value="${resShortList.mrName }">
+                    <input id="mrId" type="hidden" value="${resShortList.mrId }">
                     <input id="brName" type="hidden" value="${resShortList.brName }">
                         <div class="tab-pane active" id="meeting-room" onclick="location.href='/meeting/reservation/resShortDetail/${resShortList.mrId}'">
                             <div class="card">
@@ -114,6 +115,7 @@
             	$('#meeting-room').on("click", function () {
             		window.sessionStorage.setItem("mrName",$('#mrName').val());
             		window.sessionStorage.setItem("brName",$('#brName').val());
+            		window.sessionStorage.setItem("mrId",$('#mrId').val());
             		
                 });
             	

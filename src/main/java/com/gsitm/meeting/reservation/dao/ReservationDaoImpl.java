@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.gsitm.meeting.branch.dto.BranchDTO;
+import com.gsitm.meeting.reservation.dto.EquipmentReservationDTO;
 import com.gsitm.meeting.reservation.dto.ReservationDTO;
 import com.gsitm.meeting.room.dto.MeetingRoomDTO;
 import com.gsitm.meeting.users.dto.EmployeeDTO;
@@ -67,6 +68,12 @@ public class ReservationDaoImpl implements ReservationDao {
 	public List<ReservationDTO> mrReservationList(String mrId) {
 		// TODO Auto-generated method stub
 		return session.selectList(namespace+".mrReservationList",mrId);
+	}
+
+	@Override
+	public List<EquipmentReservationDTO> equipList(String mrId) {
+		// TODO Auto-generated method stub
+		return session.selectList(namespace+".equipList",mrId);
 	}
 
 }

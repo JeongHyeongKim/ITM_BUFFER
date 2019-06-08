@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <link href="/meeting/resources/css/jquery.datetimepicker.css" rel="stylesheet"/>
 <main class="app-content">
 	<div class="app-title">
@@ -58,8 +59,27 @@
                             <input class="form-control" min="1" type="number">
                         </div>
                         <div class="form-group col-md-3"> 
-                            <label class="control-label">기자재</label>&nbsp;&nbsp;<button class="btn btn-outline-primary" data-target="#EquipList" data-toggle="modal" type="button" >+</button>
-                            <input class="form-control" placeholder="기자재를 선택하십시오" type="text">
+                            <label class="control-label">기자재</label>
+                            <c:forEach items="${equipList}" var="list">
+                            	
+                            		<div class="animated-checkbox">
+		                                <label>
+		                                	<c:if test="${list.eqId eq 'N'}">
+		                                    	<input name="equip" type="checkbox" value="N"><span class="label-text">노트북</span>
+		                                    </c:if>
+		                                    <c:if test="${list.eqId eq 'V'}">
+		                                    	<input name="equip" type="checkbox" value="V"><span class="label-text">빔 프로젝트</span>
+		                                    </c:if>
+		                                    <c:if test="${list.eqId eq 'W'}">
+		                                    	<input name="equip" type="checkbox" value="W"><span class="label-text">화이트보드</span>
+		                                    </c:if>
+		                                    <c:if test="${list.eqId eq 'M'}">
+		                                    	<input name="equip" type="checkbox" value="V"><span class="label-text">마이크</span>
+		                                    </c:if>
+		                                </label>
+		                            </div>
+                            	
+                            </c:forEach>
                         </div>
                         <div class="form-group col-md-3">
                             <label class="control-label">간식 유무</label>
@@ -107,33 +127,6 @@
 				</div>
 			</div>
 		</div>
-        <!-- Modal -->
-		<div class="modal fade" id="EquipList" role="dialog">
-			<div class="modal-dialog">
-				<!-- Modal content-->
-				<div class="modal-content">
-					<div class="modal-header">
-						<h4 class="modal-title">기자재 목록</h4>
-						<button type="button" class="close" data-dismiss="modal">×</button>
-					</div>
-					<div class="modal-body">
-						<form action="/meeting/reservation/writeReservation" method="POST">
-							<div class="row mb-4">
-							</div>
-							<div class="row">
-							</div>
-							<div class="modal-footer" style="margin-top:20px">
-								<div class="row mb-10">
-									<div class="col-md-12">
-										<input type="submit" class="btn btn-success" data-dismiss="modal" value="기자재 작성">
-									</div>
-								</div>
-							</div>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
     </div>
 </main>
 <script src="/meeting/resources/js/plugins/jquery.datetimepicker.full.js"></script>
@@ -153,40 +146,6 @@
                $('#resName').val(emp.empName);
             }
          });
-        $.validator.addMethod("compareDate", function(value, element, params){
-			 return this.optional(element) || (new Date(value) > new Date($(params).val()))
-     	}, "종료 날짜가 시작 날짜보다 빠릅니다.");
-		// END:
-		
-		// validate signup form on keyup and submit
-		$("#resForm").validate({
-			// TODO: 화면에 표시된 rule에 적합하도록 validation 체크 로직을 작성하시오.
-			rules : {
-		             resStartDate : {
-		                required: true
-		             },
-		             resEndDate : {
-		            	compareDate : "#resStartDate",
-		                required: true
-		             }
-			},
-			messages : {
-					resStartDate : {
-		            	required:"필수 항목입니다."
-		            },
-		            resEndDate : {
-		            	required:"필수 항목입니다.",
-		            	compareDate: '시작일은 종료일보다 반드시 빨라야 한다'
-
-		            }
-			},
-			
-			// validation에 실패했을 때 화면 처리
-			highlight : function(element, errorClass) {
-				$(element).next().find("." + errorClass).removeClass("checked");
-				
-			}
-		});
     });
 </script>
 <script type="text/javascript">

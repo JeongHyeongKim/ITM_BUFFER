@@ -4,7 +4,6 @@ import java.util.Date;
 
 public class ReservationDTO {
 	public static class ReservationTest{
-		
 		private String resId;
 		private String empId;
 		private String mrId;

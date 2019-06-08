@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.gsitm.meeting.reservation.dto.ReservationDTO;
+import com.gsitm.meeting.reservation.service.EquipmentReservationService;
 import com.gsitm.meeting.reservation.service.ReservationService;
 import com.gsitm.meeting.users.service.EmployeeService;
 
@@ -22,7 +23,7 @@ public class ReservationController {
 
 	@Autowired
 	private ReservationService resService;
-	
+
 	@Autowired
 	private EmployeeService empService;
 	
@@ -53,8 +54,9 @@ public class ReservationController {
 		model.addAttribute("mrReservationList",resService.mrReservationList(mrId));
 		return "reservation/resShortDetail";
 	}
-	@GetMapping("/resWrite")
-	public String resWrite(Model model) {
+	@GetMapping("/resWrite/{mrId}")
+	public String resWrite(Model model,@PathVariable String mrId) {
+		model.addAttribute("equipList",resService.equipList(mrId));
 		return "reservation/resWrite";
 	}
 }
