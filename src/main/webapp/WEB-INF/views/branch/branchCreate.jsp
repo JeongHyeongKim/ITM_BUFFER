@@ -5,6 +5,26 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>지사 수정</title>
+    
+    
+    <script>
+    
+    	$(function(){
+    		$("#imgUpload").change(function(){
+        		if(this.files && this.files[0]){
+        			var reader = new FileReader();
+        			
+        			reader.onload = function(e){
+        				$('#imgArea').attr('src', e.target.result);
+        				$('#imgArea').attr('height', '235px');
+        				$('#imgArea').attr('width', '235px');
+        			}
+        			reader.readAsDataURL(this.files[0]);
+        		}
+        	});
+    	});
+    	
+    </script>
 </head>
 
 <body>
@@ -25,8 +45,8 @@
         	<input type="hidden" name="_csrf" value="${_csrf.token}">
             <div class="col-md-4">
                 <div class="tile" style="text-align:center">
-                    <img class="user-img" src="https://s3.amazonaws.com/uifaces/faces/twitter/jsa/128.jpg" height=235px >
-                    <input class="form-control" type="file" name="brImg">
+                    <img class="user-img" id="imgArea" src="https://s3.amazonaws.com/uifaces/faces/twitter/jsa/128.jpg" height=235px >
+                    <input class="form-control" type="file" id="imgUpload" name="brImg">
                 </div>
             </div>
             <div class="col-md-8">

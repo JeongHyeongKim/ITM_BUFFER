@@ -66,7 +66,7 @@
             var img = null;
             //console.log(name);	
 
-
+			document.getElementById("imgArea").src = branch.brImg;
             document.getElementById("brName").value = branch.brName;
             document.getElementById("brAddress").value = branch.brLocation;
             document.getElementById("brTel").value = branch.brTel;
@@ -86,6 +86,18 @@
             $('#finallyConfirm').click(function(){
                 $('#branchDataUpdate').submit();
             });
+            /* $("#imgUpload").change(function(){
+        		if(this.files && this.files[0]){
+        			var reader = new FileReader();
+        			
+        			reader.onload = function(e){
+        				$('#imgArea').attr('src', e.target.result);
+        				$('#imgArea').attr('height', '235px');
+        				$('#imgArea').attr('width', '235px');
+        			}
+        			reader.readAsDataURL(this.files[0]);
+        		}
+        	}); */
 
         });
         
@@ -113,8 +125,8 @@
                 <div class="col-md-4">
                     <div></div>
                     <div style="text-align:center">
-                        <img class="user-img" src="https://s3.amazonaws.com/uifaces/faces/twitter/jsa/128.jpg" height=235px style="border-radius: 10px;">
-                        <div class="filebox" style="text-align:right"> <label style="background-color: #009688; color:#FFF">업로드</label> <input type="file" id="brImg" name="brImg"> </div>
+                        <img class="user-img" id="imgArea" src="https://s3.amazonaws.com/uifaces/faces/twitter/jsa/128.jpg" height=235px style="border-radius: 10px;">
+                        <div class="filebox" style="text-align:right"> <label style="background-color: #009688; color:#FFF">업로드</label> <input type="file" id="imgUpload" name="brImg"> </div>
                     </div>
                 </div>
 
