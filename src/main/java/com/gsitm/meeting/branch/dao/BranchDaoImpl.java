@@ -23,8 +23,6 @@ public class BranchDaoImpl implements BranchDao{
 		return session.selectList(namespace+".branchList");
 	}
 
-
-
 	@Override
 	public Branch branchOne(String branchId) {
 		return session.selectOne(namespace+".branchOne", branchId);

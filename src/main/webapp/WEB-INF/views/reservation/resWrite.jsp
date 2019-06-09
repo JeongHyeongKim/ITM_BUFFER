@@ -23,7 +23,7 @@
             <div class="tile row">
                 <h3 class="tile-title">회의실 예약 신청 작성</h3>
                 <div class="tile-body" style="width:100%;">
-                    <form class="row" id="resForm" method="POST" action="#">
+                    <form class="row" id="resForm" method="POST" action="/meeting/reservation/writeReservation">
                         <div class="form-group col-md-3">
                             <label class="control-label">신청자 명</label>
                             <input class="form-control" id="resName" type="text" readonly>
@@ -61,7 +61,6 @@
                         <div class="form-group col-md-3"> 
                             <label class="control-label">기자재</label>
                             <c:forEach items="${equipList}" var="list">
-                            	
                             		<div class="animated-checkbox">
 		                                <label>
 		                                	<c:if test="${list.eqId eq 'N'}">
@@ -78,7 +77,6 @@
 		                                    </c:if>
 		                                </label>
 		                            </div>
-                            	
                             </c:forEach>
                         </div>
                         <div class="form-group col-md-3">

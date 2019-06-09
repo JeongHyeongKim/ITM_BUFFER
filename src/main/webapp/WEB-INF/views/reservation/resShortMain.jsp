@@ -125,7 +125,9 @@
                     data : "_csrf=${_csrf.token}",
                     success : function(data){
                        var emp = data
+                       console.log(emp);
                        window.sessionStorage.setItem("empName",emp.empName);
+
                     }
                  });
             });

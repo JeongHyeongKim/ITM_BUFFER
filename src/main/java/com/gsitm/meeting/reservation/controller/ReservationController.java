@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gsitm.meeting.reservation.dto.ReservationDTO;
 import com.gsitm.meeting.reservation.service.EquipmentReservationService;
@@ -37,8 +38,14 @@ public class ReservationController {
 		return "reservation/resList";
 	}
 	@PostMapping("/writeReservation")
-	public String writeReservation(ReservationDTO reservation) {
-		resService.writeReservation(reservation);
+	public String writeReservation(Model model,@RequestParam("resId") String resId,@RequestParam("empId") String empId,
+			@RequestParam("mrId") String mrId,@RequestParam("resStartDate") String resStartDate,
+			@RequestParam("resEndDate") String resEndDate,@RequestParam("resDate") String resDate,
+			@RequestParam("resPurpose") String resPurpose,@RequestParam("resAttendCnt") String resAttendCnt,
+			@RequestParam("resAddRequest") String resAddRequest,@RequestParam("resState") String resState,
+			@RequestParam("resSnack") String resSnack,@RequestParam("resType") String resType,
+			@RequestParam("resCancle") String resCancle,
+			@RequestParam("resCost") String resCost,@RequestParam("resOutside") String resOutside) {
 		return "redirect:/reservation/list"; //리턴중, 리다이렉트는 url형식으로 전달된다.
 	}
 	@GetMapping("/resShortMain/{brId}")

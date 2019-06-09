@@ -7,6 +7,7 @@ import com.gsitm.meeting.reservation.dto.EquipmentReservationDTO;
 import com.gsitm.meeting.reservation.dto.ReservationDTO;
 import com.gsitm.meeting.room.dto.MeetingRoomDTO;
 import com.gsitm.meeting.users.dto.EmployeeDTO;
+import com.gsitm.meeting.vo.Reservation;
 
 public interface ReservationDao {
 	public List<ReservationDTO> resList(String brId);
