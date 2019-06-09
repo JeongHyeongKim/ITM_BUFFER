@@ -100,7 +100,9 @@
         	}); */
 
         });
-        
+        //파일이 바뀌지 않을 경우는 기존에 있던 것을 그대로 써야하고, 바뀌면 바뀐 것으로 돌아가야 한다. 이를 참고하여 코드를 짜보자.
+        //파일 안바뀌면 fileuploader를 안거치고 그대로 db에 들어가고, 바뀌면 거친다.
+        //현재 input tag가 있는데 클릭해도 file input dialog가 안뜬다. 이유가 뭘까?
         
         
     </script>
@@ -118,15 +120,15 @@
             </ul>
         </div>
 
-        <form action="/meeting/branch/update" method="POST" id="branchDataUpdate">
+        <form action="/meeting/branch/update" method="POST" id="branchDataUpdate" enctype="multipart/form-data">
             <div class="row">
                 <input type="hidden" name="brId" id="brId">
                 <input type="hidden" name="_csrf" value="${_csrf.token}">
                 <div class="col-md-4">
                     <div></div>
-                    <div style="text-align:center">
+                    <div style="text-align:center;">
                         <img class="user-img" id="imgArea" src="https://s3.amazonaws.com/uifaces/faces/twitter/jsa/128.jpg" height=235px style="border-radius: 10px;">
-                        <div class="filebox" style="text-align:right"> <label style="background-color: #009688; color:#FFF">업로드</label> <input type="file" id="imgUpload" name="brImg"> </div>
+                        <div class="filebox" style="text-align:right"> <label style="background-color: #009688; color:#FFF;">업로드</label> <input type="file" id="imgUpload" name="brImg" /> </div>
                     </div>
                 </div>
 
