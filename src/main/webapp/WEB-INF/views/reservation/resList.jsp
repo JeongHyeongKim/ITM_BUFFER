@@ -35,17 +35,17 @@
 		<div class="col-md-12">
 			<div class="tile">
 				<div class="tile-body" style="width:100%;text-align:right">
-	              <form class="row">
+	              <form class="row" method="GET" action="/meeting/reservation/search">
 	                <div class="form-group col-md-3">
-	                  <select name='branch' class="form-control">
+	                  <select name='brId' class="form-control">
 						<option value='' selected>--지사구분--</option>
 						<c:forEach items="${branchList}" var="branchList">
-							<option value='${branchList.brName}'>${branchList.brName}</option>
+							<option value='${branchList.brId}'>${branchList.brName}</option>
 						</c:forEach>
 					    </select>
 				     </div>
 				     <div class="form-group col-md-3">
-	                  <select name='meetingRoom' class="form-control">
+	                  <select name='mrType' class="form-control">
 						<option value='' selected>--회의실구분--</option>
 						<c:forEach items="${mrTypeList}" var="mrTypeList">
 							<c:if test="${mrTypeList.mrType eq 'mr_type_0'}">
@@ -61,7 +61,7 @@
 					    </select>
 				     </div>
 					  <div class="form-group col-md-3">
-				       <select name='meetingPeople' class="form-control">
+				       <select name='mrLimit' class="form-control">
 						<option value='' selected>--수용인원--</option>
 							<c:forEach items="${mrLimitList}" var="mrLimitList">
 								<option value='${mrLimitList.mrLimit}'>${mrLimitList.mrLimit}</option>
@@ -70,15 +70,16 @@
 	                </div>
 	                <div class="form-group col-md-3"> 
 	                  <div class="tile-body">
-						 <input class="form-control" id="searchDate" type="text" placeholder="예약일" name="filter-date">
+						 <input class="form-control" type="text" placeholder="예약일" id="searchDate">
 					  </div>
 	                </div>
+	                <input type="hidden" id="resStartDate" name="resStartDate"> 
 	               <div class="form-group col-md-3"></div>
 	                <div class="form-group col-md-3"></div>
 	                <div class="form-group col-md-3"></div>
 	                <div class="form-group col-md-3" style="display:inline-block;">
 	                	<button class="btn btn-info" type="button" data-toggle="modal" data-target="#reservation"><i class="fa fa-fw fa-lg fa-check-circle"></i>바로 예약</button>
-	                  	<button class="btn btn-primary" type="button"><i class="fa fa-fw fa-lg fa-search"></i>검색</button>
+	                  	<input class="btn btn-primary" type="submit" value="검색"/>
 	                </div> 
 	              </form>
 	            </div>
@@ -270,6 +271,12 @@
            console.log(emp.empName);
         }
      })
+     $('#searchDate').blur(function() {
+    	 var start =String($('#searchDate').val());
+    	 console.log(start);
+    	 
+    	 $('#resStartDate').val(start);
+     });
 }); 
 
 </script>

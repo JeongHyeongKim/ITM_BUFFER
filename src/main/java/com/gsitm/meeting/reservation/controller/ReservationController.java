@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gsitm.meeting.reservation.dto.ReservationDTO;
+import com.gsitm.meeting.reservation.dto.SearchDTO;
 import com.gsitm.meeting.reservation.service.EquipmentReservationService;
 import com.gsitm.meeting.reservation.service.ReservationService;
 import com.gsitm.meeting.users.service.EmployeeService;
@@ -65,5 +66,10 @@ public class ReservationController {
 	public String resWrite(Model model,@PathVariable String mrId) {
 		model.addAttribute("equipList",resService.equipList(mrId));
 		return "reservation/resWrite";
+	}
+	@GetMapping("/search")
+	public String search(Model model,SearchDTO search) {
+		model.addAttribute("search",resService.search(search));
+		return "reservation/search";
 	}
 }

@@ -10,6 +10,7 @@ import com.gsitm.meeting.branch.dto.BranchDTO;
 import com.gsitm.meeting.reservation.dao.ReservationDaoImpl;
 import com.gsitm.meeting.reservation.dto.EquipmentReservationDTO;
 import com.gsitm.meeting.reservation.dto.ReservationDTO;
+import com.gsitm.meeting.reservation.dto.SearchDTO;
 import com.gsitm.meeting.vo.Reservation;
 import com.gsitm.meeting.room.dto.MeetingRoomDTO;
 import com.gsitm.meeting.users.dto.EmployeeDTO;
@@ -52,5 +53,9 @@ public class ReservationService {
 	}
 	public List<EquipmentReservationDTO> equipList(String mrId){
 		return resDao.equipList(mrId);
+	}
+	public List<MeetingRoomDTO> search(SearchDTO search) {
+		// TODO Auto-generated method stub
+		return resDao.search(search);
 	}
 }

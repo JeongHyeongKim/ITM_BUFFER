@@ -5,6 +5,7 @@ import java.util.List;
 import com.gsitm.meeting.branch.dto.BranchDTO;
 import com.gsitm.meeting.reservation.dto.EquipmentReservationDTO;
 import com.gsitm.meeting.reservation.dto.ReservationDTO;
+import com.gsitm.meeting.reservation.dto.SearchDTO;
 import com.gsitm.meeting.room.dto.MeetingRoomDTO;
 import com.gsitm.meeting.users.dto.EmployeeDTO;
 import com.gsitm.meeting.vo.Reservation;
@@ -19,4 +20,5 @@ public interface ReservationDao {
 	public List<MeetingRoomDTO> mrLimitList();
 	public List<ReservationDTO> mrReservationList(String mrId);
 	public List<EquipmentReservationDTO> equipList(String mrId);
+	public List<MeetingRoomDTO> search(SearchDTO search);
 }

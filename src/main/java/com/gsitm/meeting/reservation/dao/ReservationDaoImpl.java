@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.gsitm.meeting.branch.dto.BranchDTO;
 import com.gsitm.meeting.reservation.dto.EquipmentReservationDTO;
 import com.gsitm.meeting.reservation.dto.ReservationDTO;
+import com.gsitm.meeting.reservation.dto.SearchDTO;
 import com.gsitm.meeting.room.dto.MeetingRoomDTO;
 import com.gsitm.meeting.users.dto.EmployeeDTO;
 import com.gsitm.meeting.vo.Reservation;
@@ -75,6 +76,11 @@ public class ReservationDaoImpl implements ReservationDao {
 	public List<EquipmentReservationDTO> equipList(String mrId) {
 		// TODO Auto-generated method stub
 		return session.selectList(namespace+".equipList",mrId);
+	}
+
+	public List<MeetingRoomDTO> search(SearchDTO search) {
+		// TODO Auto-generated method stub
+		return session.selectList(namespace+".search",search);
 	}
 
 }

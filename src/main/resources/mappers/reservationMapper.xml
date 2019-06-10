@@ -50,4 +50,17 @@
 		from equipment
 		where mr_id=#{mrId}
 	</select> 
+	<select id="search" resultType="com.gsitm.meeting.room.dto.MeetingRoomDTO$MeetingRoomTest" >
+		select mr.mr_id mrId,b.br_id brId,b.br_name brName,mr_name mrName,mr_limit mrLimit,b.BR_LOCATION brLocation,mr_area mrArea,mr_network mrNetwork,mr_type mrType,e.emp_name empName,mr_location mrLocation,mr_img mrImg, LISTAGG(eq.eq_id,',') WITHIN GROUP(ORDER BY r.mr_id) AS eqId 
+		from branch b, meeting_room mr, reservation r,employee e,equipment eq
+		where r.mr_id = mr.mr_id
+		and mr.br_id = b.br_id
+		and mr.emp_id = e.emp_id
+		and r.mr_id = eq.mr_id
+		and b.br_id=#{brId}
+		and mr.mr_type=#{mrType}
+		and mr.mr_limit = #{mrLimit}
+		and to_char(r.res_start_time)!=#{resStartDate}
+		group by mr.mr_id,b.br_id,b.br_name,mr_name,mr_limit,b.BR_LOCATION,mr_area,mr_network,mr_type,e.emp_name,mr_location,mr_img
+	</select>
 </mapper>
