@@ -12,22 +12,27 @@
 		
 		$("#deptCost").text(myCost +"(원)");
 		
-		$.each(myInfo, function(i, $list) {
-			var $meetingList = $("#meetingList");
-			var $divCol12 = $("<div></div>").attr("class","col-md-12").appendTo($meetingList);
-			var $divTile = $("<div></div>").attr("class","tile").appendTo($divCol12);
-			
-			$("<p class='tile-title'></p>").text($list.resStartTime).appendTo($divTile);
-			$("<hr>").appendTo($divTile);
-			var $divBlock = $("<div></div>").css("display","inline-block").appendTo($divTile);
-			$("<p></p>").text("10 : 30 - 11 : 00").appendTo($divBlock);
-			$("<p></p>").text($list.brName + " - " + $list.mrName).appendTo($divBlock);
-			var currentState = mappingState($list.resState);
-			
-			var $divBtn = $("<div></div>").css("float","right").appendTo($divTile);
-			$("<button></button>").attr("class","btn btn-warning").text(currentState).appendTo($divBtn);
-			
-		})
+		function drawPage(myInfo){
+			$("#meetingList").empty();
+
+			$.each(myInfo, function(i, $list) {
+				var $meetingList = $("#meetingList");
+				var $divCol12 = $("<div></div>").attr("class","col-md-12").appendTo($meetingList);
+				var $divTile = $("<div></div>").attr("class","tile").appendTo($divCol12);
+				
+				$("<p class='tile-title'></p>").text($list.resStartTime).appendTo($divTile);
+				$("<hr>").appendTo($divTile);
+				var $divBlock = $("<div></div>").css("display","inline-block").appendTo($divTile);
+				$("<p></p>").text("10 : 30 - 11 : 00").appendTo($divBlock);
+				$("<p></p>").text($list.brName + " - " + $list.mrName).appendTo($divBlock);
+				var currentState = mappingState($list.resState);
+				
+				var $divBtn = $("<div></div>").css("float","right").appendTo($divTile);
+				$("<button></button>").attr("class","btn btn-warning").text(currentState).appendTo($divBtn);
+			})
+		}
+		
+		drawPage(myInfo);
 		
 		function mappingState(resState){
 			var state = null;
@@ -47,8 +52,18 @@
 				return state = "미사용"
 			} 
 		}
-		$("#oneWeek").on("click",function(){
-			
+		$(".btn-primary").on("click",function(){
+			  console.log($(".btn-primary").data("searchtype"))
+			  $.ajax({
+				  url : "/meeting/users/search/"+$(""),
+				  type : "post",
+				  data:"_csrf=${_csrf.token}",
+				  success:function(data){
+					  console.log(data)
+					  var pageInfo = JSON.parse(data);
+					  drawPage(pageInfo)
+				  }
+			})
 		})
 	})
 </script>
@@ -88,10 +103,10 @@
 	
 	<div class="col-md-12">
 		<button class="btn btn-primary" id="scheduledMeeting">예정된 예약</button>
-		<button class="btn btn-primary" id="oneWeek">일주일</button>
-		<button class="btn btn-primary" id="oneMonth">한달</button>
-		<button class="btn btn-primary" id="sixMonth">6개월</button>
-		<button class="btn btn-primary" id="oneYear">1년</button>
+		<button class="btn btn-primary" id="oneWeek"  data-searchtype="oneWeek">일주일</button>
+		<button class="btn btn-primary" id="oneMonth"  data-searchtype="oneMonth">한달</button>
+		<button class="btn btn-primary" id="sixMonth"  data-searchtype="sixMonth">6개월</button>
+		<button class="btn btn-primary" id="oneYear"  data-searchtype="oneYear">1년</button>
 	</div>
 	<br>
 	<div id="meetingList">

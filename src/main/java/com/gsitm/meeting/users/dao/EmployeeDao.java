@@ -24,5 +24,7 @@ public interface EmployeeDao {
 	
 	public int getDeptCost(String empId);
 	
-	public List<EmployeeDTO.MyPageInfo> getReservationByEmpId(String empId, @Param("searchtype")String searchtype);
+	public List<EmployeeDTO.MyPageInfo> getReservationByEmpId(String empId);
+	
+	public List<EmployeeDTO.MyPageInfo> getReservationBySearchtype(String empId, @Param("searchtype")String searchtype);
 }

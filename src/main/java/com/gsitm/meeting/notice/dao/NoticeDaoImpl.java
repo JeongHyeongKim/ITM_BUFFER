@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.gsitm.meeting.notice.dto.NoticeDTO;
 import com.gsitm.meeting.notice.dto.NoticeDTO.NoticeTest;
+import com.gsitm.meeting.vo.Notice;
 
 @Repository
 public class NoticeDaoImpl implements NoticeDao{
@@ -20,17 +21,17 @@ public class NoticeDaoImpl implements NoticeDao{
 	private String namespace = "com.gsitm.meeting.mappers.noticeMapper";
 
 	@Override
-	public List<NoticeDTO> noticeList(Map map) {
+	public List<Notice> noticeList(Map map) {
 		return session.selectList(namespace + ".noticeList", map);
 	}
 
 	@Override
-	public NoticeDTO noticeRead(int noticeNum) {
+	public Notice noticeRead(int noticeNum) {
 		return session.selectOne(namespace + ".noticeRead", noticeNum) ;
 	}
 
 	@Override
-	public void noticeInsert(NoticeDTO notice) {
+	public void noticeInsert(Notice notice) {
 		session.insert(namespace + ".noticeInsert", notice);
 	}
 
@@ -40,7 +41,7 @@ public class NoticeDaoImpl implements NoticeDao{
 	}
 
 	@Override
-	public void noticeUpdate(NoticeDTO notice) {
+	public void noticeUpdate(Notice notice) {
 		session.update(namespace + ".noticeUpdate", notice);
 	}
 

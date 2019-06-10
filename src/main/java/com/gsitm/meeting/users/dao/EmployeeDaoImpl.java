@@ -1,5 +1,6 @@
 package com.gsitm.meeting.users.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.gsitm.meeting.users.dto.EmployeeDTO;
+import com.gsitm.meeting.users.dto.EmployeeDTO.MyPageInfo;
 import com.gsitm.meeting.vo.Employee;
 
 @Repository
@@ -54,8 +56,16 @@ public class EmployeeDaoImpl implements EmployeeDao{
 	}
 
 	@Override
-	public List<EmployeeDTO.MyPageInfo> getReservationByEmpId(String empId, String searchtype) {
+	public List<EmployeeDTO.MyPageInfo> getReservationByEmpId(String empId) {
 		return session.selectList(namespace + ".getReservationByEmpId", empId);
+	}
+
+	@Override
+	public List<EmployeeDTO.MyPageInfo> getReservationBySearchtype(String empId, String searchtype) {
+		Map<String, String> result = new HashMap<>();
+		result.put("empId", empId);
+		result.put("searchtype", searchtype);
+		return session.selectList(namespace + ".getReservationBySearchtype",result);
 	}
 
 }

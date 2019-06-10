@@ -28,7 +28,11 @@ public class EmployeeService {
 		return gson.toJson(empDao.getDeptCost(empId));
 	}
 	
-	public String getReservationByEmpId(String empId, String searchtype) {
-		return gson.toJson(empDao.getReservationByEmpId(empId,searchtype));
+	public String getReservationByEmpId(String empId) {
+		return gson.toJson(empDao.getReservationByEmpId(empId));
+	}
+	
+	public String getReservationBySearchtype(String empId, String searchtype) {
+		return gson.toJson(empDao.getReservationBySearchtype(empId, searchtype));
 	}
 }

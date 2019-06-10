@@ -8,10 +8,9 @@ import org.springframework.stereotype.Service;
 
 import com.google.gson.Gson;
 import com.gsitm.meeting.notice.dao.NoticeDaoImpl;
-import com.gsitm.meeting.notice.dto.NoticeDTO;
 import com.gsitm.meeting.util.Pagination;
-import com.gsitm.meeting.util.Paging;
 import com.gsitm.meeting.util.PagingUtil;
+import com.gsitm.meeting.vo.Notice;
 
 @Service
 public class NoticeService {
@@ -42,7 +41,7 @@ public class NoticeService {
 		return gson.toJson(noticeDao.noticeRead(noticeNum));
 	}
 	
-	public void noticeInsert(NoticeDTO notice) {
+	public void noticeInsert(Notice notice) {
 		noticeDao.noticeInsert(notice);
 	}
 	
@@ -50,7 +49,7 @@ public class NoticeService {
 		return noticeDao.noticeDelete(noticeId);
 	}
 
-	public void noticeUpdate(NoticeDTO notice) {
+	public void noticeUpdate(Notice notice) {
 		noticeDao.noticeUpdate(notice);
 	}
 	
