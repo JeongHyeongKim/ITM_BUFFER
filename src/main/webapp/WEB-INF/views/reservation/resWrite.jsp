@@ -24,6 +24,10 @@
                 <h3 class="tile-title">회의실 예약 신청 작성</h3>
                 <div class="tile-body" style="width:100%;">
                     <form class="row" id="resForm" method="POST" action="/meeting/reservation/writeReservation">
+                        <input type="hidden" id="empId">
+                        <input type="hidden" id="mrId">
+                        <input type="hidden" id="resDate">
+                        <input type="hidden" id="resState">
                         <div class="form-group col-md-3">
                             <label class="control-label">신청자 명</label>
                             <input class="form-control" id="resName" type="text" readonly>
@@ -131,19 +135,54 @@
 <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.17.0/dist/jquery.validate.min.js"></script>
 <script>
     $(document).ready(function () {
+    	
+    	
         var resStartDate = sessionStorage.getItem("currentDate");
         resStartDate += "00:00";
+        
+        var now = new Date();
+
+        var year= now.getFullYear();
+        var mon = (now.getMonth()+1)>9 ? ''+(now.getMonth()+1) : '0'+(now.getMonth()+1);
+        var day = now.getDate()>9 ? ''+now.getDate() : '0'+now.getDate();
+        var hh = now.getHours()>9 ?''+now.getHours() : '0'+now.getHours();
+        var min = now.getMinutes()>9 ?''+now.getMinutes() : '0'+now.getMinutes(); 
+        var today = year + '/' + mon + '/' + day+" "+hh+":"+min;
+
+        
         $('#resStartDate').val(resStartDate);
         $('#resMrName').val(sessionStorage.getItem("mrName"));
+        $('#mrId').val(sessionStorage.getItem("mrId"));
+        $('#resDate').val(today);
         $.ajax({
             url:"/meeting/users/getCurrentId",
             method :"post",
             data : "_csrf=${_csrf.token}",
             success : function(data){
                var emp = data;
+               $('#empId').val(emp.empId);
                $('#resName').val(emp.empName);
             }
          });
+        $("#resEndDate").blur(function() {
+        	 
+            var resStartDateArr = $('#resStartDate').val();
+        	var startDateArr = resStartDateArr.split('/');
+        	
+            var resEndDateArr = $('#resEndDate').val();
+            var endDateArr = resEndDateArr.split('/');
+            
+            var startDateCompare = new Date(startDateArr[0], parseInt(startDateArr[1])-1, startDateArr[2].substring(1,2),startDateArr[2].substring(3,5),startDateArr[2].substring(6,8));
+            var endDateCompare = new Date(endDateArr[0], parseInt(endDateArr[1])-1, endDateArr[2].substring(1,2),endDateArr[2].substring(3,5),endDateArr[2].substring(6,8));
+
+           
+            if(startDateCompare > endDateCompare) {            
+                alert("시작날짜와 종료날짜를 확인해 주세요.");  
+                $('#resEndDate').val("");
+            }else if(((endDateArr[2].substring(3,5))-(startDateArr[2].substring(3,5))) >= 8)
+           		alert("장기예약");
+        });
+        
     });
 </script>
 <script type="text/javascript">
@@ -151,5 +190,12 @@
     	 /* sessionStorage.removeAttribute("currentDate"); 
       }) */
     $('#resStartDate').datetimepicker({'step': 30});
-    $('#resEndDate').datetimepicker({'step': 30});
+    $('#resEndDate').datetimepicker({
+    	'step': 30,
+    	allowTimes:[
+    		  '12:00', '13:00', '15:00', 
+    		  '17:00', '17:05', '17:20', '19:00', '20:00'
+    		 ]
+    	
+    	});
 </script>
