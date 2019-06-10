@@ -24,7 +24,7 @@
 	</update>
 	
 	<select id="getCurrentId" resultType="employeeVO">
-		select emp_name empName, dept_name deptName from employee, department 
+		select emp_id empId, emp_name empName, dept_name deptName from employee, department 
 		where employee.dept_id = department.dept_id and  emp_id = #{empId}
 	</select>
 	
