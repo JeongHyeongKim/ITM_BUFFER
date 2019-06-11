@@ -37,10 +37,12 @@
             <div class="tab-content">
                 <!-- 회의실 정보 -->
                 <c:forEach items='${resShortMain}' var="resShortList">
-                    <input id="mrName" type="hidden" value="${resShortList.mrName }">
+                    <input id="mrName${resShortList.mrName }" type="hidden" value="${resShortList.mrName }">
                     <input id="mrId" type="hidden" value="${resShortList.mrId }">
                     <input id="brName" type="hidden" value="${resShortList.brName }">
-                        <div class="tab-pane active" id="meeting-room" onclick="location.href='/meeting/reservation/resShortDetail/${resShortList.mrId}'">
+                        <div class="tab-pane active meeting-room" id="${resShortList.mrId}" data-mrName="${resShortList.mrName }">
+                        <!-- href = location.href='/meeting/reservation/resShortDetail/${resShortList.mrId} -->
+                        	
                             <div class="card">
                                 <h4 class="card-header">${resShortList.mrName }</h4>
                                 <div class="card-body">
@@ -112,12 +114,19 @@
         <script>
             
             $(document).ready(function() { 
-            	$('#meeting-room').on("click", function () {
-            		window.sessionStorage.setItem("mrName",$('#mrName').val());
+            	
+            	var btnClassClick = function(e){
+            	    
+            	    var mrName = "#"+e.currentTarget.id;
+            	    console.log($("#mrName카리브").val());
+            	   
+            	    window.sessionStorage.setItem("mrName",$('#mrName').val());
             		window.sessionStorage.setItem("brName",$('#brName').val());
-            		window.sessionStorage.setItem("mrId",$('#mrId').val());
+            		window.sessionStorage.setItem("mrId",e.currentTarget.id);
             		
-                });
+            	}
+
+            	$('.meeting-room').on('click', btnClassClick);
             	
             	$.ajax({
                     url:"/meeting/users/getCurrentId",

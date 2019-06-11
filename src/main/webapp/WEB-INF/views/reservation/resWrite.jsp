@@ -189,7 +189,22 @@
     /* $("#sendForm").on("click",function(){
     	 /* sessionStorage.removeAttribute("currentDate"); 
       }) */
-    $('#resStartDate').datetimepicker({'step': 30});
+    $('#resStartDate').datetimepicker({
+    	'step': 30,
+    	onSelectDate: function(data) {
+    		var mrId = sessionStorage.getItem("mrId");
+    		var availableDate = JSON.stringify(data);
+    		$.ajax({
+    			url:"/meeting/reservation/available/"+mrId+"/"+availableDate,
+    			type:"post",
+    			data : "_csrf=${_csrf.token}",
+    			success:function(data){
+    				console.log(data)
+    			}
+    		})
+    	}
+    });
+    
     $('#resEndDate').datetimepicker({
     	'step': 30,
     	allowTimes:[
@@ -198,4 +213,5 @@
     		 ]
     	
     	});
+    
 </script>

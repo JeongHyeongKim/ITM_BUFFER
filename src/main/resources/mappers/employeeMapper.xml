@@ -63,4 +63,10 @@
 			</if>
 		</if>
 	</select>
+	
+	<!-- 윤영 -->
+	<select id="availableMeetingDate" resultType="string">
+		select to_char(res_start_time,'HH24:MI') from reservation where mr_id = #{mrId} 
+		and to_date(res_start_time, 'YY/MM/DD') = #{availableDate}
+	</select>
 </mapper>

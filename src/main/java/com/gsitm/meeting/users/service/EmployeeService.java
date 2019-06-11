@@ -1,5 +1,7 @@
 package com.gsitm.meeting.users.service;
 
+import java.text.DateFormat;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,5 +36,21 @@ public class EmployeeService {
 	
 	public String getReservationBySearchtype(String empId, String searchtype) {
 		return gson.toJson(empDao.getReservationBySearchtype(empId, searchtype));
+	}
+	
+	//윤영
+	public String availableMeetingDate(String availableDate, String mrId) {
+		System.out.println("availableDate : " + availableDate);
+		String[] splitDate = availableDate.split("-");
+	
+		String year = splitDate[0].substring(3, 5);
+		String month = splitDate[1];
+		String day = splitDate[2].substring(0, 2);
+		
+		String transDate = year + "/" + month + "/" + day;
+		System.out.println("mrId : " + mrId);
+		System.out.println("transDate : " + transDate);
+		System.out.println(gson.toJson(empDao.availableMeetingDate(transDate, mrId)));
+		return gson.toJson(empDao.availableMeetingDate(transDate, mrId));
 	}
 }

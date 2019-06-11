@@ -68,4 +68,13 @@ public class EmployeeDaoImpl implements EmployeeDao{
 		return session.selectList(namespace + ".getReservationBySearchtype",result);
 	}
 
+	//윤영
+	@Override
+	public List<String> availableMeetingDate(String availableDate, String mrId) {
+		Map<String, String> result = new HashMap<>();
+		result.put("availableDate", availableDate);
+		result.put("mrId", mrId);
+		return session.selectList(namespace + ".availableMeetingDate", result);
+	}
+
 }

@@ -32,12 +32,12 @@
       <!-- Navbar Right Menu-->
       <ul class="app-nav">
         <!-- User Menu-->
-        <li class="dropdown"><a class="app-nav__item" href="#" data-toggle="dropdown" aria-label="Open Profile Menu"><i class="fa fa-user fa-lg"></i></a>
-          <ul class="dropdown-menu settings-menu dropdown-menu-right">
-            <li><a class="dropdown-item" href="#"><i class="fa fa-sign-out fa-lg"></i> Logout</a></li>
-          </ul>
-        </li>
+
       </ul>
+      <form action="/meeting/users/logout" method="POST">
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+        <i class="fa fa-sign-out fa-lg"></i><button type="submit">LOGOUT</button>
+	    </form>
     </header>
    
     <!-- Essential javascripts for application to work-->
@@ -60,5 +60,18 @@
          ga('send', 'pageview');
       }
     </script>
+    <script type="text/javascript">
+   $(function(){
+	  /* 
+	   $("#logout").on("click",function(){
+  			$.ajax({
+  				url:"/meeting/users/logout",
+  				type : "post",
+  				data : "_csrf=${_csrf.token}"
+  			})
+  		}) */
+   })
+   		
+   </script>
   </body>
-</html>>
+</html>

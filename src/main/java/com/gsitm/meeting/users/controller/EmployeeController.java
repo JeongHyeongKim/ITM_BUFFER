@@ -42,7 +42,11 @@ public class EmployeeController {
 	
 	@PostMapping("/users/search/{searchtype}")
 	public ResponseEntity<String> myReservationBySearch(Principal principal,@PathVariable String searchtype){
-		System.out.println(empService.getReservationBySearchtype(principal.getName(), searchtype));
 		return new ResponseEntity<>(empService.getReservationBySearchtype(principal.getName(), searchtype),HttpStatus.OK);
+	}
+	
+	@PostMapping("/reservation/available/{mrId}/{availableDate}")
+	public ResponseEntity<String> availableMeetingDate(@PathVariable String mrId, @PathVariable String availableDate){
+		return new ResponseEntity<>(empService.availableMeetingDate(availableDate, mrId),HttpStatus.OK);
 	}
 }
