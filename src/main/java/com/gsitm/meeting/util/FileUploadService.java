@@ -9,7 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.gsitm.meeting.branch.service.BranchService;
 
 @Service
-public class FileUploadService { // 미완성
+public class FileUploadService { 
 	
 	@Autowired
 	private BranchService brService;
@@ -20,7 +20,7 @@ public class FileUploadService { // 미완성
 	//1. 사진 폼에 올리면 그 사진으로  form이 바뀌며, 디폴트 사진을 다른 것으로 대체
 	//2. list에서 커서 색깔 제대로 잘 안바뀌는 오류 해결 요망
 	//3. 파일 올리기 했으면 파일 삭제하는 것도 해야지.
-	//4. 역시 바꿔치기도 해야지.
+	//4. 역시 바꿔치기도 해야지.->완료
 	public String restore(MultipartFile multipartFile, String absoluteURL, String object) { // 만들 객체마다 다른 기능을 써야한다.
 		String url = null;
 		
@@ -47,11 +47,47 @@ public class FileUploadService { // 미완성
 		return url;
 	}
 	
-	
-	// 파일 아이디
-	private String genSaveFileName(String extName) { //.~~~으로 확장자만 불러온다.
-		String fileName = "brImg";
+	public void restoreUpdate(MultipartFile multipartFile, String absoluteURL, String object, String brId) {
+		System.out.println("restoreUpdate is start!");
+		//올라온 파일이 없을 때, 이를 컨트롤 하는 부분도 만들어야함!
 		
+		String originFilename = multipartFile.getOriginalFilename();
+		//등록된 파일은 없지만, 넘어올때 multipartFile이 null이 아니므로 파일 이름을 기반으로 파일 update처리가 되었는지 체크한다.
+		if(!originFilename.equals("")) {
+		System.out.println("originFilename : " + originFilename);
+		String extName= originFilename.substring(originFilename.lastIndexOf("."), originFilename.length());//확장자
+		Long size = multipartFile.getSize();
+		
+		System.out.println("originFilename : " + originFilename);
+		System.out.println("extensionName : " + extName); //.jpg
+		System.out.println("size : " + size);
+		
+		System.out.println(brService.branchOne(brId).getBrImg());
+		String relativeURL = brService.branchOne(brId).getBrImg().split("branch/")[1];
+		System.out.println(relativeURL);
+		relativeURL = relativeURL.split("\\.")[0]; // DB에 저장되어 있던 확장자를 뺀 원래 파일 명
+		// 서버에서 저장 할 파일 이름
+		String saveFileName = relativeURL+extName;
+		
+		
+		System.out.println("saveFileName : " + saveFileName);
+		System.out.println("branch object system location : "+brService.branchOne(brId).getBrLocation());
+		
+		try {
+			writeFile(multipartFile, saveFileName,absoluteURL, object);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		}
+		
+	}
+	
+	
+	// 회의실 create 미반영
+	private String genSaveFileName(String extName) { //.~~~으로 확장자만 불러온다.
+		
+		String fileName = "brImg";
+		 
 		int recentId = brService.branchGetRecentImgId();
 		
 		fileName += recentId+extName;

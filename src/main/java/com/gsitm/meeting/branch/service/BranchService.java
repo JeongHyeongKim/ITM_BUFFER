@@ -23,11 +23,17 @@ public class BranchService {
 		System.out.println(brDao.branchList());
 		return brDao.branchList();
 	}
-	
-	public String branchOne(String branchId) {
+	 
+	public String branchOnebyGSON(String branchId) {
 		System.out.println(brDao.branchOne(branchId));
 		return gson.toJson(brDao.branchOne(branchId));
 	}
+	
+	public Branch branchOne(String branchId) {
+		return brDao.branchOne(branchId);
+	}
+	
+	
 	
 	public void branchInsert(Branch branch) {
 		System.out.println("branch_insert");
