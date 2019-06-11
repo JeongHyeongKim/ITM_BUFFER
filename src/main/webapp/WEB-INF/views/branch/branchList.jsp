@@ -18,12 +18,15 @@
                 $('#deleteBranch').submit();
             });
             
-            $('h2').mouseover(function(){
-            	$('#brNameArea').css('color', 'blue');
+            $('.brNameArea').mouseover(function(e){
+            	var brId = "#" + e.currentTarget.id;
+            	console.log(brId);
+            	$(brId).css('color', 'blue');
             });
             
-            $('h2').mouseout(function(){
-            	$('#brNameArea').css('color', 'black');
+            $('.brNameArea').mouseout(function(e){
+            	var brId = "#" + e.currentTarget.id;
+            	$(brId).css('color', 'black');
             });
             
         });
@@ -83,17 +86,17 @@
                     </div>
                 </div>
                 <!-- modal end -->
-                <div class="row" style="border-top:1px solid; border-bottom:1px solid; padding-top:15px;padding-bottom:15px" >
+                <div class="row" style="border-top:10px solid #E5E5E5; border-bottom:10px solid #E5E5E5; padding-top:15px;padding-bottom:15px; background:white;" >
                     <div class="col-md-4">
 
                         <div style="text-align:center">
                             <%-- <img class="user-img" src="${branchList.brImg}" height=235px style="border-radius: 10px;"> --%>
-                            <div> <img class="user-img" src="${branchList.brImg}" height=235px style="border-radius: 10px;"></div>
+                            <div> <img class="user-img" src="${branchList.brImg}" width=235px height=235px style="border-radius: 10px; border:1px solid"></div>
                         </div>
                     </div>
 
 
-                    <div class="col-md-8" style="border-left: 1px solid; padding-left:50px">
+                    <div class="col-md-8" style="border-left: 3px solid #ddd; padding-left:50px ">
                         <div style="text-align:right;">
                             <a class="btn btn-primary" href="#confirm" data-toggle="modal" style="text-align:right;" onclick="modelOpen('${branchList.brId}')"><i class="fa fa-lg fa-trash"></i></a>
 
@@ -102,9 +105,7 @@
                             <div class="tile-body">
                                 <div class="form-horizontal">
                                     <div class="form-group row" style="padding-top:15px; ">
-                                        <div class="col-md-8">
-                                            <h2 onclick="readBranch('${branchList.brId}')" id="brNameArea">${branchList.brName}</h2>
-                                        </div>
+                                        <h2 onclick="readBranch('${branchList.brId}')" class="brNameArea" id="${branchList.brId}">${branchList.brName}</h2>
                                     </div>
                                     <div class="form-group row">
 

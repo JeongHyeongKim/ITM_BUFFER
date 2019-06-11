@@ -128,22 +128,22 @@
             <div class="row">
                 <input type="hidden" name="brId" id="brId">
                 <input type="hidden" name="_csrf" value="${_csrf.token}">
-                <div class="col-md-4">
+                <div class="col-md-4" style="background:white;padding-top:30px;margin-top:-15px;border-bottom:20px solid white">
                     <div></div>
                     <div style="text-align:center;">
-                        <img class="user-img" id="imgArea" src="https://s3.amazonaws.com/uifaces/faces/twitter/jsa/128.jpg" height=235px style="border-radius: 10px;">
+                        <img class="user-img" id="imgArea" src="https://s3.amazonaws.com/uifaces/faces/twitter/jsa/128.jpg" width=235px height=235px style="border-radius: 10px;">
                         
                     </div>
                     <div style="text-align:right;">
                     <div class="upload-wrapper" style="vertical-align:bottom;">
-                            <button class="upload-btn">업로드</button>
+                            <button class="upload-btn">업로드</button> 
                             <input type="file" id="imgUpload" name="brImg">
                         </div>
                         </div>
                 </div>
 
 
-                <div class="col-md-8" style="border-left: 1px solid; padding-left:50px">
+                <div class="col-md-8" style="border-left: 1px solid; padding-left:50px;background:white;padding-top:30px;margin-top:-15px;border-bottom:20px solid white">
                     <div>
                         <div class="tile-body">
                             <div class="form-horizontal">
@@ -212,7 +212,7 @@
                                                 <div class="row mb-10">
                                                     <div class="col-md-12">
                                                         <button class="btn btn-success" id="finallyConfirm" type="button"><i class="fa fa-fw fa-lg fa-check-circle"></i>확인</button>
-                                                        <button class="btn btn-success" type="button"><i class="fa fa-fw fa-lg fa-check-circle"></i>취소</button>
+                                                        <button class="btn btn-success" type="button" data-dismiss="modal"><i class="fa fa-fw fa-lg fa-check-circle"></i>취소</button>
                                                     </div>
                                                 </div>
                                             </div>

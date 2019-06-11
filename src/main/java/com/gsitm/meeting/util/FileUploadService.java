@@ -54,30 +54,30 @@ public class FileUploadService {
 		String originFilename = multipartFile.getOriginalFilename();
 		//등록된 파일은 없지만, 넘어올때 multipartFile이 null이 아니므로 파일 이름을 기반으로 파일 update처리가 되었는지 체크한다.
 		if(!originFilename.equals("")) {
-		System.out.println("originFilename : " + originFilename);
-		String extName= originFilename.substring(originFilename.lastIndexOf("."), originFilename.length());//확장자
-		Long size = multipartFile.getSize();
-		
-		System.out.println("originFilename : " + originFilename);
-		System.out.println("extensionName : " + extName); //.jpg
-		System.out.println("size : " + size);
-		
-		System.out.println(brService.branchOne(brId).getBrImg());
-		String relativeURL = brService.branchOne(brId).getBrImg().split("branch/")[1];
-		System.out.println(relativeURL);
-		relativeURL = relativeURL.split("\\.")[0]; // DB에 저장되어 있던 확장자를 뺀 원래 파일 명
-		// 서버에서 저장 할 파일 이름
-		String saveFileName = relativeURL+extName;
-		
-		
-		System.out.println("saveFileName : " + saveFileName);
-		System.out.println("branch object system location : "+brService.branchOne(brId).getBrLocation());
-		
-		try {
-			writeFile(multipartFile, saveFileName,absoluteURL, object);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+			System.out.println("originFilename : " + originFilename);
+			String extName= originFilename.substring(originFilename.lastIndexOf("."), originFilename.length());//확장자
+			Long size = multipartFile.getSize();
+			
+			System.out.println("originFilename : " + originFilename);
+			System.out.println("extensionName : " + extName); //.jpg
+			System.out.println("size : " + size);
+			
+			System.out.println(brService.branchOne(brId).getBrImg());
+			String relativeURL = brService.branchOne(brId).getBrImg().split("branch/")[1];
+			System.out.println(relativeURL);
+			relativeURL = relativeURL.split("\\.")[0]; // DB에 저장되어 있던 확장자를 뺀 원래 파일 명
+			// 서버에서 저장 할 파일 이름
+			String saveFileName = relativeURL+extName;
+			
+			
+			System.out.println("saveFileName : " + saveFileName);
+			System.out.println("branch object system location : "+brService.branchOne(brId).getBrLocation());
+			
+			try {
+				writeFile(multipartFile, saveFileName,absoluteURL, object);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 		
 	}
