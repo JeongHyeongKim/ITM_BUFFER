@@ -17,6 +17,23 @@ public class MeetingRoom {
 	public MeetingRoom() {
 		super();
 	}
+	
+
+	public MeetingRoom(String mrId, String mrName, String brId, int mrLimit, int mrPrice, int mrArea, String mrNetwork,
+			String mrType, String empId, String mrLocation, String mrImg) {
+		super();
+		this.mrId = mrId;
+		this.mrName = mrName;
+		this.brId = brId;
+		this.mrLimit = mrLimit;
+		this.mrPrice = mrPrice;
+		this.mrArea = mrArea;
+		this.mrNetwork = mrNetwork;
+		this.mrType = mrType;
+		this.empId = empId;
+		this.mrLocation = mrLocation;
+		this.mrImg = mrImg;
+	}
 
 
 	public String getMrId() {

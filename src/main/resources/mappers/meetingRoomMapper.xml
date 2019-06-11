@@ -4,4 +4,44 @@
 <!-- 게시판 네임스페이스(사용영역) 설정 -->
 <mapper namespace="com.gsitm.meeting.mappers.meetingRoomMapper">
 
+<select id="meetingRoomList" resultType="meetingRoomVO">
+		select mr_id mrId, mr_name mrName, br_id brId, mr_limit mrLimit, mr_price mrPrice, mr_area mrArea, mr_network mrNetwork, mr_type mrType,
+		emp_id empId, mr_location mrLocation, mr_img mrImg order by mr_id asc
+		from meeting_room
+	</select>
+	
+
+	<select id="meetingRoomOne" resultType="meetingRoomVO">
+		select mr_id mrId, mr_name mrName, br_id brId, mr_limit mrLimit, mr_price mrPrice, mr_area mrArea, mr_network mrNetwork, mr_type mrType,
+		emp_id empId, mr_location mrLocation, mr_img mrImg
+		from meeting_room
+		 where mr_id = #{mrId}
+	</select>
+	
+	<insert id="meetingRoomInsert">
+		insert into meeting_room (mr_id,mr_name, br_id, mr_limit, mr_price, mr_area, mr_network, mr_type, emp_id, mr_location, mr_img)
+		values (#{mrId}, #{mrName}, #{brId}, #{mrLimit}, #{mrPrice}, #{mrArea}, #{mrNetwork}, #{mrType}, #{empId}, #{mrLoaction}, #{mrImg})
+	</insert>
+	
+	<update id="meetingRoomUpdate">
+		update meeting_room
+		set mr_name=#{mrName}, br_id=#{brId}, mr_limit=#{mrLimit}, mr_price=#{mrPrice}, mr_area=#{mrArea}, mr_network=#{mr_Network}, 
+		mr_type=#{mrType}, emp_id=#{empId}, mr_location=#{mrLoaction}, mr_img=#{mrImg}
+		where mr_id=#{mrId} 
+	</update>
+	
+	<delete id="meetingRoomDelete">
+		delete meeting_room
+		where mr_id=#{mrId}
+	</delete>
+	
+	<select id="meetingRoomMostRecent" resultType="string">
+		select max(mr_id) mrId from meeting_room
+	</select>
+	
+	<select id="meetingRoomImgMostRecent" resultType="string">
+		select max(mr_img) mrImg from meeting_room
+	</select>
+	
+
 </mapper>

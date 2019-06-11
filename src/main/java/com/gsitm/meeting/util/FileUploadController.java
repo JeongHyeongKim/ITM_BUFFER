@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.gsitm.meeting.branch.service.BranchService;
+import com.gsitm.meeting.room.service.MeetingRoomService;
 import com.gsitm.meeting.vo.Branch;
+import com.gsitm.meeting.vo.MeetingRoom;
 
 
 
@@ -23,6 +25,8 @@ public class FileUploadController {
 	private BranchService brService;
 	@Autowired
 	private FileUploadService fileUploadService;
+	@Autowired
+	private MeetingRoomService mrService;
 	
 	
 	
@@ -43,7 +47,7 @@ public class FileUploadController {
 		finalURL = "/meeting/"+finalURL;
 		System.out.println(finalURL);
 		
-		Branch branch = new Branch(brId, brName, brLocation, brTel, finalURL); //branchCreate와 왜 매핑이 안될까? 분명 url상 경로는 잘들어가는 중이다. 404 error
+		Branch branch = new Branch(brId, brName, brLocation, brTel, finalURL);
 		brService.branchInsert(branch);
 		return "redirect:/branch/list";
 	}
@@ -70,14 +74,50 @@ public class FileUploadController {
 	}
 	
 	
-	
-	
-	
-	
+
 	@PostMapping("/meetingRoomWrite")
-	public String meetingRoomInsert() {
-		return null;
+	public String meetingRoomInsert(@RequestParam("mrId") String mrId, @RequestParam("mrName")String mrName, @RequestParam("brId")String brId,
+			@RequestParam("mrLimit") int mrLimit,@RequestParam("meNetwork")String mrNetwork, @RequestParam("mrPrice")int mrPrice, @RequestParam("mrArea")int mrArea,
+			@RequestParam("mrType") String mrType, @RequestParam("empId") String empId, @RequestParam("mrLocation")String mrLocation,
+			@RequestParam("mrImg")MultipartFile  mrImg, HttpServletRequest request) {
 		
+		String url = request.getSession().getServletContext().getRealPath("/");
+		String urlBefore = url.split("\\.metadata")[0];
+		String urlAfter = url.split("wtpwebapps")[1];
+		String realURL = urlBefore+urlAfter+"/src/main/webapp/resources/img/"; // 실제 컴퓨터 상에서의 프로젝트 경로
+		System.out.println(realURL);
+		
+		String finalURL = fileUploadService.restore(mrImg, realURL, "meetingroom");
+		finalURL = finalURL.split("webapp/")[1];
+		finalURL = "/meeting/"+finalURL;
+		System.out.println(finalURL);
+		
+		MeetingRoom meetingroom = new MeetingRoom( mrId,  mrName,  brId,  mrLimit,  mrPrice,  mrArea,  mrNetwork, mrType,  empId,  mrLocation,  finalURL);
+		mrService.meetingRoomInsert(meetingroom);
+		
+		return "redirect:/meetingRoom/list";
+	}
+	
+	@PostMapping("/meetingRoomUpdate")
+	public String branchUpdate(@RequestParam("mrId") String mrId, @RequestParam("mrName")String mrName, @RequestParam("brId")String brId,
+			@RequestParam("mrLimit") int mrLimit,@RequestParam("meNetwork")String mrNetwork, @RequestParam("mrPrice")int mrPrice, @RequestParam("mrArea")int mrArea,
+			@RequestParam("mrType") String mrType, @RequestParam("empId") String empId, @RequestParam("mrLocation")String mrLocation,
+			@RequestParam("mrImg")MultipartFile  mrImg, HttpServletRequest request) {
+		
+		String buf = mrService.meetingRoomOne(mrId).getMrImg(); // brId받은 것을 통해 파일 경로를 그대로 가져온다 -> 상대경로임!
+		
+		String url = request.getSession().getServletContext().getRealPath("/");
+		String urlBefore = url.split("\\.metadata")[0];
+		String urlAfter = url.split("wtpwebapps")[1];
+		String realURL = urlBefore+urlAfter+"/src/main/webapp/resources/img/"; // 실제 컴퓨터 상에서의 프로젝트 경로
+		System.out.println(realURL);
+		
+		
+		fileUploadService.restoreUpdate(mrImg, realURL, "meetingroom", brId); // 시스템상에 있는 branch 사진 수정
+		
+		MeetingRoom meetingroom = new MeetingRoom( mrId,  mrName,  brId,  mrLimit,  mrPrice,  mrArea,  mrNetwork, mrType,  empId,  mrLocation, buf);
+		mrService.meetingRoomUpdate(meetingroom);
+		return "redirect:/branch/list";
 	}
 	
 	
