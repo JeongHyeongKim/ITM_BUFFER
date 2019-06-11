@@ -84,7 +84,6 @@
                 </div>
                 <!-- modal end -->
                 <div class="row" style="border-top:1px solid; border-bottom:1px solid; padding-top:15px;padding-bottom:15px" >
-                    <!-- onclick="location.href='/meeting/branch/read/${branchList.brId}';" -->
                     <div class="col-md-4">
 
                         <div style="text-align:center">

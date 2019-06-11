@@ -39,13 +39,12 @@ public class BranchController {
 	
 	@GetMapping("/read/{brId}")
 	public String branchOne(Model model, @PathVariable String brId) {
-		model.addAttribute("branch", brService.branchOne(brId));
+		model.addAttribute("branch", brService.branchOnebyGSON(brId));
 		model.addAttribute("meetingRoomList", brService.meetingRoomListInBranch(brId)); // 해당 지사에 소속되어 있는 회의실 리스트 출력
 		return "branch/branchRead"; // 리다이렉트 없이 바로 전달하면 경로로 설정
 	}
 	
 	@PostMapping("/write")
-//	public String branchInsert(MultipartHttpServletRequest request) { 
 	public String branchInsert( @RequestParam("brId") String brId, @RequestParam("brName") String brName,
 			@RequestParam("brLocation") String brLocation, @RequestParam("brTel") String brTel,
 			@RequestParam("brImg") MultipartFile brImg, Model model) {
@@ -56,6 +55,7 @@ public class BranchController {
 	@PostMapping("/update")
 	public String branchUpdate(Branch branch) {
 		System.out.println("update!!!!!!!!!!!!!!!!!!!!!");
+		System.out.println(branch.getBrImg());
 		brService.branchUpdate(branch);
 		return "redirect:/branch/list";
 	}
