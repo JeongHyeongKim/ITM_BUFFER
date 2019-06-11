@@ -69,6 +69,7 @@ public class ReservationController {
 	}
 	@GetMapping("/search")
 	public String search(Model model,SearchDTO search) {
+		model.addAttribute("branchList",resService.branchList());
 		model.addAttribute("search",resService.search(search));
 		return "reservation/search";
 	}

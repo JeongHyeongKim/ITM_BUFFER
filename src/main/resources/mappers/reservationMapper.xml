@@ -57,10 +57,18 @@
 		and mr.br_id = b.br_id
 		and mr.emp_id = e.emp_id
 		and r.mr_id = eq.mr_id
-		and b.br_id=#{brId}
-		and mr.mr_type=#{mrType}
-		and mr.mr_limit = #{mrLimit}
-		and to_char(r.res_start_time)!=#{resStartDate}
+		<if test="!brId.equals('')">
+			and b.br_id=#{brId}
+		</if>
+		<if test="!mrType.equals('')">
+			and mr.mr_type=#{mrType}
+		</if>
+		<if test="!mrLimit.equals('')">
+			and mr.mr_limit = #{mrLimit}
+		</if>
+		<if test="!resStartDate.equals('')">
+			and to_char(r.res_start_time)!=#{resStartDate}
+		</if>
 		group by mr.mr_id,b.br_id,b.br_name,mr_name,mr_limit,b.BR_LOCATION,mr_area,mr_network,mr_type,e.emp_name,mr_location,mr_img
 	</select>
 </mapper>

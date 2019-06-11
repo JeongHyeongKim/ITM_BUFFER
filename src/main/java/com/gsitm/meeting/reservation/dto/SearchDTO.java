@@ -30,5 +30,29 @@ public class SearchDTO {
 	public void setResStartDate(String resStartDate) {
 		this.resStartDate = resStartDate;
 	}
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("SearchDTO [brId=");
+		builder.append(brId);
+		builder.append(", mrType=");
+		builder.append(mrType);
+		builder.append(", mrLimit=");
+		builder.append(mrLimit);
+		builder.append(", resStartDate=");
+		builder.append(resStartDate);
+		builder.append("]");
+		return builder.toString();
+	}
+	public SearchDTO(String brId, String mrType, String mrLimit, String resStartDate) {
+		super();
+		this.brId = brId;
+		this.mrType = mrType;
+		this.mrLimit = mrLimit;
+		this.resStartDate = resStartDate;
+	}
+	public SearchDTO() {
+		super();
+	}
 	
 }

@@ -56,6 +56,7 @@ public class ReservationService {
 	}
 	public List<MeetingRoomDTO> search(SearchDTO search) {
 		// TODO Auto-generated method stub
+		System.out.println(search);
 		return resDao.search(search);
 	}
 }
