@@ -193,6 +193,7 @@
     	'step': 30,
     	onSelectDate: function(data) {
     		var mrId = sessionStorage.getItem("mrId");
+    		console.log(mrId);
     		var availableDate = JSON.stringify(data);
     		$.ajax({
     			url:"/meeting/reservation/available/"+mrId+"/"+availableDate,

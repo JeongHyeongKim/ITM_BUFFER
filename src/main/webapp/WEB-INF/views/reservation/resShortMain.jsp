@@ -1,20 +1,20 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <main class="app-content">
     <div class="app-title">
         <div>
             <h1>
-                <i class="fa fa-calendar"></i>È¸ÀÇ½Ç ¿¹¾à</h1>
-            <p>Áö»ç¸¦ ¼±ÅÃÇÑ µÚ, È¸ÀÇ½ÇÀ» È®ÀÎÇÏ¼¼¿ä</p>
+                <i class="fa fa-calendar"></i>íšŒì˜ì‹¤ ì˜ˆì•½</h1>
+            <p>ì§€ì‚¬ë¥¼ ì„ íƒí•œ ë’¤, íšŒì˜ì‹¤ì„ í™•ì¸í•˜ì„¸ìš”</p>
         </div>
         <ul class="app-breadcrumb breadcrumb">
             <li class="breadcrumb-item">
                 <i class="fa fa-home fa-lg"></i>
             </li>
             <li class="breadcrumb-item">
-                <a href="/meeting/reservation/resShortMain/br_0001">È¸ÀÇ½Ç ¿¹¾à</a>
+                <a href="/meeting/reservation/resShortMain/br_0001">íšŒì˜ì‹¤ ì˜ˆì•½</a>
             </li>
         </ul>
     </div>
@@ -23,7 +23,7 @@
             <div class="tile p-0">
                 <ul class="nav flex-column nav-tabs user-tabs">
                     <li class="nav-item">
-                        <a class="nav-link">Áö»ç ¼±ÅÃ</a>
+                        <a class="nav-link">ì§€ì‚¬ ì„ íƒ</a>
                     </li>
                     <c:forEach items="${branchList}" var="branchList">
                         <li class="nav-item">
@@ -35,7 +35,7 @@
         </div>
         <div class="col-md-9">
             <div class="tab-content">
-                <!-- È¸ÀÇ½Ç Á¤º¸ -->
+                <!-- íšŒì˜ì‹¤ ì •ë³´ -->
                 <c:forEach items='${resShortMain}' var="resShortList">
                     <input id="mrName${resShortList.mrName }" type="hidden" value="${resShortList.mrName }">
                     <input id="mrId" type="hidden" value="${resShortList.mrId }">
@@ -48,7 +48,7 @@
                                 <div class="card-body">
                                     <h5 class="card-title">${resShortList.brLocation } ${resShortList.mrLocation }</h5>
                                     <h6 class="card-subtitle text-muted">
-                                        <b>°ü¸®ÀÚ</b>
+                                        <b>ê´€ë¦¬ì</b>
                                         ${resShortList.empName}</h6>
                                 </div>
                                 <img alt="Card image" src="${resShortList.mrImg }" style="height: 200px; width: 100%; display: block;">
@@ -57,33 +57,33 @@
                                             <table>
                                                 <tr>
                                                     <td>
-                                                        <b>°ø°£À¯Çü</b>
+                                                        <b>ê³µê°„ìœ í˜•</b>
                                                     </td>
                                                     <c:if test="${resShortList.mrType eq 'mr_type_0'}">
-                                                        <td>È¸ÀÇ½Ç</td>
+                                                        <td>íšŒì˜ì‹¤</td>
                                                     </c:if>
                                                     <c:if test="${resShortList.mrType eq 'mr_type_1'}">
-                                                        <td>´ëÈ¸ÀÇ½Ç</td>
+                                                        <td>ëŒ€íšŒì˜ì‹¤</td>
                                                     </c:if>
                                                     <c:if test="${resShortList.mrType eq 'mr_type_2'}">
-                                                        <td>±³À°½Ç</td>
+                                                        <td>êµìœ¡ì‹¤</td>
                                                     </c:if>
                                                 </tr>
                                                 <tr>
                                                     <td>
-                                                        <b>¿¹¾à½Ã°£</b>
+                                                        <b>ì˜ˆì•½ì‹œê°„</b>
                                                     </td>
-                                                    <td>ÃÖ¼Ò 30ºĞºÎÅÍ</td>
+                                                    <td>ìµœì†Œ 30ë¶„ë¶€í„°</td>
                                                 </tr>
                                                 <tr>
                                                     <td>
-                                                        <b>¼ö¿ëÀÎ¿ø</b>
+                                                        <b>ìˆ˜ìš©ì¸ì›</b>
                                                     </td>
-                                                    <td>${resShortList.mrLimit }ÀÎ</td>
+                                                    <td>${resShortList.mrLimit }ì¸</td>
                                                 </tr>
                                                 <tr>
                                                     <td>
-                                                        <b>°ü¸®ÀÚ</b>
+                                                        <b>ê´€ë¦¬ì</b>
                                                     </td>
                                                     <td>${resShortList.empName }</td>
                                                 </tr>
@@ -116,14 +116,23 @@
             $(document).ready(function() { 
             	
             	var btnClassClick = function(e){
+            		var mrId = e.currentTarget.id;
+            		console.log(typeof mrId)
+            		console.log(mrId);
+            	    $.ajax({
+            	    	url:"/meeting/users/getCurrentInfo/"+mrId,
+            	    	type:"post",
+            	    	data:"_csrf=${_csrf.token}",
+            	    	success:function(data){
+            	    		var info = JSON.parse(data);
+            	    		console.log(info);
+            	    		window.sessionStorage.setItem("mrName",info.mrName);
+                    		window.sessionStorage.setItem("brName",info.brName);
+                    		window.sessionStorage.setItem("mrId",e.currentTarget.id);
+                    				
+            	    	}
+            	    })
             	    
-            	    var mrName = "#"+e.currentTarget.id;
-            	    console.log($("#mrNameÄ«¸®ºê").val());
-            	   
-            	    window.sessionStorage.setItem("mrName",$('#mrName').val());
-            		window.sessionStorage.setItem("brName",$('#brName').val());
-            		window.sessionStorage.setItem("mrId",e.currentTarget.id);
-            		
             	}
 
             	$('.meeting-room').on('click', btnClassClick);

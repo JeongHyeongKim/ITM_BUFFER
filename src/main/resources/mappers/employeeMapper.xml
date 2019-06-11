@@ -69,4 +69,8 @@
 		select to_char(res_start_time,'HH24:MI') from reservation where mr_id = #{mrId} 
 		and to_date(res_start_time, 'YY/MM/DD') = #{availableDate}
 	</select>
+	<select id="CurrentInfoByMrId" resultType="com.gsitm.meeting.users.dto.EmployeeDTO$CurrentInfoByMrId" parameterType="string">
+		select m.mr_Name mrName, b.br_name brName from meeting_room m, branch b 
+		where m.br_id = b.br_id and m.mr_id = #{mrId}
+	</select>
 </mapper>

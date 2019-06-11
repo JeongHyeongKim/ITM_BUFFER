@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.gsitm.meeting.users.dto.EmployeeDTO;
-import com.gsitm.meeting.users.dto.EmployeeDTO.MyPageInfo;
 import com.gsitm.meeting.vo.Employee;
 
 @Repository
@@ -76,5 +75,10 @@ public class EmployeeDaoImpl implements EmployeeDao{
 		result.put("mrId", mrId);
 		return session.selectList(namespace + ".availableMeetingDate", result);
 	}
-
+	@Override   
+	public EmployeeDTO.CurrentInfoByMrId CurrentInfoByMrId(String mrId) {
+		System.out.println("impl : "+ mrId);
+		return session.selectOne(namespace + ".CurrentInfoByMrId", mrId);
+	}
+	//
 }

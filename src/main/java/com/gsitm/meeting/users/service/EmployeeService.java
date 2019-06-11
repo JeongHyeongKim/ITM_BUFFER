@@ -53,4 +53,9 @@ public class EmployeeService {
 		System.out.println(gson.toJson(empDao.availableMeetingDate(transDate, mrId)));
 		return gson.toJson(empDao.availableMeetingDate(transDate, mrId));
 	}
+	public String CurrentInfoByMrId(String mrId) {
+		System.out.println("service : "+ mrId);
+		System.out.println(empDao.CurrentInfoByMrId(mrId));
+		return gson.toJson(empDao.CurrentInfoByMrId(mrId));
+	}
 }

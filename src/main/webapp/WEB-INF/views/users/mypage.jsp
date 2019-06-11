@@ -52,10 +52,11 @@
 				return state = "미사용"
 			} 
 		}
-		$(".btn-primary").on("click",function(){
-			  console.log($(".btn-primary").data("searchtype"))
+		$(".btn-primary").on("click",function(e){
+			  
+			  var searchtype = e.currentTarget.id;
 			  $.ajax({
-				  url : "/meeting/users/search/"+$(""),
+				  url : "/meeting/users/search/"+searchtype,
 				  type : "post",
 				  data:"_csrf=${_csrf.token}",
 				  success:function(data){

@@ -30,4 +30,5 @@ public interface EmployeeDao {
 	
 	//윤영이거
 	public List<String> availableMeetingDate(String availableDate, String mrId);
+	public EmployeeDTO.CurrentInfoByMrId CurrentInfoByMrId(String mrId);
 }
