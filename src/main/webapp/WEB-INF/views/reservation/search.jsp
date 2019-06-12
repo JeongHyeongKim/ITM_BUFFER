@@ -7,11 +7,9 @@
         <div>
             <h1>
                 <i class="fa fa-calendar"></i>검색 결과</h1>
-            <p>
-            	
-            		<b>${fn:length(search) }</b>개의 검색 결과가 있습니다.<br>
-            		검색 결과를 확인 후, 회의실을 예약하십시오.
-            	
+            <p>        	
+            	<b>${fn:length(search) }</b>개의 검색 결과가 있습니다.<br>
+            	검색 결과를 확인 후, 회의실을 예약하십시오.
             </p>
         </div>
         <ul class="app-breadcrumb breadcrumb">
