@@ -6,8 +6,8 @@
 
 <select id="meetingRoomList" resultType="meetingRoomVO">
 		select mr_id mrId, mr_name mrName, br_id brId, mr_limit mrLimit, mr_price mrPrice, mr_area mrArea, mr_network mrNetwork, mr_type mrType,
-		emp_id empId, mr_location mrLocation, mr_img mrImg order by mr_id asc
-		from meeting_room
+		emp_id empId, mr_location mrLocation, mr_img mrImg
+		from meeting_room order by mr_id asc
 	</select>
 	
 

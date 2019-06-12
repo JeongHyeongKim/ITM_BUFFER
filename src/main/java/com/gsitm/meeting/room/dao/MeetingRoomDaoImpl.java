@@ -19,7 +19,7 @@ public class MeetingRoomDaoImpl implements MeetingRoomDao {
 	@Override
 	public List<MeetingRoom> meetingRoomList() {
 		
-		return session.selectList(namespace+".meetRoomList");
+		return session.selectList(namespace+".meetingRoomList");
 	}
 
 	@Override
