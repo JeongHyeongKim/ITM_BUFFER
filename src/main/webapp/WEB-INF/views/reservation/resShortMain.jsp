@@ -40,8 +40,8 @@
                     <input id="mrName${resShortList.mrName }" type="hidden" value="${resShortList.mrName }">
                     <input id="mrId" type="hidden" value="${resShortList.mrId }">
                     <input id="brName" type="hidden" value="${resShortList.brName }">
-                        <div class="tab-pane active meeting-room" id="${resShortList.mrId}" data-mrName="${resShortList.mrName }">
-                        <!-- href = location.href='/meeting/reservation/resShortDetail/${resShortList.mrId} -->
+                        <div class="tab-pane active meeting-room" id="${resShortList.mrId}" 
+                        	onclick = "location.href='/meeting/reservation/resShortDetail/${resShortList.mrId}'">
                         	
                             <div class="card">
                                 <h4 class="card-header">${resShortList.mrName }</h4>
@@ -117,19 +117,16 @@
             	
             	var btnClassClick = function(e){
             		var mrId = e.currentTarget.id;
-            		console.log(typeof mrId)
-            		console.log(mrId);
+            		window.sessionStorage.setItem("mrId",e.currentTarget.id);
+            		
             	    $.ajax({
             	    	url:"/meeting/users/getCurrentInfo/"+mrId,
             	    	type:"post",
             	    	data:"_csrf=${_csrf.token}",
             	    	success:function(data){
             	    		var info = JSON.parse(data);
-            	    		console.log(info);
             	    		window.sessionStorage.setItem("mrName",info.mrName);
-                    		window.sessionStorage.setItem("brName",info.brName);
-                    		window.sessionStorage.setItem("mrId",e.currentTarget.id);
-                    				
+                    		window.sessionStorage.setItem("brName",info.brName);		
             	    	}
             	    })
             	    

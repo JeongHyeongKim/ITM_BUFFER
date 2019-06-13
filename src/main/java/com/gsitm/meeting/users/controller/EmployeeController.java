@@ -1,6 +1,7 @@
 package com.gsitm.meeting.users.controller;
 
 import java.security.Principal;
+import java.text.ParseException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -46,7 +47,7 @@ public class EmployeeController {
 	}
 	
 	@PostMapping("/reservation/available/{mrId}/{availableDate}")
-	public ResponseEntity<String> availableMeetingDate(@PathVariable String mrId, @PathVariable String availableDate){
+	public ResponseEntity<String> availableMeetingDate(@PathVariable String mrId, @PathVariable String availableDate) throws ParseException{
 		return new ResponseEntity<>(empService.availableMeetingDate(availableDate, mrId),HttpStatus.OK);
 	}
 }

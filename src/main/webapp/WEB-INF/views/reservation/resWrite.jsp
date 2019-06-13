@@ -200,7 +200,8 @@
     			type:"post",
     			data : "_csrf=${_csrf.token}",
     			success:function(data){
-    				console.log(data)
+    				console.log("success")
+    				sessionStorage.setItem("availTime", data);
     			}
     		})
     	}
@@ -209,7 +210,7 @@
     $('#resEndDate').datetimepicker({
     	'step': 30,
     	allowTimes:[
-    		  '12:00', '13:00', '15:00', 
+    		  '12:00', '13:00', 
     		  '17:00', '17:05', '17:20', '19:00', '20:00'
     		 ]
     	

@@ -27,4 +27,10 @@ public class EmployeeDTO {
 		private String brName;
 		private String mrName;
 	}
+	
+	@Data
+	public static class AvailableMeetingDate{
+		private String resStartDate;
+		private String resEndDate;
+	}
 }

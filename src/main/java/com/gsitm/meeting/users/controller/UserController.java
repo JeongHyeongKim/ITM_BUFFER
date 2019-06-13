@@ -40,7 +40,6 @@ public class UserController {
 	//윤영
 	@PostMapping("/users/getCurrentInfo/{mrId}")
 	public ResponseEntity<String> CurrentInfoByMrId(@PathVariable String mrId){
-		System.out.println("ctl : "+ mrId);
 		return new ResponseEntity<>(empService.CurrentInfoByMrId(mrId), HttpStatus.OK);
 	}
 }

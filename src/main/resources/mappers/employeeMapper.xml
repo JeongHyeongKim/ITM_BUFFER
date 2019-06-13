@@ -65,9 +65,9 @@
 	</select>
 	
 	<!-- 윤영 -->
-	<select id="availableMeetingDate" resultType="string">
-		select to_char(res_start_time,'HH24:MI') from reservation where mr_id = #{mrId} 
-		and to_date(res_start_time, 'YY/MM/DD') = #{availableDate}
+	<select id="availableMeetingDate" resultType="com.gsitm.meeting.users.dto.EmployeeDTO$AvailableMeetingDate">
+		select to_char(res_start_time,'HH24:MI') resStartDate, to_char(res_end_time,'HH24:MI') resEndDate from reservation where mr_id = #{mrId} 
+		and to_char(res_start_time, 'YY/MM/DD') = #{availableDate}
 	</select>
 	<select id="CurrentInfoByMrId" resultType="com.gsitm.meeting.users.dto.EmployeeDTO$CurrentInfoByMrId" parameterType="string">
 		select m.mr_Name mrName, b.br_name brName from meeting_room m, branch b 

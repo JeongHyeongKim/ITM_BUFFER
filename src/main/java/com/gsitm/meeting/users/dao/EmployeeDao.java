@@ -29,6 +29,6 @@ public interface EmployeeDao {
 	public List<EmployeeDTO.MyPageInfo> getReservationBySearchtype(String empId, @Param("searchtype")String searchtype);
 	
 	//윤영이거
-	public List<String> availableMeetingDate(String availableDate, String mrId);
+	public List<EmployeeDTO.AvailableMeetingDate> availableMeetingDate(String availableDate, String mrId);
 	public EmployeeDTO.CurrentInfoByMrId CurrentInfoByMrId(String mrId);
 }

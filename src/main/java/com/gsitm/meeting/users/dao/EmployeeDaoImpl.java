@@ -69,7 +69,7 @@ public class EmployeeDaoImpl implements EmployeeDao{
 
 	//윤영
 	@Override
-	public List<String> availableMeetingDate(String availableDate, String mrId) {
+	public List<EmployeeDTO.AvailableMeetingDate> availableMeetingDate(String availableDate, String mrId) {
 		Map<String, String> result = new HashMap<>();
 		result.put("availableDate", availableDate);
 		result.put("mrId", mrId);
@@ -77,7 +77,6 @@ public class EmployeeDaoImpl implements EmployeeDao{
 	}
 	@Override   
 	public EmployeeDTO.CurrentInfoByMrId CurrentInfoByMrId(String mrId) {
-		System.out.println("impl : "+ mrId);
 		return session.selectOne(namespace + ".CurrentInfoByMrId", mrId);
 	}
 	//
