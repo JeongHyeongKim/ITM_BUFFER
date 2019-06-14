@@ -43,5 +43,11 @@
 		select max(mr_img) mrImg from meeting_room
 	</select>
 	
+	<select id="getMeetingRoomAdministrator" resultType="employeeVO">
+		select * from employee where emp_level='L_2' or emp_level='L_1'
+	</select>
+	
+
+	
 
 </mapper>

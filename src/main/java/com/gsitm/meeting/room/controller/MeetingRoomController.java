@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-
+import com.gsitm.meeting.branch.service.BranchService;
 import com.gsitm.meeting.room.service.MeetingRoomService;
 
 
@@ -21,11 +21,14 @@ public class MeetingRoomController {
 	@Autowired
 	private MeetingRoomService mrService;
 	
+	@Autowired
+	private BranchService brService;
+	
 	
 	@GetMapping("/list")
 	public String meetingRoomList(Model model, HttpServletRequest request) {
 		model.addAttribute("meetingRoomList", mrService.meetingRoomList());
-
+		
 		return "meetingRoom/meetingRoomList";
 	}
 	
@@ -45,7 +48,12 @@ public class MeetingRoomController {
 	}
 	
 	@GetMapping("/create")
-	public String branchCreate() { // 글 입력폼만 있는 페이지로 이동함.
+	public String branchCreate(Model model) { // 글 입력폼만 있는 페이지로 이동함.
+		model.addAttribute("branchList", brService.branchList());
+		model.addAttribute("administrator", mrService.getMeetingRoomAdministrator());
+		/*System.out.println("admin");
+		System.out.println(mrService.getMeetingRoomAdministrator());*/
+
 		return "meetingRoom/meetingRoomCreate";
 	}
 }

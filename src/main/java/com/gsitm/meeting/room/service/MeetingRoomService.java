@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.gsitm.meeting.room.dao.MeetingRoomDaoImpl;
+import com.gsitm.meeting.vo.Employee;
 import com.gsitm.meeting.vo.MeetingRoom;
 
 @Service
@@ -76,6 +77,11 @@ public class MeetingRoomService {
 		int mrIdInt = Integer.parseInt((recentId.split("\\."))[0])+1;
 		System.out.println(mrIdInt);
 		return mrIdInt;
-		
+	
+	}
+	
+	
+	public List<Employee> getMeetingRoomAdministrator(){
+		return mrDao.getMeetingRoomAdministrator();
 	}
 }

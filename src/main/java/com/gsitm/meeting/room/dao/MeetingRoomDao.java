@@ -2,7 +2,7 @@ package com.gsitm.meeting.room.dao;
 
 import java.util.List;
 
-
+import com.gsitm.meeting.vo.Employee;
 import com.gsitm.meeting.vo.MeetingRoom;
 
 public interface MeetingRoomDao {
@@ -20,5 +20,7 @@ public interface MeetingRoomDao {
 	public String meetingRoomGetRecent();
 	
 	public String meetingRoomGetRecentImgId();
+	
+	public List<Employee> getMeetingRoomAdministrator();
 
 }
