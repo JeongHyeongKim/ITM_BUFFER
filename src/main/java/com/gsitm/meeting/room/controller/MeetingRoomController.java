@@ -51,8 +51,8 @@ public class MeetingRoomController {
 	public String branchCreate(Model model) { // 글 입력폼만 있는 페이지로 이동함.
 		model.addAttribute("branchList", brService.branchList());
 		model.addAttribute("administrator", mrService.getMeetingRoomAdministrator());
-		/*System.out.println("admin");
-		System.out.println(mrService.getMeetingRoomAdministrator());*/
+		System.out.println("admin");
+		System.out.println(mrService.getMeetingRoomAdministrator());
 
 		return "meetingRoom/meetingRoomCreate";
 	}
