@@ -20,13 +20,13 @@
 	
 	<insert id="meetingRoomInsert">
 		insert into meeting_room (mr_id,mr_name, br_id, mr_limit, mr_price, mr_area, mr_network, mr_type, emp_id, mr_location, mr_img)
-		values (#{mrId}, #{mrName}, #{brId}, #{mrLimit}, #{mrPrice}, #{mrArea}, #{mrNetwork}, #{mrType}, #{empId}, #{mrLoaction}, #{mrImg})
+		values (#{mrId}, #{mrName}, #{brId}, #{mrLimit}, #{mrPrice}, #{mrArea}, #{mrNetwork}, #{mrType}, #{empId}, #{mrLocation}, #{mrImg})
 	</insert>
 	
 	<update id="meetingRoomUpdate">
 		update meeting_room
 		set mr_name=#{mrName}, br_id=#{brId}, mr_limit=#{mrLimit}, mr_price=#{mrPrice}, mr_area=#{mrArea}, mr_network=#{mr_Network}, 
-		mr_type=#{mrType}, emp_id=#{empId}, mr_location=#{mrLoaction}, mr_img=#{mrImg}
+		mr_type=#{mrType}, emp_id=#{empId}, mr_location=#{mrLocation}, mr_img=#{mrImg}
 		where mr_id=#{mrId} 
 	</update>
 	

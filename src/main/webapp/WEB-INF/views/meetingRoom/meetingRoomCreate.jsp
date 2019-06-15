@@ -73,13 +73,13 @@
                                     <div class="col-md-4">
                                         <select class="form-control" name="mrType">
                                             <option value="" hidden>회의실 유형 선택</option>
-                                            <option>회의실</option>
-                                            <option>대회의실</option>
-                                            <option>교육실</option>
+                                            <option value="mr_type_0">회의실</option>
+                                            <option value="mr_type_1">대회의실</option>
+                                            <option value="mr_type_2">교육실</option>
                                         </select>
                                     </div>
                                     <div class="col-md-4">
-                                        <input class="form-control" type="text" placeholder="회의실 이름을 입력해주세요">
+                                        <input class="form-control" name="mrName" type="text" placeholder="회의실 이름을 입력해주세요">
                                     </div>
                                 </div>
                                 <div class="form-group row" style="padding-bottom:10px">
@@ -111,7 +111,7 @@
                                         <div class="animated-checkbox">
                                             <label>
                                                 <input name="mrNetwork" type="checkbox" value="net_1"><span class="label-text">네트워크 지원</span>
-                                                <input type="hidden" name="mrNetwork" value="0" />
+                                                <input type="hidden" name="mrNetwork" value="net_0" />
                                             </label>
                                         </div>
 

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import com.gsitm.meeting.branch.service.BranchService;
+import com.gsitm.meeting.room.service.MeetingRoomService;
 
 @Service
 public class FileUploadService { 
@@ -15,6 +16,8 @@ public class FileUploadService {
 	private BranchService brService;
 	//https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/context/support/FileSystemXmlApplicationContext.html
 	//다음 주소에서 프로젝트 갱신을 할 수 있을 것 같다.
+	@Autowired
+	private MeetingRoomService mrService;
 	
 	//할일 리스트
 	//1. 사진 폼에 올리면 그 사진으로  form이 바뀌며, 디폴트 사진을 다른 것으로 대체
@@ -31,7 +34,7 @@ public class FileUploadService {
 			Long size = multipartFile.getSize();
 			
 			// 서버에서 저장 할 파일 이름
-			String saveFileName = genSaveFileName(extName); // 경로 뺀 완벽한 파일 이름 ex) brImg1.jpg
+			String saveFileName = genSaveFileName(extName, object); // 경로 뺀 완벽한 파일 이름 ex) brImg1.jpg
 			
 			System.out.println("originFilename : " + originFilename);
 			System.out.println("extensionName : " + extName);
@@ -84,12 +87,19 @@ public class FileUploadService {
 	
 	
 	// 회의실 create 미반영
-	private String genSaveFileName(String extName) { //.~~~으로 확장자만 불러온다.
+	private String genSaveFileName(String extName, String object) { //.~~~으로 확장자만 불러온다.
 		
-		String fileName = "brImg";
-		 
-		int recentId = brService.branchGetRecentImgId();
+		String fileName = "";
+		int recentId = 0;
 		
+		if(object.equals("branch")) {
+			fileName="brImg";
+			recentId = brService.branchGetRecentImgId();
+		}
+		else if(object.equals("meetingroom")){
+			fileName="mrImg";
+			recentId=mrService.meetingRoomGetRecentImgId();
+		}
 		fileName += recentId+extName;
 		return fileName;
 	}
