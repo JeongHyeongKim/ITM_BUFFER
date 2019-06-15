@@ -69,10 +69,7 @@
 									예약일
 								</th>
 								<th>
-									사용시작일
-								</th>
-								<th>
-									사용종료일
+									예약사용일
 								</th>
 								<th>
 									신청자명
@@ -84,72 +81,68 @@
 									회의목적
 								</th>
 								<th>
-									회의구분
-								</th>
-								<th>
 									참석인원
 								</th>
 								<th>
 									기자재
 								</th>
 								<th>
-									간식
+									예약상태
 								</th>
 								<th>
-									전달사항
-								</th>
-								<th>
-									상태
+									예약 비용
 								</th>
 								<th>
 									관리
 								</th>
-			
 							</tr>
 							</thead>
 							<tbody>
-							
-							<tr>
-								<td>
-									Dai Rios
-								</td>
-								<td>
-									Personnel Lead
-								</td>
-								<td>
-									Edinburgh
-								</td>
-								<td>
-									35
-								</td>
-								<td>
-									2012/09/26
-								</td>
-								<td>
-									$217,500
-								</td>
-								<td>
-									Tiger Nixon
-								</td>
-								<td>
-									System Architect
-								</td>
-								<td>
-									Edinburgh
-								</td>
-								<td>
-									61
-								</td>
-								<td>
-									2011/04/25
-								</td>
-								<td>
-									$320,800
-								</td>
-								<td>
-									$320,800
-								</td>
-							</tr>
+								<c:forEach items="${resList }" var="resList">
+									<tr>
+										<td>
+											${resList.resDate }
+										</td>
+										<td>
+											${resList.resStartDate } ~ ${resList.resEndDate }
+										</td>
+										
+										<td>
+											${resList.empName }
+										</td>
+										<td>
+											${resList.mrName }
+										</td>
+										<td>
+											${resList.resPurpose }
+										</td>								
+										<td>
+											${resList.resAttendCnt }
+										</td>
+										<td>
+											${resList.resAddRequest }
+										</td>
+										<td id="${resList.resState }">
+											${resList.resState }
+										</td>	
+										<td>
+											${resList.resCost }
+										</td>									
+										<td>
+											<div class="bs-component">
+								              <ul class="nav nav-pills">
+								                <li class="nav-item dropdown">
+								                	<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">상태</a>
+								                  	<div class="dropdown-menu">
+								                  		<a class="dropdown-item" id="approval">승인</a>
+								                  		<a class="dropdown-item" id="back">반려</a>
+								                  	</div>
+								                </li>
+								              </ul>
+								            </div>
+										</td>
+									</tr>
+								</c:forEach>
 							</tbody>
 			            </table>
 			          </div>
@@ -164,3 +157,17 @@
 <script src="/meeting/resources/js/datatables/jquery.dataTables.js"></script>
 <script src="/meeting/resources/js/datatables/dataTables.bootstrap4.js"></script>
 <script src="/meeting/resources/js/plugins/sb-admin-datatables.min.js"></script>
+<script>
+/* $(document).ready(function() {  
+	$('#approval').click(function(e){
+		$.ajax({
+			url:"/meeting/admin/waitForRecognition/"+resId,
+	    	type:"post",
+	    	data:"_csrf=${_csrf.token}",
+	    	success:function(data){
+	    		alert("dd");
+	    	}
+	    })
+	});
+}); */
+</script>

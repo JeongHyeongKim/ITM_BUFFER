@@ -4,7 +4,8 @@ import java.security.Principal;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -72,5 +73,12 @@ public class ReservationController {
 		model.addAttribute("branchList",resService.branchList());
 		model.addAttribute("search",resService.search(search));
 		return "reservation/search";
+	}
+	
+	@PostMapping("/cancelRes/{resId}")
+	public ResponseEntity<Void> cancelRes(@PathVariable String resId) {
+		
+		int result = resService.cancelRes(resId);
+		return new ResponseEntity<>(result == 1 ? HttpStatus.OK : HttpStatus.BAD_REQUEST);
 	}
 }

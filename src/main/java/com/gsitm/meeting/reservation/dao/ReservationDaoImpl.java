@@ -83,4 +83,11 @@ public class ReservationDaoImpl implements ReservationDao {
 		return session.selectList(namespace+".search",search);
 	}
 
+	public int cancelRes(String resId) {
+		// TODO Auto-generated method stub
+		return session.delete(namespace+".cancelRes",resId);
+	}
+
+	
+
 }

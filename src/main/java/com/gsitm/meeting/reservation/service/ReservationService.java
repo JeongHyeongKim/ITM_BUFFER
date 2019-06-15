@@ -59,4 +59,9 @@ public class ReservationService {
 		System.out.println(search);
 		return resDao.search(search);
 	}
+	public int cancelRes(String resId) {
+		// TODO Auto-generated method stub
+		return resDao.cancelRes(resId);
+	}
+
 }
