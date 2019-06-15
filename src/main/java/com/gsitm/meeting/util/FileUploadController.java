@@ -100,7 +100,7 @@ public class FileUploadController {
 	
 	@PostMapping("/meetingRoomUpdate")
 	public String branchUpdate(@RequestParam("mrId") String mrId, @RequestParam("mrName")String mrName, @RequestParam("brId")String brId,
-			@RequestParam("mrLimit") int mrLimit,@RequestParam("meNetwork")String mrNetwork, @RequestParam("mrPrice")int mrPrice, @RequestParam("mrArea")int mrArea,
+			@RequestParam("mrLimit") int mrLimit,@RequestParam("mrNetwork")String mrNetwork, @RequestParam("mrPrice")int mrPrice, @RequestParam("mrArea")int mrArea,
 			@RequestParam("mrType") String mrType, @RequestParam("empId") String empId, @RequestParam("mrLocation")String mrLocation,
 			@RequestParam("mrImg")MultipartFile  mrImg, HttpServletRequest request) {
 		

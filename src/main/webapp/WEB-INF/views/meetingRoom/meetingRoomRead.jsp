@@ -42,7 +42,7 @@
 		document.getElementById("mrLimit").value=meetingRoom.mrLimit;
 		document.getElementById("mrPrice").value=meetingRoom.mrPrice;
 		document.getElementById("mrArea").value=meetingRoom.mrArea;
-		document.getElementById("mrLocatoin").value=meetingRoom.mrLocation;
+		document.getElementById("mrLocation").value=meetingRoom.mrLocation;
 		if(meetingRoom.mrNetwork=="net_1") {
             document.getElementById('mrNetworkHidden').disabled = true;
             document.getElementById('mrNetwork').checked=true;
@@ -109,7 +109,7 @@
 
         <form action="/meeting/file/meetingRoomUpdate" method="POST" enctype="multipart/form-data">
             <div class="row">
-                <input type="hidden" name="mrId" value="0">
+                <input type="hidden" name="mrId" value="${meetingRoom.mrId}">
                 <input type="hidden" name="_csrf" value="${_csrf.token}">
                 <div class="col-md-4">
                     <div class="tile" style="text-align:center">
@@ -134,9 +134,9 @@
                                     <div class="col-md-4">
                                         <select class="form-control" name="mrType">
                                             <option value="" hidden>회의실 유형 선택</option>
-                                            <option value="mr_type_0">회의실</option>
-                                            <option value="mr_type_1">대회의실</option>
-                                            <option value="mr_type_2">교육실</option>
+                                            <option value="mr_type_0" id="mr_type_0">회의실</option>
+                                            <option value="mr_type_1" id="mr_type_1">대회의실</option>
+                                            <option value="mr_type_2" id="mr_type_2">교육실</option>
                                         </select>
                                     </div>
                                     <div class="col-md-4">

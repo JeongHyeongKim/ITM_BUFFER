@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.google.gson.Gson;
 import com.gsitm.meeting.room.dao.MeetingRoomDaoImpl;
 import com.gsitm.meeting.vo.Employee;
 import com.gsitm.meeting.vo.MeetingRoom;
@@ -15,12 +16,19 @@ public class MeetingRoomService {
 	@Autowired
 	private MeetingRoomDaoImpl mrDao;
 	
+	@Autowired
+	private Gson gson;
+	
 	
 	public List<MeetingRoom> meetingRoomList(){
 		System.out.println(mrDao.meetingRoomList());
 		return mrDao.meetingRoomList();
 	}
 	 
+	public String meetingRoomOnebyGSON(String meetingRoomId) {
+
+		return gson.toJson(mrDao.meetingRoomOne(meetingRoomId));
+	}
 	
 	public MeetingRoom meetingRoomOne(String mrId) {
 		return mrDao.meetingRoomOne(mrId);
