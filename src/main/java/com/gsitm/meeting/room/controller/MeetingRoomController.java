@@ -35,6 +35,8 @@ public class MeetingRoomController {
 	@GetMapping("/read/{mrId}")
 	public String branchOne(Model model, @PathVariable String mrId) {
 		model.addAttribute("meetingRoom", mrService.meetingRoomOne(mrId));
+		model.addAttribute("branchList", brService.branchList());
+		model.addAttribute("administrator", mrService.getMeetingRoomAdministrator());
 		return "meetingRoom/meetingRoomRead"; // 리다이렉트 없이 바로 전달하면 경로로 설정
 	}
 	

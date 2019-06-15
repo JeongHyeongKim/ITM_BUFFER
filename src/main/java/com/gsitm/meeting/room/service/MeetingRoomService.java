@@ -68,14 +68,13 @@ public class MeetingRoomService {
 	
 
 	public int meetingRoomGetRecentImgId() {
-		String recentId = mrDao.meetingRoomGetRecentImgId();
-		System.out.println(recentId);
-		 recentId = recentId.split("mrImg")[1]; // 숫자부분 추출
-		 System.out.println(recentId);
-
+		String recentId = mrDao.meetingRoomGetRecent();
 		
-		int mrIdInt = Integer.parseInt((recentId.split("\\."))[0])+1;
-		System.out.println(mrIdInt);
+		String mrId = recentId.split("_")[1]; // 숫자 뒤에 있는거 자르고 쓰기
+		int mrIdInt = Integer.parseInt(mrId)+1;
+		System.out.println("새로운 이미지 넘버 : "+mrIdInt);
+		
+
 		return mrIdInt;
 	
 	}

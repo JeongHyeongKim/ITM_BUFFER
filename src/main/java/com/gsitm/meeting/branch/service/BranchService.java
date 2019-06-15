@@ -90,14 +90,10 @@ public class BranchService {
 		return brDao.meetingRoomListOrderByBranch();
 	}
 	public int branchGetRecentImgId() {
-		String recentId = brDao.branchGetRecentImgId();
+		String recentId = brDao.BranchGetRecent();
 		System.out.println(recentId);
-		 recentId = recentId.split("brImg")[1]; // 숫자부분 추출
-		 System.out.println(recentId);
-
-		
-		int brIdInt = Integer.parseInt((recentId.split("\\."))[0])+1;
-		System.out.println(brIdInt);
+		String brId = recentId.split("_")[1]; // 숫자 뒤에 있는거 자르고 쓰기
+		int brIdInt = Integer.parseInt(brId)+1;
 		return brIdInt;
 		
 	}
