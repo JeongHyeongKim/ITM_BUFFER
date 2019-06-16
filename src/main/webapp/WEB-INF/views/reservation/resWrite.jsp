@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <link href="/meeting/resources/css/jquery.datetimepicker.css" rel="stylesheet"/>
+
 <main class="app-content">
 	<div class="app-title">
 		<div>
@@ -58,9 +59,15 @@
                             <label class="control-label">사용 목적</label>
                             <input class="form-control" placeholder="회의 목적을 작성해주십시오" type="text">
                         </div>
+                         <div class="form-group col-md-3">
+                            <label class="control-label">참석 인원 명단 <a data-target="#empList" data-toggle="modal">명단등록</a></label>
+                            <input class="form-control" type="text">
+                        </div>
                         <div class="form-group col-md-3">
-                            <label class="control-label">참석 인원 수</label>
+                            <label class="control-label">외부인 참석 인원 수</label>
                             <input class="form-control" min="1" type="number">
+                        </div>
+                        <div class="form-group col-md-3">
                         </div>
                         <div class="form-group col-md-3"> 
                             <label class="control-label">기자재</label>
@@ -88,6 +95,14 @@
                             <div class="animated-checkbox">
                                 <label>
                                     <input name="resSnack" type="checkbox"><span class="label-text">간식 있음</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label class="control-label">네트워크 사용 유무</label>
+                            <div class="animated-checkbox">
+                                <label>
+                                    <input name="resNetwork" type="checkbox"><span class="label-text">네트워크 사용</span>
                                 </label>
                             </div>
                         </div>
@@ -129,6 +144,45 @@
 				</div>
 			</div>
 		</div>
+		
+		 <!-- EmpModal -->
+        <div class="modal fade" id="empList" role="dialog">
+			<div class="modal-dialog">
+				<!-- Modal content-->
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title">참석 명단 작성</h4>
+						<button type="button" class="close" data-dismiss="modal">×</button>
+					</div>
+					<div class="modal-body">
+						<form action="/meeting/reservation/writeReservation" method="POST">
+							<div class="row mb-4">
+							</div>
+							<c:forEach items="${empList}"  var="list">
+								<div class="row">
+									<div class="col-md-7">
+										<div class="animated-checkbox">
+			                                <label> 
+			                                    <input name="empName" type="checkbox"><span class="label-text">${list.empId} / ${list.empName} - ${list.deptName}</span> 
+			                                </label>
+			                            </div>
+			                         </div>
+								</div>
+							</c:forEach>
+							<div class="modal-footer" style="margin-top:20px">
+								<div class="row mb-10">
+									<div class="col-md-12">
+										<input type="submit" class="btn btn-success" data-dismiss="modal" value="작성">
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		
     </div>
 </main>
 <script src="/meeting/resources/js/plugins/jquery.datetimepicker.full.js"></script>

@@ -1,5 +1,6 @@
 package com.gsitm.meeting.reservation.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -86,6 +87,17 @@ public class ReservationDaoImpl implements ReservationDao {
 	public int cancelRes(String resId) {
 		// TODO Auto-generated method stub
 		return session.delete(namespace+".cancelRes",resId);
+	}
+
+	public List<ReservationDTO> mySchedule(String attendeeId) {
+		// TODO Auto-generated method stub
+		return session.selectList(namespace+".mySchedule",attendeeId);
+	}
+
+	@Override
+	public List<EmployeeDTO> empList() {
+		// TODO Auto-generated method stub
+		return session.selectList(namespace+".empList");
 	}
 
 	

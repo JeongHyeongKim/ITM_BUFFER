@@ -1,7 +1,7 @@
 package com.gsitm.meeting.reservation.controller;
 
 import java.security.Principal;
-
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -66,6 +66,7 @@ public class ReservationController {
 	@GetMapping("/resWrite/{mrId}")
 	public String resWrite(Model model,@PathVariable String mrId) {
 		model.addAttribute("equipList",resService.equipList(mrId));
+		model.addAttribute("empList",resService.empList());
 		return "reservation/resWrite";
 	}
 	@GetMapping("/search")
@@ -74,11 +75,17 @@ public class ReservationController {
 		model.addAttribute("search",resService.search(search));
 		return "reservation/search";
 	}
-	
+	//이후에 users 패키지로 바꾸기
 	@PostMapping("/cancelRes/{resId}")
 	public ResponseEntity<Void> cancelRes(@PathVariable String resId) {
 		
 		int result = resService.cancelRes(resId);
 		return new ResponseEntity<>(result == 1 ? HttpStatus.OK : HttpStatus.BAD_REQUEST);
+	}
+	
+	@GetMapping("/myListPeriod")
+	public String mySchedule(Model model,String attendeeId) {
+		model.addAttribute("myListPeriod",resService.mySchedule(attendeeId));
+		return "users/mypage";
 	}
 }

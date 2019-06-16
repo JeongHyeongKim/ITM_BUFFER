@@ -49,6 +49,9 @@
 			<if test="searchtype == 'schduledMeeting'.toString()">
 				and res_state = 'res_2' 
 			</if>
+			<if test="searchtype == 'allOfList'.toString()">
+				
+			</if>
 			<if test="searchtype == 'oneWeek'.toString()">
 				<![CDATA[and ((sysdate - 7) < res_start_time)]]>
 			</if>

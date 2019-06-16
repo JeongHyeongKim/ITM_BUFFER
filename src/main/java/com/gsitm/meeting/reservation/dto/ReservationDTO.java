@@ -1,7 +1,5 @@
 package com.gsitm.meeting.reservation.dto;
 
-import java.util.Date;
-
 public class ReservationDTO {
 	public static class ReservationTest{
 		private String resId;
@@ -25,7 +23,16 @@ public class ReservationDTO {
 		private String empName;
 		//예약정보 중 회의실 이름
 		private String mrName;
-		
+		//지사
+		private String brName;
+
+		public String getBrName() {
+			return brName;
+		}
+
+		public void setBrName(String brName) {
+			this.brName = brName;
+		}
 
 		public String getMrName() {
 			return mrName;
@@ -206,12 +213,14 @@ public class ReservationDTO {
 			builder.append(", mrName=");
 			builder.append(mrName);
 			builder.append("]");
+			builder.append(brName);
+			builder.append("]");
 			return builder.toString();
 		}
 
 		public ReservationTest(String resId, String empId, String mrId, String resStartDate, String resEndDate,
 				String resDate, String resPurpose, int resAttendCnt, String resAddRequest, String resState,
-				int resSnack, String resType, String resCancle, int resCost, int resOutside,String empName, String mrName) {
+				int resSnack, String resType, String resCancle, int resCost, int resOutside,String empName, String mrName,String brName) {
 			super();
 			this.resId = resId;
 			this.empId = empId;
@@ -230,10 +239,8 @@ public class ReservationDTO {
 			this.resOutside = resOutside;
 			this.empName = empName;
 			this.mrName = mrName;
-		}
-	
-		
-
-		
+			this.brName = brName;
+			
+		}	
 	}
 }

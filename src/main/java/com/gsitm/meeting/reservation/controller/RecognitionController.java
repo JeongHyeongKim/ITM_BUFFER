@@ -27,7 +27,7 @@ public class RecognitionController {
 	
 	@GetMapping("/waitForRecognition")
 	public String waitForRecognition(Model model) {
-		model.addAttribute("branchList",resService.branchList());
+		model.addAttribute("branchList",recService.branchList());
 		model.addAttribute("resList",recService.resList());
 		return "admin/waitForRecognition";
 	}

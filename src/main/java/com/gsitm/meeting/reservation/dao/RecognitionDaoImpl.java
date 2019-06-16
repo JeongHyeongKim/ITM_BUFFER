@@ -6,6 +6,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.google.gson.JsonElement;
+import com.gsitm.meeting.vo.Branch;
 import com.gsitm.meeting.vo.Reservation;
 
 @Repository
@@ -19,6 +21,11 @@ public class RecognitionDaoImpl implements RecognitionDao{
 	public List<Reservation> resList() {
 		// TODO Auto-generated method stub
 		return session.selectList(namespace+".resList");
+	}
+
+	public List<Branch> branchList() {
+		// TODO Auto-generated method stub
+		return session.selectList(namespace+".branchList");
 	}
 
 	/*public void updateResState(String resId) {

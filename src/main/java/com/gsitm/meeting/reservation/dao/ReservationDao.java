@@ -1,5 +1,6 @@
 package com.gsitm.meeting.reservation.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import com.gsitm.meeting.branch.dto.BranchDTO;
@@ -21,4 +22,8 @@ public interface ReservationDao {
 	public List<ReservationDTO> mrReservationList(String mrId);
 	public List<EquipmentReservationDTO> equipList(String mrId);
 	public List<MeetingRoomDTO> search(SearchDTO search);
+	public List<EmployeeDTO> empList();
+	//users패키지로 바꾸기
+	public int cancelRes(String resId);
+	public List<ReservationDTO> mySchedule(String attendeeId);
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.google.gson.Gson;
 import com.gsitm.meeting.reservation.dao.RecognitionDaoImpl;
 import com.gsitm.meeting.vo.Reservation;
 
@@ -13,10 +14,17 @@ public class RecognitionService {
 
 	@Autowired
 	private RecognitionDaoImpl recDao;
-
-	public List<Reservation> resList() {
+	@Autowired
+	private Gson gson;
+	
+	public String resList() {
 		// TODO Auto-generated method stub
-		return recDao.resList();
+		return gson.toJson(recDao.resList());
+	}
+
+	public String branchList() {
+		// TODO Auto-generated method stub
+		return gson.toJson(recDao.branchList());
 	}
 
 	/*public String updateResState(String resId) {

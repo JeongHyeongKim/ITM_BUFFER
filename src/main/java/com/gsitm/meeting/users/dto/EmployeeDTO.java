@@ -33,4 +33,12 @@ public class EmployeeDTO {
 		private String resStartDate;
 		private String resEndDate;
 	}
+	@Data
+	public static class empList {
+	
+		private String empId;
+		private String empName;
+		private String deptName;
+		
+	}
 }

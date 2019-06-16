@@ -1,5 +1,6 @@
 package com.gsitm.meeting.reservation.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,9 +60,21 @@ public class ReservationService {
 		System.out.println(search);
 		return resDao.search(search);
 	}
+	
+	//이후에 users 패키지로 옮길 것
 	public int cancelRes(String resId) {
 		// TODO Auto-generated method stub
 		return resDao.cancelRes(resId);
 	}
+	
+	public List<ReservationDTO> mySchedule(String attendeeId) {
+		// TODO Auto-generated method stub
+		return resDao.mySchedule(attendeeId);
+	}
+	public List<EmployeeDTO> empList() {
+		// TODO Auto-generated method stub
+		return resDao.empList();
+	}
+	
 
 }
