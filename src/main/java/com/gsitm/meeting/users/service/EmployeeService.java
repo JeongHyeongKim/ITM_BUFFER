@@ -6,7 +6,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.google.gson.Gson;
@@ -22,7 +28,20 @@ public class EmployeeService {
 	private EmployeeDaoImpl empDao;
 	
 	@Autowired
+	JavaMailSender mailSender;
+	
+	@Autowired
+	PasswordEncoder pwdEncoder;
+	
+	@Autowired
 	private Gson gson;
+	
+	public void pwdEncoderTest() {
+		String pwd = "1111";
+		String newPwd = pwdEncoder.encode(pwd);
+		empDao.pwdInsert(newPwd);
+		System.out.println(newPwd);
+	}
 	
 	public void lockAccount(String id) {
 		empDao.lockAccount(id);
@@ -43,6 +62,23 @@ public class EmployeeService {
 	public String getReservationBySearchtype(String empId, String searchtype) {
 		return gson.toJson(empDao.getReservationBySearchtype(empId, searchtype));
 	}
+	
+	public void sendMail(String email, String msg){
+		
+		MimeMessage message = mailSender.createMimeMessage();
+		try {
+			
+			MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
+			messageHelper.setFrom("dlgyqls77@gmail.com");
+			messageHelper.setTo(email);
+			messageHelper.setSubject("hello");
+			messageHelper.setText("Test");
+			mailSender.send(message);
+		} catch (MessagingException e) {	
+			e.printStackTrace();
+		}
+	}
+	
 	
 	//윤영
 	public String availableMeetingDate(String availableDate, String mrId) throws ParseException {

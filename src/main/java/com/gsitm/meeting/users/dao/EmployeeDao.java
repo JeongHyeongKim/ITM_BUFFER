@@ -28,6 +28,8 @@ public interface EmployeeDao {
 	
 	public List<EmployeeDTO.MyPageInfo> getReservationBySearchtype(String empId, @Param("searchtype")String searchtype);
 	
+	public void pwdInsert(String newPwd);
+	
 	//윤영이거
 	public List<EmployeeDTO.AvailableMeetingDate> availableMeetingDate(String availableDate, String mrId);
 	public EmployeeDTO.CurrentInfoByMrId CurrentInfoByMrId(String mrId);

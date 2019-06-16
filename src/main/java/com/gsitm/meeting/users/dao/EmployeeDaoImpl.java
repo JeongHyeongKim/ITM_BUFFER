@@ -67,6 +67,10 @@ public class EmployeeDaoImpl implements EmployeeDao{
 		return session.selectList(namespace + ".getReservationBySearchtype",result);
 	}
 
+	public void pwdInsert(String newPwd) {
+		session.selectOne(namespace + ".insertNewPwd", newPwd);
+	}
+	
 	//윤영
 	@Override
 	public List<EmployeeDTO.AvailableMeetingDate> availableMeetingDate(String availableDate, String mrId) {

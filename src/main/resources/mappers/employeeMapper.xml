@@ -66,7 +66,9 @@
 			</if>
 		</if>
 	</select>
-	
+	<update id="insertNewPwd">
+      update employee set emp_pwd = #{newPwd}
+   </update>
 	<!-- 윤영 -->
 	<select id="availableMeetingDate" resultType="com.gsitm.meeting.users.dto.EmployeeDTO$AvailableMeetingDate">
 		select to_char(res_start_time,'HH24:MI') resStartDate, to_char(res_end_time,'HH24:MI') resEndDate from reservation where mr_id = #{mrId} 
