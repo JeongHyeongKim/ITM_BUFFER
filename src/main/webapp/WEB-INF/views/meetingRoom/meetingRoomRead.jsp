@@ -12,6 +12,34 @@
             display: grid;
 
         }
+        
+        .upload-wrapper {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+
+        }
+
+        .upload-btn {
+
+            color: white;
+            background-color: #009688;
+            padding: 8px 20px;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: bold;
+        }
+
+        .upload-wrapper input[type="file"] {
+
+            font-size: 100px;
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+        }
+        
+        
     </style>
 
 
@@ -19,9 +47,6 @@
     $(function() {
 
         var meetingRoom = JSON.parse('${meetingRoom}');
-        //var meetingRoomList = JSON.parse('${meetingRoomList}');
-        //console.log(branch);
-        //console.log(${branch});
 
         var mrId = null;
         var mrName = null;
@@ -30,8 +55,8 @@
         var mrPrice=null;
         var mrArea=null; 
         var mrNetwork=null;
-        var mrType=null; // 아직
-        var empId=null; // 관리자, 아직
+        var mrType=null;
+        var empId=null;
 		var mrLocation=null;
         var mrImg=null;
 		//잠시 저장하기 위한 임시 버퍼	
@@ -50,14 +75,14 @@
         	document.getElementById('mrNetworkHidden').checked = true;
         	documet.getElementById('mrNetwork').disalbed=true;
         }
-		
+		document.getElementById("mrIdHiddenArea").value=meetingRoom.mrId;
 		document.getElementById(meetingRoom.mrType).selected=true;
 		document.getElementById(meetingRoom.empId).selected=true;
-		//페이지 오픈 시 기본 세팅 쿼리. 아직 테스트 안함.
+		//페이지 오픈 시 기본 세팅
 		
 
 
-        $('#modalOpen').click(function() {
+/*          $('#modalOpen').click(function() {
             name = document.getElementById("brName").value;
             address = document.getElementById("brAddress").value;
             tel = document.getElementById("brTel").value;
@@ -65,7 +90,7 @@
             document.getElementById("modalBranchName").innerHTML = name
             document.getElementById("modalBranchLocation").innerHTML = address
             document.getElementById("modalBranchTel").innerHTML = tel
-        })
+        }) */
 
         
         if(document.getElementById('mrNetwork').checked==true) {
@@ -74,9 +99,9 @@
             	document.getElementById('mrNetworkHidden').checked = true;
             }
         
-        $('#finallyConfirm').click(function() {
-            $('#branchDataUpdate').submit();
-        });
+         $('#finallyConfirm').click(function() {
+            $('#meetingRoomUpdate').submit();
+        });  
          $("#imgUpload").change(function(){
     		if(this.files && this.files[0]){
     			var reader = new FileReader();
@@ -107,14 +132,20 @@
             </ul>
         </div>
 
-        <form action="/meeting/file/meetingRoomUpdate" method="POST" enctype="multipart/form-data">
+        <form action="/meeting/file/meetingRoomUpdate"  id="meetingRoomUpdate" method="POST" enctype="multipart/form-data">
             <div class="row">
-                <input type="hidden" name="mrId" value="${meetingRoom.mrId}">
+                <input type="hidden" name="mrId"  id="mrIdHiddenArea"> <!-- 바로 세팅이 안된다. 따로 해줘야할듯 -->
                 <input type="hidden" name="_csrf" value="${_csrf.token}">
                 <div class="col-md-4">
                     <div class="tile" style="text-align:center">
                         <img class="user-img" id="imgArea" src="https://s3.amazonaws.com/uifaces/faces/twitter/jsa/128.jpg" height=235px>
-                        <input class="form-control" type="file" id="imgUpload" name="mrImg">
+                        <div style="vertical-align:bottom;text-align:right"> 
+	                        <div class="upload-wrapper">
+	                            <button class="upload-btn" id="imgUpload">업로드</button> 
+	                            <input type="file" id="imgUpload" name="mrImg"> 
+	                        </div>
+                        </div>
+<!--                         다이어로그가 안뜨고 submit 되어버리는 오류 -->
                     </div>
                 </div>
                 <div class="col-md-8">
@@ -183,9 +214,36 @@
                             </div>
                         </div>
                         <div class="tile-footer">
+                        <!--  modal start -->
+                            <div class="modal fade" id="confirm" role="dialog">
+                                <div class="modal-dialog">
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title" style="text-align:center;">입력 확인</h4>
+                                            <button type="button" class="close" data-dismiss="modal">×</button>
+                                        </div>
+                                        <div class="modal-body">
+                                                    <h5 id="modalBranchName">작성하신 내용이 맞습니까?</h5>
+                                               
+                                            <div class="modal-footer" style="margin-top:20px">
+                                                <div class="row mb-10">
+                                                    <div class="col-md-12">
+                                                        <button class="btn btn-success" id="finallyConfirm" type="button"><i class="fa fa-fw fa-lg fa-check-circle"></i>확인</button>
+                                                        <button class="btn btn-success" type="button" data-dismiss="modal"><i class="fa fa-fw fa-lg fa-check-circle"></i>취소</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- modal end -->
+                            
                             <div class="row">
                                 <div class="col-md-8 col-md-offset-3">
-                                    <button class="btn btn-primary" type="submit" id="write"><i class="fa fa-fw fa-lg fa-check-circle"></i>확인</button>&nbsp;&nbsp;&nbsp;<a class="btn btn-secondary" href="/meeting/meetingRoom/list"><i class="fa fa-fw fa-lg fa-times-circle"></i>취소</a>
+                                    <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#confirm" id="modalOpen"><i class="fa fa-fw fa-lg fa-check-circle"></i>확인</button>&nbsp;&nbsp;&nbsp;
+                                    <a class="btn btn-secondary" href="/meeting/branch/list"><i class="fa fa-fw fa-lg fa-times-circle"></i>취소</a>
                                 </div>
                             </div>
                         </div>

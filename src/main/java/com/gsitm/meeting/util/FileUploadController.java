@@ -117,7 +117,7 @@ public class FileUploadController {
 		
 		MeetingRoom meetingroom = new MeetingRoom( mrId,  mrName,  brId,  mrLimit,  mrPrice,  mrArea,  mrNetwork, mrType,  empId,  mrLocation, buf);
 		mrService.meetingRoomUpdate(meetingroom);
-		return "redirect:/branch/list";
+		return "redirect:/meetingRoom/list";
 	}
 	
 	

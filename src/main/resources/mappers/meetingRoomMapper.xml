@@ -25,7 +25,7 @@
 	
 	<update id="meetingRoomUpdate">
 		update meeting_room
-		set mr_name=#{mrName}, br_id=#{brId}, mr_limit=#{mrLimit}, mr_price=#{mrPrice}, mr_area=#{mrArea}, mr_network=#{mr_Network}, 
+		set mr_name=#{mrName}, br_id=#{brId}, mr_limit=#{mrLimit}, mr_price=#{mrPrice}, mr_area=#{mrArea}, mr_network=#{mrNetwork}, 
 		mr_type=#{mrType}, emp_id=#{empId}, mr_location=#{mrLocation}, mr_img=#{mrImg}
 		where mr_id=#{mrId} 
 	</update>
