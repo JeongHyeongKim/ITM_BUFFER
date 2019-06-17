@@ -56,4 +56,5 @@
   <!-- Essential javascripts for application to work-->
     <!-- The javascript plugin to display page loading on top-->
     <script src="/meeting/resources/js/plugins/pace.min.js"></script>
+    <script src="/meeting/resources/js/main.js"></script>
 </html>

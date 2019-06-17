@@ -46,7 +46,7 @@
     <script src="/meeting/resources/js/jquery-3.2.1.min.js"></script>
     <script src="/meeting/resources/js/popper.min.js"></script>
     <script src="/meeting/resources/js/bootstrap.min.js"></script>
-    <script src="/meeting/resources/js/main.js"></script>
+    
     <!-- The javascript plugin to display page loading on top-->
     <!-- Google analytics script-->
     <script type="text/javascript">

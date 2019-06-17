@@ -31,13 +31,13 @@ public class ReservationController {
 	private EmployeeService empService;
 	
 	@GetMapping("/list/{brId}")
-	public String resList(Model model,@PathVariable String brId, Principal principal/*,String attendeeId*/) {
+	public String resList(Model model,@PathVariable String brId, Principal principal) {
 		model.addAttribute("deptCost", empService.getDeptCost(principal.getName()));
 		model.addAttribute("resList",resService.resList(brId));
 		model.addAttribute("branchList",resService.branchList());
 		model.addAttribute("mrTypeList",resService.mrTypeList());
-		model.addAttribute("mrLimitList",resService.mrLimitList());/*
-		model.addAttribute("mySchedule",resService.mySchedule(attendeeId));*/
+		model.addAttribute("mrLimitList",resService.mrLimitList());
+		model.addAttribute("mySchedule",resService.mySchedule(principal.getName()));
 		return "reservation/resList";
 	}
 	@PostMapping("/writeReservation")

@@ -2,10 +2,40 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<script>
+	$(function(){
+
+	    var today = new Date();
+		var todayMonth = today.getMonth()+1;
+		document.getElementById ( 'month' ).innerHTML=todayMonth;
+		var deptCost = JSON.parse('${deptCost}');
+	    $("#deptCost").text(deptCost+"(원)"); 
+	    var mySchedule = JSON.parse('${mySchedule}');  
+		document.getElementById ( 'cntSchedule' ).innerHTML=mySchedule.length;
+		function drawMySchedule(mySchedule){
+			$("#meetingInfo").empty(); 
+			var $meetingInfo = $("#meetingInfo");
+			if(mySchedule.length==0){
+				$("<h3></h3>").attr("class","tile-title").text("예정된 회의실 예약 일정이 없습니다").appendTo($meetingInfo);
+			}
+			$.each(mySchedule, function(i, $list) {	
+				if(i==0){
+					$("<h3></h3>").attr("class","tile-title").text($list.resStartDate).appendTo($meetingInfo);
+					$("<h3></h3>").attr("class","tile-title").text($list.brName+" - "+$list.mrName).appendTo($meetingInfo);
+				}else{
+					$("<h3></h3>").attr("class","tile-title").appendTo($meetingInfo);
+					$("<h3></h3>").attr("class","tile-title").appendTo($meetingInfo);
+				}			
+			});
+		}
+		drawMySchedule(mySchedule);
+	});
+</script>
 <link href="/meeting/resources/css/jquery.datetimepicker.css" rel="stylesheet" /> 
 
 <link href="/meeting/resources/css/fullcalendar.min.css" rel="stylesheet" />
 <link href="/meeting/resources/css/fullcalendar.print.min.css" rel="stylesheet" media="print" />
+
 <main class="app-content">
 	<div class="app-title">
         <div>
@@ -33,11 +63,11 @@
 	    		</div>
 	    	</div> -->
 	    	<div class="tile" style="width:100%;height:250px">
-				<p><b id="month"></b>월달에 총 <b>${fn:length(mySchedule) }</b>번의 회의일정이 있습니다.</p>
+				<p><b id="month"></b>월달에 총 <b id="cntSchedule"></b>번의 회의일정이 있습니다.</p>
 				<p>예정된 회의실 사용일정 : </p>
 				<hr>
 				<div id="meetingInfo" style="float:left;">
-					<c:choose> 
+					<%-- <c:choose> 
 						<c:when test= "${fn:length(mySchedule) eq 0}">
 							<h3 class="tile-title">예정된 회의실 예약 일정이 없습니다</h3>
 						</c:when>
@@ -47,7 +77,7 @@
 								<h3 class="tile-title">${list.brName } - ${list.mrName }</h3>
 							</c:forEach>
 						</c:otherwise>
-					</c:choose>
+					</c:choose> --%>
 				</div>
 				
 				<div id="deptCostInfo" style="float:right;text-align:right">
@@ -283,8 +313,7 @@
             ]
     });
     
-    var deptCost = JSON.parse('${deptCost}');
-    $("#cost").text(deptCost);
+    
     
     $.ajax({
         url:"/meeting/users/getCurrentId",
