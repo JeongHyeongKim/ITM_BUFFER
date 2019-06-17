@@ -9,7 +9,7 @@
 		var todayMonth = today.getMonth()+1;
 		document.getElementById ( 'month' ).innerHTML=todayMonth;
 		var deptCost = JSON.parse('${deptCost}');
-	    $("#deptCost").text(deptCost+"(원)");
+	    $("#deptCost").text(comma(deptCost)+"(원)");
 	    var mySchedule = JSON.parse('${mySchedule}');  
 		document.getElementById ( 'cntSchedule' ).innerHTML=mySchedule.length;
 		function drawMySchedule(mySchedule){
@@ -29,6 +29,11 @@
 			});
 		}
 		drawMySchedule(mySchedule);
+		//금액에 콤마
+		function comma(str) {
+	        str = String(str);
+	        return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+	    }
 	});
 </script>
 <link href="/meeting/resources/css/jquery.datetimepicker.css" rel="stylesheet" /> 

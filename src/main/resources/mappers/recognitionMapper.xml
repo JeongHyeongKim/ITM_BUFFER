@@ -31,4 +31,34 @@
 		select sum(dept_cost) deptCost
         from department
 	</select>
+	<select id="allDeptPayment" resultType="com.gsitm.meeting.branch.dto.DepartmentDTO$DepartmentTest">
+		select dept_id deptId,dept_name deptName, dept_cost deptCost,br_name brName
+		from department d, branch b
+		where d.br_id=b.br_id
+	</select>
+	<select id="myPaymentBySearch" resultType="com.gsitm.meeting.branch.dto.DepartmentDTO$DepartmentTest">
+		select dept_id deptId,dept_name deptName, dept_cost deptCost,br_name brName
+		from department d, branch b,reservation r
+		where d.br_id=b.br_id
+		<if test="searchtype !=null">
+			<if test="searchtype == 'allOfList'.toString()">
+				
+			</if>
+			<if test="searchtype == 'oneWeek'.toString()">
+				<![CDATA[and ((sysdate - 7) < res_end_time)]]>
+			</if>
+			<if test="searchtype == 'oneMonth'.toString()">
+				<![CDATA[and ((sysdate - 30) < res_end_time)]]> 
+			</if>
+			<if test="searchtype == 'sixMonth'.toString()">
+				<![CDATA[and ((sysdate - 180) < res_end_time)]]> 
+			</if>
+			<if test="searchtype == 'oneYear'.toString()">
+				<![CDATA[and ((sysdate - 365) < res_end_time)]]> 
+			</if>
+		</if>
+		and res_state ='res_5'
+		group by dept_id,dept_name,dept_cost,br_name
+		order by dept_id
+	</select>
 </mapper>

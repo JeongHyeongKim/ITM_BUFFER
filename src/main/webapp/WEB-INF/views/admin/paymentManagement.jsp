@@ -6,10 +6,14 @@
 $(function(){
 	var allPayment = JSON.parse('${allPayment}');
 	
+	var allDeptPayment = JSON.parse('${allDeptPayment}');
+	
 	function drawMySchedule(allPayment){
 		$("#costInfo").empty(); 
 		var $meetingInfo = $("#costInfo");
-		$("<h3></h3>").attr("class","tile-title").text(allPayment).appendTo($meetingInfo);
+		$("<p></p>").text("총 회의실 예약 누적 비용").appendTo($meetingInfo);
+		$("<hr />").appendTo($meetingInfo);
+		$("<h3></h3>").attr("class","tile-title").text(comma(allPayment)+"(원)").appendTo($meetingInfo);
 		
 	}
 	function drawListPeriod(){
@@ -31,10 +35,10 @@ $(function(){
 		var $sixmonthLabel = $("<label id='sixMonth'></label>").attr("class","btn btn-primary").text("6개월").appendTo($divDataToggle);
 		$("<input id='sixMonth' type='radio' name='listPeriod'  autocomplete='off'>").appendTo($sixmonthLabel);
 		
-		var $yearList = $("<label id='yearList'></label>").attr("class","btn btn-primary").text("1년").appendTo($divDataToggle);
+		var $yearList = $("<label id='oneYear'></label>").attr("class","btn btn-primary").text("1년").appendTo($divDataToggle);
 		$("<input id='yearList' type='radio' name='listPeriod'  autocomplete='off'>").appendTo($yearList);
 	}
-	function drawPage(myInfo){
+	function drawPage(alldeptPayment){
 
 		$("#meetingList").empty();
 		/* meetingList  */
@@ -52,47 +56,46 @@ $(function(){
 		
 		var $headTag = $("<thead></thead>").appendTo($tableTag);
 		var $headTrTag= $("<tr></tr>").appendTo($headTag);
-		$("<th></th>").text("예약일").appendTo($headTrTag);
-		$("<th></th>").text("사용일").appendTo($headTrTag);
-		$("<th></th>").text("장소").appendTo($headTrTag);
-		$("<th></th>").text("상태").appendTo($headTrTag);
-		$("<th></th>").text("변경").appendTo($headTrTag);
+		$("<th></th>").text("부서번호").appendTo($headTrTag);
+		$("<th></th>").text("부서이름").appendTo($headTrTag);
+		$("<th></th>").text("누적금액").appendTo($headTrTag);
+		$("<th></th>").text("지사위치").appendTo($headTrTag);
 		
 		var $bodyTag = $("<tbody></tbody>").appendTo($tableTag);
 		
-		$.each(myInfo, function(i, $list) {
+		$.each(alldeptPayment, function(i, $list) {
 			var $bodyTrTag= $("<tr></tr>").appendTo($bodyTag);
-			$("<td></td>").text($list.resDate).appendTo($bodyTrTag);
-			$("<td></td>").text($list.resStartTime).appendTo($bodyTrTag);
-			$("<td></td>").text(($list.brName) + " - " + ($list.mrName)).appendTo($bodyTrTag);
-			var $currentState = $("<td></td>").text(mappingState($list.resState)).appendTo($bodyTrTag);
-			var $changeState = $("<td></td>").appendTo($bodyTrTag);
+			$("<td></td>").text($list.deptId).appendTo($bodyTrTag);
+			$("<td></td>").text($list.deptName).appendTo($bodyTrTag);
+			$("<td></td>").text($list.deptCost).appendTo($bodyTrTag);
+			$("<td></td>").text($list.brName).appendTo($bodyTrTag);
 			
-			if(($list.resState=="res_0")||($list.resState=="res_1")){
-				resId=$list.resId;
-				var $divBtn = $("<div></div>").css("text-align","center").appendTo($changeState);  
-				$("<button id='"+resId+"'></button>").attr("class","btn btn-info btn-sm").text("예약 취소").appendTo($divBtn); 
-				
-				$('#'+resId+'').on("click",function(e){
-					$.ajax({
-						  url : "/meeting/reservation/cancelRes/"+resId, /* 이후 users로 패키지 변경 */
-						  type : "post",
-						  data:"_csrf=${_csrf.token}",
-						  success:function(){
-							  location.href= "/meeting/users/mypage"
-						  }, error:function(){
-			                	console.log("error")
-			              }
-					});
-				});
-			}
 		});
 		/* 카드푸터  */
 		var $divFooter = $("<div class='card-footer small text-muted'></div>").appendTo($divCol12);	
 	}
+	//금액에 콤마
+	function comma(str) {
+        str = String(str);
+        return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+    }
+	
 	drawMySchedule(allPayment);
 	drawListPeriod();
-	drawPage();
+	drawPage(allDeptPayment);
+	
+	$(document).on('click', '.btn-primary', function(e){
+		  var searchtype = e.currentTarget.id;
+		  $.ajax({
+			  url : "/meeting/recognition/search/"+searchtype,
+			  type : "post",
+			  data:"_csrf=${_csrf.token}",
+			  success:function(data){
+				  var pageInfo = JSON.parse(data);
+				  drawPage(pageInfo);				  
+			  }
+		})
+	})
 });
 </script>
 <main class="app-content">
@@ -117,7 +120,7 @@ $(function(){
 	</div>
 	<div class="row">
 		<div class="col-md-12">
-			<div class="tile" style="width:100%;height:250px" id="costInfo">
+			<div class="tile" style="width:100%;height:130px" id="costInfo">
 				
 			</div>
 		</div>

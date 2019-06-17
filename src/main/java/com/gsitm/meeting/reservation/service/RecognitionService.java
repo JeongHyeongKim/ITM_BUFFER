@@ -31,6 +31,14 @@ public class RecognitionService {
 		// TODO Auto-generated method stub
 		return gson.toJson(recDao.allPayment());
 	}
+	public String allDeptPayment() {
+		return gson.toJson(recDao.allDeptPayment());
+	}
+
+	public String myPaymentBySearch(String searchtype) {
+		// TODO Auto-generated method stub
+		return gson.toJson(recDao.myPaymentBySearch(searchtype));
+	}
 
 	/*public String updateResState(String resId) {
 		recDao.updateResState(resId);

@@ -28,7 +28,7 @@
 				}			
 			});
 		}
-		$("#deptCost").text(myCost +"(원)");
+		$("#deptCost").text(comma(myCost) +"(원)");
 		function drawListPeriod(myInfo){
 			$("#listCondition").empty(); 
 			/* listCondition  */
@@ -110,7 +110,11 @@
 		drawMySchedule(mySchedule);
 		drawListPeriod(myInfo);
 		drawPage(myInfo);
-		
+		//금액에 콤마
+		function comma(str) {
+	        str = String(str);
+	        return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+	    }
 		function mappingState(resState){
 			var state = null;
 			if(resState == "res_0"){
@@ -171,17 +175,6 @@
 				<p>예정된 회의실 사용일정 : </p>
 				<hr>
 				<div id="meetingInfo" style="float:left;">
-					<%-- <c:choose> 
-						<c:when test= "${fn:length(mySchedule) eq 0}">
-							<h3 class="tile-title">예정된 회의실 예약 일정이 없습니다</h3>
-						</c:when>
-						<c:otherwise>
-							<c:forEach items="${mySchedule} " var="list" begin="1" end="1"> 
-								<h3 class="tile-title">${list.resStartDate }</h3> 
-								<h3 class="tile-title">${list.brName } - ${list.mrName }</h3> 
-							</c:forEach>
-						</c:otherwise>
-					</c:choose> --%>
 				</div>
 				
 				<div id="deptCostInfo" style="float:right;text-align:right">

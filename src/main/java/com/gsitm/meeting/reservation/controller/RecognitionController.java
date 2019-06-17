@@ -34,8 +34,14 @@ public class RecognitionController {
 	@GetMapping("/paymentManagement")
 	public String paymentManagement(Model model) {
 		model.addAttribute("allPayment",recService.allPayment());
+		model.addAttribute("allDeptPayment",recService.allDeptPayment());
 		return "admin/paymentManagement";
 	}
+	@PostMapping("/search/{searchtype}")
+	public ResponseEntity<String> myPaymentBySearch(@PathVariable String searchtype){
+		return new ResponseEntity<>(recService.myPaymentBySearch(searchtype),HttpStatus.OK);
+	}
+	
 	/*
 	@PostMapping("/waitForRecognition/{resId}")
 	public ResponseEntity<String> updateResId(Principal principal,@PathVariable String resId){

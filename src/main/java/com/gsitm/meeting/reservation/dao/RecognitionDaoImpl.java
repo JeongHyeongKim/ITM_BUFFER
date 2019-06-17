@@ -1,13 +1,17 @@
 package com.gsitm.meeting.reservation.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.google.gson.JsonElement;
+import com.gsitm.meeting.branch.dto.DepartmentDTO;
 import com.gsitm.meeting.vo.Branch;
+import com.gsitm.meeting.vo.Department;
 import com.gsitm.meeting.vo.Reservation;
 
 @Repository
@@ -32,7 +36,9 @@ public class RecognitionDaoImpl implements RecognitionDao{
 		// TODO Auto-generated method stub
 		return session.selectOne(namespace+".allPayment");
 	}
-
+	public List<DepartmentDTO.DepartmentTest> allDeptPayment(){
+		return session.selectList(namespace+".allDeptPayment");
+	}
 	/*public void updateResState(String resId) {
 		// TODO Auto-generated method stub
 		 session.update(namespace+".updateResState",resId);
@@ -42,5 +48,12 @@ public class RecognitionDaoImpl implements RecognitionDao{
 		// TODO Auto-generated method stub
 		return session.selectOne(namespace+".resNewList",resId);
 	}*/
+
+	public List<DepartmentDTO.DepartmentTest> myPaymentBySearch(String searchtype) {
+		// TODO Auto-generated method stub
+		Map<String, String> result = new HashMap<>();
+		result.put("searchtype", searchtype);
+		return session.selectList(namespace+".myPaymentBySearch",result);
+	}
 
 }
