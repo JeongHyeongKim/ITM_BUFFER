@@ -7,7 +7,9 @@ import org.springframework.stereotype.Service;
 
 import com.google.gson.Gson;
 import com.gsitm.meeting.room.dao.MeetingRoomDaoImpl;
+import com.gsitm.meeting.vo.Branch;
 import com.gsitm.meeting.vo.Employee;
+import com.gsitm.meeting.vo.Equipment;
 import com.gsitm.meeting.vo.MeetingRoom;
 
 @Service
@@ -90,5 +92,13 @@ public class MeetingRoomService {
 	
 	public List<Employee> getMeetingRoomAdministrator(){
 		return mrDao.getMeetingRoomAdministrator();
+	}
+	
+	public List<Branch> meetingRoomGetBranchLocation(){
+		return mrDao.meetingRoomGetBranchLocation();
+	}
+	
+	public List<Equipment> meetingRoomGetEquipment(){
+		return mrDao.meetingRoomGetEquipment();
 	}
 }

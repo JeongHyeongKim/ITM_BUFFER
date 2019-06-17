@@ -6,7 +6,9 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.gsitm.meeting.vo.Branch;
 import com.gsitm.meeting.vo.Employee;
+import com.gsitm.meeting.vo.Equipment;
 import com.gsitm.meeting.vo.MeetingRoom;
 
 @Repository
@@ -58,6 +60,16 @@ public class MeetingRoomDaoImpl implements MeetingRoomDao {
 	@Override
 	public List<Employee> getMeetingRoomAdministrator() {
 		return session.selectList(namespace+".getMeetingRoomAdministrator");
+	}
+
+	@Override
+	public List<Branch> meetingRoomGetBranchLocation() {
+		return session.selectList(namespace+".meetingRoomGetBranchLocation");
+	}
+
+	@Override
+	public List<Equipment> meetingRoomGetEquipment() {
+		return session.selectList(namespace+".meetingRoomGetEquipment");
 	}
 
 }

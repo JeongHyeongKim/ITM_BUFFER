@@ -31,15 +31,15 @@
             
         });
         
-        function readBranch(brId){
-        	location.replace('/meeting/branch/read/'+brId);
+        function readBranch(mrId){
+        	location.replace('/meeting/meetingRoom/read/'+mrId);
         }
-        function modelOpen(brId) {
-            buffer = brId;
+        function modelOpen(mrId) {
+            buffer = mrId;
             console.log(buffer);
         }
     </script>
-    <title>지사조회</title>
+    <title>회의실조회</title>
 </head>
 
 <body class="app sidebar-mini rtl">
@@ -47,7 +47,7 @@
         <div class="app-title">
             <div>
                 <h1>회의실 / 교육실 관리</h1>
-                <p>지사관리</p>
+                <p>회의실관리</p>
             </div>
         </div>
 
@@ -73,9 +73,9 @@
                                             <form action="/meeting/meetingRoom/delete" method="POST" id="deleteMeetingRoom">
 
                                                 <input type="hidden" name="_csrf" value="${_csrf.token}">
-                                                <input type="hidden" name="mtId" id="hiddenMtId">
+                                                <input type="hidden" name="mrId" id="hiddenMrId">
                                                 <button class="btn btn-success" id="finallyConfirm" type="button"><i class="fa fa-fw fa-lg fa-check-circle"></i>확인</button>
-                                                <button class="btn btn-success" type="button"><i class="fa fa-fw fa-lg fa-check-circle"></i>취소</button>
+                                                <button class="btn btn-success" type="button" data-dismiss="modal"><i class="fa fa-fw fa-lg fa-check-circle"></i>취소</button>
                                             </form>
 
                                         </div>
@@ -114,21 +114,86 @@
                         <div>
                             <div class="tile-body">
                                 <div class="form-horizontal">
+<!-- 회의실 이름 -->
                                     <div class="form-group row" style="padding-top:15px; ">
                                         <h2 onclick="readBranch('${meetingRoomList.mrId}')" class="brNameArea" id="${meetingRoomList.mrId}">${meetingRoomList.mrName}</h2>
                                     </div>
                                     <div class="form-group row">
-
-                                        <div class="col-md-8">
+<!-- M마이크N노트북V빔프W화이트보드 -->
+                                        <div class="col-md-8">	
+                                        <c:set var="doneLoop" value="false"/>
                                             <img src="/meeting/resources/img/house.png" width="30px" height="30px">
-                                            &nbsp&nbsp ${meetingRoomList.mrLocation}
+                                             <c:forEach items='${branchLocationList}' var="branchLocationList">
+                                              <c:if test="${not doneLoop}">
+                                             	<c:if test="${branchLocationList.brId eq meetingRoomList.brId}">
+                                             		${branchLocationList.brLocation}&nbsp&nbsp
+                                             		<c:set var="doneLoop" value="true"/>
+                                             	</c:if>
+                                             	</c:if>
+                                             </c:forEach>
+                                            &nbsp&nbsp ${meetingRoomList.mrLocation} 
                                         </div>
                                     </div>
+                                    <!-- 전화번호 -->
                                     <div class="form-group row">
+                                        <div class="col-md-8">
+                                        
+                                            <img src="/meeting/resources/img/phone.png" width="30px" height="30px">
+                                            <c:set var="doneLoop" value="false"/>
+											<c:forEach items='${branchLocationList}' var="branchLocationList">
+                                              <c:if test="${not doneLoop}">
+                                             	<c:if test="${branchLocationList.brId eq meetingRoomList.brId}">
+                                             		${branchLocationList.brTel}&nbsp&nbsp
+                                             		<c:set var="doneLoop" value="true"/>
+                                             	</c:if>
+                                             	</c:if>
+                                             </c:forEach>
+                                        </div>
+                                    </div>
+                                    <!-- 기자재 -->
+                                     <div class="form-group row">
                                         <div class="col-md-8">
                                             <img src="/meeting/resources/img/phone.png" width="30px" height="30px">
 
-                                            &nbsp&nbsp ${meetingRoomList.mrType}
+											<c:forEach items='${equipmentList}' var="equipmentList">
+
+                                             	<c:if test="${equipmentList.mrId eq meetingRoomList.mrId}">
+                                             		<c:choose>
+													       <c:when test="${equipmentList.eqId == 'M'}">
+													           	마이크
+													       </c:when>
+													       <c:when test="${equipmentList.eqId == 'N'}">
+													           	노트북
+													       </c:when>
+													       <c:when test="${equipmentList.eqId == 'V'}">
+													           	빔프로젝터
+													       </c:when>
+													       <c:when test="${equipmentList.eqId == 'W'}">
+													           	화이트보드
+													       </c:when>
+													   </c:choose>
+                                             	</c:if>
+                                             </c:forEach>
+                                        </div>
+                                    </div>
+                                    <!-- 수용인원 -->
+                                     <div class="form-group row">
+                                        <div class="col-md-8">
+                                            <img src="/meeting/resources/img/phone.png" width="30px" height="30px">
+
+                                            &nbsp&nbsp ${meetingRoomList.mrLimit}
+                                        </div>
+                                    </div>
+                                    <!-- 관리자 -->
+                                     <div class="form-group row">
+                                        <div class="col-md-8">
+                                            <img src="/meeting/resources/img/phone.png" width="30px" height="30px">
+											 
+											<c:forEach items='${admin}' var="admin">
+                                            <c:if test="${admin.empId eq meetingRoomList.empId}">
+                                            	${admin.empName} 
+                                            </c:if>
+                                            </c:forEach>
                                         </div>
                                     </div>
 

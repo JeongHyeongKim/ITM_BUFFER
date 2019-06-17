@@ -47,6 +47,16 @@
 		select emp_id empId, emp_name empName from employee where emp_level='L_2' or emp_level='L_1'
 	</select>
 	
+	<select id="meetingRoomGetBranchLocation" resultType="branchVO">
+		select br_id brId, br_name brName, br_location brLocation, br_tel brTel, br_img brImg from branch
+	</select>
+	
+	<select id="meetingRoomGetEquipment" resultType="equipmentVO">
+		 select distinct regexp_substr(eq_id, '[^_]', 1, 1) eqId, mr_id mrId from equipment order by mr_id
+	</select>
+	
+	
+	
 
 	
 

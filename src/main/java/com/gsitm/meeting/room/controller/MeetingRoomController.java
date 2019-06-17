@@ -28,7 +28,9 @@ public class MeetingRoomController {
 	@GetMapping("/list")
 	public String meetingRoomList(Model model, HttpServletRequest request) {
 		model.addAttribute("meetingRoomList", mrService.meetingRoomList());
-		
+		model.addAttribute("branchLocationList", mrService.meetingRoomGetBranchLocation());
+		model.addAttribute("equipmentList", mrService.meetingRoomGetEquipment());
+		model.addAttribute("admin", mrService.getMeetingRoomAdministrator());
 		return "meetingRoom/meetingRoomList";
 	}
 	
