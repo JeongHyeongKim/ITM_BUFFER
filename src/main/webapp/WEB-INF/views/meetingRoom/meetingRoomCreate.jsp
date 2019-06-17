@@ -117,7 +117,7 @@
                                         <div class="animated-checkbox">
                                             <label>
                                                 <input name="mrNetwork" type="checkbox" value="net_1" id="mrNetwork"><span class="label-text">네트워크 지원</span>
-                                                <input type="hidden" name="mrNetworkHidden" value="net_0" id="mrNetworkHidden" />
+                                                <input type="hidden" name="mrNetwork" value="net_0" id="mrNetworkHidden" />
                                                 <!-- 여기서 엠알 타입 둘다 들어가는 현상이 있는데 이를 해결하는 jsp가 필요하다. -->
                                             </label>
                                         </div>
