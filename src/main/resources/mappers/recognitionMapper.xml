@@ -27,5 +27,8 @@
 	<select id="branchList" resultType="BranchVO">
 		select br_name brName,br_id brId from branch
 	</select>
-
+	<select id="allPayment" resultType="int">
+		select sum(dept_cost) deptCost
+        from department
+	</select>
 </mapper>

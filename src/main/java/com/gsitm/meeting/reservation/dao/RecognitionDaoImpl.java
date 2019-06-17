@@ -28,6 +28,11 @@ public class RecognitionDaoImpl implements RecognitionDao{
 		return session.selectList(namespace+".branchList");
 	}
 
+	public int allPayment() {
+		// TODO Auto-generated method stub
+		return session.selectOne(namespace+".allPayment");
+	}
+
 	/*public void updateResState(String resId) {
 		// TODO Auto-generated method stub
 		 session.update(namespace+".updateResState",resId);

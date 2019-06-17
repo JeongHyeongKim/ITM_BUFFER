@@ -27,6 +27,11 @@ public class RecognitionService {
 		return gson.toJson(recDao.branchList());
 	}
 
+	public String allPayment() {
+		// TODO Auto-generated method stub
+		return gson.toJson(recDao.allPayment());
+	}
+
 	/*public String updateResState(String resId) {
 		recDao.updateResState(resId);
 		return recDao.selectNewResList(resId);

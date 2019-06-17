@@ -31,6 +31,11 @@ public class RecognitionController {
 		model.addAttribute("resList",recService.resList());
 		return "admin/waitForRecognition";
 	}
+	@GetMapping("/paymentManagement")
+	public String paymentManagement(Model model) {
+		model.addAttribute("allPayment",recService.allPayment());
+		return "admin/paymentManagement";
+	}
 	/*
 	@PostMapping("/waitForRecognition/{resId}")
 	public ResponseEntity<String> updateResId(Principal principal,@PathVariable String resId){

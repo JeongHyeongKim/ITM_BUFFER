@@ -9,7 +9,7 @@
 		var todayMonth = today.getMonth()+1;
 		document.getElementById ( 'month' ).innerHTML=todayMonth;
 		var deptCost = JSON.parse('${deptCost}');
-	    $("#deptCost").text(deptCost+"(원)"); 
+	    $("#deptCost").text(deptCost+"(원)");
 	    var mySchedule = JSON.parse('${mySchedule}');  
 		document.getElementById ( 'cntSchedule' ).innerHTML=mySchedule.length;
 		function drawMySchedule(mySchedule){
