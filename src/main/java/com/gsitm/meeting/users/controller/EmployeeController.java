@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.gsitm.meeting.reservation.service.ReservationService;
 import com.gsitm.meeting.users.dto.EmployeeDTO;
 import com.gsitm.meeting.users.service.EmployeeService;
 
@@ -20,6 +21,8 @@ public class EmployeeController {
 
 	@Autowired
 	private EmployeeService empService;
+	@Autowired
+	private ReservationService resService;
 	
 	@GetMapping("/user/test")
 	public String test(String id) {
@@ -38,7 +41,8 @@ public class EmployeeController {
 	public String myReservation(Model model, Principal principal) {
 		model.addAttribute("myCost",empService.getDeptCost(principal.getName()));
 		model.addAttribute("myInfo",empService.getReservationByEmpId(principal.getName()));
-		return "/users/mypage";
+		model.addAttribute("mySchedule",empService.mySchedule(principal.getName()));
+		return "users/mypage";
 	}
 	
 	@PostMapping("/users/search/{searchtype}")

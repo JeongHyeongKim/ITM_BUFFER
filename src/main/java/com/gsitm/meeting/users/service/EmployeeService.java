@@ -58,7 +58,10 @@ public class EmployeeService {
 	public String getReservationByEmpId(String empId) {
 		return gson.toJson(empDao.getReservationByEmpId(empId));
 	}
-	
+	public String mySchedule(String empId) {
+		// TODO Auto-generated method stub
+		return gson.toJson(empDao.mySchedule(empId));
+	}
 	public String getReservationBySearchtype(String empId, String searchtype) {
 		return gson.toJson(empDao.getReservationBySearchtype(empId, searchtype));
 	}

@@ -31,12 +31,13 @@ public class ReservationController {
 	private EmployeeService empService;
 	
 	@GetMapping("/list/{brId}")
-	public String resList(Model model,@PathVariable String brId, Principal principal) {
+	public String resList(Model model,@PathVariable String brId, Principal principal/*,String attendeeId*/) {
 		model.addAttribute("deptCost", empService.getDeptCost(principal.getName()));
 		model.addAttribute("resList",resService.resList(brId));
 		model.addAttribute("branchList",resService.branchList());
 		model.addAttribute("mrTypeList",resService.mrTypeList());
-		model.addAttribute("mrLimitList",resService.mrLimitList());
+		model.addAttribute("mrLimitList",resService.mrLimitList());/*
+		model.addAttribute("mySchedule",resService.mySchedule(attendeeId));*/
 		return "reservation/resList";
 	}
 	@PostMapping("/writeReservation")
@@ -83,9 +84,10 @@ public class ReservationController {
 		return new ResponseEntity<>(result == 1 ? HttpStatus.OK : HttpStatus.BAD_REQUEST);
 	}
 	
-	@GetMapping("/myListPeriod")
-	public String mySchedule(Model model,String attendeeId) {
-		model.addAttribute("myListPeriod",resService.mySchedule(attendeeId));
-		return "users/mypage";
-	}
+//	@GetMapping("/users/mypage")
+//	public String mySchedule(Model model,String empId,String resStartDate) {
+//		/*model.addAttribute("myListPeriod",resService.myListPeriod(resStartDate));*/
+//		/*model.addAttribute("mySchedule",resService.mySchedule(empId));*/
+//		return "/users/mypage";
+//	}
 }

@@ -1,6 +1,18 @@
 package com.gsitm.meeting.reservation.dto;
 
+import lombok.Data;
+
 public class ReservationDTO {
+	@Data
+	public static class mySchedule{
+		private String resId;
+		private String mrName;
+		private String brName;
+		private String resState;
+		private String resStartDate;
+		private String resEndDate;
+		private String resDate;
+	}
 	public static class ReservationTest{
 		private String resId;
 		private String empId;
@@ -241,6 +253,8 @@ public class ReservationDTO {
 			this.mrName = mrName;
 			this.brName = brName;
 			
-		}	
+		}
+		
+		
 	}
 }

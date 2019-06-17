@@ -10,7 +10,24 @@
 		var resId;
 		var myInfo = JSON.parse('${myInfo}');
 		var myCost = JSON.parse('${myCost}');
-		
+		var mySchedule = JSON.parse('${mySchedule}');  
+		document.getElementById ( 'cntSchedule' ).innerHTML=mySchedule.length;
+		function drawMySchedule(mySchedule){
+			$("#meetingInfo").empty(); 
+			var $meetingInfo = $("#meetingInfo");
+			if(mySchedule.length==0){
+				$("<h3></h3>").attr("class","tile-title").text("예정된 회의실 예약 일정이 없습니다").appendTo($meetingInfo);
+			}
+			$.each(mySchedule, function(i, $list) {	
+				if(i==0){
+					$("<h3></h3>").attr("class","tile-title").text($list.resStartDate).appendTo($meetingInfo);
+					$("<h3></h3>").attr("class","tile-title").text($list.brName+" - "+$list.mrName).appendTo($meetingInfo);
+				}else{
+					$("<h3></h3>").attr("class","tile-title").appendTo($meetingInfo);
+					$("<h3></h3>").attr("class","tile-title").appendTo($meetingInfo);
+				}			
+			});
+		}
 		$("#deptCost").text(myCost +"(원)");
 		function drawListPeriod(myInfo){
 			$("#listCondition").empty(); 
@@ -18,21 +35,21 @@
 			var $listCondition = $("#listCondition");
 			var $divDataToggle = $("<div data-toggle='buttons'></div>").attr("class","btn-group btn-group-toggle").appendTo($listCondition);
 			
-			var $allOfList = $("<label id='allOfList'></label>").attr("class","btn btn-primary active").appendTo($divDataToggle);
-			$("<input id='allOfList' type='radio' name='listPeriod' value='all' autocomplete='off' checked=''>").text("전체").appendTo($allOfList);
+			var $allOfList = $("<label id='allOfList'></label>").attr("class","btn btn-primary active").text("전체").appendTo($divDataToggle);
+			$("<input id='allOfList' type='radio' name='listPeriod' value='all' autocomplete='off' checked=''>").appendTo($allOfList);
 			
 			
-			var $weekLabel = $("<label id='oneWeek'></label>").attr("class","btn btn-primary").appendTo($divDataToggle);
+			var $weekLabel = $("<label id='oneWeek'></label>").attr("class","btn btn-primary").text("일주일").appendTo($divDataToggle);
 			$("<input id='oneWeek' type='radio' name='listPeriod'  autocomplete='off'>").appendTo($weekLabel);
 			
-			var $onemonthLabel = $("<label id='oneMonth'></label>").attr("class","btn btn-primary").appendTo($divDataToggle);
+			var $onemonthLabel = $("<label id='oneMonth'></label>").attr("class","btn btn-primary").text("1개월").appendTo($divDataToggle);
 			$("<input id='oneMonth' type='radio' name='listPeriod' autocomplete='off'>").appendTo($onemonthLabel);
 			
-			var $sixmonthLabel = $("<label id='sixMonth'></label>").attr("class","btn btn-primary").appendTo($divDataToggle);
-			$("<input id='sixMonth' type='radio' name='listPeriod'  autocomplete='off'>").text("6개월").appendTo($sixmonthLabel);
+			var $sixmonthLabel = $("<label id='sixMonth'></label>").attr("class","btn btn-primary").text("6개월").appendTo($divDataToggle);
+			$("<input id='sixMonth' type='radio' name='listPeriod'  autocomplete='off'>").appendTo($sixmonthLabel);
 			
-			var $yearList = $("<label id='yearList'></label>").attr("class","btn btn-primary").appendTo($divDataToggle);
-			$("<input id='yearList' type='radio' name='listPeriod'  autocomplete='off'>").text("1년").appendTo($yearList);
+			var $yearList = $("<label id='yearList'></label>").attr("class","btn btn-primary").text("1년").appendTo($divDataToggle);
+			$("<input id='yearList' type='radio' name='listPeriod'  autocomplete='off'>").appendTo($yearList);
 		}
 		function drawPage(myInfo){
 
@@ -90,6 +107,7 @@
 			/* 카드푸터  */
 			var $divFooter = $("<div class='card-footer small text-muted'></div>").appendTo($divCol12);	
 		}
+		drawMySchedule(mySchedule);
 		drawListPeriod(myInfo);
 		drawPage(myInfo);
 		
@@ -149,21 +167,21 @@
 	<div class="row">
 		<div class="col-md-12">
 			<div class="tile" style="width:100%;height:250px">
-				<p><b id="month"></b>월달에 총 <b>${fn:length(mySchedule) }</b>번의 회의일정이 있습니다.</p>
+				<p><b id="month"></b>월달에 총 <b id="cntSchedule"></b>번의 회의일정이 있습니다.</p>
 				<p>예정된 회의실 사용일정 : </p>
 				<hr>
 				<div id="meetingInfo" style="float:left;">
-					<c:choose> 
+					<%-- <c:choose> 
 						<c:when test= "${fn:length(mySchedule) eq 0}">
 							<h3 class="tile-title">예정된 회의실 예약 일정이 없습니다</h3>
 						</c:when>
 						<c:otherwise>
 							<c:forEach items="${mySchedule} " var="list" begin="1" end="1"> 
-								<h3 class="tile-title">${lis.resStartDate }</h3>
-								<h3 class="tile-title">${list.brName } - ${list.mrName }</h3>
+								<h3 class="tile-title">${list.resStartDate }</h3> 
+								<h3 class="tile-title">${list.brName } - ${list.mrName }</h3> 
 							</c:forEach>
 						</c:otherwise>
-					</c:choose>
+					</c:choose> --%>
 				</div>
 				
 				<div id="deptCostInfo" style="float:right;text-align:right">

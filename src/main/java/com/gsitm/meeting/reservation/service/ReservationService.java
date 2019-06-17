@@ -67,13 +67,17 @@ public class ReservationService {
 		return resDao.cancelRes(resId);
 	}
 	
-	public List<ReservationDTO> mySchedule(String attendeeId) {
+	public String mySchedule(String empId) {
 		// TODO Auto-generated method stub
-		return resDao.mySchedule(attendeeId);
+		return gson.toJson(resDao.mySchedule(empId));
 	}
 	public List<EmployeeDTO> empList() {
 		// TODO Auto-generated method stub
 		return resDao.empList();
+	}
+	public List<ReservationDTO> myListPeriod(String resStartDate) {
+		// TODO Auto-generated method stub
+		return resDao.myListPeriod(resStartDate);
 	}
 	
 

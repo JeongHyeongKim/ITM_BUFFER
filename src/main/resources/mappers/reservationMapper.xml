@@ -81,27 +81,28 @@
 		delete from reservation
 		where res_id = #{resId}
 	</delete>
-	<select id="myListPeriod" resultType="com.gsitm.meeting.reservation.dto.ReservationDTO$ReservationTest" parameterType="string">
+	<!-- <select id="myListPeriod" resultType="com.gsitm.meeting.reservation.dto.ReservationDTO$ReservationTest" parameterType="string">
 		select res_id resId, reservation.emp_id empId, reservation.mr_id mrId, mr_name mrName, br_name brName, to_char(res_start_time) resStartTime,
                to_char(res_end_time) resEndTime, to_char(res_time) resDate, res_purpose resPurpose, res_state resState, res_type resType, res_cost resCost 
 		from reservation, branch, meeting_room
 		where reservation.mr_id = meeting_room.mr_id 
 		and meeting_room.br_id = branch.br_id 
 		and #{resStartDate}>=TO_CHAR(SYSDATE-7,'YYYYMMDD')
-	</select>
+	</select> -->
 	<select id="mySchedule" resultType="com.gsitm.meeting.reservation.dto.ReservationDTO$ReservationTest" parameterType="string">
-		 select  a.res_id resId,to_char(res_time,'YYYY-MM-DD"T"HH24:MI:SS') resDate ,
-        to_char(res_start_time,'YYYY-MM-DD"T"HH24:MI:SS') resStartDate,
-        to_char(res_end_time,'YYYY-MM-DD"T"HH24:MI:SS') resEndDate ,
+		select a.res_id resId,to_char(res_time,'YYYY-MM-DD HH24:MI:SS') resDate ,
+        to_char(res_start_time,'YYYY-MM-DD HH24:MI:SS') resStartDate,
+        to_char(res_end_time,'YYYY-MM-DD HH24:MI:SS') resEndDate ,
         r.res_state resState,
-        b.br_name brName,m.mr_name mrName,r.emp_id empId
+        b.br_name brName,m.mr_name mrName
         from reservation r,attendee a,meeting_room m, branch b
         where r.res_id=a.res_id
         and m.mr_id=r.mr_id
         and b.br_id=m.br_id
-        and a.attend_id =#{attendId}
-        and to_char(res_start_time,'YYYY-MM')= to_char(sysdate,'YYYY-MM')
-        and to_char(res_start_time,'YYYY-MM-DD"T"HH24:MI:SS')>to_char(sysdate,'YYYY-MM-DD"T"HH24:MI:SS')
+        and a.attend_id =#{empId}
+        and to_char(res_start_time,'YYYY-MM')= to_char(sysdate-30,'YYYY-MM')
+        and to_char(res_start_time,'YYYY-MM-DD"T"HH24:MI:SS')>to_char(sysdate-30,'YYYY-MM-DD"T"HH24:MI:SS')
         order by to_char(res_start_time,'YYYY-MM-DD"T"HH24:MI:SS')
+        
 	</select>
 </mapper>

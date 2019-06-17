@@ -78,4 +78,19 @@
 		select m.mr_Name mrName, b.br_name brName from meeting_room m, branch b 
 		where m.br_id = b.br_id and m.mr_id = #{mrId}
 	</select>
+	<select id="mySchedule" resultType="com.gsitm.meeting.reservation.dto.ReservationDTO$ReservationTest" parameterType="string">
+		 select  a.res_id resId,to_char(res_time,'YYYY-MM-DD HH24:MI:SS') resDate ,
+        to_char(res_start_time,'YYYY-MM-DD HH24:MI:SS') resStartDate,
+        to_char(res_end_time,'YYYY-MM-DD HH24:MI:SS') resEndDate ,
+        r.res_state resState,
+        b.br_name brName,m.mr_name mrName
+        from reservation r,attendee a,meeting_room m, branch b
+        where r.res_id=a.res_id
+        and m.mr_id=r.mr_id
+        and b.br_id=m.br_id
+        and a.attend_id =#{empId}
+        and to_char(res_start_time,'YYYY-MM')= to_char(sysdate,'YYYY-MM')
+        and to_char(res_start_time,'YYYY-MM-DD"T"HH24:MI:SS')>to_char(sysdate,'YYYY-MM-DD"T"HH24:MI:SS')
+        order by to_char(res_start_time,'YYYY-MM-DD"T"HH24:MI:SS')
+	</select>
 </mapper>

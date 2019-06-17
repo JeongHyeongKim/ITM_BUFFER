@@ -40,15 +40,14 @@
 	    </form>
     </header>
    
-    <!-- Essential javascripts for application to work-->
+    
+    <!-- Page specific javascripts-->
+     <!-- Essential javascripts for application to work-->
     <script src="/meeting/resources/js/jquery-3.2.1.min.js"></script>
     <script src="/meeting/resources/js/popper.min.js"></script>
     <script src="/meeting/resources/js/bootstrap.min.js"></script>
     <script src="/meeting/resources/js/main.js"></script>
     <!-- The javascript plugin to display page loading on top-->
-    <script src="/meeting/resources/js/plugins/pace.min.js"></script>
-    <!-- Page specific javascripts-->
-    
     <!-- Google analytics script-->
     <script type="text/javascript">
       if(document.location.hostname == 'pratikborsadiya.in') {

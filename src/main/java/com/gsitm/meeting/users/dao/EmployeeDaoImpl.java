@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.gsitm.meeting.reservation.dto.ReservationDTO;
 import com.gsitm.meeting.users.dto.EmployeeDTO;
 import com.gsitm.meeting.vo.Employee;
 
@@ -58,7 +59,11 @@ public class EmployeeDaoImpl implements EmployeeDao{
 	public List<EmployeeDTO.MyPageInfo> getReservationByEmpId(String empId) {
 		return session.selectList(namespace + ".getReservationByEmpId", empId);
 	}
-
+	@Override
+	public List<ReservationDTO.mySchedule> mySchedule(String empId) {
+		// TODO Auto-generated method stub
+		return session.selectList(namespace+".mySchedule",empId);
+	}
 	@Override
 	public List<EmployeeDTO.MyPageInfo> getReservationBySearchtype(String empId, String searchtype) {
 		Map<String, String> result = new HashMap<>();

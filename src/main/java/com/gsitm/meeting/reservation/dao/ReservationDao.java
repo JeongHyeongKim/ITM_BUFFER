@@ -25,5 +25,6 @@ public interface ReservationDao {
 	public List<EmployeeDTO> empList();
 	//users패키지로 바꾸기
 	public int cancelRes(String resId);
-	public List<ReservationDTO> mySchedule(String attendeeId);
+	public List<com.gsitm.meeting.reservation.dto.ReservationDTO.mySchedule> mySchedule(String attendeeId);
+	public List<ReservationDTO> myListPeriod(String resStartDate);
 }

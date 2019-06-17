@@ -89,15 +89,20 @@ public class ReservationDaoImpl implements ReservationDao {
 		return session.delete(namespace+".cancelRes",resId);
 	}
 
-	public List<ReservationDTO> mySchedule(String attendeeId) {
+	public List<ReservationDTO.mySchedule> mySchedule(String empId) {
 		// TODO Auto-generated method stub
-		return session.selectList(namespace+".mySchedule",attendeeId);
+		return session.selectList(namespace+".mySchedule",empId);
 	}
 
 	@Override
 	public List<EmployeeDTO> empList() {
 		// TODO Auto-generated method stub
 		return session.selectList(namespace+".empList");
+	}
+
+	public List<ReservationDTO> myListPeriod(String resStartDate) {
+		// TODO Auto-generated method stub
+		return session.selectList(namespace+".myListPeriod");
 	}
 
 	

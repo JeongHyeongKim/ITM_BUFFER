@@ -13,21 +13,21 @@
 			var $listCondition = $("#listCondition");
 			var $divDataToggle = $("<div data-toggle='buttons'></div>").attr("class","btn-group btn-group-toggle").appendTo($listCondition);
 			
-			var $allOfList = $("<label id='allOfList'></label>").attr("class","btn btn-primary active").appendTo($divDataToggle);
-			$("<input id='allOfList' type='radio' name='listPeriod' value='all' autocomplete='off' checked=''>").text("전체").appendTo($allOfList);
+			var $allOfList = $("<label id='allOfList'></label>").attr("class","btn btn-primary active").text("전체").appendTo($divDataToggle);
+			$("<input id='allOfList' type='radio' name='listPeriod' value='all' autocomplete='off' checked=''>").appendTo($allOfList);
 			
 			
-			var $weekLabel = $("<label id='oneWeek'></label>").attr("class","btn btn-primary").appendTo($divDataToggle);
-			$("<input id='oneWeek' type='radio' name='listPeriod'  autocomplete='off'>").text("일주일").appendTo($weekLabel);
+			var $weekLabel = $("<label id='oneWeek'></label>").attr("class","btn btn-primary").text("일주일").appendTo($divDataToggle);
+			$("<input id='oneWeek' type='radio' name='listPeriod'  autocomplete='off'>").appendTo($weekLabel);
 			
-			var $onemonthLabel = $("<label id='oneMonth'></label>").attr("class","btn btn-primary").appendTo($divDataToggle);
-			$("<input id='oneMonth' type='radio' name='listPeriod' autocomplete='off'>").text("1개월").appendTo($onemonthLabel);
+			var $onemonthLabel = $("<label id='oneMonth'></label>").attr("class","btn btn-primary").text("1개월").appendTo($divDataToggle);
+			$("<input id='oneMonth' type='radio' name='listPeriod' autocomplete='off'>").appendTo($onemonthLabel);
 			
-			var $sixmonthLabel = $("<label id='sixMonth'></label>").attr("class","btn btn-primary").appendTo($divDataToggle);
-			$("<input id='sixMonth' type='radio' name='listPeriod'  autocomplete='off'>").text("6개월").appendTo($sixmonthLabel);
+			var $sixmonthLabel = $("<label id='sixMonth'></label>").attr("class","btn btn-primary").text("6개월").appendTo($divDataToggle);
+			$("<input id='sixMonth' type='radio' name='listPeriod'  autocomplete='off'>").appendTo($sixmonthLabel);
 			
-			var $yearList = $("<label id='yearList'></label>").attr("class","btn btn-primary").appendTo($divDataToggle);
-			$("<input id='yearList' type='radio' name='listPeriod'  autocomplete='off'>").text("1년").appendTo($yearList);
+			var $yearList = $("<label id='yearList'></label>").attr("class","btn btn-primary").text("1년").appendTo($divDataToggle);
+			$("<input id='yearList' type='radio' name='listPeriod'  autocomplete='off'>").appendTo($yearList);
 		}
 		function drawListBranch(branchList){
 			$("#listBranch").empty(); 
@@ -36,15 +36,15 @@
 			var $divDataToggle = $("<div data-toggle='buttons'></div>").attr("class","btn-group btn-group-toggle").appendTo($listBranch);
 			$.each(branchList, function(i, $list) {
 				if(i==0){
-					var $allOfList = $("<label></label>").attr("class","btn btn-primary active").appendTo($divDataToggle);
-					$("<input id='allOfList' type='radio' name='listPeriod' value='all' autocomplete='off' checked=''>").text($list.brName).appendTo($allOfList);
+					var $allOfList = $("<label></label>").attr("class","btn btn-primary active").text($list.brName).appendTo($divDataToggle);
+					$("<input id='allOfList' type='radio' name='listPeriod' value='all' autocomplete='off' checked=''>").appendTo($allOfList);
 				}else{
-					var $allOfList = $("<label></label>").attr("class","btn btn-primary").appendTo($divDataToggle);
-					$("<input id='allOfList' type='radio' name='listPeriod' value='all' autocomplete='off' >").text($list.brName).appendTo($allOfList);
+					var $allOfList = $("<label></label>").attr("class","btn btn-primary").text($list.brName).appendTo($divDataToggle);
+					$("<input id='allOfList' type='radio' name='listPeriod' value='all' autocomplete='off' >").appendTo($allOfList);
 				
 				}
 			});
-		}
+		} 
 		
 		function drawPage(myInfo){
 

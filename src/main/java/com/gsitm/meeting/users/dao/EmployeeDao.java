@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.gsitm.meeting.reservation.dto.ReservationDTO;
 import com.gsitm.meeting.users.dto.EmployeeDTO;
 import com.gsitm.meeting.vo.Employee;
 
@@ -33,4 +34,5 @@ public interface EmployeeDao {
 	//윤영이거
 	public List<EmployeeDTO.AvailableMeetingDate> availableMeetingDate(String availableDate, String mrId);
 	public EmployeeDTO.CurrentInfoByMrId CurrentInfoByMrId(String mrId);
+	public List<ReservationDTO.mySchedule> mySchedule(String empId) ;
 }
