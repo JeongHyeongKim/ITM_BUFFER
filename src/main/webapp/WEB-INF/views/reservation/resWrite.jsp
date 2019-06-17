@@ -9,6 +9,7 @@
           <h1><i class="fa fa-calendar"></i>회의실 예약</h1>
           <p>회의실 예약 현황을 확인한 뒤, 예약을 신청하세요</p>
           
+          
         </div>
         <ul class="app-breadcrumb breadcrumb">
             <li class="breadcrumb-item">
@@ -110,7 +111,15 @@
                         <div class="form-group col-md-3"></div>
                         <div class="form-group col-md-3"></div>
                         <div class="form-group col-md-3"></div>
-                        <div class="form-group col-md-3" style="padding-top:50px;text-align:right">
+
+					<div class="bs-component" style="margin-bottom: 15px;">
+						<div class="btn-group btn-group-toggle" data-toggle="buttons">
+						
+						</div>
+					</div>
+					
+					<div class="form-group col-md-3" style="padding-top:50px;text-align:right">
+					<button class="btn btn-warning" type="button" disabled="disabled">Warning</button>
                             <input class="btn btn-info" id="sendForm" type="submit" value="예약 신청"/>
                         </div>
                     </form>
@@ -135,6 +144,7 @@
 							<div class="modal-footer" style="margin-top:20px">
 								<div class="row mb-10">
 									<div class="col-md-12">
+										   
 										<input type="submit" class="btn btn-success" data-dismiss="modal" value="예약 작성">
 									</div>
 								</div>
@@ -173,6 +183,7 @@
 								<div class="row mb-10">
 									<div class="col-md-12">
 										<input type="submit" class="btn btn-success" data-dismiss="modal" value="작성">
+										
 									</div>
 								</div>
 							</div>
@@ -190,7 +201,6 @@
 <script>
     $(document).ready(function () {
     	
-    	
         var resStartDate = sessionStorage.getItem("currentDate");
         resStartDate += "00:00";
         
@@ -202,8 +212,62 @@
         var hh = now.getHours()>9 ?''+now.getHours() : '0'+now.getHours();
         var min = now.getMinutes()>9 ?''+now.getMinutes() : '0'+now.getMinutes(); 
         var today = year + '/' + mon + '/' + day+" "+hh+":"+min;
-
+		/////////////////////////////////////////////////////////////////////////////////
+        var changeTime = "09:00";
+        var splitMinTime = changeTime.substr(3,5);
+        var splitHourTime = changeTime.substr(0,2);
+        var aTime = new Array(); 
+        var sessionTime = sessionStorage.getItem("availTime");
+        aTime = sessionTime.split(",");
         
+        // 허용날짜 중복제거
+        var newTimes = [];
+        $.each(aTime, function(i, el){
+        	if($.inArray(el, newTimes) === -1) newTimes.push(el);
+        });
+        
+        // 시간재구성
+        for(var i=0; i<newTimes.length; i++){
+        	var hour = newTimes[i].substr(1,1);
+        	if(hour==":"){
+        		newTimes[i] = "0"+newTimes[i] 
+        	}
+        	var min = newTimes[i].substr(3,1)
+        	if(min=="0"){
+        		newTimes[i] = newTimes[i]+"0"
+        	}
+        }
+        console.log(newTimes)
+        // 시간뿌리기
+        for(var i=0; i<19; i++){
+        	
+        	for(var j=0; j<newTimes.length; j++){
+        		var $label ;
+        		if(changeTime==newTimes[j]){ 
+        			$label = $("<button></button>").attr("class","btn btn-warning").attr("id",changeTime).attr("disabled","").text(changeTime);
+        			break;
+        		} else{
+        			$label = $("<button></button>").attr("class","btn btn-primary").attr("id",changeTime).text(changeTime);
+        		}
+        	}
+      		var $secondLabel = $label.appendTo($(".btn-group"))
+            var $input = $("<input>").attr("type","checkbox").attr("autocomplete","off").appendTo($secondLabel);
+			
+      		if(splitMinTime=="00"){
+        		splitMinTime = "30";
+        	} else if(splitMinTime=="30"){
+        		splitHourTime = Number(splitHourTime) +1;
+        		splitMinTime = "00";
+        	} else{
+        		console.log("error");
+        	}
+			changeTime = splitHourTime+ ":"+splitMinTime;
+         }
+        // 예약된시간 disabled
+        $(".btn-primary").on("click",function(e){
+        	console.log(e.currentTarget.id);
+        })
+        ///////////////////////////////////////////////////////////////////////
         $('#resStartDate').val(resStartDate);
         $('#resMrName').val(sessionStorage.getItem("mrName"));
         $('#mrId').val(sessionStorage.getItem("mrId"));
@@ -254,8 +318,18 @@
     			type:"post",
     			data : "_csrf=${_csrf.token}",
     			success:function(data){
-    				console.log("success")
-    				sessionStorage.setItem("availTime", data);
+    				var resultDate = JSON.parse(data)
+                    var wantDate = new Array() ;
+                    var count = 0;
+                    for(var i=0; i<resultDate.length; i++){
+                          var calcDate = resultDate[i];
+                       for(var j=0; j<calcDate.length; j++){
+                          wantDate[count] = calcDate[j];
+                          count++;
+                       }
+                    }
+              
+    				sessionStorage.setItem("availTime", wantDate);
     			}
     		})
     	}
