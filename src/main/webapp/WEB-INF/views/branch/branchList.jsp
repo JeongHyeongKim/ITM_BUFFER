@@ -1,13 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script type="text/javascript">
+<script type="text/javascript">
         var buffer;
         $(function() {
 
@@ -38,20 +32,28 @@
             buffer = brId;
             console.log(buffer);
         }
-    </script>
-    <title>지사조회</title>
-</head>
-
-<body class="app sidebar-mini rtl">
-    <main class="app-content">
-        <div class="app-title">
-            <div>
-                <h1>회의실 / 교육실 관리</h1>
-                <p>지사관리</p>
-            </div>
-        </div>
-
-        <div style="text-align:right">
+</script>
+<main class="app-content">
+   <div class="app-title">
+		<div>
+			<h1><i class="fa fa-calendar"></i>지사관리</h1>
+			<p>
+				전체 지사 목록입니다.
+			</p>
+		</div>
+		<ul class="app-breadcrumb breadcrumb">
+			<li class="breadcrumb-item">
+			<i class="fa fa-home fa-lg"></i>
+			</li>
+			<li class="breadcrumb-item">
+			<a href="#">회의실관리</a>
+			</li>
+			<li class="breadcrumb-item">
+			<a href="#">지사관리</a>
+			</li>
+		</ul>
+	</div>
+	<div style="text-align:right">
             <a class="btn btn-primary btn-sm" href="/meeting/branch/create">회의실 추가</a>
         </div>
         <div>
@@ -141,15 +143,6 @@
                         </div>
                     </div>
                 </div>
-            </c:forEach>
-
-
-        </div>
-
-
-
-    </main>
-
-</body>
-
-</html>
+        </c:forEach>
+    </div>
+</main>
