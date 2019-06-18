@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.gsitm.meeting.room.dto.MeetingRoomDTO;
 import com.gsitm.meeting.vo.Branch;
 import com.gsitm.meeting.vo.Employee;
 import com.gsitm.meeting.vo.Equipment;
@@ -20,7 +21,7 @@ public class MeetingRoomDaoImpl implements MeetingRoomDao {
 	private String namespace = "com.gsitm.meeting.mappers.meetingRoomMapper";
 
 	@Override
-	public List<MeetingRoom> meetingRoomList() {
+	public List<MeetingRoomDTO> meetingRoomList() {
 		
 		return session.selectList(namespace+".meetingRoomList");
 	}

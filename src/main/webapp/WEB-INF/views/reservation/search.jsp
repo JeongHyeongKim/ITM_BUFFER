@@ -19,12 +19,12 @@
            
         </ul>
     </div>
-    <div class="row user" style="width:100%;">
-        
-        <div class="col-md-9" style="display: table-cell;vertical-align: middle;margin: 0 auto;">
+    <div class="row" style="width:100%;">
+        <c:forEach items='${search}' var="search">
+        <div class="col-lg-4"  style="padding-top:20px">
             <div class="tab-content">
                 <!-- 회의실 정보 -->
-                <c:forEach items='${search}' var="search">
+                
                     <input id="mrName" type="hidden" value="${search.mrName }">
                     <input id="mrId" type="hidden" value="${search.mrId }">
                     <input id="brName" type="hidden" value="${search.brName }">
@@ -77,23 +77,24 @@
                                         </p>
                                         <c:set value="${search.eqId}" var="eqId"/>
                                         <c:if test="${fn:contains(eqId,'M')}">
-                                            <i class="fa fa-fw fa-lg fa-wifi"></i>wifi
+                                            <i class="fa fa-fw fa-lg fa-wifi"></i>wifi<br>
                                         </c:if>
                                         <c:if test="${fn:contains(eqId,'N')}">
-                                            <i class="fa fa-fw fa-lg fa-laptop"></i>laptop
+                                            <i class="fa fa-fw fa-lg fa-laptop"></i>laptop<br>
                                         </c:if>
                                         <c:if test="${fn:contains(eqId,'WB')}">
-                                            <i class="fa fa-fw fa-lg fa-edit"></i>White Board
+                                            <i class="fa fa-fw fa-lg fa-edit"></i>White Board<br>
                                         </c:if>
                                         <c:if test="${fn:contains(eqId,'V')}">
-                                            <i class="fa fa-fw fa-lg fa-video-camera"></i>Beam project
+                                            <i class="fa fa-fw fa-lg fa-video-camera"></i>Beam project<br>
                                         </c:if>
                                     </div>
                                     <div class="card-footer text-muted"></div>
                                 </div>
                             </div>
-                        </c:forEach>
+                        
                     </div>
                 </div>
+                </c:forEach>
     </div>
 </main>

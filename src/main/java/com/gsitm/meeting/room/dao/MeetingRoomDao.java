@@ -2,6 +2,7 @@ package com.gsitm.meeting.room.dao;
 
 import java.util.List;
 
+import com.gsitm.meeting.room.dto.MeetingRoomDTO;
 import com.gsitm.meeting.vo.Branch;
 import com.gsitm.meeting.vo.Employee;
 import com.gsitm.meeting.vo.Equipment;
@@ -9,7 +10,7 @@ import com.gsitm.meeting.vo.MeetingRoom;
 
 public interface MeetingRoomDao {
 	
-	public List<MeetingRoom> meetingRoomList();
+	public List<MeetingRoomDTO> meetingRoomList();
 	
 	public void meetingRoomDelete(String meetingRoomId);
 	

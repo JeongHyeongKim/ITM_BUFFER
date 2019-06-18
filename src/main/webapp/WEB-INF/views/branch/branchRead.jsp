@@ -131,7 +131,7 @@
                 <div class="col-md-4" style="background:white;padding-top:30px;margin-top:-15px;border-bottom:20px solid white">
                     <div></div>
                     <div style="text-align:center;">
-                        <img class="user-img" id="imgArea" src="https://s3.amazonaws.com/uifaces/faces/twitter/jsa/128.jpg" width=235px height=235px style="border-radius: 10px;">
+                        <img class="user-img" id="imgArea" src="" width=235px height=235px style="border-radius: 10px;">
                         
                     </div>
                     <div style="text-align:right;">

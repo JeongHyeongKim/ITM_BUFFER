@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.google.gson.Gson;
 import com.gsitm.meeting.room.dao.MeetingRoomDaoImpl;
+import com.gsitm.meeting.room.dto.MeetingRoomDTO;
 import com.gsitm.meeting.vo.Branch;
 import com.gsitm.meeting.vo.Employee;
 import com.gsitm.meeting.vo.Equipment;
@@ -22,7 +23,7 @@ public class MeetingRoomService {
 	private Gson gson;
 	
 	
-	public List<MeetingRoom> meetingRoomList(){
+	public List<MeetingRoomDTO> meetingRoomList(){
 		System.out.println(mrDao.meetingRoomList());
 		return mrDao.meetingRoomList();
 	}

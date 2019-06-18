@@ -2,147 +2,104 @@
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script type="text/javascript">
-        var buffer;
-        $(function() {
-
-
-            $('#finallyConfirm').click(function() {
-                console.log(buffer);
-                document.getElementById("hiddenBrId").value = buffer;
-                $('#deleteBranch').submit();
-            });
-            
-            $('.brNameArea').mouseover(function(e){
-            	var brId = "#" + e.currentTarget.id;
-            	console.log(brId);
-            	$(brId).css('color', 'blue');
-            });
-            
-            $('.brNameArea').mouseout(function(e){
-            	var brId = "#" + e.currentTarget.id;
-            	$(brId).css('color', 'black');
-            });
-            
-        });
-        
-        function readBranch(brId){
-        	location.replace('/meeting/branch/read/'+brId);
-        }
-        function modelOpen(brId) {
-            buffer = brId;
+    var buffer;
+    $(function () {
+        $('#finallyConfirm').click(function () {
             console.log(buffer);
-        }
+            document.getElementById("hiddenBrId").value = buffer;
+            $('#deleteBranch').submit();
+        });
+        $('.brNameArea').mouseover(function (e) {
+            var brId = "#" + e.currentTarget.id;
+            console.log(brId);
+            $(brId).css('color', 'blue');
+        });
+        $('.brNameArea').mouseout(function (e) {
+            var brId = "#" + e.currentTarget.id;
+            $(brId).css('color', 'black');
+        });
+    });
+    function readBranch(brId) {
+        location.replace('/meeting/branch/read/' + brId);
+    }
+    $(document).on('click', '.deleteAlert', function(e){
+    		 swal({
+    	      		title: "삭제하시겠습니까?",
+    	      		text: "삭제 시,해당 지사 정보 복원 불가",
+    	      		type: "warning",
+    	      		showCancelButton: true,
+    	      		confirmButtonText: "네, 삭제하겠습니다",
+    	      		cancelButtonText: "아뇨, 취소하겠습니다",
+    	      		closeOnConfirm: false,
+    	      		closeOnCancel: false
+    	      	}, function(isConfirm) {
+    	      		if (isConfirm) {
+    	      			
+    	      			swal("삭제 완료!", "해당 정보가 삭제되었습니다.", "success");
+    	      		} else {
+    	      			swal("삭제 취소!", "해당 정보가 삭제 되지 않았습니다.", "error");
+    	      		}
+    	      	});
+    });
+    
 </script>
 <main class="app-content">
-   <div class="app-title">
-		<div>
-			<h1><i class="fa fa-calendar"></i>지사관리</h1>
-			<p>
-				전체 지사 목록입니다.
-			</p>
-		</div>
-		<ul class="app-breadcrumb breadcrumb">
-			<li class="breadcrumb-item">
-			<i class="fa fa-home fa-lg"></i>
-			</li>
-			<li class="breadcrumb-item">
-			<a href="#">회의실관리</a>
-			</li>
-			<li class="breadcrumb-item">
-			<a href="#">지사관리</a>
-			</li>
-		</ul>
-	</div>
-	<div style="text-align:right">
-            <a class="btn btn-primary btn-sm" href="/meeting/branch/create">회의실 추가</a>
-        </div>
+    <div class="app-title">
         <div>
-            <c:forEach items='${branchList}' var="branchList">
-                <!--  modal start -->
-                <div class="modal fade" id="confirm" role="dialog">
-                    <div class="modal-dialog">
-                        <!-- Modal content-->
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h4 class="modal-title" style="text-align:center;">정말로 삭제하시겠습니까?</h4>
-                                <button type="button" class="close" data-dismiss="modal">×</button>
-                            </div>
-                            <div class="modal-body">
-                                <div class="modal-footer" style="margin-top:20px">
-                                    <div class="row mb-10">
-                                        <div class="col-md-12">
-
-                                            <form action="/meeting/branch/delete" method="POST" id="deleteBranch">
-
-                                                <input type="hidden" name="_csrf" value="${_csrf.token}">
-                                                <input type="hidden" name="brId" id="hiddenBrId">
-                                                <button class="btn btn-success" id="finallyConfirm" type="button"><i class="fa fa-fw fa-lg fa-check-circle"></i>확인</button>
-                                                <button class="btn btn-success" type="button"><i class="fa fa-fw fa-lg fa-check-circle"></i>취소</button>
-                                            </form>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- modal end -->
-                <div class="row" style="border-top:10px solid #E5E5E5; border-bottom:10px solid #E5E5E5; padding-top:15px;padding-bottom:15px; background:white;" >
-                    <div class="col-md-4">
-
-                        <div style="text-align:center">
-                            <%-- <img class="user-img" src="${branchList.brImg}" height=235px style="border-radius: 10px;"> --%>
-                            <div> <img class="user-img" src="${branchList.brImg}" width=235px height=235px style="border-radius: 10px; border:1px solid"></div>
-                        </div>
-                    </div>
-
-
-                    <div class="col-md-8" style="border-left: 3px solid #ddd; padding-left:50px ">
-                        <div style="text-align:right;">
-                            <a class="btn btn-primary" href="#confirm" data-toggle="modal" style="text-align:right;" onclick="modelOpen('${branchList.brId}')"><i class="fa fa-lg fa-trash"></i></a>
-
-                        </div>
-                        <div>
-                            <div class="tile-body">
-                                <div class="form-horizontal">
-                                    <div class="form-group row" style="padding-top:15px; ">
-                                        <h2 onclick="readBranch('${branchList.brId}')" class="brNameArea" id="${branchList.brId}">${branchList.brName}</h2>
-                                    </div>
-                                    <div class="form-group row">
-
-                                        <div class="col-md-8">
-                                            <img src="/meeting/resources/img/house.png" width="30px" height="30px">
-                                            &nbsp&nbsp ${branchList.brLocation}
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <div class="col-md-8">
-                                            <img src="/meeting/resources/img/phone.png" width="30px" height="30px">
-
-                                            &nbsp&nbsp ${branchList.brTel}
-                                        </div>
-                                    </div>
-
-
-                                    <div class="form-group row">
-                                        <div class="col-md-8" style="padding-top:10px">
-                                            <div class="meetingRoomList">
-                                                <img src="/meeting/resources/img/meetingroom.png" width="30px" height="30px">
-                                                <c:forEach items='${meetingRoomListOrderByBranch}' var="meetingRoomList" varStatus="status">
-                                                    <c:if test="${meetingRoomList.BRID eq branchList.brId}">
-                                                        ${meetingRoomList.MRNAME} &nbsp / &nbsp
-                                                    </c:if>
-                                                </c:forEach>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-        </c:forEach>
+            <h1>
+                <i class="fa fa-calendar"></i>지사관리</h1>
+            <p>
+                전체 지사 목록입니다.
+            </p>
+        </div>
+        <ul class="app-breadcrumb breadcrumb">
+            <li class="breadcrumb-item">
+                <i class="fa fa-home fa-lg"></i>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="#">회의실관리</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="#">지사관리</a>
+            </li>
+        </ul>
     </div>
+    <div style="text-align:right;">
+        <a class="btn-primary btn-sm" href="/meeting/branch/create">회의실 추가</a>
+    </div>
+    <div class="row">
+        <c:forEach items='${branchList}' var="branchList">
+        	<div class="col-lg-4" id="${branchList.brId}"  style="padding-top:20px">
+	            <div class="bs-component">
+	              <div class="card" width="100%">
+	                <h4 class="card-header">
+	                	<span onclick="readBranch('${branchList.brId}')">${branchList.brName }</span>
+	                	<span style="float:right">
+			                <a class="deleteAlert" id="demoSwal" style="cursor:pointer">
+		                       X
+		                    </a>
+	                    </span>
+	                </h4>
+	                <div class="card-body">
+	                  <h5 class="card-title">${branchList.brLocation }</h5>
+	                  <h6 class="card-subtitle text-muted">${branchList.brTel }</h6>
+	                </div><img style="height: 200px; width: 100%; display: block;" src="${branchList.brImg}" alt="Card image">
+	                <div class="card-body">
+	                  <p class="card-text">
+	                  <b>[회의실]</b><br>
+							<c:forEach items='${meetingRoomListOrderByBranch}' var="meetingRoomList" varStatus="status">
+                                <c:if test="${meetingRoomList.BRID eq branchList.brId}">
+                                      ${meetingRoomList.MRNAME} <br>
+                                </c:if>
+                            </c:forEach>	                  
+	                  </p>
+	                </div>
+	                <div class="card-footer text-muted"></div>
+	              </div>
+	            </div>
+	          </div>
+        </c:forEach>
+     </div>
 </main>
+<script type="text/javascript" src="/meeting/resources/js/plugins/bootstrap-notify.min.js"></script>
+<script type="text/javascript" src="/meeting/resources/js/plugins/sweetalert.min.js"></script>

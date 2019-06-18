@@ -1,9 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<title>GSITM -</title>
+
 <style type="text/css">
 	footer{text-align: center}
 </style>
@@ -17,9 +14,7 @@ $(function() {
 	$("footer").css("vertical-align","middle");
 });
 </script>
-</head>
-<body>
+
 	<footer>COPYRIGHT © 2015 GS ITM CO, LTD ALL RIGHT RESERVED. | TEL 02-2189-6700</footer>
-</body>
-</html>
+
 

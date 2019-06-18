@@ -1,211 +1,143 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script type="text/javascript">
-        var buffer;
-        $(function() {
-
-
-            $('#finallyConfirm').click(function() {
-                console.log(buffer);
-                document.getElementById("hiddenMrId").value = buffer;
-                $('#deleteMeetingRoom').submit();
-            });
-
-            $('.mrNameArea').mouseover(function(e) {
-                var brId = "#" + e.currentTarget.id;
-                console.log(brId);
-                $(brId).css('color', 'blue');
-            });
-
-            $('.mrNameArea').mouseout(function(e) {
-                var brId = "#" + e.currentTarget.id;
-                $(brId).css('color', 'black');
-            });
-
-        });
-
-        function readMeetingRoom(mrId) {
-            location.replace('/meeting/meetingRoom/read/' + mrId);
-        }
-
-        function modelOpen(mrId) {
-            buffer = mrId;
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<script type="text/javascript">
+    var buffer;
+    $(function () {
+        $('#finallyConfirm').click(function () {
             console.log(buffer);
-        }
-    </script>
-    <title>회의실조회</title>
-</head>
-
-<body class="app sidebar-mini rtl">
-    <main class="app-content">
-        <div class="app-title">
-            <div>
-                <h1>회의실 / 교육실 관리</h1>
-                <p>회의실관리</p>
-            </div>
-        </div>
-
-        <div style="text-align:right">
-            <a class="btn btn-primary btn-sm" href="/meeting/meetingRoom/create">회의실 추가</a>
-        </div>
+            document.getElementById("hiddenMrId").value = buffer;
+            $('#deleteMeetingRoom').submit();
+        });
+        $('.mrNameArea').mouseover(function (e) {
+            var brId = "#" + e.currentTarget.id;
+            console.log(brId);
+            $(brId).css('color', 'blue');
+        });
+        $('.mrNameArea').mouseout(function (e) {
+            var brId = "#" + e.currentTarget.id;
+            $(brId).css('color', 'black');
+        });
+    });
+    function readMeetingRoom(mrId) {
+        location.replace('/meeting/meetingRoom/read/' + mrId);
+    }
+    function modelOpen(mrId) {
+        buffer = mrId;
+        console.log(buffer);
+    }
+    $(document).on('click', '.deleteAlert', function (e) {
+        swal({
+            title: "삭제하시겠습니까?",
+            text: "삭제 시,해당 지사 정보 복원 불가",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonText: "네, 삭제하겠습니다",
+            cancelButtonText: "아뇨, 취소하겠습니다",
+            closeOnConfirm: false,
+            closeOnCancel: false
+        }, function (isConfirm) {
+            if (isConfirm) {
+                swal("삭제 완료!", "해당 정보가 삭제되었습니다.", "success");
+            } else {
+                swal("삭제 취소!", "해당 정보가 삭제 되지 않았습니다.", "error");
+            }
+        });
+    });
+</script>
+<main class="app-content">
+    <div class="app-title">
         <div>
-            <c:forEach items='${meetingRoomList}' var="meetingRoomList">
-                <!--  modal start -->
-                <div class="modal fade" id="confirm" role="dialog">
-                    <div class="modal-dialog">
-                        <!-- Modal content-->
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h4 class="modal-title" style="text-align:center;">정말로 삭제하시겠습니까?</h4>
-                                <!-- 아이콘과 함께 실행 후 에는 되둘릴 수 없습니다 메시지. + 트렌젝션 제어 -->
-                                <button type="button" class="close" data-dismiss="modal">×</button>
-                            </div>
-                            <div class="modal-body">
-                                <div class="modal-footer" style="margin-top:20px">
-                                    <div class="row mb-10">
-                                        <div class="col-md-12">
-
-                                            <form action="/meeting/meetingRoom/delete" method="POST" id="deleteMeetingRoom">
-                                                <input type="hidden" name="_csrf" value="${_csrf.token}">
-                                                <input type="hidden" name="mrId" id="hiddenMrId">
-                                                <button class="btn btn-success" id="finallyConfirm" type="button"><i class="fa fa-fw fa-lg fa-check-circle"></i>확인</button>
-                                                <button class="btn btn-success" type="button" data-dismiss="modal"><i class="fa fa-fw fa-lg fa-check-circle"></i>취소</button>
-                                            </form>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- modal end -->
-
-                <div class="row" style="border-top:10px solid #E5E5E5; border-bottom:10px solid #E5E5E5; padding-top:15px;padding-bottom:15px; background:white;">
-                    <div class="col-md-4">
-
-                        <div style="text-align:center; width: 100%; height: 100%;">
-                            <img class="user-img" src="${meetingRoomList.mrImg}"  style="border-radius: 10px; width: 100%;border:1px solid; vertical-align:middle">
-                        </div>
-                    </div>
-
-
-                    <div class="col-md-8" style="border-left: 3px solid #ddd; padding-left:50px ">
-                        <div style="text-align:right;">
-                            <a class="btn btn-primary" href="#confirm" data-toggle="modal" style="text-align:right;" onclick="modelOpen('${meetingRoomList.mrId}')"><i class="fa fa-lg fa-trash"></i></a>
-
-                        </div>
-                        <div>
-                            <div class="tile-body">
-                                <div class="form-horizontal">
-                                    <!-- 회의실 이름 -->
-                                    <div class="form-group row" style="padding-top:15px; ">
-                                        <h2 onclick="readMeetingRoom('${meetingRoomList.mrId}')" class="mrNameArea" id="${meetingRoomList.mrId}">${meetingRoomList.mrName}</h2>
-                                    </div>
-                                    <div class="form-group row">
-                                        <div class="col-md-8">
-                                            <c:set var="doneLoop" value="false" />
-                                            <img src="/meeting/resources/img/house.png" width="30px" height="30px">
-                                            <c:forEach items='${branchLocationList}' var="branchLocationList">
-                                                <c:if test="${not doneLoop}">
-                                                    <c:if test="${branchLocationList.brId eq meetingRoomList.brId}">
-                                                        ${branchLocationList.brLocation}&nbsp&nbsp
-                                                        <c:set var="doneLoop" value="true" />
-                                                    </c:if>
-                                                </c:if>
-                                            </c:forEach>
-                                            &nbsp&nbsp ${meetingRoomList.mrLocation}
-                                        </div>
-                                    </div>
-                                    <!-- 전화번호 -->
-                                    <div class="form-group row">
-                                        <div class="col-md-8">
-                                            <img src="/meeting/resources/img/phone.png" width="30px" height="30px">
-                                            <c:set var="doneLoop" value="false" />
-                                            <c:forEach items='${branchLocationList}' var="branchLocationList">
-                                                <c:if test="${not doneLoop}">
-                                                    <c:if test="${branchLocationList.brId eq meetingRoomList.brId}">
-                                                        ${branchLocationList.brTel}&nbsp&nbsp
-                                                        <c:set var="doneLoop" value="true" />
-                                                    </c:if>
-                                                </c:if>
-                                            </c:forEach>
-                                        </div>
-                                    </div>
-                                    <!-- 기자재 -->
-                                    
-                                    <!-- 수용인원 -->
-                                    <div class="form-group row">
-                                        <div class="col-md-8">
-                                            <img src="/meeting/resources/img/phone.png" width="30px" height="30px">
-											<!-- 수용인원을 나타낼 아이콘이 없다. -->
-                                            &nbsp&nbsp&nbsp ${meetingRoomList.mrLimit} 명	
-                                        </div>
-                                    </div>
-                                    <!-- 관리자 -->
-                                    <div class="form-group row">
-                                        <div class="col-md-8">
-                                            <img src="/meeting/resources/img/phone.png" width="30px" height="30px">
-
-                                            <c:forEach items='${admin}' var="admin">
-                                                <c:if test="${admin.empId eq meetingRoomList.empId}">
-                                                    ${admin.empName}
-                                                </c:if>
-                                            </c:forEach>
-                                        </div>
-                                    </div>
-                                    
-                                     
-                                        <div class="col-md-8" style="text-align:right">
-                                        
-                                            <c:forEach items='${equipmentList}' var="equipmentList">
-												<!-- 사용가능한 기자재 리스트라고 뭔가 명시가 되어있으면 좋을 것 같다. -->
-                                                <c:if test="${equipmentList.mrId eq meetingRoomList.mrId}">
-                                                    <c:choose>
-                                                        <c:when test="${equipmentList.eqId == 'M'}">
-                                                            <img src="/meeting/resources/img/mike.png" width="50px" height="50px">
-                                                        </c:when>
-                                                        <c:when test="${equipmentList.eqId == 'N'}">
-                                                            <img src="/meeting/resources/img/laptop.png" width="50px" height="50px">
-                                                        </c:when>
-                                                        <c:when test="${equipmentList.eqId == 'V'}">
-                                                            <img src="/meeting/resources/img/beamProject.png" width="50px" height="50px">
-                                                        </c:when>
-                                                        <c:when test="${equipmentList.eqId == 'W'}">
-                                                            <img src="/meeting/resources/img/whiteBoard.png" width="50px" height="50px">
-                                                        </c:when>
-                                                    </c:choose>
-                                                </c:if>
-                                            </c:forEach>
-                                        </div>
-                                    
-
-
-                                    <div class="form-group row">
-                                        <div class="col-md-8" style="padding-top:10px">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </c:forEach>
-
-
+            <h1>
+                <i class="fa fa-calendar"></i>회의실관리</h1>
+            <p>
+                전체 회의실 목록입니다.
+            </p>
         </div>
-
-
-
-    </main>
-
-</body>
-
-</html>
+        <ul class="app-breadcrumb breadcrumb">
+            <li class="breadcrumb-item">
+                <i class="fa fa-home fa-lg"></i>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="#">회의실관리</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="#">회의실관리</a>
+            </li>
+        </ul>
+    </div>
+    <div style="text-align:right">
+        <a class="btn btn-primary btn-sm" href="/meeting/meetingRoom/create">회의실 추가</a>
+    </div>
+    <div class="row">
+        <c:forEach items='${meetingRoomList}' var="meetingRoomList">
+            <div class="col-lg-4" style="padding-top:20px">
+                <div class="bs-component">
+                    <div class="card">
+                        <h4 class="card-header">
+                        <span onclick="readMeetingRoom('${meetingRoomList.mrId}')">${meetingRoomList.mrName}</span>
+                            <span style="float:right">
+                                <a class="deleteAlert" id="demoSwal" style="cursor:pointer;">
+                                    X
+                                </a>
+                            </span>
+                        </h4>
+                        <div class="card-body">
+                            <h5 class="card-title">${meetingRoomList.brLocation} ${meetingRoomList.mrLocation}</h5>
+                            <h6 class="card-subtitle text-muted">
+                                <b>관리자</b>
+                                ${meetingRoomList.empName}</h6>
+                        </div>
+                        <img alt="Card image" src="${meetingRoomList.mrImg}" style="height: 200px; width: 100%; display: block;">
+                            <div class="card-body">
+                                <p class="card-text">
+                                    <table>
+                                        <tr>
+                                            <td>
+                                                <b>공간유형</b>
+                                            </td>
+                                            <c:if test="${meetingRoomList.mrType eq 'mr_type_0'}">
+                                                <td>회의실</td>
+                                            </c:if>
+                                            <c:if test="${meetingRoomList.mrType eq 'mr_type_1'}">
+                                                <td>대회의실</td>
+                                            </c:if>
+                                            <c:if test="${meetingRoomList.mrType eq 'mr_type_2'}">
+                                                <td>교육실</td>
+                                            </c:if>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <b>예약시간</b>
+                                            </td>
+                                            <td>최소 30분부터</td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <b>수용인원</b>
+                                            </td>
+                                            <td>${meetingRoomList.mrLimit }인</td>
+                                        </tr>
+                                    </table>
+                                </p>
+                                <c:set value="${meetingRoomList.eqId}" var="eqId"/>
+                                <c:if test="${fn:contains(eqId,'M')}">
+                                    <i class="fa fa-fw fa-lg fa-wifi"></i>wifi<br></c:if>
+                                    <c:if test="${fn:contains(eqId,'N')}">
+                                        <i class="fa fa-fw fa-lg fa-laptop"></i>laptop<br></c:if>
+                                        <c:if test="${fn:contains(eqId,'WB')}">
+                                            <i class="fa fa-fw fa-lg fa-edit"></i>White Board<br></c:if>
+                                            <c:if test="${fn:contains(eqId,'V')}">
+                                                <i class="fa fa-fw fa-lg fa-video-camera"></i>Beam project<br></c:if>
+                                                <a class="card-link" href="#"></a>
+                            </div>
+                          <div class="card-footer text-muted"></div>
+                       </div>
+					</div>
+				</div>
+			</c:forEach>
+		</div>
+</main>
+<script src="/meeting/resources/js/plugins/bootstrap-notify.min.js" type="text/javascript"></script>
+<script src="/meeting/resources/js/plugins/sweetalert.min.js" type="text/javascript"></script>
