@@ -76,7 +76,7 @@
                 <div class="bs-component">
                     <div class="card">
                         <h4 class="card-header">
-                        <span onclick="readMeetingRoom('${meetingRoomList.mrId}')">${meetingRoomList.mrName}</span>
+                        <span onclick="readMeetingRoom('${meetingRoomList.mrId}')" style="cursor:pointer;">${meetingRoomList.mrName}</span>
                             <span style="float:right">
                                 <a class="deleteAlert" id="demoSwal" style="cursor:pointer;">
                                     X
@@ -89,7 +89,7 @@
                                 <b>관리자</b>
                                 ${meetingRoomList.empName}</h6>
                         </div>
-                        <img alt="Card image" src="${meetingRoomList.mrImg}" style="height: 200px; width: 100%; display: block;">
+                        <img alt="Card image" src="${meetingRoomList.mrImg}" style="height: 200px; width: 100%; display: block;" onclick="readBranch('${branchList.brId}')">
                             <div class="card-body">
                                 <p class="card-text">
                                     <table>

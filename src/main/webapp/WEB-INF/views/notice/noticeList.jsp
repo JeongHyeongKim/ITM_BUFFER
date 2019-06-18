@@ -49,7 +49,7 @@
 	</div>
 
 	<div class="col-md-12">
-          <div class="tile">
+          <div class="tile" >
             <table class="table table-striped-3" id="noticeTable">
               <thead>
                 <tr>
@@ -60,14 +60,15 @@
                 </tr>
               </thead>
             </table>
+            <div id="paging" >
+				<nav aria-label="Page navigation example">
+					<ul class="pagination">
+						
+					</ul>
+				</nav>
+			</div>
           </div>
-		<div id="paging">
-		<nav aria-label="Page navigation example">
-			<ul class="pagination">
-				
-			</ul>
-		</nav>
-		</div>
+		
 	
 	</div>
         

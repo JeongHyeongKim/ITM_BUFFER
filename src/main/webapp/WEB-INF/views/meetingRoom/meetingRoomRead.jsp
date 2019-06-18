@@ -1,49 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>회의실 관리</title>
-    <style>
-        .grid-mt {
-            padding: 20px;
-            display: grid;
-
-        }
-        
-        .upload-wrapper {
-            position: relative;
-            overflow: hidden;
-            display: inline-block;
-
-        }
-
-        .upload-btn {
-
-            color: white;
-            background-color: #009688;
-            padding: 8px 20px;
-            border-radius: 8px;
-            font-size: 15px;
-            font-weight: bold;
-        }
-
-        .upload-wrapper input[type="file"] {
-
-            font-size: 100px;
-            position: absolute;
-            left: 0;
-            top: 0;
-            opacity: 0;
-        }
-        
-        
-    </style>
-
-
-    <script>
+<script>
     $(function() {
 
         var meetingRoom = JSON.parse('${meetingRoom}');
@@ -60,8 +17,8 @@
 		var mrLocation=null;
         var mrImg=null;
 		//잠시 저장하기 위한 임시 버퍼	
-		
-		document.getElementById("imgArea").src=meetingRoom.mrImg;
+		/* 
+		document.getElementById("imgArea").src=meetingRoom.mrImg; */
 		document.getElementById(meetingRoom.brId).selected=true;
 		document.getElementById("mrName").value=meetingRoom.mrName;
 		document.getElementById("mrLimit").value=meetingRoom.mrLimit;
@@ -78,19 +35,6 @@
 		document.getElementById("mrIdHiddenArea").value=meetingRoom.mrId;
 		document.getElementById(meetingRoom.mrType).selected=true;
 		document.getElementById(meetingRoom.empId).selected=true;
-		//페이지 오픈 시 기본 세팅
-		
-
-
-/*          $('#modalOpen').click(function() {
-            name = document.getElementById("brName").value;
-            address = document.getElementById("brAddress").value;
-            tel = document.getElementById("brTel").value;
-
-            document.getElementById("modalBranchName").innerHTML = name
-            document.getElementById("modalBranchLocation").innerHTML = address
-            document.getElementById("modalBranchTel").innerHTML = tel
-        }) */
 
         
         if(document.getElementById('mrNetwork').checked==true) {
@@ -116,27 +60,34 @@
     	}); 
 
     });
-    </script>
-</head>
-
-
-<body>
-    <main class="app-content">
-        <div class="app-title">
-            <div>
-                <h1>회의실/교육실 관리</h1>
-                <p>>회의실 관리</p>
-            </div>
-            <ul class="app-breadcrumb breadcrumb">
-                <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i>회의실 교육실 관리 / 지사관리</li>
-            </ul>
+</script>
+<main class="app-content">
+	<div class="app-title">
+        <div>
+            <h1>
+                <i class="fa fa-calendar"></i>회의실관리</h1>
+            <p>
+                 회의실 정보를 수정합니다.
+            </p>
         </div>
+        <ul class="app-breadcrumb breadcrumb">
+            <li class="breadcrumb-item">
+                <i class="fa fa-home fa-lg"></i>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="#">회의실관리</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="#">회의실관리</a>
+            </li>
+        </ul>
+    </div>
 
         <form action="/meeting/file/meetingRoomUpdate"  id="meetingRoomUpdate" method="POST" enctype="multipart/form-data">
             <div class="row">
                 <input type="hidden" name="mrId"  id="mrIdHiddenArea"> <!-- 바로 세팅이 안된다. 따로 해줘야할듯 -->
                 <input type="hidden" name="_csrf" value="${_csrf.token}">
-                <div class="col-md-4">
+                <%-- <div class="col-md-4">
                     <div class="tile" style="text-align:center">
                         <img class="user-img" id="imgArea" src="https://s3.amazonaws.com/uifaces/faces/twitter/jsa/128.jpg" height=235px>
                         <div style="vertical-align:bottom;text-align:right"> 
@@ -238,8 +189,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- modal end -->
-                            
                             <div class="row">
                                 <div class="col-md-8 col-md-offset-3">
                                     <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#confirm" id="modalOpen"><i class="fa fa-fw fa-lg fa-check-circle"></i>확인</button>&nbsp;&nbsp;&nbsp;
@@ -248,10 +197,71 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --%>
+                <div class="col-md-12" >      
+	         	 <div class="tile" > 
+	            	<h3 class="tile-title">회의실 정보를 입력하여 주십시오</h3>
+		            <div class="tile-body">
+		                <div class="form-group">
+		                  <label class="control-label">지사선택</label>
+		                  <select class="form-control" name="brId">
+                             <option value="none" >지사 선택</option>
+                                  <c:forEach items='${branchList}' var="branchList">
+                                      <option value="${branchList.brId}" id="${branchList.brId}">${branchList.brName}</option>
+                                  </c:forEach>
+                           </select>
+		                </div>
+		                <div class="form-group">
+		                  <label class="control-label">회의실 유형 선택</label>
+		                 	 <select class="form-control" name="mrType">
+                              	<option value="">회의실 유형 선택</option>
+                                <option value="mr_type_0" id="mr_type_0">회의실</option>
+                                <option value="mr_type_1" id="mr_type_1">대회의실</option>
+                                <option value="mr_type_2" id="mr_type_2">교육실</option>
+                             </select>
+		                </div>
+		                <div class="form-group">
+		                  <label class="control-label">회의실 이름</label>
+		                  <input class="form-control" name="mrName" type="text" id="mrName"></input>
+		                </div>
+		                <div class="form-group">
+		                  <label class="control-label">회의실 주소</label>
+		                  <textarea class="form-control"  name="mrLocation" id="mrLocation"></textarea>
+		                </div>
+		                <div class="form-group">
+		                  <label class="control-label">회의실 사용 비용</label>
+		                  <input class="form-control" type="text" name="mrPrice" id="mrPrice" placeholder="30분당 비용을 입력해주십시오">
+		                </div>
+		                <div class="form-group">
+		                  <label class="control-label">수용인원</label>
+		                  <input class="form-control" type="text"  name="mrLimit" id="mrLimit"></input>
+		                </div>
+		                <div class="form-group">
+		                  <label class="control-label">면적(m²)</label>
+		                  <input class="form-control" type="text"  name="mrArea"  id="mrArea"></input>
+		                </div>
+		                <div class="form-group">
+		                  <select class="form-control" name="empId" id="empId">
+                              <option value="none" hidden>관리자 선택</option>
+                              <c:forEach items='${administrator}' var="administrator">
+                              	<option value="${administrator.empId}" id="${administrator.empId}">${administrator.empName}</option>
+                              </c:forEach>
+                           </select>
+		                </div>
+		                <div class="col-md-4">
+                           <div class="animated-checkbox">
+	                           <label>
+	                              <input name="mrNetwork" type="checkbox" value="net_1" id="mrNetwork"><span class="label-text">네트워크 지원</span>
+	                              <input type="hidden" name="mrNetworkHidden" value="net_0" id="mrNetworkHidden" />
+	                           </label>
+                           </div>
+						</div>
+		            </div>
+		            <div class="tile-footer" >
+		            	<button class="btn btn-primary" type="submit" id="write"><i class="fa fa-fw fa-lg fa-check-circle"></i>확인</button>&nbsp;&nbsp;&nbsp;<a class="btn btn-secondary" href="/meeting/meetingRoom/list"><i class="fa fa-fw fa-lg fa-times-circle"></i>취소</a>
+	                </div>
+		          </div>
+		        </div>
             </div>
         </form>
     </main>
-</body>
-
-</html>
