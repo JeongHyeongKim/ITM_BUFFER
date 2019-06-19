@@ -80,5 +80,6 @@ public class ReservationService {
 		return resDao.myListPeriod(resStartDate);
 	}
 	
+	
 
 }

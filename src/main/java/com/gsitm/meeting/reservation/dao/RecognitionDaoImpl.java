@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.google.gson.JsonElement;
 import com.gsitm.meeting.branch.dto.DepartmentDTO;
+import com.gsitm.meeting.users.dto.EmployeeDTO;
 import com.gsitm.meeting.vo.Branch;
 import com.gsitm.meeting.vo.Department;
 import com.gsitm.meeting.vo.Reservation;
@@ -54,6 +55,25 @@ public class RecognitionDaoImpl implements RecognitionDao{
 		Map<String, String> result = new HashMap<>();
 		result.put("searchtype", searchtype);
 		return session.selectList(namespace+".myPaymentBySearch",result);
+	}
+
+	@Override
+	public int approval(String resId) {
+		// TODO Auto-generated method stub
+		return session.update(namespace+".approval",resId);
+	}
+
+	public int back(String resId) {
+		// TODO Auto-generated method stub
+		return session.update(namespace+".back",resId);
+	}
+
+	@Override
+	public List<EmployeeDTO.MyPageInfo> getReservationBySearchtype(String empId, String searchtype,String brId) {
+		Map<String, String> result = new HashMap<>();
+		result.put("searchtype", searchtype);
+		result.put("brId",brId);
+		return session.selectList(namespace + ".getReservationBySearchtype",result);
 	}
 
 }

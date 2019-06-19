@@ -65,7 +65,7 @@
         </ul>
     </div>
     <div style="text-align:right;">
-        <a class="btn-primary btn-sm" href="/meeting/branch/create">회의실 추가</a>
+        <a class="btn btn-primary btn-sm" href="/meeting/branch/create">지사 추가</a>
     </div>
     <div class="row">
         <c:forEach items='${branchList}' var="branchList">

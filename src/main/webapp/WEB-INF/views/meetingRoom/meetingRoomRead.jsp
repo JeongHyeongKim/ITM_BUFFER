@@ -256,6 +256,10 @@
 	                           </label>
                            </div>
 						</div>
+						<div class="form-group">
+			                  <label class="control-label">회의실 사진</label>
+			                  <input class="form-control" type="file" id="imgUpload" name="mrImg">
+			                </div>
 		            </div>
 		            <div class="tile-footer" >
 		            	<button class="btn btn-primary" type="submit" id="write"><i class="fa fa-fw fa-lg fa-check-circle"></i>확인</button>&nbsp;&nbsp;&nbsp;<a class="btn btn-secondary" href="/meeting/meetingRoom/list"><i class="fa fa-fw fa-lg fa-times-circle"></i>취소</a>

@@ -45,7 +45,22 @@ public class RecognitionController {
 	public String exchangeAdmin(Model model){
 		return "admin/exchangeAdmin";
 	}
-	
+	@PostMapping("/approval/{resId}")
+	public ResponseEntity<Void> approval(@PathVariable String resId) {
+		
+		int result = recService.approval(resId);
+		return new ResponseEntity<>(result == 1 ? HttpStatus.OK : HttpStatus.BAD_REQUEST);
+	}
+	@PostMapping("/back/{resId}")
+	public ResponseEntity<Void> back(@PathVariable String resId) {
+		
+		int result = recService.back(resId);
+		return new ResponseEntity<>(result == 1 ? HttpStatus.OK : HttpStatus.BAD_REQUEST);
+	}
+	@PostMapping("/searchByPeriod/searchtype={searchtype}&&searchtypeByBranch={brId}")
+	public ResponseEntity<String> myReservationBySearch(Principal principal,@PathVariable String searchtype,@PathVariable String brId){
+		return new ResponseEntity<>(recService.getReservationBySearchtype(principal.getName(), searchtype,brId),HttpStatus.OK);
+	}
 	/*
 	@PostMapping("/waitForRecognition/{resId}")
 	public ResponseEntity<String> updateResId(Principal principal,@PathVariable String resId){

@@ -88,6 +88,7 @@ public class ReservationController {
 		model.addAttribute("search",resService.search(search));
 		return "reservation/search";
 	}
+	
 	//이후에 users 패키지로 바꾸기
 	@PostMapping("/cancelRes/{resId}")
 	public ResponseEntity<Void> cancelRes(@PathVariable String resId) {
@@ -95,6 +96,7 @@ public class ReservationController {
 		int result = resService.cancelRes(resId);
 		return new ResponseEntity<>(result == 1 ? HttpStatus.OK : HttpStatus.BAD_REQUEST);
 	}
+	
 	
 //	@GetMapping("/users/mypage")
 //	public String mySchedule(Model model,String empId,String resStartDate) {
