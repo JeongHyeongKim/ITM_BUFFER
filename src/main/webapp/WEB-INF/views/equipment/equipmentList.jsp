@@ -127,14 +127,10 @@
     		var buf = $("#branchSelect option:selected").val();
     		console.log(buf);
     		$.ajax({
-				url:"/meeting/"
-				type:"delete",
+				url:"/meeting/roomListInBranch/"+buf;
+				type:"get",
 				success:function(resTxt){
-					if(resTxt.status=="SUCCESS"){
-						$("#listB").trigger("click");
-					}else{
-						alert("사용자 삭제 실패");
-					}
+					
 				},
 				error:function(){
 					alert("사용자 삭제 실패");
