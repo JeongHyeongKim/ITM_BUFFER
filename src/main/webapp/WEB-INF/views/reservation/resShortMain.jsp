@@ -34,24 +34,27 @@
             </div>
         </div>
         <div class="col-md-9">
-            <div class="tab-content">
+        	<div class="row">
+        		<c:forEach items='${resShortMain}' var="resShortList">
+       			 <div class="col-lg-4">
+            		<div class="tab-content">
                 <!-- 회의실 정보 -->
-                <c:forEach items='${resShortMain}' var="resShortList">
-                    <input id="mrName${resShortList.mrName }" type="hidden" value="${resShortList.mrName }">
-                    <input id="mrId" type="hidden" value="${resShortList.mrId }">
-                    <input id="brName" type="hidden" value="${resShortList.brName }">
-                        <div class="tab-pane active meeting-room" id="${resShortList.mrId}" 
-                        	onclick = "location.href='/meeting/reservation/resShortDetail/${resShortList.mrId}'">
+                
+                    	<input id="mrName${resShortList.mrName }" type="hidden" value="${resShortList.mrName }">
+                    	<input id="mrId" type="hidden" value="${resShortList.mrId }">
+                    	<input id="brName" type="hidden" value="${resShortList.brName }">
+                        	<div class="tab-pane active meeting-room" id="${resShortList.mrId}" 
+                        		onclick = "location.href='/meeting/reservation/resShortDetail/${resShortList.mrId}'">
                         	
-                            <div class="card">
-                                <h4 class="card-header">${resShortList.mrName }</h4>
-                                <div class="card-body">
-                                    <h5 class="card-title">${resShortList.brLocation } ${resShortList.mrLocation }</h5>
-                                    <h6 class="card-subtitle text-muted">
+                            	<div class="card">
+                                	<h4 class="card-header">${resShortList.mrName }</h4>
+                                	<div class="card-body">
+                                    	<h5 class="card-title">${resShortList.brLocation } ${resShortList.mrLocation }</h5>
+                                    	<h6 class="card-subtitle text-muted">
                                         <b>관리자</b>
                                         ${resShortList.empName}</h6>
-                                </div>
-                                <img alt="Card image" src="${resShortList.mrImg }" style="height: 200px; width: 100%; display: block;">
+                                	</div>
+                                	<img alt="Card image" src="${resShortList.mrImg }" style="height: 200px; width: 100%; display: block;">
                                     <div class="card-body">
                                         <p class="card-text">
                                             <table>
@@ -91,27 +94,29 @@
                                         </p>
                                         <c:set value="${resShortList.eqId}" var="eqId"/>
                                         <c:if test="${fn:contains(eqId,'M')}">
-                                            <i class="fa fa-fw fa-lg fa-wifi"></i>wifi
+                                            <i class="fa fa-fw fa-lg fa-wifi"></i>wifi<br>
                                         </c:if>
                                         <c:if test="${fn:contains(eqId,'N')}">
-                                            <i class="fa fa-fw fa-lg fa-laptop"></i>laptop
+                                            <i class="fa fa-fw fa-lg fa-laptop"></i>laptop<br>
                                         </c:if>
                                         <c:if test="${fn:contains(eqId,'WB')}">
-                                            <i class="fa fa-fw fa-lg fa-edit"></i>White Board
+                                            <i class="fa fa-fw fa-lg fa-edit"></i>White Board<br>
                                         </c:if>
                                         <c:if test="${fn:contains(eqId,'V')}">
-                                            <i class="fa fa-fw fa-lg fa-video-camera"></i>Beam project
+                                            <i class="fa fa-fw fa-lg fa-video-camera"></i>Beam project<br>
                                         </c:if>
                                     </div>
                                     <div class="card-footer text-muted"></div>
                                 </div>
                             </div>
-                        </c:forEach>
-                    </div>
-                </div>
+                    	</div>
+               		 </div>
+                </c:forEach>
             </div>
-        </main>
-        <script>
+        </div>
+     </div> 
+</main>
+<script>
             
             $(document).ready(function() { 
             	
