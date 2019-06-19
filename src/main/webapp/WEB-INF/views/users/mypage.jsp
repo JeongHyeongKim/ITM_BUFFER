@@ -89,18 +89,36 @@
 					resId=$list.resId;
 					var $divBtn = $("<div></div>").css("text-align","center").appendTo($changeState);  
 					$("<button id='"+resId+"'></button>").attr("class","btn btn-info btn-sm").text("예약 취소").appendTo($divBtn); 
-					
+					 /* 이후 users로 패키지 변경 */
 					$('#'+resId+'').on("click",function(e){
-						$.ajax({
-							  url : "/meeting/reservation/cancelRes/"+resId, /* 이후 users로 패키지 변경 */
-							  type : "post",
-							  data:"_csrf=${_csrf.token}",
-							  success:function(){
-								  location.href= "/meeting/users/mypage"
-							  }, error:function(){
-				                	console.log("error")
-				              }
-						});
+						
+						swal({
+		    	      		title: "삭제하시겠습니까?",
+		    	      		text: "삭제 시,해당 예약 정보 복원 불가",
+		    	      		type: "warning",
+		    	      		showCancelButton: true,
+		    	      		confirmButtonText: "네, 삭제하겠습니다",
+		    	      		cancelButtonText: "아뇨, 취소하겠습니다",
+		    	      		closeOnConfirm: false,
+		    	      		closeOnCancel: false
+		    	      	}, function(isConfirm) {
+		    	      		if (isConfirm) {
+		    	      			$.ajax({
+									  url : "/meeting/reservation/cancelRes/"+resId,
+									  type : "post",
+									  data:"_csrf=${_csrf.token}",
+									  success:function(){
+										  
+										  location.href= "/meeting/users/mypage"
+									  }, error:function(){
+						                	console.log("error")
+						              }
+								});
+		    	      			swal("삭제 완료!", "해당 정보가 삭제되었습니다.", "success");
+		    	      		} else {
+		    	      			swal("삭제 취소!", "해당 정보가 삭제 되지 않았습니다.", "error");
+		    	      		}
+		    	      	});
 					});
 				}
 			});
@@ -142,6 +160,7 @@
 				  data:"_csrf=${_csrf.token}",
 				  success:function(data){
 					  var pageInfo = JSON.parse(data);
+					  
 					  drawPage(pageInfo);
 					  
 				  }
@@ -150,7 +169,8 @@
 	})
 </script>
 
- 
+ <script type="text/javascript" src="/meeting/resources/js/plugins/bootstrap-notify.min.js"></script>
+<script type="text/javascript" src="/meeting/resources/js/plugins/sweetalert.min.js"></script>
 <main class="app-content">
 	<div class="app-title">
 		<div>
@@ -200,3 +220,4 @@
 <script src="/meeting/resources/js/datatables/jquery.dataTables.js"></script>
 <script src="/meeting/resources/js/datatables/dataTables.bootstrap4.js"></script>
 <script src="/meeting/resources/js/plugins/sb-admin-datatables.min.js"></script>
+<script src="/meeting/resources/js/plugins/sweetalert.min.js"></script>

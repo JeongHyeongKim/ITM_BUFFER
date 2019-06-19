@@ -6,10 +6,11 @@
 		var resId;
 		var myInfo = JSON.parse('${resList}');
 		var branchList = JSON.parse('${branchList}');
-		
-		function drawListPeriod(myInfo){
+		var searchtype ;
+		var brId ;
+		/* function drawListPeriod(myInfo){
 			$("#listCondition").empty(); 
-			/* listCondition  */
+			/* listCondition  
 			var $listCondition = $("#listCondition");
 			var $divDataToggle = $("<div data-toggle='buttons'></div>").attr("class","btn-group btn-group-toggle").appendTo($listCondition);
 			
@@ -28,24 +29,42 @@
 			
 			var $yearList = $("<label id='yearList'></label>").attr("class","btn btn-primary").text("1년").appendTo($divDataToggle);
 			$("<input id='yearList' type='radio' name='listPeriod'  autocomplete='off'>").appendTo($yearList);
-		}
+		} */
 		function drawListBranch(branchList){
+			$("#listCondition").empty(); 
 			$("#listBranch").empty(); 
+			var $listCondition = $("#listCondition");
+			var $divDataToggle = $("<div data-toggle='buttons'></div>").attr("class","btn-group btn-group-toggle").appendTo($listCondition);
+			
+			var $allOfList = $("<label id='allOfList'></label>").attr("class","btn btn-primary prBtn active").text("전체").appendTo($divDataToggle);
+			$("<input id='al' class='listPeriod' type='radio'   autocomplete='off' checked=''>").appendTo($allOfList);
+
+			var $weekLabel = $("<label id='oneWeek'></label>").attr("class","btn btn-primary prBtn").text("일주일").appendTo($divDataToggle);
+			$("<input id='ow'  class='listPeriod'type='radio'   autocomplete='off'>").appendTo($weekLabel);
+			
+			var $onemonthLabel = $("<label id='oneMonth'></label>").attr("class","btn btn-primary prBtn").text("1개월").appendTo($divDataToggle);
+			$("<input  class='listPeriod' type='radio'  autocomplete='off'>").appendTo($onemonthLabel);
+			
+			var $sixmonthLabel = $("<label id='sixMonth'></label>").attr("class","btn btn-primary prBtn").text("6개월").appendTo($divDataToggle);
+			$("<input  class='listPeriod' type='radio'  autocomplete='off'>").appendTo($sixmonthLabel);
+			
+			var $yearList = $("<label id='yearList'></label>").attr("class","btn btn-primary prBtn").text("1년").appendTo($divDataToggle);
+			$("<input  class='listPeriod' type='radio'   autocomplete='off'>").appendTo($yearList);
 			/* listCondition  */
 			var $listBranch = $("#listBranch");
 			var $divDataToggle = $("<div data-toggle='buttons'></div>").attr("class","btn-group btn-group-toggle").appendTo($listBranch);
 			$.each(branchList, function(i, $list) {
 				if(i==0){
-					var $allOfList = $("<label></label>").attr("class","btn btn-primary active").text($list.brName).appendTo($divDataToggle);
-					$("<input id='allOfList' type='radio' name='listPeriod' value='all' autocomplete='off' checked=''>").appendTo($allOfList);
+					var $allOfList = $("<label id='"+$list.brId+"'></label>").attr("class","btn btn-primary brIdBtn active").text($list.brName).appendTo($divDataToggle);
+					$("<input type='radio' name='listPeriod' value='all' autocomplete='off' checked=''>").appendTo($allOfList);
 				}else{
-					var $allOfList = $("<label></label>").attr("class","btn btn-primary").text($list.brName).appendTo($divDataToggle);
-					$("<input id='allOfList' type='radio' name='listPeriod' value='all' autocomplete='off' >").appendTo($allOfList);
+					var $allOfList = $("<label id='"+$list.brId+"'></label>").attr("class","btn btn-primary brIdBtn").text($list.brName).appendTo($divDataToggle);
+					$("<input  type='radio' name='listPeriod' value='all' autocomplete='off' >").appendTo($allOfList);
 				
 				}
-			});
-		} 
-		
+				
+		    });
+		}
 		function drawPage(myInfo){
 
 			$("#meetingList").empty();
@@ -84,22 +103,22 @@
 				var $currentState = $("<td></td>").text(mappingState($list.resState)).appendTo($bodyTrTag);
 				var $changeState = $("<td></td>").appendTo($bodyTrTag);
 				
-				if(($list.resState=="res_0")||($list.resState=="res_1")){
+				if($list.resState=="res_1"){
 					var $divChange = $("<div></div>").attr("class","bs-component").appendTo($changeState);
 					var $urChange = $("<ul></ul>").attr("class","nav nav-pills").appendTo($divChange);
 					var $liChange = $("<li></li>").attr("class","nav-item dropdown").appendTo($urChange);
 					$("<a data-toggle='dropdown' href='#' role='button' aria-haspopup='true' aria-expanded='false'></a>").attr("class","nav-link dropdown-toggle").text("상태").appendTo($liChange);
 					var $divDropdown = $("<div></div>").attr("class","dropdown-menu").appendTo($liChange);
 					
-					$("<a></a>").attr("class","dropdown-item").text("승인").appendTo($divDropdown);
-					$("<a></a>").attr("class","dropdown-item").text("반려").appendTo($divDropdown);
+					$("<a id='approval' value='"+$list.resId+"'></a>").attr("class","dropdown-item").text("승인").appendTo($divDropdown);
+					$("<a id='back' value='"+$list.resId+"'></a>").attr("class","dropdown-item").text("반려").appendTo($divDropdown);
 				}
 			});
 
 			/* 카드푸터  */
 			var $divFooter = $("<div class='card-footer small text-muted'></div>").appendTo($divCol12);	
 		}
-		drawListPeriod(myInfo);
+		/* drawListPeriod(myInfo); */
 		drawListBranch(branchList);
 		drawPage(myInfo);
 		
@@ -121,23 +140,88 @@
 				return state = "미사용"
 			} 
 		}
+		$('#approval').on("click",function(e){
+			
+			swal({
+	      		title: "승인하시겠습니까?",
+	      		type: "warning",
+	      		showCancelButton: true,
+	      		confirmButtonText: "네, 승인하겠습니다",
+	      		cancelButtonText: "아뇨, 취소하겠습니다",
+	      		closeOnConfirm: false,
+	      		closeOnCancel: false
+	      	}, function(isConfirm) {
+	      		if (isConfirm) {
+	      		  resId =  $("#approval").attr("value");
+	      			$.ajax({
+						  url : "/meeting/recognition/approval/"+resId,
+						  type : "post",
+						  data:"_csrf=${_csrf.token}",
+						  success:function(){
+							  location.href= "/meeting/recognition/waitForRecognition"
+						  }, error:function(){
+			                	console.log("error");
+			              }
+					});
+	      			swal("승인 완료!", "해당 예약 정보가 승인되었습니다.", "success");
+	      		} else {
+	      			swal("승인 취소!", "해당 예약 정보가 승인 되지 않았습니다.", "error");
+	      		}
+	      	});
+		});
+		$('#back').on("click",function(e){
+			
+			swal({
+	      		title: "반려하시겠습니까?",
+	      		type: "warning",
+	      		showCancelButton: true,
+	      		confirmButtonText: "네, 반려하겠습니다",
+	      		cancelButtonText: "아뇨, 취소하겠습니다",
+	      		closeOnConfirm: false,
+	      		closeOnCancel: false
+	      	}, function(isConfirm) {
+	      		if (isConfirm) {
+	      		  resId =  $("#back").attr("value");
+	      			$.ajax({
+						  url : "/meeting/recognition/back/"+resId,
+						  type : "post",
+						  data:"_csrf=${_csrf.token}",
+						  success:function(){
+							  location.href= "/meeting/recognition/waitForRecognition"
+						  }, error:function(){
+			                	console.log("error");
+			              }
+					});
+	      			swal("승인 완료!", "해당 예약 정보가 반려되었습니다.", "success");
+	      		} else {
+	      			swal("승인 취소!", "해당 예약 정보가 반려 되지 않았습니다.", "error");
+	      		}
+	      	});
+		});	
 		
-		/* $(document).on('click', '.btn-primary', function(e){
-		  
-			  var searchtype = e.currentTarget.id;
-			  $.ajax({
-				  url : "/meeting/users/search/"+searchtype,
-				  type : "post",
-				  data:"_csrf=${_csrf.token}",
-				  success:function(data){
-					  var pageInfo = JSON.parse(data);
+		$(document).on('click', '.prBtn', function(e){
+			 searchtype=e.currentTarget.id;
+			 console.log(searchtype);
+		})
+		$(document).on('click', '.brIdBtn', function(e){
+			brId=e.currentTarget.id;
+			console.log(brId);
+			btnClassClick();
+		})
+        var btnClassClick = function(e){
+        	$.ajax({
+        	    url:"/meeting/recognition/searchByPeriod/searchtype="+searchtype+"&&searchtypeByBranch="+brId,
+        	    type:"post",
+        	    data:"_csrf=${_csrf.token}",
+        	    success:function(data){	
+        	    	var pageInfo = JSON.parse(data);
 					  drawPage(pageInfo);
-					  
-				  }
-			});
-		}); */
-		
-	})
+        	    }
+        	   })
+        	    
+        }
+	});
+	
 </script>
 <main class="app-content">
 <div class="app-title">
@@ -180,3 +264,4 @@
 <script src="/meeting/resources/js/datatables/jquery.dataTables.js"></script>
 <script src="/meeting/resources/js/datatables/dataTables.bootstrap4.js"></script>
 <script src="/meeting/resources/js/plugins/sb-admin-datatables.min.js"></script>
+<script src="/meeting/resources/js/plugins/sweetalert.min.js"></script>

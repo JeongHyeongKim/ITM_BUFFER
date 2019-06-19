@@ -39,9 +39,23 @@ public class RecognitionService {
 		// TODO Auto-generated method stub
 		return gson.toJson(recDao.myPaymentBySearch(searchtype));
 	}
-
+	public int approval(String resId) {
+		// TODO Auto-generated method stub
+		return recDao.approval(resId);
+	}
 	/*public String updateResState(String resId) {
 		recDao.updateResState(resId);
 		return recDao.selectNewResList(resId);
 	}*/
+
+	public int back(String resId) {
+		// TODO Auto-generated method stub
+		return recDao.back(resId);
+	}
+
+	public String getReservationBySearchtype(String empId, String searchtype,String brId) {
+		// TODO Auto-generated method stub
+		return gson.toJson(recDao.getReservationBySearchtype(empId, searchtype,brId));
+	}
+	
 }
