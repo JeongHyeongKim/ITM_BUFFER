@@ -32,7 +32,7 @@
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title" style="text-align:center;">정말로 삭제하시겠습니까?</h4>
+                    <h4 class="modal-title" style="text-align:center;">기자재 상세를 입력해주세요.</h4>
                     <button type="button" class="close" data-dismiss="modal">×</button>
                 </div>
                 <div class="modal-body">
@@ -49,7 +49,7 @@
                         <div class="col-lg-4" style="display:inline-block">
                             <label>회의실</label>
                             <select class="form-control" id="meetingRoomSelect">
-                                <option value="none" hidden>회의실을 먼저 선택해주세요.</option>
+                                <option value="none" hidden>지사를 먼저 선택해주세요.</option>
 
                             </select>
                         </div>
@@ -125,15 +125,21 @@
     $("#branchSelect").change(function(){
     	if($("#branchSelect option:selected").val()!="none"){
     		var buf = $("#branchSelect option:selected").val();
-    		console.log(buf);
+    		//console.log(buf);
     		$.ajax({
-				url:"/meeting/roomListInBranch/"+buf;
+				url:"/meeting/equipment/roomListInBranch/"+buf,
 				type:"get",
 				success:function(resTxt){
-					
+					var meetingRoomList = resTxt.result;
+					console.log(meetingRoomList)
+					$("#meetingRoomSelect").empty();
+					$("#meetingRoomSelect").append("<option value='none' hidden>회의실을 선택해주세요</option>")
+		               $.each(meetingRoomList, function(index, item) {
+		            	   $("#meetingRoomSelect").append("<option value='"+item.mrId+"'>"+item.mrName+"</option>")
+		               });
 				},
 				error:function(){
-					alert("사용자 삭제 실패");
+					alert("실패");
 				}
 			});
     		

@@ -61,7 +61,9 @@ public class EquipmentController {
 	public ResponseEntity<Map<String, Object>> getMrListInBranch(@PathVariable String id){
 		Map<String,Object> mrListInBranch = new HashMap<>();
 		List<MeetingRoom> mrList = brService.meetingRoomListInBranch(id);
+		System.out.println(mrList);
 		mrListInBranch.put("result", mrList);
+		System.out.println(mrListInBranch);
 		return new ResponseEntity<Map<String, Object>>(mrListInBranch, HttpStatus.OK);
 		
 	}
