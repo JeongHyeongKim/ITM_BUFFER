@@ -34,7 +34,7 @@
       <security:authorize access="hasRole('ROLE_ADMIN')">
  		<li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-cogs"></i><span class="app-menu__label">예약 이력 관리</span><i class="treeview-indicator fa fa-angle-right"></i></a>
           <ul class="treeview-menu">
-            <li><a class="treeview-item" href="/meeting/recognition/waitForRecognition"><i class="icon fa fa-circle-o"></i>전체예약현황</a></li>
+            <li><a class="treeview-item" href="/meeting/recognition/waitForRecognition"><i class="icon fa fa-circle-o"></i>예약현황</a></li>
             <li><a class="treeview-item" href="/meeting/recognition/paymentManagement"><i class="icon fa fa-circle-o"></i>결제관리</a></li>
           </ul>
         </li>
@@ -45,6 +45,8 @@
             <li><a class="treeview-item" href="/meeting/equipment/list"><i class="icon fa fa-circle-o"></i>기자재관리</a></li>
           </ul>
         </li>
+        <li><a class="app-menu__item" href="/meeting/recognition/exchangeAdmin"><i class="app-menu__icon fa fa-exchange"></i><span class="app-menu__label">관리자 권한 관리</span></a></li>
+		
         </security:authorize>
         <li><a class="app-menu__item" href="/meeting/reservation/resShortMain/br_0001"><i class="app-menu__icon fa fa-calendar-check-o"></i><span class="app-menu__label">예약</span></a></li>
         <li><a class="app-menu__item" href="/meeting/notice/list/1"><i class="app-menu__icon fa fa-file-text-o"></i><span class="app-menu__label">공지사항</span></a></li>

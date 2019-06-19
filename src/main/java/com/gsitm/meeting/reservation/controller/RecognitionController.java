@@ -41,6 +41,10 @@ public class RecognitionController {
 	public ResponseEntity<String> myPaymentBySearch(@PathVariable String searchtype){
 		return new ResponseEntity<>(recService.myPaymentBySearch(searchtype),HttpStatus.OK);
 	}
+	@GetMapping("/exchangeAdmin")
+	public String exchangeAdmin(Model model){
+		return "admin/exchangeAdmin";
+	}
 	
 	/*
 	@PostMapping("/waitForRecognition/{resId}")
