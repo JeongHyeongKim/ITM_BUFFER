@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.gsitm.meeting.room.dao.EquipmentDaoImpl;
+import com.gsitm.meeting.room.dto.EquipmentDTO.EquipmentExpansion;
 import com.gsitm.meeting.vo.Equipment;
-import com.gsitm.meeting.vo.MeetingRoom;
 
 @Service
 public class EquipmentService {
@@ -16,7 +16,7 @@ public class EquipmentService {
 	private EquipmentDaoImpl eqDao;
 	
 	
-	public List<Equipment> equipmentAllList(){
+	public List<EquipmentExpansion> equipmentAllList(){
 		return eqDao.equipmentAllList();
 	}
 	

@@ -1,5 +1,9 @@
 package com.gsitm.meeting.room.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 public class EquipmentDTO {
 	
 	private String eqId;
@@ -25,6 +29,16 @@ public class EquipmentDTO {
 		this.mrId = mrId;
 	}
 	
+	
+	@Data
+	@AllArgsConstructor
+	@NoArgsConstructor
+	public static class EquipmentExpansion{
+		private String eqId;
+		private String mrId;
+		private String mrName;
+		private String brName;
+	}
 	
 	
 

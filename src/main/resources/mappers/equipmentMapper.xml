@@ -4,8 +4,11 @@
 <!-- 게시판 네임스페이스(사용영역) 설정 -->
 <mapper namespace="com.gsitm.meeting.mappers.equipmentMapper">
 
-	<select id="equipmentAllList" resultType="equipmentVO">
-		select eq_id eqId, mr_id mrId from equipment
+	<select id="equipmentAllList" resultType="com.gsitm.meeting.room.dto.EquipmentDTO$EquipmentExpansion">
+		select e.eq_id eqId, m.mr_id mrId, m.mr_name mrName, b.br_name brName
+		from equipment e, meeting_room m, branch b
+		where e.mr_id=m.mr_id
+		and m.br_id=b.br_id
 	</select>
 	
 	<!-- 회의실에 종속된 기자재 리스트 -->
@@ -27,6 +30,7 @@
 		delete equipment
 		where eq_id=#{eqId}
 	</delete>
+	
 	
 	
 </mapper>

@@ -4,10 +4,12 @@ public class Equipment {
 	
 	private String eqId;
 	private String mrId;
+
 	
 	public Equipment() {
 		super();
 	}
+
 
 	public String getEqId() {
 		return eqId;

@@ -36,7 +36,7 @@
 	</select>
 	
 	<select id="meetingRoomInBranch" resultType="meetingroomVO">
-		select mr_name mrName from meeting_room where br_id = #{brId}
+		select mr_name mrName, mr_id mrId from meeting_room where br_id = #{brId}
 	</select>
 	
 	<select id="meetingRoomListOrderByBranch" resultType="java.util.HashMap">
