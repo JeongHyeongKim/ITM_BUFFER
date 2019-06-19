@@ -24,11 +24,11 @@
             <div class="tile row">
                 <h3 class="tile-title">회의실 예약 신청 작성</h3>
                 <div class="tile-body" style="width:100%;">
-                    <form class="row" id="resForm" method="POST" action="/meeting/reservation/writeReservation">
-                        <input type="hidden" id="empId">
-                        <input type="hidden" id="mrId">
-                        <input type="hidden" id="resDate">
-                        <input type="hidden" id="resState">
+                    <form class="row" id="resForm" method="post" action="/meeting/reservation/writeReservation">
+                    	<input type="hidden" name="_csrf" value="${_csrf.token}">
+                        
+                        <input type="hidden" id="mrId" name="mrId" value="${mrId}">
+                        
                         <div class="form-group col-md-3">
                             <label class="control-label">신청자 명</label>
                             <input class="form-control" id="resName" type="text" readonly>
@@ -39,7 +39,7 @@
                         </div>
                         <div class="form-group col-md-3">
                             <label class="control-label">회의 구분</label>
-                            <input class="form-control" placeholder="내부회의, 고객미팅 등" type="text">
+                            <input class="form-control" placeholder="내부회의, 고객미팅 등" type="text" name="resType">
                         </div>
                         <div class="form-group col-md-3">
                             <label class="control-label">최근 회의 목록 불러오기</label>
@@ -47,17 +47,17 @@
                         </div>
                         <div class="form-group col-md-3">
                             <label class="control-label">예약 시작 일자</label>
-                            <input class="form-control" id="resStartDate" name="filter-date" placeholder="예약 시작 일자" type="text">
+                            <input class="form-control" id="resStartDate" placeholder="예약 시작 일자" type="text">
                         </div>
                         <div class="form-group col-md-3">
                             <label class="control-label">예약 종료 일자</label>
-                            <input class="form-control" id="resEndDate" name="filter-date" placeholder="예약 종료 일자" type="text">
+                            <input class="form-control" id="resEndDate" placeholder="예약 종료 일자" type="text">
                         </div>
                         <div class="form-group col-md-3"></div>
                         <div class="form-group col-md-3"></div>
                         <div class="form-group col-md-3">
                             <label class="control-label">사용 목적</label>
-                            <input class="form-control" placeholder="회의 목적을 작성해주십시오" type="text">
+                            <input class="form-control" placeholder="회의 목적을 작성해주십시오" type="text" name="resPurpose">
                         </div>
                          <div class="form-group col-md-3">
                             <label class="control-label">참석 인원 명단 <a data-target="#empList" data-toggle="modal">명단등록</a></label>
@@ -65,7 +65,7 @@
                         </div>
                         <div class="form-group col-md-3">
                             <label class="control-label">외부인 참석 인원 수</label>
-                            <input class="form-control" min="1" type="number">
+                            <input class="form-control" min="1" type="number" name="resOutside">
                         </div>
                         <div class="form-group col-md-3">
                         </div>
@@ -94,7 +94,7 @@
                             <label class="control-label">간식 유무</label>
                             <div class="animated-checkbox">
                                 <label>
-                                    <input name="resSnack" type="checkbox"><span class="label-text">간식 있음</span>
+                                    <input id="resSnack" name="resSnack" type="checkbox" value="1"><span class="label-text">간식 있음</span>
                                 </label>
                             </div>
                         </div>
@@ -106,12 +106,20 @@
                                 </label>
                             </div>
                         </div>
-                        <textarea class="form-control" placeholder="기타 전달 사항을 입력해 주십시오" rows="4"></textarea>
+                        <textarea class="form-control" placeholder="기타 전달 사항을 입력해 주십시오" rows="4" name="resAddRequest"></textarea>
                         <div class="form-group col-md-3"></div>
                         <div class="form-group col-md-3"></div>
                         <div class="form-group col-md-3"></div>
-                        <div class="form-group col-md-3" style="padding-top:50px;text-align:right">
-                            <input class="btn btn-info" id="sendForm" type="submit" value="예약 신청"/>
+                        
+                    <div class="bs-component" style="margin-bottom: 15px;">
+						<div class="btn-group btn-group-toggle" data-toggle="buttons">
+
+						</div>
+					</div>
+
+					<div class="form-group col-md-3" style="padding-top:50px;text-align:right">
+							<button class="btn btn-warning" type="button" disabled="disabled">Warning</button>
+                            <input class="btn btn-info" id="sendForm" type="button" value="예약 신청"/>
                         </div>
                     </form>
                 </div>
@@ -181,16 +189,15 @@
 				</div>
 			</div>
 		</div>
-		
-		
     </div>
 </main>
 <script src="/meeting/resources/js/plugins/jquery.datetimepicker.full.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.17.0/dist/jquery.validate.min.js"></script>
 <script>
     $(document).ready(function () {
-    	
-    	
+    	$("#resForm").on("click",function(){
+    		console.log($("#resSnack").val());
+    	})
         var resStartDate = sessionStorage.getItem("currentDate");
         resStartDate += "00:00";
         
@@ -202,8 +209,84 @@
         var hh = now.getHours()>9 ?''+now.getHours() : '0'+now.getHours();
         var min = now.getMinutes()>9 ?''+now.getMinutes() : '0'+now.getMinutes(); 
         var today = year + '/' + mon + '/' + day+" "+hh+":"+min;
-
+    	
         
+        ///////////////////////////////////////////////////////////////////////////////// 
+        /* function drawTime(){
+        	 
+        	 var changeTime = "09:00";
+             var splitMinTime = changeTime.substr(3,5);
+             var splitHourTime = changeTime.substr(0,2);
+             var aTime = new Array(); 
+             var sessionTime = sessionStorage.getItem("availTime");
+             aTime = sessionTime.split(",");
+             
+             // 허용날짜 중복제거
+             var newTimes = [];
+             $.each(aTime, function(i, el){
+             	if($.inArray(el, newTimes) === -1) newTimes.push(el);
+             });
+             
+             // 시간재구성
+             for(var i=0; i<newTimes.length; i++){
+             	var hour = newTimes[i].substr(1,1);
+             	if(hour==":"){
+             		newTimes[i] = "0"+newTimes[i] 
+             	}
+             	var min = newTimes[i].substr(3,1)
+             	if(min=="0"){
+             		newTimes[i] = newTimes[i]+"0"
+             	}
+             }
+             console.log(newTimes)
+             // 시간뿌리기
+             for(var i=0; i<19; i++){
+             	
+             	for(var j=0; j<newTimes.length; j++){
+             		var $label ;
+             		if(changeTime==newTimes[j]){ //style="height: 10px;"
+             			$label = $("<button></button>").attr("class","btn btn-warning").attr("id",changeTime).attr("style","height:40px; width:70px;").attr("disabled","");
+             			break;
+             		} else{
+             			$label = $("<button></button>").attr("class","btn btn-primary").attr("id",changeTime).attr("style","height:40px; width:70px;");
+             		}
+             	}
+           		var $secondLabel = $label.appendTo($(".btn-group"))
+                var $input = $("<input>").attr("type","checkbox").attr("autocomplete","off").appendTo($secondLabel);
+     			
+           		if(splitMinTime=="00"){
+             		splitMinTime = "30";
+             	} else if(splitMinTime=="30"){
+             		splitHourTime = Number(splitHourTime) +1;
+             		splitMinTime = "00";
+             	} else{
+             		console.log("error");
+             	}
+     			changeTime = splitHourTime+ ":"+splitMinTime;
+              }
+             console.log("for문끝")  
+        }
+       $("<div></div>").html("<p>09:00&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;10:00&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;11:00&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;12:00&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;13:00&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;14:00&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;15:00&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;16:00&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;17:00&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;18:00</p>").appendTo($(".bs-component"))
+        */
+        ///////////////////////////////////////////////////////////////////////
+        
+        //////////////////////////////////////////////////////////////////////////
+        function drawTime(){
+    		for(var i=1; i<20; i++){
+    			var $label = $("<button></button>").attr("class","btn btn-primary").attr("id","timeNo"+i).attr("style","height:40px; width:70px;").appendTo($(".btn-group"));
+    			var $input = $("<input>").attr("type","checkbox").attr("autocomplete","off").appendTo($label);
+    		}
+       }
+       $("<div></div>").html("<p>09:00&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;10:00&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;11:00&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;12:00&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;13:00&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;14:00&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;15:00&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;16:00&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;17:00&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;18:00</p>").appendTo($(".bs-component"))
+       drawTime(); 
+        $("#sendForm").on("click",function(){
+        	$.ajax({
+        		url:"/meeting/reservation"
+        	})
+        })
+       
+		//////////////////////////////////////////////////////////////////////////
+       
         $('#resStartDate').val(resStartDate);
         $('#resMrName').val(sessionStorage.getItem("mrName"));
         $('#mrId').val(sessionStorage.getItem("mrId"));
@@ -229,7 +312,6 @@
             var startDateCompare = new Date(startDateArr[0], parseInt(startDateArr[1])-1, startDateArr[2].substring(1,2),startDateArr[2].substring(3,5),startDateArr[2].substring(6,8));
             var endDateCompare = new Date(endDateArr[0], parseInt(endDateArr[1])-1, endDateArr[2].substring(1,2),endDateArr[2].substring(3,5),endDateArr[2].substring(6,8));
 
-           
             if(startDateCompare > endDateCompare) {            
                 alert("시작날짜와 종료날짜를 확인해 주세요.");  
                 $('#resEndDate').val("");
@@ -237,29 +319,45 @@
            		alert("장기예약");
         });
         
+        $('#resStartDate').datetimepicker({
+        	'step': 30,
+        	onSelectDate: function(data) {
+        		var mrId = sessionStorage.getItem("mrId");
+        		
+        		var availableDate = JSON.stringify(data);
+        		$.ajax({
+        			url:"/meeting/reservation/available/"+mrId+"/"+availableDate,
+        			type:"post",
+        			data : "_csrf=${_csrf.token}",
+        			success:function(data){
+        				
+        				var resultDate = JSON.parse(data)
+                        var wantDate = new Array() ;
+                        var count = 0;
+                        
+                        for(var i=0; i<resultDate.length; i++){
+                          var calcDate = resultDate[i];
+                           
+                          for(var j=0; j<calcDate.length; j++){
+                              wantDate[count] = calcDate[j];
+                              count++;
+                          }
+                        }
+                  
+        				sessionStorage.setItem("availTime", wantDate);
+        				drawTime();
+        				console.log("check")
+        			}
+        		})
+        	}
+        });
     });
 </script>
 <script type="text/javascript">
     /* $("#sendForm").on("click",function(){
     	 /* sessionStorage.removeAttribute("currentDate"); 
       }) */
-    $('#resStartDate').datetimepicker({
-    	'step': 30,
-    	onSelectDate: function(data) {
-    		var mrId = sessionStorage.getItem("mrId");
-    		console.log(mrId);
-    		var availableDate = JSON.stringify(data);
-    		$.ajax({
-    			url:"/meeting/reservation/available/"+mrId+"/"+availableDate,
-    			type:"post",
-    			data : "_csrf=${_csrf.token}",
-    			success:function(data){
-    				console.log("success")
-    				sessionStorage.setItem("availTime", data);
-    			}
-    		})
-    	}
-    });
+   
     
     $('#resEndDate').datetimepicker({
     	'step': 30,

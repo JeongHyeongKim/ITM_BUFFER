@@ -31,7 +31,10 @@ public class EmployeeDaoImpl implements EmployeeDao{
 	}
 
 	@Override
-	public void addLoginFailureCnt(Map map) {
+	public void addLoginFailureCnt(String empId, Integer loginFailureCnt) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("empId", empId);
+		map.put("loginFailureCnt", loginFailureCnt);
 		session.update(namespace + ".addLoginFailureCnt", map);
 	}
 

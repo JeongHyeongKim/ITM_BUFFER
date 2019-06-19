@@ -37,6 +37,7 @@
 <script src="/meeting/resources/js/plugins/sweetalert.min.js"></script>
 <script>
     $(document).ready(function() { 
+    	sessionStorage.setItem("availTime", "");
     	$("#brName").text(sessionStorage.getItem("brName")+" - "+sessionStorage.getItem("mrName"));
     	
         $('#calendar').fullCalendar({

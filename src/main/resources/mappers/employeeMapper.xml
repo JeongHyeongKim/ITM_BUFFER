@@ -12,7 +12,7 @@
 	</select>
 	
 	<update id="addLoginFailureCnt">
-		update employee set emp_failure_cnt = #{loginFailureCnt} where emp_id = #{loginId}
+		update employee set emp_failure_cnt = #{loginFailureCnt} where emp_id = #{empId}
 	</update>
 	
 	<update id="resetLoginCnt">

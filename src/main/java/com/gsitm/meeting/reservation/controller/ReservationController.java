@@ -19,6 +19,7 @@ import com.gsitm.meeting.reservation.dto.SearchDTO;
 import com.gsitm.meeting.reservation.service.EquipmentReservationService;
 import com.gsitm.meeting.reservation.service.ReservationService;
 import com.gsitm.meeting.users.service.EmployeeService;
+import com.gsitm.meeting.vo.Reservation;
 
 @Controller
 @RequestMapping("/reservation")
@@ -41,15 +42,26 @@ public class ReservationController {
 		return "reservation/resList";
 	}
 	@PostMapping("/writeReservation")
-	public String writeReservation(Model model,@RequestParam("resId") String resId,@RequestParam("empId") String empId,
-			@RequestParam("mrId") String mrId,@RequestParam("resStartDate") String resStartDate,
-			@RequestParam("resEndDate") String resEndDate,@RequestParam("resDate") String resDate,
-			@RequestParam("resPurpose") String resPurpose,@RequestParam("resAttendCnt") String resAttendCnt,
-			@RequestParam("resAddRequest") String resAddRequest,@RequestParam("resState") String resState,
-			@RequestParam("resSnack") String resSnack,@RequestParam("resType") String resType,
-			@RequestParam("resCancle") String resCancle,
-			@RequestParam("resCost") String resCost,@RequestParam("resOutside") String resOutside) {
-		return "redirect:/reservation/list"; //리턴중, 리다이렉트는 url형식으로 전달된다.
+	public String writeReservation(Model model, String mrId, String resPurpose, @RequestParam(required=false)String resAddRequest,
+			String resSnack, String resType, String resOutside, Principal principal) {
+		Reservation res = new Reservation();
+		res.setResId("res_0054");
+		res.setEmpId(principal.getName());
+		res.setMrId(mrId);
+		System.out.println(mrId);
+		res.setResPurpose(resPurpose);
+		System.out.println(resPurpose);
+		
+		res.setResAddRequest(resAddRequest);
+		System.out.println(resAddRequest);
+		res.setResSnack(Integer.parseInt(resSnack));
+		System.out.println(resSnack);
+		res.setResType(resType);
+		System.out.println(resType);
+		res.setResOutside(Integer.parseInt(resOutside));
+		System.out.println(resOutside);
+		System.out.println("객체"+res);
+		return "redirect:/users/mypage"; //리턴중, 리다이렉트는 url형식으로 전달된다.
 	}
 	@GetMapping("/resShortMain/{brId}")
 	public String meetingRoomList(Model model,@PathVariable String brId) {

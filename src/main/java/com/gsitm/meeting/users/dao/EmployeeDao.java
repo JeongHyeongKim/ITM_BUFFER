@@ -15,7 +15,7 @@ public interface EmployeeDao {
 	
 	public int getLoginFailureCnt(String empId);
 	
-	public void addLoginFailureCnt(Map map);
+	public void addLoginFailureCnt(String empId, Integer loginFailureCnt);
 	
 	public void resetLoginCnt(String id);
 	
