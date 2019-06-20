@@ -8,28 +8,10 @@
 		var branchList = JSON.parse('${branchList}');
 		var searchtype ;
 		var brId ;
-		/* function drawListPeriod(myInfo){
-			$("#listCondition").empty(); 
-			/* listCondition  
-			var $listCondition = $("#listCondition");
-			var $divDataToggle = $("<div data-toggle='buttons'></div>").attr("class","btn-group btn-group-toggle").appendTo($listCondition);
-			
-			var $allOfList = $("<label id='allOfList'></label>").attr("class","btn btn-primary active").text("전체").appendTo($divDataToggle);
-			$("<input id='allOfList' type='radio' name='listPeriod' value='all' autocomplete='off' checked=''>").appendTo($allOfList);
-			
-			
-			var $weekLabel = $("<label id='oneWeek'></label>").attr("class","btn btn-primary").text("일주일").appendTo($divDataToggle);
-			$("<input id='oneWeek' type='radio' name='listPeriod'  autocomplete='off'>").appendTo($weekLabel);
-			
-			var $onemonthLabel = $("<label id='oneMonth'></label>").attr("class","btn btn-primary").text("1개월").appendTo($divDataToggle);
-			$("<input id='oneMonth' type='radio' name='listPeriod' autocomplete='off'>").appendTo($onemonthLabel);
-			
-			var $sixmonthLabel = $("<label id='sixMonth'></label>").attr("class","btn btn-primary").text("6개월").appendTo($divDataToggle);
-			$("<input id='sixMonth' type='radio' name='listPeriod'  autocomplete='off'>").appendTo($sixmonthLabel);
-			
-			var $yearList = $("<label id='yearList'></label>").attr("class","btn btn-primary").text("1년").appendTo($divDataToggle);
-			$("<input id='yearList' type='radio' name='listPeriod'  autocomplete='off'>").appendTo($yearList);
-		} */
+		var email;
+		var resDate;
+		var resStartDate;
+		var resEndDate;
 		function drawListBranch(branchList){
 			$("#listCondition").empty(); 
 			$("#listBranch").empty(); 
@@ -95,20 +77,20 @@
 			$.each(myInfo, function(i, $list) {
 				
 				var $bodyTrTag= $("<tr></tr>").appendTo($bodyTag);
-				$("<td></td>").text($list.resDate).appendTo($bodyTrTag);
-				$("<td></td>").text($list.resStartDate).appendTo($bodyTrTag);
-				$("<td></td>").text($list.empName).appendTo($bodyTrTag);
-				$("<td></td>").text(($list.brName) + " - " + ($list.mrName)).appendTo($bodyTrTag);
-				$("<td></td>").text($list.resPurpose).appendTo($bodyTrTag);
-				var $currentState = $("<td></td>").text(mappingState($list.resState)).appendTo($bodyTrTag);
+				$("<td id='resDate' class='showAllInfo' data-toggle='modal' data-target='#detail'></td>").attr("value",$list.resDate).text($list.resDate).appendTo($bodyTrTag);
+				$("<td id='resStartDate' class='showAllInfo' data-toggle='modal' data-target='#detail'></td>").attr("value",$list.resStartDate).text($list.resStartDate).appendTo($bodyTrTag);
+				$("<td data-toggle='modal' data-target='#detail'></td>").attr("class","showAllInfo").text($list.empName).appendTo($bodyTrTag);
+				$("<td data-toggle='modal' data-target='#detail'></td>").attr("class","showAllInfo").text(($list.brName) + " - " + ($list.mrName)).appendTo($bodyTrTag);
+				$("<td data-toggle='modal' data-target='#detail'></td>").attr("class","showAllInfo").text($list.resPurpose).appendTo($bodyTrTag);
+				var $currentState = $("<td data-toggle='modal' data-target='#detail'></td>").text(mappingState($list.resState)).appendTo($bodyTrTag);
 				var $changeState = $("<td></td>").appendTo($bodyTrTag);
 				
 				if($list.resState=="res_1"){
 					var $divChange = $("<div></div>").attr("class","bs-component").appendTo($changeState);
 					var $urChange = $("<ul></ul>").attr("class","nav nav-pills").appendTo($divChange);
 					var $liChange = $("<li></li>").attr("class","nav-item dropdown").appendTo($urChange);
-					$("<a data-toggle='dropdown' href='#' role='button' aria-haspopup='true' aria-expanded='false'></a>").attr("class","nav-link dropdown-toggle").text("상태").appendTo($liChange);
-					var $divDropdown = $("<div></div>").attr("class","dropdown-menu").appendTo($liChange);
+					$("<a id='"+$list.empEmail+"' data-toggle='dropdown' href='#' role='button' aria-haspopup='true' aria-expanded='false'></a>").attr("class","nav-link dropdown-toggle").text("상태").appendTo($liChange);
+					var $divDropdown = $("<div></div>").attr("class","dropdown-menu showAllInfo").appendTo($liChange);
 					
 					$("<a id='approval' value='"+$list.resId+"'></a>").attr("class","dropdown-item").text("승인").appendTo($divDropdown);
 					$("<a id='back' value='"+$list.resId+"'></a>").attr("class","dropdown-item").text("반려").appendTo($divDropdown);
@@ -118,9 +100,31 @@
 			/* 카드푸터  */
 			var $divFooter = $("<div class='card-footer small text-muted'></div>").appendTo($divCol12);	
 		}
+		 function makeModal(){
+			/* var $divModalStart = $("<div id='detail' style='position: relative; top: auto; right: auto; left: auto; bottom: auto; z-index: 1; display: block;'></div>").attr("class","modal");
+			var $divModalDialog = $("<div role='document'></div>").attr("class","modal-dialog").appendTo($divModalStart);
+			var $divModalContent = $("<div></div>").attr("class","modal-content").appendTo($divModalDialog);
+			var $divModalHeader = $("<div></div>").attr("class","modal-header").appendTo($divModalContent);
+			$("<h5></h5>").attr("class","modal-title").text("Modal title").appendTo($divModalHeader);
+			var $closeBtn =$("<button type='button' data-dismiss='modal' aria-label='Close'></button>").attr("class","modal-title").text("Modal title").appendTo($divModalHeader);
+			$("<span aria-hidden='true'></span>").text("X").appendTo($closeBtn);
+			
+			var $divModalBody = $("<div></div>").attr("class","modal-body").appendTo($divModalContent);
+			$("<p></p>").text("").appendTo($divModalBody); */
+			
+			
+			
+		} 
 		/* drawListPeriod(myInfo); */
 		drawListBranch(branchList);
 		drawPage(myInfo);
+		makeModal();
+		$(document).on('click', '.nav-link', function(e){
+			email=e.currentTarget.id;
+			resDate=$('#resDate').attr("value");
+			resStartDate=$('#resStartDate').attr("value");
+			console.log(email);
+		})
 		
 		function mappingState(resState){
 			var state = null;
@@ -153,10 +157,11 @@
 	      	}, function(isConfirm) {
 	      		if (isConfirm) {
 	      		  resId =  $("#approval").attr("value");
+	      		   var str="[회의실 예약 승인 알림]\n"+resDate+"에 예약 신청하신 회의실 예약이 승인되었습니다.\n 사용 일정)\n"+resStartDate;
 	      			$.ajax({
 						  url : "/meeting/recognition/approval/"+resId,
 						  type : "post",
-						  data:"_csrf=${_csrf.token}",
+						  data:"_csrf=${_csrf.token}"+"&str="+str+"&email="+email,
 						  success:function(){
 							  location.href= "/meeting/recognition/waitForRecognition"
 						  }, error:function(){
@@ -170,33 +175,37 @@
 	      	});
 		});
 		$('#back').on("click",function(e){
-			
 			swal({
-	      		title: "반려하시겠습니까?",
-	      		type: "warning",
-	      		showCancelButton: true,
-	      		confirmButtonText: "네, 반려하겠습니다",
-	      		cancelButtonText: "아뇨, 취소하겠습니다",
-	      		closeOnConfirm: false,
-	      		closeOnCancel: false
-	      	}, function(isConfirm) {
-	      		if (isConfirm) {
-	      		  resId =  $("#back").attr("value");
+				  title: "반려하시겠습니까?",
+				  text: "반려 사유를 입력해주십시오(메일 발송):",
+				  type: "input",
+				  showCancelButton: true,
+				  closeOnConfirm: false,
+				  animation: "slide-from-top",
+				  inputPlaceholder: "반려 사유를 입력해주십시오"
+				},
+				function(inputValue){
+				  if (inputValue === false) return false;
+					
+				  if (inputValue === "") {
+				    swal.showInputError("반려 사유가 입력되지 않았습니다!");
+				    return false
+				  }
+				  var str="[회의실 예약 반려 알림]\n"+resDate+"에 예약 신청하신 회의실 예약이 해당 사유로 인해 반려되었습니다.\n반려사유)\n";
+				  str+=inputValue;
+				  resId =  $("#back").attr("value");	   
 	      			$.ajax({
 						  url : "/meeting/recognition/back/"+resId,
 						  type : "post",
-						  data:"_csrf=${_csrf.token}",
+						  data:"_csrf=${_csrf.token}"+"&str="+str+"&email="+email,
 						  success:function(){
 							  location.href= "/meeting/recognition/waitForRecognition"
 						  }, error:function(){
 			                	console.log("error");
 			              }
 					});
-	      			swal("승인 완료!", "해당 예약 정보가 반려되었습니다.", "success");
-	      		} else {
-	      			swal("승인 취소!", "해당 예약 정보가 반려 되지 않았습니다.", "error");
-	      		}
-	      	});
+				  swal("반려 및 메일 전송 완료!", "You wrote: " + inputValue, "success");
+				});
 		});	
 		
 		$(document).on('click', '.prBtn', function(e){
@@ -208,6 +217,8 @@
 			console.log(brId);
 			btnClassClick();
 		})
+		
+		
         var btnClassClick = function(e){
         	$.ajax({
         	    url:"/meeting/recognition/searchByPeriod/searchtype="+searchtype+"&&searchtypeByBranch="+brId,
@@ -224,25 +235,25 @@
 	
 </script>
 <main class="app-content">
-<div class="app-title">
-	<div>
-		<h1><i class="fa fa-calendar"></i>예약이력</h1>
-		<p>
-			회의실 예약 전체 현황 목록입니다.
-		</p>
+	<div class="app-title">
+		<div>
+			<h1><i class="fa fa-calendar"></i>예약이력</h1>
+			<p>
+				회의실 예약 전체 현황 목록입니다.
+			</p>
+		</div>
+		<ul class="app-breadcrumb breadcrumb">
+			<li class="breadcrumb-item">
+			<i class="fa fa-home fa-lg"></i>
+			</li>
+			<li class="breadcrumb-item">
+			<a href="#">예약이력</a>
+			</li>
+			<li class="breadcrumb-item">
+			<a href="#">예약현황</a>
+			</li>
+		</ul>
 	</div>
-	<ul class="app-breadcrumb breadcrumb">
-		<li class="breadcrumb-item">
-		<i class="fa fa-home fa-lg"></i>
-		</li>
-		<li class="breadcrumb-item">
-		<a href="#">예약이력</a>
-		</li>
-		<li class="breadcrumb-item">
-		<a href="#">예약현황</a>
-		</li>
-	</ul>
-</div>
 	<div class="row">
 		<div class="col-md-12">
 			<div class="tile">
@@ -256,6 +267,20 @@
 				     <div id="meetingList">
 		
 					</div>
+					<!-- <div class="modal fade" id="detail" role="dialog">
+					    <div class="modal-dialog">
+					      Modal content
+					      <div class="modal-content">
+					        <div class="modal-header">
+					        	<h4 class="modal-title">예약 상세 정보</h4>
+					        	<button type="button" class="close" data-dismiss="modal">×</button>
+					        </div>
+					        <div class="modal-body">
+					         
+					        </div>
+					      </div>
+				   	   </div>
+         	        </div> -->
 				</div>
 			</div>
 		</div>

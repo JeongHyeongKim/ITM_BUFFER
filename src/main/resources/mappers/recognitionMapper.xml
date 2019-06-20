@@ -6,11 +6,12 @@
 	<select id="resList" resultType="com.gsitm.meeting.reservation.dto.ReservationDTO$ReservationTest" >
 		select res_id resId,e.emp_name empName, b.br_name brName,mr.mr_name mrName,to_char(res_time,'YYYY-MM-DD" "HH24:MI:SS') resDate,to_char(res_start_time,'YYYY-MM-DD" "HH24:MI:SS') resStartDate,to_char(res_end_time,'YYYY-MM-DD" "HH24:MI:SS') resEndDate,
 		       res_purpose resPurpose,res_attend_cnt resAttendCnt,res_add_request resAddRequest,res_state resState,res_snack resSnack,
-		       res_type resType,res_cancle resCancle,res_cost resCost,res_outside resOutside   
+		       res_type resType,res_cancle resCancle,res_cost resCost,res_outside resOutside,e.emp_email empEmail
 		from employee e,reservation r, meeting_room mr,branch b
 		where e.emp_id=r.emp_id
         and b.br_id = mr.br_id
 		and mr.mr_id = r.mr_id
+		order by res_id desc
 	</select>
 	<select id="resNewList" resultType="string" parameterType="string">
 		select res_state resState

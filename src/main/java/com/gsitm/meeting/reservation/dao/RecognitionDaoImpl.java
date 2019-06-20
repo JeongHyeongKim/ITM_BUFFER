@@ -1,5 +1,6 @@
 package com.gsitm.meeting.reservation.dao;
 
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -71,6 +72,7 @@ public class RecognitionDaoImpl implements RecognitionDao{
 	@Override
 	public List<EmployeeDTO.MyPageInfo> getReservationBySearchtype(String empId, String searchtype,String brId) {
 		Map<String, String> result = new HashMap<>();
+		
 		result.put("searchtype", searchtype);
 		result.put("brId",brId);
 		return session.selectList(namespace + ".getReservationBySearchtype",result);

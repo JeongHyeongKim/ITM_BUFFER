@@ -45,12 +45,26 @@
 
 <main class="app-content">
 	<div class="app-title">
-		<h3>공지사항</h3>
+		<div>
+			<h1><i class="fa fa-calendar"></i>공지사항</h1>
+			<p>
+				공지사항을 확인하세요.
+			</p>
+		</div>
+		<ul class="app-breadcrumb breadcrumb">
+			<li class="breadcrumb-item">
+			<i class="fa fa-home fa-lg"></i>
+			</li>
+			<li class="breadcrumb-item">
+			<a href="#">공지사항</a>
+			</li>
+			
+		</ul>
 	</div>
 
 	<div class="col-md-12">
           <div class="tile" >
-            <table class="table table-striped-3" id="noticeTable">
+            <table class="table table-striped-3" id="noticeTable" >
               <thead>
                 <tr>
                   <th>글번호</th>
@@ -60,17 +74,13 @@
                 </tr>
               </thead>
             </table>
-            <div id="paging" >
+            <div id="paging">
 				<nav aria-label="Page navigation example">
 					<ul class="pagination">
-						
 					</ul>
 				</nav>
 			</div>
-          </div>
-		
-	
-	</div>
-        
+         </div>
+	</div> 
 </main>
 

@@ -23,7 +23,7 @@ public class UserController {
 	
 	@GetMapping("/login")
 	public String login() {
-		// empService.sendMail("dlgyqls16@naver.com", "test");
+		//empService.sendMail("dlgyqls16@naver.com", "test");
 		 empService.pwdEncoderTest();
 		return "login";
 	}

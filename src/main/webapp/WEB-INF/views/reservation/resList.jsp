@@ -54,35 +54,12 @@
     </div>
     
     <div class="row">
-	    <div class="col-md-12">
-	    	<!-- <div class="tile">
-	    		<div class="tile-body" style="width:100%;height:150px" >
-			    	<div id="scheduledMeeting" style="float:left;">
-			    		<h3 class="tile-title">예정된 회의실 사용예정 : </h3>
-			    		<h3 class="tile-title">본사 - 산토리니</h3>
-			    	</div>
-			    	<div id="deptCost" style="float:right;text-align:right">
-			    		<h3 class="tile-title">팀별회의실 누적금액 : </h3>
-			    		<h3 class="tile-title" id="cost"> </h3>
-			    	</div>
-	    		</div>
-	    	</div> -->
+	    <div class="col-md-12">	
 	    	<div class="tile" style="width:100%;height:250px">
 				<p><b id="month"></b>월달에 총 <b id="cntSchedule"></b>번의 회의일정이 있습니다.</p>
 				<p>예정된 회의실 사용일정 : </p>
 				<hr>
 				<div id="meetingInfo" style="float:left;">
-					<%-- <c:choose> 
-						<c:when test= "${fn:length(mySchedule) eq 0}">
-							<h3 class="tile-title">예정된 회의실 예약 일정이 없습니다</h3>
-						</c:when>
-						<c:otherwise>
-							<c:forEach items="${mySchedule} " var="list" begin="1" end="1"> 
-								<h3 class="tile-title">${list.resStartDate }</h3>
-								<h3 class="tile-title">${list.brName } - ${list.mrName }</h3>
-							</c:forEach>
-						</c:otherwise>
-					</c:choose> --%>
 				</div>
 				
 				<div id="deptCostInfo" style="float:right;text-align:right">
@@ -238,7 +215,7 @@
             	<div class="col-md-3">
             	<c:forEach items="${branchList}" var="branchList">
 					<div class="fc-event">
-					        <label class="btn btn-primary" style="width:100%;">
+					        <label class="btn btn-primary branchList" style="width:100%;">
 					           <input id="${branchList.brId}" type="radio" name="options" style="display:none;margin:10px"onClick="location.href='/meeting/reservation/list/${branchList.brId}'"> ${branchList.brName}
 					        </label>
 					</div>

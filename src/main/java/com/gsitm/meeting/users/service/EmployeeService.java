@@ -72,10 +72,10 @@ public class EmployeeService {
 		try {
 			
 			MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
-			messageHelper.setFrom("dlgyqls77@gmail.com");
+			messageHelper.setFrom("youth0981@gmail.com");
 			messageHelper.setTo(email);
 			messageHelper.setSubject("hello");
-			messageHelper.setText("Test");
+			messageHelper.setText(msg);
 			mailSender.send(message);
 		} catch (MessagingException e) {	
 			e.printStackTrace();

@@ -32,6 +32,7 @@ public class ReservationDTO {
 		private String resCancle;
 		private int resCost;
 		private int resOutside;
+		private String empEmail;
 		
 		//예약자 이름
 		private String empName;

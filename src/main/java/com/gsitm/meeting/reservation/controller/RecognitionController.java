@@ -1,5 +1,7 @@
 package com.gsitm.meeting.reservation.controller;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.security.Principal;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,13 +13,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.gsitm.meeting.reservation.dao.RecognitionDaoImpl;
 import com.gsitm.meeting.reservation.service.RecognitionService;
 import com.gsitm.meeting.reservation.service.ReservationService;
 
 @Controller
-@RequestMapping("/recognition")
+@RequestMapping(value ="/recognition", produces="text/plain; charset=UTF-8")
 public class RecognitionController {
 
 	@Autowired
@@ -46,25 +50,22 @@ public class RecognitionController {
 		return "admin/exchangeAdmin";
 	}
 	@PostMapping("/approval/{resId}")
-	public ResponseEntity<Void> approval(@PathVariable String resId) {
-		
+	public ResponseEntity<Void> approval(@PathVariable String resId,@RequestParam String str,@RequestParam String email) {
+		recService.sendApprovalMail(email,str);
 		int result = recService.approval(resId);
 		return new ResponseEntity<>(result == 1 ? HttpStatus.OK : HttpStatus.BAD_REQUEST);
 	}
 	@PostMapping("/back/{resId}")
-	public ResponseEntity<Void> back(@PathVariable String resId) {
-		
+	public ResponseEntity<Void> back(@PathVariable String resId,@RequestParam String str,@RequestParam String email) {
+		recService.sendMail(email,str);
 		int result = recService.back(resId);
 		return new ResponseEntity<>(result == 1 ? HttpStatus.OK : HttpStatus.BAD_REQUEST);
 	}
+	
 	@PostMapping("/searchByPeriod/searchtype={searchtype}&&searchtypeByBranch={brId}")
-	public ResponseEntity<String> myReservationBySearch(Principal principal,@PathVariable String searchtype,@PathVariable String brId){
+	public  @ResponseBody ResponseEntity<String> myReservationBySearch(Principal principal,@PathVariable String searchtype,@PathVariable String brId) {
 		return new ResponseEntity<>(recService.getReservationBySearchtype(principal.getName(), searchtype,brId),HttpStatus.OK);
 	}
-	/*
-	@PostMapping("/waitForRecognition/{resId}")
-	public ResponseEntity<String> updateResId(Principal principal,@PathVariable String resId){
-		return new ResponseEntity<>(recService.updateResState(resId),HttpStatus.OK);
-	}*/
+	
 	
 }

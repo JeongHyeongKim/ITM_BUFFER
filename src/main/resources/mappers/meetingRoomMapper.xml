@@ -56,12 +56,6 @@
 	</select>
 	
 	<select id="meetingRoomGetEquipment" resultType="equipmentVO">
-		 select distinc regexp_substr(eq_id, '[^_]', 1, 1) eqId, mr_id mrId from equipment order by mr_id
+		 select distinct regexp_substr(eq_id, '[^_]', 1, 1) eqId, mr_id mrId from equipment order by mr_id
 	</select>
-	
-	
-	
-
-	
-
 </mapper>

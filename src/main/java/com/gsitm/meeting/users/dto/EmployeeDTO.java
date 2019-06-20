@@ -20,6 +20,7 @@ public class EmployeeDTO {
 		private String resState;
 		private String resType;
 		private int resCost;
+		private String empEmail;
 	}
 	
 	@Data

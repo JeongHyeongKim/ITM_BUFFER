@@ -11,12 +11,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.gsitm.meeting.reservation.service.ReservationService;
 import com.gsitm.meeting.users.dto.EmployeeDTO;
 import com.gsitm.meeting.users.service.EmployeeService;
 
 @Controller
+@RequestMapping(produces="text/plain; charset=UTF-8")
 public class EmployeeController {
 
 	@Autowired
@@ -38,7 +41,7 @@ public class EmployeeController {
 	}
 	
 	@GetMapping("/users/mypage")
-	public String myReservation(Model model, Principal principal) {
+	public  String myReservation(Model model, Principal principal) {
 		model.addAttribute("myCost",empService.getDeptCost(principal.getName()));
 		model.addAttribute("myInfo",empService.getReservationByEmpId(principal.getName()));
 		model.addAttribute("mySchedule",empService.mySchedule(principal.getName()));
