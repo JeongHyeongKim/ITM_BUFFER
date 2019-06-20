@@ -88,7 +88,7 @@
                 <input type="hidden" name="_csrf" value="${_csrf.token}">
                 	<div class="col-md-12" >      
 	          			<div class="tile" > 
-			            <h3 class="tile-title">지사 정보를 입력하여 주십시오</h3>
+			            <h3 class="tile-title">지사 정보를 수정하여 주십시오</h3>
 			            <div class="tile-body">
 			                <div class="form-group">
 			                  <label class="control-label">지사 이름</label>
@@ -115,9 +115,51 @@
 			                  <input class="form-control" type="file" id="imgUpload" name="brImg">
 			                </div>
 			            </div>
+			            
+			            <!--  modal start -->
+                            <div class="modal fade" id="confirm" role="dialog">
+                                <div class="modal-dialog">
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title" style="text-align:center;">아래 내용이 맞습니까?</h4>
+                                            <button type="button" class="close" data-dismiss="modal">×</button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="row mb-4">
+                                                <div class="col-md-4">
+                                                    <label>지사 이름</label>
+                                                    <h5 id="modalBranchName"></h5>
+                                                </div>
+                                            </div>
+                                            <div class="row mb-4">
+                                                <div class="col-md-4">
+                                                    <label>지사 주소</label>
+                                                    <h5 id="modalBranchLocation"></h5>
+                                                </div>
+                                            </div>
+                                            <div class="row mb-4">
+                                                <div class="col-md-4">
+                                                    <label>대표 번호</label>
+                                                    <h5 id="modalBranchTel"></h5>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer" style="margin-top:20px">
+                                                <div class="row mb-10">
+                                                    <div class="col-md-12">
+                                                        <button class="btn btn-success" id="finallyConfirm" type="button"><i class="fa fa-fw fa-lg fa-check-circle"></i>확인</button>
+                                                        <button class="btn btn-success" type="button" data-dismiss="modal"><i class="fa fa-fw fa-lg fa-check-circle"></i>취소</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- modal end -->
 			            <div class="tile-footer" >
 			            	<div>
-	            		<button class="btn btn-primary" id="finallyConfirm" type="button"><i class="fa fa-fw fa-lg fa-check-circle"></i>확인</button>
+	            		<button class="btn btn-primary" type="button"data-toggle="modal" data-target="#confirm" id="modalOpen"><i class="fa fa-fw fa-lg fa-check-circle"></i>확인</button>
                         <a class="btn btn-secondary" href="/meeting/branch/list"><i class="fa fa-fw fa-lg fa-times-circle"></i>취소</a>
 	              	</div>
 	            </div>
