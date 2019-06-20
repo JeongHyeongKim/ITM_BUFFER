@@ -4,7 +4,7 @@
 <script type="text/javascript">
     var buffer;
     $(function () {
-        $('#finallyConfirm').click(function () {
+        /* $('#finallyConfirm').click(function () {
             console.log(buffer);
             document.getElementById("hiddenBrId").value = buffer;
             $('#deleteBranch').submit();
@@ -17,10 +17,14 @@
         $('.brNameArea').mouseout(function (e) {
             var brId = "#" + e.currentTarget.id;
             $(brId).css('color', 'black');
-        });
+        }); */
     });
     function readBranch(brId) {
         location.replace('/meeting/branch/read/' + brId);
+    }
+    function savebrId(brId){
+    	buffer=brId;
+    	console.log(buffer); 
     }
     $(document).on('click', '.deleteAlert', function(e){
     		 swal({
@@ -30,14 +34,24 @@
     	      		showCancelButton: true,
     	      		confirmButtonText: "네, 삭제하겠습니다",
     	      		cancelButtonText: "아뇨, 취소하겠습니다",
-    	      		closeOnConfirm: false,
+    	      		closeOnConfirm: true,
     	      		closeOnCancel: false
-    	      	}, function(isConfirm) {
+    	      	}, function(isConfirm) { 
     	      		if (isConfirm) {
+    	      			console.log(buffer);
     	      			
-    	      			swal("삭제 완료!", "해당 정보가 삭제되었습니다.", "success");
-    	      		} else {
-    	      			swal("삭제 취소!", "해당 정보가 삭제 되지 않았습니다.", "error");
+    	      			$.ajax({
+    	    				url:"/meeting/branch/delete/"+buffer,
+    	    				data : "_csrf=${_csrf.token}",
+    	    				method:"post",
+    	    				success:function(){
+    	    					location.reload();
+    	    				},
+    	    				error:function(resTxt){
+    	    					console.log(resTxt);
+    	    					alert("실패");
+    	    				}
+    	    			});
     	      		}
     	      	});
     });
@@ -75,9 +89,11 @@
 	                <h4 class="card-header">
 	                	<span onclick="readBranch('${branchList.brId}')" style="cursor:pointer;">${branchList.brName }</span>
 	                	<span style="float:right">
-			                <a class="deleteAlert" id="demoSwal" style="cursor:pointer">
+
+			                <a class="deleteAlert" id="demoSwal" onclick="savebrId('${branchList.brId}')" style="cursor:pointer">
 		                       X
 		                    </a>
+
 	                    </span>
 	                </h4>
 	                <div class="card-body">

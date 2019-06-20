@@ -1,15 +1,20 @@
 package com.gsitm.meeting.branch.controller;
 
 import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+
 import com.gsitm.meeting.branch.service.BranchService;
 import com.gsitm.meeting.vo.Branch;
 
@@ -60,11 +65,18 @@ public class BranchController {
 		return "redirect:/branch/list";
 	}
 	
-	@PostMapping("/delete")
+	/*@PostMapping("/delete")
 	public String branchDelete(String brId) {
 		System.out.println(brId);
 		brService.branchDelete(brId);
 		return "redirect:/branch/list";
+	}*/
+	
+	@PostMapping("/delete/{brId}")
+	public ResponseEntity<Void> branchDelete(@PathVariable String brId) {	
+		System.out.println(brId);
+		int result = brService.branchDelete(brId);
+		return new ResponseEntity<>(result==1 ? HttpStatus.OK : HttpStatus.BAD_REQUEST);
 	}
 	
 	@GetMapping("/create")

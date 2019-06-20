@@ -74,8 +74,8 @@ public class BranchService {
 		brDao.branchUpdate(branch);
 	}
 	
-	public void branchDelete(String brId) {
-		brDao.branchDelete(brId);
+	public int branchDelete(String brId) {
+		return brDao.branchDelete(brId);
 	}
 	
 	public List<MeetingRoom> meetingRoomListInBranch(String brId){

@@ -14,7 +14,7 @@ public interface BranchDao {
 
 	public List<Branch> branchList();
 	
-	public void branchDelete(String branchId);
+	public int branchDelete(String branchId);
 	
 	public Branch branchOne(String branchId);
 	

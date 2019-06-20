@@ -31,8 +31,8 @@ public class BranchDaoImpl implements BranchDao{
 
 
 	@Override
-	public void branchDelete(String branchId) {
-		session.delete(namespace+".branchDelete",branchId);
+	public int branchDelete(String branchId) {
+		return session.delete(namespace+".branchDelete",branchId);
 	}
 
 
