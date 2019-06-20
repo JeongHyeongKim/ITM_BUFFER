@@ -27,6 +27,7 @@ public class EmployeeDaoImpl implements EmployeeDao{
 
 	@Override
 	public int getLoginFailureCnt(String empId) {
+		System.out.println("aproach");
 		return session.selectOne(namespace + ".getLoginFailureCnt", empId); 
 	}
 

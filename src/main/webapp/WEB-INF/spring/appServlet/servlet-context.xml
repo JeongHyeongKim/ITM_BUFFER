@@ -42,8 +42,5 @@
     
     <!-- 멀티파트 리졸버 -->
 
-
-    
     <context:component-scan base-package="com.gsitm.meeting" />
-    
 </beans:beans>

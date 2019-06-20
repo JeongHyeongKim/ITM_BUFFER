@@ -24,7 +24,7 @@
             <div class="tile row">
                 <h3 class="tile-title">회의실 예약 신청 작성</h3>
                 <div class="tile-body" style="width:100%;">
-                    <form class="row" id="resForm" method="post" action="/meeting/reservation/writeReservation">
+                    <form class="row" id="resForm">
                     	<input type="hidden" name="_csrf" value="${_csrf.token}">
                         
                         <input type="hidden" id="mrId" name="mrId" value="${mrId}">
@@ -118,7 +118,6 @@
 					</div>
 
 					<div class="form-group col-md-3" style="padding-top:50px;text-align:right">
-							<button class="btn btn-warning" type="button" disabled="disabled">Warning</button>
                             <input class="btn btn-info" id="sendForm" type="button" value="예약 신청"/>
                         </div>
                     </form>
@@ -195,9 +194,7 @@
 <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.17.0/dist/jquery.validate.min.js"></script>
 <script>
     $(document).ready(function () {
-    	$("#resForm").on("click",function(){
-    		console.log($("#resSnack").val());
-    	})
+    	
         var resStartDate = sessionStorage.getItem("currentDate");
         resStartDate += "00:00";
         
@@ -210,11 +207,56 @@
         var min = now.getMinutes()>9 ?''+now.getMinutes() : '0'+now.getMinutes(); 
         var today = year + '/' + mon + '/' + day+" "+hh+":"+min;
     	
+        //////////////////////////////////////////////////////////////////////////////////
+    	// 시간버튼클릭시 배열에 해당시간 입력후 중복제거 
+        var selectTimes = [];
+        var sendTimes = [];
+    	$(document).on('click', '.btn-primary', function(e){
+    		var choiceTime = e.currentTarget.id;
+    		
+    		if(selectTimes.length==0){
+    			selectTimes.push(choiceTime);
+    		} else {
+    			if(selectTimes.contains(choiceTime)){
+    				const idx = selectTimes.indexOf(choiceTime) 
+    				if (idx > -1) selectTimes.splice(idx, 1)
+    			} else{
+    				selectTimes.push(choiceTime);
+    			}
+    		}
+    		$("#times").remove();
+    		$("<input>").attr("type","hidden").attr("name","times").attr("id","times").attr("value",selectTimes).appendTo($("#resForm"));
+    		console.log(selectTimes)
+        })
         
+       
+  		// Array contains method추가      
+        Array.prototype.contains = function(element) {
+		for (var i = 0; i < this.length; i++) {
+			if (this[i] == element) {
+				return true;
+			}
+		}
+		return false;
+	}
+        ////////////////////////////////////////////////////////////////////////////////// 
+       
+    	$("#sendForm").on("click",function(){
+        	var form = $("#resForm").serialize();
+        	
+        	$.ajax({
+        		url:"/meeting/reservation/writeReservation",
+        		data:form,
+        		method:"post",
+        		success:function(){
+        			location.href="/meeting/reservation/resShortMain/br_0001";
+        		}
+        	})
+        })
         ///////////////////////////////////////////////////////////////////////////////// 
-        /* function drawTime(){
-        	 
-        	 var changeTime = "09:00";
+        function drawTime(){
+        	 $(".btn-group").empty();
+        	 var changeTime = "09:30";
              var splitMinTime = changeTime.substr(3,5);
              var splitHourTime = changeTime.substr(0,2);
              var aTime = new Array(); 
@@ -245,12 +287,12 @@
              	for(var j=0; j<newTimes.length; j++){
              		var $label ;
              		if(changeTime==newTimes[j]){ //style="height: 10px;"
-             			$label = $("<button></button>").attr("class","btn btn-warning").attr("id",changeTime).attr("style","height:40px; width:70px;").attr("disabled","");
+             			$label = $("<button type='button'></button>").attr("class","btn btn-warning").attr("id",changeTime).attr("style","height:40px; width:70px;").attr("disabled","").text(changeTime);  
              			break;
              		} else{
-             			$label = $("<button></button>").attr("class","btn btn-primary").attr("id",changeTime).attr("style","height:40px; width:70px;");
+             			$label = $("<button type='button'></button>").attr("class","btn btn-primary").attr("id",changeTime).attr("style","height:40px; width:70px;").text(changeTime);
              		}
-             	}
+             	} 
            		var $secondLabel = $label.appendTo($(".btn-group"))
                 var $input = $("<input>").attr("type","checkbox").attr("autocomplete","off").appendTo($secondLabel);
      			
@@ -266,27 +308,11 @@
               }
              console.log("for문끝")  
         }
+        //변경
        $("<div></div>").html("<p>09:00&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;10:00&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;11:00&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;12:00&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;13:00&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;14:00&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;15:00&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;16:00&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;17:00&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;18:00</p>").appendTo($(".bs-component"))
-        */
+        drawTime();
         ///////////////////////////////////////////////////////////////////////
-        
-        //////////////////////////////////////////////////////////////////////////
-        function drawTime(){
-    		for(var i=1; i<20; i++){
-    			var $label = $("<button></button>").attr("class","btn btn-primary").attr("id","timeNo"+i).attr("style","height:40px; width:70px;").appendTo($(".btn-group"));
-    			var $input = $("<input>").attr("type","checkbox").attr("autocomplete","off").appendTo($label);
-    		}
-       }
-       $("<div></div>").html("<p>09:00&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;10:00&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;11:00&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;12:00&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;13:00&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;14:00&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;15:00&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;16:00&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;17:00&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;18:00</p>").appendTo($(".bs-component"))
-       drawTime(); 
-        $("#sendForm").on("click",function(){
-        	$.ajax({
-        		url:"/meeting/reservation"
-        	})
-        })
-       
-		//////////////////////////////////////////////////////////////////////////
-       
+   
         $('#resStartDate').val(resStartDate);
         $('#resMrName').val(sessionStorage.getItem("mrName"));
         $('#mrId').val(sessionStorage.getItem("mrId"));
@@ -313,59 +339,55 @@
             var endDateCompare = new Date(endDateArr[0], parseInt(endDateArr[1])-1, endDateArr[2].substring(1,2),endDateArr[2].substring(3,5),endDateArr[2].substring(6,8));
 
             if(startDateCompare > endDateCompare) {            
-                alert("시작날짜와 종료날짜를 확인해 주세요.");  
+                console.log("시작날짜와 종료날짜를 확인해 주세요.");  
                 $('#resEndDate').val("");
             }else if(((endDateArr[2].substring(3,5))-(startDateArr[2].substring(3,5))) >= 8)
-           		alert("장기예약");
+           		console.log("장기")
         });
         
+        
+        //////////////////////////////////////////////////////////////////////////////
+  
         $('#resStartDate').datetimepicker({
-        	'step': 30,
         	onSelectDate: function(data) {
-        		var mrId = sessionStorage.getItem("mrId");
-        		
-        		var availableDate = JSON.stringify(data);
-        		$.ajax({
-        			url:"/meeting/reservation/available/"+mrId+"/"+availableDate,
-        			type:"post",
-        			data : "_csrf=${_csrf.token}",
-        			success:function(data){
-        				
-        				var resultDate = JSON.parse(data)
-                        var wantDate = new Array() ;
-                        var count = 0;
-                        
-                        for(var i=0; i<resultDate.length; i++){
-                          var calcDate = resultDate[i];
-                           
-                          for(var j=0; j<calcDate.length; j++){
-                              wantDate[count] = calcDate[j];
-                              count++;
-                          }
-                        }
-                  
-        				sessionStorage.setItem("availTime", wantDate);
-        				drawTime();
-        				console.log("check")
-        			}
-        		})
+        		$("<input>").attr("type","hidden").attr("name","resStartDate").attr("value",JSON.stringify(data)).appendTo($("#resForm"));
+        		timeAJAX(data)
         	}
         });
-    });
-</script>
-<script type="text/javascript">
-    /* $("#sendForm").on("click",function(){
-    	 /* sessionStorage.removeAttribute("currentDate"); 
-      }) */
-   
-    
-    $('#resEndDate').datetimepicker({
-    	'step': 30,
-    	allowTimes:[
-    		  '12:00', '13:00', 
-    		  '17:00', '17:05', '17:20', '19:00', '20:00'
-    		 ]
-    	
+        $('#resEndDate').datetimepicker({
+			onSelectDate: function(data) {
+				$("<input>").attr("type","hidden").attr("name","resEndDate").attr("value",JSON.stringify(data)).appendTo($("#resForm"));
+        		timeAJAX(data)
+        	}
     	});
-    
+        
+        function timeAJAX(data){
+        	var mrId = sessionStorage.getItem("mrId");
+    		
+    		var availableDate = JSON.stringify(data);
+    		$.ajax({
+    			url:"/meeting/reservation/available/"+mrId+"/"+availableDate,
+    			type:"post",
+    			data : "_csrf=${_csrf.token}",
+    			success:function(data){
+    				
+    				var resultDate = JSON.parse(data)
+                    var wantDate = new Array() ;
+                    var count = 0;
+                    
+                    for(var i=0; i<resultDate.length; i++){
+                      var calcDate = resultDate[i];
+                       
+                      for(var j=0; j<calcDate.length; j++){
+                          wantDate[count] = calcDate[j];
+                          count++;
+                      }
+                    }
+              
+    				sessionStorage.setItem("availTime", wantDate);
+    				drawTime();
+    			}
+    		})
+        }
+    });
 </script>

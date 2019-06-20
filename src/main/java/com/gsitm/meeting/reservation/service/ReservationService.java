@@ -25,6 +25,41 @@ public class ReservationService {
 	@Autowired
 	private Gson gson;
 	
+	public void insertReservation(Reservation res, String times) {
+		String storedId = resDao.resMostRecent();
+		String nextId = calcId(storedId);
+		res.setResId(nextId);
+		String changeStartTime = calcDate(res.getResStartDate());
+		res.setResStartDate(changeStartTime+" "+times.split(","));
+		String changeEndTime = calcDate(res.getResEndDate());
+		res.setResEndDate(changeEndTime+" "+times.split(","));
+		System.out.println("service : "+res);
+	}
+	
+	public String calcDate(String currentDate) {
+		String[] splitDate = currentDate.split("-");
+		String year = splitDate[0].substring(1,5);
+		String month = splitDate[1];
+		String day = splitDate[2].substring(0, 2);
+		String date = year+"-"+month+"-"+day;
+		return date;
+	}
+	public String calcId(String storedId) {
+		String resId = storedId.split("_")[1]; // 숫자 뒤에 있는거 자르고 쓰기
+		int resIdInt = Integer.parseInt(resId)+1;
+		
+		String nextId=null;
+		if(resIdInt>999) {
+			nextId="res_"+resIdInt;
+		} else if(resIdInt>99) {
+			nextId="res_0"+resIdInt;
+		} else if(resIdInt>9) {
+			nextId="res_00"+resIdInt;
+		} else if(resIdInt>=0) {
+			nextId="res_000"+resIdInt;	
+		}
+		return nextId;
+	}
 	public List<ReservationDTO> resList(String brId){
 		return resDao.resList(brId);
 	}

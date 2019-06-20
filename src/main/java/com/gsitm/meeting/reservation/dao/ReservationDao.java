@@ -27,4 +27,5 @@ public interface ReservationDao {
 	public int cancelRes(String resId);
 	public List<com.gsitm.meeting.reservation.dto.ReservationDTO.mySchedule> mySchedule(String attendeeId);
 	public List<ReservationDTO> myListPeriod(String resStartDate);
+	public String resMostRecent();
 }

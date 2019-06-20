@@ -24,10 +24,11 @@ public class LoginFailureHandler implements AuthenticationFailureHandler
 			AuthenticationException exception) throws IOException, ServletException {
 		
 		String id = request.getParameter("id");
+		System.out.println(id);
 		System.out.println(exception.getMessage());
 		
 		Integer cnt = dao.getLoginFailureCnt(id);
-		
+		System.out.println(cnt);
 		if(exception.getMessage().equals("User is disabled")) {
 			System.out.println("블락된 계정");
 			request.getSession().setAttribute("msg", "블락된 계정");

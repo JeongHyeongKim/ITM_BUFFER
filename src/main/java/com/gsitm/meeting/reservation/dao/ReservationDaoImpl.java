@@ -105,6 +105,11 @@ public class ReservationDaoImpl implements ReservationDao {
 		return session.selectList(namespace+".myListPeriod");
 	}
 
+	@Override
+	public String resMostRecent() {
+		return session.selectOne(namespace+".resMostRecent");
+	}
+
 	
 
 }

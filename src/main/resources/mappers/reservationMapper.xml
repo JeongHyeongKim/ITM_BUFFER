@@ -36,6 +36,10 @@
 	<select id="meetingPeopleList" resultType="EmployeeVO">
 		SELECT EMP_ID empId, EMP_NAME empName FROM EMPLOYEE
 	</select>
+	<select id="resMostRecent" resultType="string">
+		select max(res_id) resId from reservation
+	</select>
+	
 	<select id="branchList" resultType="BranchVO">
 		select br_name brName,br_id brId from branch
 	</select>

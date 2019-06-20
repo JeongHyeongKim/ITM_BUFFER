@@ -84,7 +84,7 @@ public class EmployeeService {
 	
 	
 	//윤영
-	/*public String availableMeetingDate(String availableDate, String mrId) throws ParseException {
+	public String availableMeetingDate(String availableDate, String mrId) throws ParseException {
 		
 		String[] splitDate = availableDate.split("-");
 		String year = splitDate[0].substring(3, 5);
@@ -101,7 +101,6 @@ public class EmployeeService {
 			String endDate = (resultDate.getResEndDate().replace(":", ""));
 			int calcDate = Integer.parseInt(endDate) - Integer.parseInt(startDate);
 			int mod = calcDate / 50;
-			System.out.println("calcDate : " + calcDate + " mod : "+ mod);
 			
 			resultTime.add(calcTime(mod,startDate));
 		}
@@ -135,10 +134,6 @@ public class EmployeeService {
 			resultTime[i] = Integer.toString(hour) +":" +Integer.toString(minute);
 		}
 		return resultTime;
-	}*/
-	public String availableMeetingDate(String availableDate, String mrId) {
-		List<EmployeeDTO.AvailableMeetingDate> result = empDao.availableMeetingDate(availableDate, mrId);
-		return null;
 	}
 	public String CurrentInfoByMrId(String mrId) {
 		
