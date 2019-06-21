@@ -60,110 +60,113 @@
 </head>
 
 <body>
-<main class="app-content">
-	<div class="app-title">
-        <div>
-            <h1>
-                <i class="fa fa-calendar"></i>지사관리</h1>
-            <p>
-                지사 정보를 수정합니다.
-            </p>
+    <main class="app-content">
+        <div class="app-title">
+            <div>
+                <h1>
+                    <i class="fa fa-calendar"></i>지사관리</h1>
+                <p>
+                    지사를 수정합니다.
+                </p>
+            </div>
+            <ul class="app-breadcrumb breadcrumb">
+                <li class="breadcrumb-item">
+                    <i class="fa fa-home fa-lg"></i>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="#">회의실관리</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="#">지사관리</a>
+                </li>
+            </ul>
         </div>
-        <ul class="app-breadcrumb breadcrumb">
-            <li class="breadcrumb-item">
-                <i class="fa fa-home fa-lg"></i>
-            </li>
-            <li class="breadcrumb-item">
-                <a href="#">회의실관리</a>
-            </li>
-            <li class="breadcrumb-item">
-                <a href="#">지사관리</a>
-            </li>
-        </ul>
-    </div>
 
         <form action="/meeting/file/branchUpdate" method="POST" id="branchDataUpdate" enctype="multipart/form-data">
-            <div class="row">
+            <div class="row" id="mainArea">
                 <input type="hidden" name="brId" id="brId">
                 <input type="hidden" name="_csrf" value="${_csrf.token}">
-                	<div class="col-md-12" >      
-	          			<div class="tile" > 
-			            <h3 class="tile-title">지사 정보를 수정하여 주십시오</h3>
-			            <div class="tile-body">
-			                <div class="form-group">
-			                  <label class="control-label">지사 이름</label>
-			                  <input class="form-control" type="text" placeholder="지사를 입력해주세요" id="brName" name="brName"> 
-			                </div>
-			                <div class="form-group">
-			                  <label class="control-label">지사 주소</label>
-			                  <input class="form-control" type="text" placeholder="주소를 입력해주세요" id="brAddress" name="brLocation">
-			                </div>
-			                <div class="form-group">
-			                  <label class="control-label">대표 번호</label>
-			                  <textarea class="form-control" placeholder="대표번호를 입력해주세요" id="brTel" name="brTel"></textarea>
-			                </div>
-			                <div class="form-group">
-		                       <label class="control-label" >회의실목록</label>
-		                    		<div class="meetingRoomList">
-		                                <c:forEach items='${meetingRoomList}' var="meetingRoomList">
-		                                    ${meetingRoomList.mrName} &nbsp / &nbsp
-		                                 </c:forEach>
-		                             </div>
-							</div>
-			                <div class="form-group">
-			                  <label class="control-label">지사 사진</label>
-			                  <input class="form-control" type="file" id="imgUpload" name="brImg">
-			                </div>
-			            </div>
-			            
-			            <!--  modal start -->
-                            <div class="modal fade" id="confirm" role="dialog">
-                                <div class="modal-dialog">
-                                    <!-- Modal content-->
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h4 class="modal-title" style="text-align:center;">아래 내용이 맞습니까?</h4>
-                                            <button type="button" class="close" data-dismiss="modal">×</button>
+                <div class="col-md-4">
+                    <div class="tile" id="leftCol">
+
+                        <div class="tile-body" style="text-align:center;">
+                            <img class="user-img" id="imgArea" src="https://s3.amazonaws.com/uifaces/faces/twitter/jsa/128.jpg" style="border-radius: 10px;">
+
+                        </div>
+
+                        <div class="tile-footer" style="text-align:right; vertical-align:bottom;">
+                                <input type="file" id="imgUpload" name="brImg">
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-md-8">
+                    <div class="tile" id="rightCol">
+                        <h3 class="tile-title">지사 정보를 입력하여 주십시오</h3>
+                        <div class="tile-body">
+                            <div class="form-group">
+                                <label class="control-label">지사 이름</label>
+                                <input class="form-control" type="text" placeholder="지사를 입력해주세요" id="brName" name="brName">
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">지사 주소</label>
+                                <input class="form-control" type="text" placeholder="주소를 입력해주세요" id="brAddress" name="brLocation">
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">대표 번호</label>
+                                <input class="form-control" placeholder="대표번호를 입력해주세요" id="brTel" name="brTel"></input>
+                            </div>
+
+                        </div>
+
+                        <!--  modal start -->
+                        <div class="modal fade" id="confirm" role="dialog">
+                            <div class="modal-dialog">
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title" style="text-align:center;">아래 내용이 맞습니까?</h4>
+                                        <button type="button" class="close" data-dismiss="modal">×</button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row mb-4">
+                                            <div class="col-md-4">
+                                                <label>지사 이름</label>
+                                                <h5 id="modalBranchName"></h5>
+                                            </div>
                                         </div>
-                                        <div class="modal-body">
-                                            <div class="row mb-4">
-                                                <div class="col-md-4">
-                                                    <label>지사 이름</label>
-                                                    <h5 id="modalBranchName"></h5>
-                                                </div>
+                                        <div class="row mb-4">
+                                            <div class="col-md-4">
+                                                <label>지사 주소</label>
+                                                <h5 id="modalBranchLocation"></h5>
                                             </div>
-                                            <div class="row mb-4">
-                                                <div class="col-md-4">
-                                                    <label>지사 주소</label>
-                                                    <h5 id="modalBranchLocation"></h5>
-                                                </div>
+                                        </div>
+                                        <div class="row mb-4">
+                                            <div class="col-md-4">
+                                                <label>대표 번호</label>
+                                                <h5 id="modalBranchTel"></h5>
                                             </div>
-                                            <div class="row mb-4">
-                                                <div class="col-md-4">
-                                                    <label>대표 번호</label>
-                                                    <h5 id="modalBranchTel"></h5>
-                                                </div>
-                                            </div>
-                                            <div class="modal-footer" style="margin-top:20px">
-                                                <div class="row mb-10">
-                                                    <div class="col-md-12">
-                                                        <button class="btn btn-success" id="finallyConfirm" type="button"><i class="fa fa-fw fa-lg fa-check-circle"></i>확인</button>
-                                                        <button class="btn btn-success" type="button" data-dismiss="modal"><i class="fa fa-fw fa-lg fa-check-circle"></i>취소</button>
-                                                    </div>
+                                        </div>
+                                        <div class="modal-footer" style="margin-top:20px">
+                                            <div class="row mb-10">
+                                                <div class="col-md-12">
+                                                    <button class="btn btn-success" id="finallyConfirm" type="button"><i class="fa fa-fw fa-lg fa-check-circle"></i>확인</button>
+                                                    <button class="btn btn-success" type="button" data-dismiss="modal"><i class="fa fa-fw fa-lg fa-check-circle"></i>취소</button>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <!-- modal end -->
-			            <div class="tile-footer" >
-			            	<div>
-	            		<button class="btn btn-primary" type="button"data-toggle="modal" data-target="#confirm" id="modalOpen"><i class="fa fa-fw fa-lg fa-check-circle"></i>확인</button>
-                        <a class="btn btn-secondary" href="/meeting/branch/list"><i class="fa fa-fw fa-lg fa-times-circle"></i>취소</a>
-	              	</div>
-	            </div>
-	          </div> 
-	        </div>
+                        </div>
+                        <!-- modal end -->
+                        <div class="tile-footer">
+                            <div style="text-align:right">
+                                <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#confirm" id="modalOpen"><i class="fa fa-fw fa-lg fa-check-circle"></i>확인</button>
+                                <a class="btn btn-secondary" href="/m	eeting/branch/list"><i class="fa fa-fw fa-lg fa-times-circle"></i>취소</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </form>
-    </main>

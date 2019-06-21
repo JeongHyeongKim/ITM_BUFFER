@@ -8,66 +8,66 @@
         var mrId = null;
         var mrName = null;
         var brId = null;
-        var mrLimit=null;
-        var mrPrice=null;
-        var mrArea=null; 
-        var mrNetwork=null;
-        var mrType=null;
-        var empId=null;
-		var mrLocation=null;
-        var mrImg=null;
-		//잠시 저장하기 위한 임시 버퍼	
-		/* 
-		document.getElementById("imgArea").src=meetingRoom.mrImg; */
-		document.getElementById(meetingRoom.brId).selected=true;
-		document.getElementById("mrName").value=meetingRoom.mrName;
-		document.getElementById("mrLimit").value=meetingRoom.mrLimit;
-		document.getElementById("mrPrice").value=meetingRoom.mrPrice;
-		document.getElementById("mrArea").value=meetingRoom.mrArea;
-		document.getElementById("mrLocation").value=meetingRoom.mrLocation;
-		if(meetingRoom.mrNetwork=="net_1") {
+        var mrLimit = null;
+        var mrPrice = null;
+        var mrArea = null;
+        var mrNetwork = null;
+        var mrType = null;
+        var empId = null;
+        var mrLocation = null;
+        var mrImg = null;
+        //잠시 저장하기 위한 임시 버퍼	
+        /* 
+        document.getElementById("imgArea").src=meetingRoom.mrImg; */
+        document.getElementById(meetingRoom.brId).selected = true;
+        document.getElementById("mrName").value = meetingRoom.mrName;
+        document.getElementById("mrLimit").value = meetingRoom.mrLimit;
+        document.getElementById("mrPrice").value = meetingRoom.mrPrice;
+        document.getElementById("mrArea").value = meetingRoom.mrArea;
+        document.getElementById("mrLocation").value = meetingRoom.mrLocation;
+        if (meetingRoom.mrNetwork == "net_1") {
             document.getElementById('mrNetworkHidden').disabled = true;
-            document.getElementById('mrNetwork').checked=true;
-        }else{
-        	document.getElementById('mrNetworkHidden').checked = true;
-        	documet.getElementById('mrNetwork').disalbed=true;
+            document.getElementById('mrNetwork').checked = true;
+        } else {
+            document.getElementById('mrNetworkHidden').checked = true;
+            documet.getElementById('mrNetwork').disalbed = true;
         }
-		document.getElementById("mrIdHiddenArea").value=meetingRoom.mrId;
-		document.getElementById(meetingRoom.mrType).selected=true;
-		document.getElementById(meetingRoom.empId).selected=true;
+        document.getElementById("mrIdHiddenArea").value = meetingRoom.mrId;
+        document.getElementById(meetingRoom.mrType).selected = true;
+        document.getElementById(meetingRoom.empId).selected = true;
 
-        
-        if(document.getElementById('mrNetwork').checked==true) {
-                document.getElementById('mrNetworkHidden').disabled = true;
-            }else{
-            	document.getElementById('mrNetworkHidden').checked = true;
-            }
-        
-         $('#finallyConfirm').click(function() {
+
+        if (document.getElementById('mrNetwork').checked == true) {
+            document.getElementById('mrNetworkHidden').disabled = true;
+        } else {
+            document.getElementById('mrNetworkHidden').checked = true;
+        }
+
+        $('#finallyConfirm').click(function() {
             $('#meetingRoomUpdate').submit();
-        });  
-         $("#imgUpload").change(function(){
-    		if(this.files && this.files[0]){
-    			var reader = new FileReader();
-    			
-    			reader.onload = function(e){
-    				$('#imgArea').attr('src', e.target.result);
-    				$('#imgArea').attr('height', '235px');
-    				$('#imgArea').attr('width', '235px');
-    			}
-    			reader.readAsDataURL(this.files[0]);
-    		}
-    	}); 
+        });
+        $("#imgUpload").change(function() {
+            if (this.files && this.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function(e) {
+                    $('#imgArea').attr('src', e.target.result);
+                    $('#imgArea').attr('height', '235px');
+                    $('#imgArea').attr('width', '235px');
+                }
+                reader.readAsDataURL(this.files[0]);
+            }
+        });
 
     });
 </script>
 <main class="app-content">
-	<div class="app-title">
+    <div class="app-title">
         <div>
             <h1>
                 <i class="fa fa-calendar"></i>회의실관리</h1>
             <p>
-                 회의실 정보를 수정합니다.
+                회의실 정보를 수정합니다.
             </p>
         </div>
         <ul class="app-breadcrumb breadcrumb">
@@ -83,11 +83,11 @@
         </ul>
     </div>
 
-        <form action="/meeting/file/meetingRoomUpdate"  id="meetingRoomUpdate" method="POST" enctype="multipart/form-data">
-            <div class="row">
-                <input type="hidden" name="mrId"  id="mrIdHiddenArea"> <!-- 바로 세팅이 안된다. 따로 해줘야할듯 -->
-                <input type="hidden" name="_csrf" value="${_csrf.token}">
-                <%-- <div class="col-md-4">
+    <form action="/meeting/file/meetingRoomUpdate" id="meetingRoomUpdate" method="POST" enctype="multipart/form-data">
+        <div class="row">
+            <input type="hidden" name="mrId" id="mrIdHiddenArea"> <!-- 바로 세팅이 안된다. 따로 해줘야할듯 -->
+            <input type="hidden" name="_csrf" value="${_csrf.token}">
+            <%-- <div class="col-md-4">
                     <div class="tile" style="text-align:center">
                         <img class="user-img" id="imgArea" src="https://s3.amazonaws.com/uifaces/faces/twitter/jsa/128.jpg" height=235px>
                         <div style="vertical-align:bottom;text-align:right"> 
@@ -198,74 +198,117 @@
                         </div>
                     </div>
                 </div> --%>
-                <div class="col-md-12" >      
-	         	 <div class="tile" > 
-	            	<h3 class="tile-title">회의실 정보를 입력하여 주십시오</h3>
-		            <div class="tile-body">
-		                <div class="form-group">
-		                  <label class="control-label">지사선택</label>
-		                  <select class="form-control" name="brId">
-                             <option value="none" >지사 선택</option>
-                                  <c:forEach items='${branchList}' var="branchList">
-                                      <option value="${branchList.brId}" id="${branchList.brId}">${branchList.brName}</option>
-                                  </c:forEach>
-                           </select>
-		                </div>
-		                <div class="form-group">
-		                  <label class="control-label">회의실 유형 선택</label>
-		                 	 <select class="form-control" name="mrType">
-                              	<option value="">회의실 유형 선택</option>
+            <div class="col-md-12">
+                <div class="tile">
+                    <h3 class="tile-title">회의실 정보를 입력하여 주십시오</h3>
+                    <div class="tile-body">
+                        <div class="form-group">
+                            <label class="control-label">지사선택</label>
+                            <select class="form-control" name="brId">
+                                <option value="none">지사 선택</option>
+                                <c:forEach items='${branchList}' var="branchList">
+                                    <option value="${branchList.brId}" id="${branchList.brId}">${branchList.brName}</option>
+                                </c:forEach>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">회의실 유형 선택</label>
+                            <select class="form-control" name="mrType">
+                                <option value="">회의실 유형 선택</option>
                                 <option value="mr_type_0" id="mr_type_0">회의실</option>
                                 <option value="mr_type_1" id="mr_type_1">대회의실</option>
                                 <option value="mr_type_2" id="mr_type_2">교육실</option>
-                             </select>
-		                </div>
-		                <div class="form-group">
-		                  <label class="control-label">회의실 이름</label>
-		                  <input class="form-control" name="mrName" type="text" id="mrName"></input>
-		                </div>
-		                <div class="form-group">
-		                  <label class="control-label">회의실 주소</label>
-		                  <textarea class="form-control"  name="mrLocation" id="mrLocation"></textarea>
-		                </div>
-		                <div class="form-group">
-		                  <label class="control-label">회의실 사용 비용</label>
-		                  <input class="form-control" type="text" name="mrPrice" id="mrPrice" placeholder="30분당 비용을 입력해주십시오">
-		                </div>
-		                <div class="form-group">
-		                  <label class="control-label">수용인원</label>
-		                  <input class="form-control" type="text"  name="mrLimit" id="mrLimit"></input>
-		                </div>
-		                <div class="form-group">
-		                  <label class="control-label">면적(m²)</label>
-		                  <input class="form-control" type="text"  name="mrArea"  id="mrArea"></input>
-		                </div>
-		                <div class="form-group">
-		                  <select class="form-control" name="empId" id="empId">
-                              <option value="none" hidden>관리자 선택</option>
-                              <c:forEach items='${administrator}' var="administrator">
-                              	<option value="${administrator.empId}" id="${administrator.empId}">${administrator.empName}</option>
-                              </c:forEach>
-                           </select>
-		                </div>
-		                <div class="col-md-4">
-                           <div class="animated-checkbox">
-	                           <label>
-	                              <input name="mrNetwork" type="checkbox" value="net_1" id="mrNetwork"><span class="label-text">네트워크 지원</span>
-	                              <input type="hidden" name="mrNetworkHidden" value="net_0" id="mrNetworkHidden" />
-	                           </label>
-                           </div>
-						</div>
-						<div class="form-group">
-			                  <label class="control-label">회의실 사진</label>
-			                  <input class="form-control" type="file" id="imgUpload" name="mrImg">
-			                </div>
-		            </div>
-		            <div class="tile-footer" >
-		            	<button class="btn btn-primary" type="submit" id="write"><i class="fa fa-fw fa-lg fa-check-circle"></i>확인</button>&nbsp;&nbsp;&nbsp;<a class="btn btn-secondary" href="/meeting/meetingRoom/list"><i class="fa fa-fw fa-lg fa-times-circle"></i>취소</a>
-	                </div>
-		          </div>
-		        </div>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">회의실 이름</label>
+                            <input class="form-control" name="mrName" type="text" id="mrName"></input>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">회의실 주소</label>
+                            <input class="form-control" name="mrLocation" id="mrLocation"></input>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">회의실 사용 비용</label>
+                            <input class="form-control" type="text" name="mrPrice" id="mrPrice" placeholder="30분당 비용을 입력해주십시오">
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">수용인원</label>
+                            <input class="form-control" type="text" name="mrLimit" id="mrLimit"></input>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">면적(m²)</label>
+                            <input class="form-control" type="text" name="mrArea" id="mrArea"></input>
+                        </div>
+                        <div class="form-group">
+                            <select class="form-control" name="empId" id="empId">
+                                <option value="none" hidden>관리자 선택</option>
+                                <c:forEach items='${administrator}' var="administrator">
+                                    <option value="${administrator.empId}" id="${administrator.empId}">${administrator.empName}</option>
+                                </c:forEach>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="animated-checkbox">
+                                <label>
+                                    <input name="mrNetwork" type="checkbox" value="net_1" id="mrNetwork"><span class="label-text">네트워크 지원</span>
+                                    <input type="hidden" name="mrNetworkHidden" value="net_0" id="mrNetworkHidden" />
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">회의실 사진</label>
+                            <input class="form-control" type="file" id="imgUpload" name="mrImg">
+                        </div>
+                    </div>
+
+                    <!--  modal start -->
+                    <div class="modal fade" id="confirm" role="dialog">
+                        <div class="modal-dialog">
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title" style="text-align:center;">아래 내용이 맞습니까?</h4>
+                                    <button type="button" class="close" data-dismiss="modal">×</button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row mb-4">
+                                        <div class="col-md-4">
+                                            <label>지사 이름</label>
+                                            <h5 id="modalBranchName"></h5>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-4">
+                                        <div class="col-md-4">
+                                            <label>지사 주소</label>
+                                            <h5 id="modalBranchLocation"></h5>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-4">
+                                        <div class="col-md-4">
+                                            <label>대표 번호</label>
+                                            <h5 id="modalBranchTel"></h5>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer" style="margin-top:20px">
+                                        <div class="row mb-10">
+                                            <div class="col-md-12">
+                                                <button class="btn btn-success" id="finallyConfirm" type="button"><i class="fa fa-fw fa-lg fa-check-circle"></i>확인</button>
+                                                <button class="btn btn-success" type="button" data-dismiss="modal"><i class="fa fa-fw fa-lg fa-check-circle"></i>취소</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- modal end -->
+                    <div class="tile-footer">
+                        <button class="btn btn-primary" type="submit" id="write"><i class="fa fa-fw fa-lg fa-check-circle"></i>확인</button>
+                        &nbsp;&nbsp;&nbsp;<a class="btn btn-secondary" href="/meeting/meetingRoom/list"><i class="fa fa-fw fa-lg fa-times-circle"></i>취소</a>
+                    </div>
+                </div>
             </div>
-        </form>
-    </main>
+        </div>
+    </form>
+</main>

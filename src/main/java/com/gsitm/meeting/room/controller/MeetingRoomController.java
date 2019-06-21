@@ -3,6 +3,8 @@ package com.gsitm.meeting.room.controller;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -44,12 +46,20 @@ public class MeetingRoomController {
 	
 
 	
-	@PostMapping("/delete")
+	/*@PostMapping("/delete")
 	public String meetingRoomDelete(String mrId) {
 		System.out.println(mrId);
 		mrService.meetingRoomDelete(mrId);
 		return "redirect:/meetingRoom/list";
+	}*/
+	
+	@PostMapping("/delete/{mrId}")
+	public ResponseEntity<Void> meetingRoomDelete(@PathVariable String mrId) {	
+		System.out.println(mrId);
+		int result = brService.branchDelete(mrId);
+		return new ResponseEntity<>(result==1 ? HttpStatus.OK : HttpStatus.BAD_REQUEST);
 	}
+	
 	
 	@GetMapping("/create")
 	public String branchCreate(Model model) { // 글 입력폼만 있는 페이지로 이동함.

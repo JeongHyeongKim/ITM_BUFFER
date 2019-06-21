@@ -10,27 +10,20 @@
             document.getElementById("hiddenMrId").value = buffer;
             $('#deleteMeetingRoom').submit();
         });
-        $('.mrNameArea').mouseover(function (e) {
-            var brId = "#" + e.currentTarget.id;
-            console.log(brId);
-            $(brId).css('color', 'blue');
-        });
-        $('.mrNameArea').mouseout(function (e) {
-            var brId = "#" + e.currentTarget.id;
-            $(brId).css('color', 'black');
-        });
     });
     function readMeetingRoom(mrId) {
         location.replace('/meeting/meetingRoom/read/' + mrId);
     }
-    function modelOpen(mrId) {
+    function saveMrId(mrId) {
         buffer = mrId;
         console.log(buffer);
     }
+    
+    
     $(document).on('click', '.deleteAlert', function (e) {
         swal({
             title: "삭제하시겠습니까?",
-            text: "삭제 시,해당 지사 정보 복원 불가",
+            text: "삭제 시,해당 회의실 정보 복원 불가",
             type: "warning",
             showCancelButton: true,
             confirmButtonText: "네, 삭제하겠습니다",
@@ -39,9 +32,20 @@
             closeOnCancel: false
         }, function (isConfirm) {
             if (isConfirm) {
-                swal("삭제 완료!", "해당 정보가 삭제되었습니다.", "success");
+            	$.ajax({
+    				url:"/meeting/meetingRoom/delete/"+buffer,
+    				data : "_csrf=${_csrf.token}",
+    				method:"post",
+    				success:function(){
+    					location.reload();
+    				},
+    				error:function(resTxt){
+    					console.log(resTxt);
+    					alert("실패");
+    				}
+    			});
             } else {
-                swal("삭제 취소!", "해당 정보가 삭제 되지 않았습니다.", "error");
+                
             }
         });
     });
@@ -78,7 +82,7 @@
                         <h4 class="card-header">
                         <span onclick="readMeetingRoom('${meetingRoomList.mrId}')" style="cursor:pointer;">${meetingRoomList.mrName}</span>
                             <span style="float:right">
-                                <a class="deleteAlert" id="demoSwal" style="cursor:pointer;">
+                                <a class="deleteAlert" id="demoSwal" onclick="saveMrId('${meetingRoomList.mrId}')"style="cursor:pointer;">
                                     X
                                 </a>
                             </span>
