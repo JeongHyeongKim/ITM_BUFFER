@@ -43,4 +43,24 @@ public class EquipmentDaoImpl implements EquipmentDao{
 		session.delete(namespace+".equipmentDelete", eqId);
 	}
 
+	@Override
+	public String getRecentSeqMike() {
+		return session.selectOne(namespace+".getRecentSeqMike");
+	}
+
+	@Override
+	public String getRecentSeqWhiteBoard() {
+		return session.selectOne(namespace+".getRecentSeqWhiteBoard");
+	}
+
+	@Override
+	public String getRecentSeqBeamProject() {
+		return session.selectOne(namespace+".getRecentSeqBeamProject");
+	}
+
+	@Override
+	public String getRecentSeqNoteBook() {
+		return session.selectOne(namespace+".getRecentSeqNoteBook");
+	}
+
 }

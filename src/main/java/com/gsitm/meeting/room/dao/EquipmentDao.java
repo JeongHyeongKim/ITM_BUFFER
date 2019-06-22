@@ -16,5 +16,13 @@ public interface EquipmentDao {
 	public void equipmentUpdate(Equipment equipment);
 	
 	public void equipmentDelete(String eqId);
+	
+	public String getRecentSeqMike();
+	
+	public String getRecentSeqWhiteBoard();
+	
+	public String getRecentSeqBeamProject();
+	
+	public String getRecentSeqNoteBook();
 
 }

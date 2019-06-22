@@ -16,7 +16,7 @@
 		select eq_id eqId from equipment where mr_id=#{mrId}
 	</select>
 	
-	<insert id="equipmentInsert">
+	<insert id="equipmentInsert" parameterType="equipmentVO">
 		insert into equipment (eq_id,mr_id)
 		values (#{eqId}, #{mrId})
 	</insert>
@@ -30,6 +30,23 @@
 		delete equipment
 		where eq_id=#{eqId}
 	</delete>
+	
+	
+	<select id="getRecentSeqMike" resultType="String">
+		select max(eq_id) eqId from equipment where eq_id like 'M_%'
+	</select>
+	
+	<select id="getRecentSeqWhiteBoard" resultType="String">
+		select max(eq_id) eqId from equipment where eq_id like 'W_%'
+	</select>
+	
+	<select id="getRecentSeqNoteBook" resultType="String">
+		select max(eq_id) eqId from equipment where eq_id like 'N_%'
+	</select>
+	
+	<select id="getRecentSeqBeamProject" resultType="String">
+		select max(eq_id) eqId from equipment where eq_id like 'V_%'
+	</select>
 	
 	
 	

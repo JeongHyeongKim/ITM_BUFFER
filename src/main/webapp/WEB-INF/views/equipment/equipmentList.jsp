@@ -7,7 +7,7 @@
             <h1>
                 <i class="fa fa-calendar"></i>기자재관리</h1>
             <p>
-               	 기자재 목록
+                기자재 목록
             </p>
         </div>
         <ul class="app-breadcrumb breadcrumb">
@@ -18,7 +18,7 @@
                 <a href="#">회의실관리</a>
             </li>
             <li class="breadcrumb-item">
-                <a href="#">지사관리</a>
+                <a href="#">기자재관리</a>
             </li>
         </ul>
     </div>
@@ -39,7 +39,7 @@
                     <form action="/meeting/equipment/insert" method="POST" id="equipmentBranch">
                         <div class="col-lg-4" style="float:left">
                             <label for="exampleSelect1">지사</label>
-                            <select class="form-control" id="branchSelect">
+                            <select class="form-control" id="branchSelect" >
                                 <option value="none" hidden>지사 선택</option>
                                 <c:forEach items='${branchList}' var="branchList">
                                     <option value="${branchList.brId}">${branchList.brName}</option>
@@ -48,16 +48,16 @@
                         </div>
                         <div class="col-lg-4" style="display:inline-block">
                             <label>회의실</label>
-                            <select class="form-control" id="meetingRoomSelect">
+                            <select class="form-control" id="meetingRoomSelect" name="mrId">
                                 <option value="none" hidden>지사를 먼저 선택해주세요.</option>
 
                             </select>
                         </div>
                         <div class="col-lg-4" style="float:right">
                             <label>기자재 유형</label>
-                            <select class="form-control">
+                            <select class="form-control" name="eqCode">
                                 <option value="N">노트북</option>
-                                <option value="WB">화이트 보드</option>
+                                <option value="W">화이트 보드</option>
                                 <option value="M">마이크</option>
                                 <option value="V">빔 프로젝터</option>
                             </select>
@@ -68,15 +68,19 @@
                                     <input type="hidden" name="_csrf" value="${_csrf.token}">
                                     <button class="btn btn-success" id="finallyConfirm" type="submit"><i class="fa fa-fw fa-lg fa-check-circle"></i>확인</button>
                                     <button class="btn btn-success" type="button"><i class="fa fa-fw fa-lg fa-check-circle"></i>취소</button>
+                                </div>
+                            </div>
+                        </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-    </div>
-    </div>
-    </div>
     <!-- modal end -->
+    
+    
+    
+    
     <div class="row">
         <div class="col-md-12">
             <div class="tile">
@@ -120,31 +124,29 @@
 <script src="/meeting/resources/js/plugins/sb-admin-datatables.min.js"></script>
 <script type="text/javascript">
     $('#sampleTable').DataTable();
-    
-    
-    $("#branchSelect").change(function(){
-    	if($("#branchSelect option:selected").val()!="none"){
-    		var buf = $("#branchSelect option:selected").val();
-    		//console.log(buf);
-    		$.ajax({
-				url:"/meeting/equipment/roomListInBranch/"+buf,
-				type:"get",
-				success:function(resTxt){
-					var meetingRoomList = resTxt.result;
-					console.log(meetingRoomList)
-					$("#meetingRoomSelect").empty();
-					$("#meetingRoomSelect").append("<option value='none' hidden>회의실을 선택해주세요</option>")
-		               $.each(meetingRoomList, function(index, item) {
-		            	   $("#meetingRoomSelect").append("<option value='"+item.mrId+"'>"+item.mrName+"</option>")
-		               });
-				},
-				error:function(){
-					alert("실패");
-				}
-			});
-    		
-    	}
+
+
+    $("#branchSelect").change(function() {
+        if ($("#branchSelect option:selected").val() != "none") {
+            var buf = $("#branchSelect option:selected").val();
+            //console.log(buf);
+            $.ajax({
+                url: "/meeting/equipment/roomListInBranch/" + buf,
+                type: "get",
+                success: function(resTxt) {
+                    var meetingRoomList = resTxt.result;
+                    console.log(meetingRoomList)
+                    $("#meetingRoomSelect").empty();
+                    $("#meetingRoomSelect").append("<option value='none' hidden>회의실을 선택해주세요</option>")
+                    $.each(meetingRoomList, function(index, item) {
+                        $("#meetingRoomSelect").append("<option value='" + item.mrId + "'>" + item.mrName + "</option>")
+                    });
+                },
+                error: function() {
+                    alert("실패");
+                }
+            });
+
+        }
     });
-    
-    
 </script>

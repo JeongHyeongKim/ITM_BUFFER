@@ -26,7 +26,25 @@ public class EquipmentService {
 	}
 
 	
-	public void equipmentInsert(Equipment equipment) {
+	public void equipmentInsert(String mrId, String eqCode) {
+		
+		String seqNum=null;
+		String newNum=null;
+		System.out.println("mrId : "+mrId);
+		System.out.println("eqCode"+eqCode);
+		if(eqCode.equals("N")) {
+			seqNum=eqDao.getRecentSeqNoteBook();
+		}else if(eqCode.equals("V")) {
+			seqNum=eqDao.getRecentSeqNoteBook();
+		}else if(eqCode.equals("W")) {
+			seqNum=eqDao.getRecentSeqNoteBook();
+		}else if(eqCode.equals("M")) {
+			seqNum=eqDao.getRecentSeqNoteBook();
+		}
+		newNum=splitSeq(seqNum);
+		Equipment equipment = new Equipment(newNum,mrId);
+		System.out.println("Object eqId : "+equipment.getEqId());
+		System.out.println("Object mrId : " +equipment.getMrId());
 		eqDao.equipmentInsert(equipment);
 	}
 
@@ -39,4 +57,49 @@ public class EquipmentService {
 	public void equipmentDelete(String eqId) {
 		eqDao.equipmentDelete(eqId);
 	}
+	
+	
+	public String getRecentSeqMike() {
+		return eqDao.getRecentSeqMike();
+	}
+
+	
+	public String getRecentSeqWhiteBoard() {
+		return eqDao.getRecentSeqWhiteBoard();
+	}
+
+	
+	public String getRecentSeqBeamProject() {
+		return eqDao.getRecentSeqBeamProject();
+	}
+
+	
+	public String getRecentSeqNoteBook() {
+		return eqDao.getRecentSeqNoteBook();
+	}
+	
+	
+	private String splitSeq(String seq)
+	{
+		int eqIdInt = Integer.parseInt(seq.split("_")[1])+1;
+		String nextId=null;
+		if(eqIdInt>999) {
+			nextId=seq.split("_")[0]+"_"+eqIdInt;
+			System.out.println("nextId : "+nextId);
+		}else if(eqIdInt>99) {
+			nextId=seq.split("_")[0]+"_0"+eqIdInt;
+			System.out.println("nextId : "+nextId);
+		}else if(eqIdInt>9) {
+			//brIdInt=10;
+			nextId=seq.split("_")[0]+"_00"+eqIdInt;
+			System.out.println("nextId : "+nextId);
+		}else if(eqIdInt>=0) {
+			nextId=seq.split("_")[0]+"_000"+eqIdInt;
+			System.out.println("nextId : "+nextId);
+		}
+		System.out.println("result : "+nextId);
+		return nextId;
+	}
+	
+	
 }

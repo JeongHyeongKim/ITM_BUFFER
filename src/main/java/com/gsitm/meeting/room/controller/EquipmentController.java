@@ -40,8 +40,8 @@ public class EquipmentController {
 	
 	
 	@PostMapping("/insert")
-	public String equipmentInsert(Equipment equipment) {
-		eqService.equipmentInsert(equipment);
+	public String equipmentInsert(String mrId, String eqCode) {
+		eqService.equipmentInsert(mrId, eqCode);
 		return "redirect:/equipment/list";
 	}
 	

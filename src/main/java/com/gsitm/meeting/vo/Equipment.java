@@ -9,6 +9,11 @@ public class Equipment {
 	public Equipment() {
 		super();
 	}
+	
+	public Equipment(String eqId, String mrId) {
+		this.eqId=eqId;
+		this.mrId=mrId;
+	}
 
 
 	public String getEqId() {
