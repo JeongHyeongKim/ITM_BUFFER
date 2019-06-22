@@ -29,7 +29,7 @@
             confirmButtonText: "네, 삭제하겠습니다",
             cancelButtonText: "아뇨, 취소하겠습니다",
             closeOnConfirm: false,
-            closeOnCancel: false
+            closeOnCancel: true
         }, function (isConfirm) {
             if (isConfirm) {
             	$.ajax({

@@ -54,28 +54,8 @@ public class EquipmentService {
 	}
 
 	
-	public void equipmentDelete(String eqId) {
-		eqDao.equipmentDelete(eqId);
-	}
-	
-	
-	public String getRecentSeqMike() {
-		return eqDao.getRecentSeqMike();
-	}
-
-	
-	public String getRecentSeqWhiteBoard() {
-		return eqDao.getRecentSeqWhiteBoard();
-	}
-
-	
-	public String getRecentSeqBeamProject() {
-		return eqDao.getRecentSeqBeamProject();
-	}
-
-	
-	public String getRecentSeqNoteBook() {
-		return eqDao.getRecentSeqNoteBook();
+	public int equipmentDelete(String eqId) {
+		return eqDao.equipmentDelete(eqId);
 	}
 	
 	
@@ -90,7 +70,6 @@ public class EquipmentService {
 			nextId=seq.split("_")[0]+"_0"+eqIdInt;
 			System.out.println("nextId : "+nextId);
 		}else if(eqIdInt>9) {
-			//brIdInt=10;
 			nextId=seq.split("_")[0]+"_00"+eqIdInt;
 			System.out.println("nextId : "+nextId);
 		}else if(eqIdInt>=0) {

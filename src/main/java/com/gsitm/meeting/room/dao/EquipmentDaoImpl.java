@@ -39,8 +39,8 @@ public class EquipmentDaoImpl implements EquipmentDao{
 	}
 
 	@Override
-	public void equipmentDelete(String eqId) {
-		session.delete(namespace+".equipmentDelete", eqId);
+	public int equipmentDelete(String eqId) {
+		return session.delete(namespace+".equipmentDelete", eqId);
 	}
 
 	@Override

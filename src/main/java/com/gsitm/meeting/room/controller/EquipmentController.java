@@ -65,6 +65,12 @@ public class EquipmentController {
 		mrListInBranch.put("result", mrList);
 		System.out.println(mrListInBranch);
 		return new ResponseEntity<Map<String, Object>>(mrListInBranch, HttpStatus.OK);
-		
+	}
+	
+	@PostMapping("/delete/{eqId}")
+	public ResponseEntity<Void> equipmentDelete(@PathVariable String eqId) {	
+		System.out.println(eqId);
+		int result = eqService.equipmentDelete(eqId);
+		return new ResponseEntity<>(result==1 ? HttpStatus.OK : HttpStatus.BAD_REQUEST);
 	}
 }

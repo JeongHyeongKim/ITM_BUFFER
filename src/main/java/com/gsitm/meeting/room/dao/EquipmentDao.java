@@ -15,7 +15,7 @@ public interface EquipmentDao {
 	
 	public void equipmentUpdate(Equipment equipment);
 	
-	public void equipmentDelete(String eqId);
+	public int equipmentDelete(String eqId);
 	
 	public String getRecentSeqMike();
 	

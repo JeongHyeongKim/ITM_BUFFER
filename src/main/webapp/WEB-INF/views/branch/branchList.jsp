@@ -35,7 +35,7 @@
     	      		confirmButtonText: "네, 삭제하겠습니다",
     	      		cancelButtonText: "아뇨, 취소하겠습니다",
     	      		closeOnConfirm: true,
-    	      		closeOnCancel: false
+    	      		closeOnCancel: true
     	      	}, function(isConfirm) { 
     	      		if (isConfirm) {
     	      			console.log(buffer);
@@ -99,7 +99,7 @@
 	                <div class="card-body">
 	                  <h5 class="card-title">${branchList.brLocation }</h5>
 	                  <h6 class="card-subtitle text-muted">${branchList.brTel }</h6>
-	                </div><img style="height: 200px; width: 100%; display: block;" src="${branchList.brImg}" alt="Card image" onclick="readBranch('${branchList.brId}')">
+	                </div><img style="height: 200px; width: 100%; display: block; border-bottom: 3px solid #EEE;border-top:3px solid #EEE" src="${branchList.brImg}" alt="Card image" onclick="readBranch('${branchList.brId}')">
 	                <div class="card-body">
 	                  <p class="card-text">
 	                  <b>[회의실]</b><br>

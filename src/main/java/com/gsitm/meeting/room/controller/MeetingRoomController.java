@@ -57,8 +57,10 @@ public class MeetingRoomController {
 	public ResponseEntity<Void> meetingRoomDelete(@PathVariable String mrId) {	
 		System.out.println(mrId);
 		int result = brService.branchDelete(mrId);
-		return new ResponseEntity<>(result==1 ? HttpStatus.OK : HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
+	
+
 	
 	
 	@GetMapping("/create")
