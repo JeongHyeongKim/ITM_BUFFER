@@ -2,10 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<script src="/meeting/resources/js/datatables/jquery.dataTables.js"></script>
-<script src="/meeting/resources/js/datatables/dataTables.bootstrap4.js"></script>
-<script src="/meeting/resources/js/plugins/sb-admin-datatables.min.js"></script>
-<script src="/meeting/resources/js/plugins/sweetalert.min.js"></script>
+
 <script type="text/javascript">
 	$(function(){
 		var today = new Date();
@@ -232,5 +229,8 @@
 		</div>
 	</div>
 </main>
-
+<script src="/meeting/resources/js/datatables/jquery.dataTables.js"></script>
+<script src="/meeting/resources/js/datatables/dataTables.bootstrap4.js"></script>
+<script src="/meeting/resources/js/plugins/sb-admin-datatables.min.js"></script>
+<script src="/meeting/resources/js/plugins/sweetalert.min.js"></script>
 
