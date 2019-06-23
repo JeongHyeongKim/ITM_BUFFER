@@ -78,4 +78,15 @@ public class RecognitionDaoImpl implements RecognitionDao{
 		return session.selectList(namespace + ".getReservationBySearchtype",result);
 	}
 
+	public void updateDeptCost(String deptId, String resCost) {
+		// TODO Auto-generated method stub
+		Map<String, String> result = new HashMap<>();
+		
+		result.put("deptId", deptId);
+		result.put("resCost",resCost);
+		System.out.println("DaolImpl Start: ");
+		session.update(namespace + ".updateDeptCost",result);
+		System.out.println("DaolImpl End: ");
+	}
+
 }

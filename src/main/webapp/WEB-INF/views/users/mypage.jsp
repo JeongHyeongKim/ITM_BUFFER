@@ -160,7 +160,7 @@
 				  data:"_csrf=${_csrf.token}",
 				  success:function(data){
 					  var pageInfo = JSON.parse(data);
-					  
+					  $('#meetingList').innerHTML(drawPage(myInfo));
 					  drawPage(pageInfo);
 					  
 				  }

@@ -50,7 +50,9 @@ public class RecognitionController {
 		return "admin/exchangeAdmin";
 	}
 	@PostMapping("/approval/{resId}")
-	public ResponseEntity<Void> approval(@PathVariable String resId,@RequestParam String str,@RequestParam String email) {
+	public ResponseEntity<Void> approval(@PathVariable String resId,@RequestParam String str,@RequestParam String email,@RequestParam String deptId,@RequestParam String resCost,@RequestParam String headEmail) {
+		recService.updateDeptCost(deptId,resCost);
+		recService.sendApprovalMailToHead(headEmail,str);
 		recService.sendApprovalMail(email,str);
 		int result = recService.approval(resId);
 		return new ResponseEntity<>(result == 1 ? HttpStatus.OK : HttpStatus.BAD_REQUEST);
@@ -62,8 +64,8 @@ public class RecognitionController {
 		return new ResponseEntity<>(result == 1 ? HttpStatus.OK : HttpStatus.BAD_REQUEST);
 	}
 	
-	@PostMapping("/searchByPeriod/searchtype={searchtype}&&searchtypeByBranch={brId}")
-	public  @ResponseBody ResponseEntity<String> myReservationBySearch(Principal principal,@PathVariable String searchtype,@PathVariable String brId) {
+	@PostMapping("/searchByPeriod/searchtype={searchtype}&searchtypeByBranch={brId}")
+	public  @ResponseBody ResponseEntity<String> getReservationBySearchtype(Principal principal,@PathVariable String searchtype,@PathVariable String brId) {
 		return new ResponseEntity<>(recService.getReservationBySearchtype(principal.getName(), searchtype,brId),HttpStatus.OK);
 	}
 	

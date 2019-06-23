@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
 <script type="text/javascript">
 	$(function(){
 		
@@ -12,6 +13,10 @@
 		var resDate;
 		var resStartDate;
 		var resEndDate;
+		var deptId;
+		var resCost;
+		var headEmail;
+		var empName;
 		function drawListBranch(branchList){
 			$("#listCondition").empty(); 
 			$("#listBranch").empty(); 
@@ -35,16 +40,12 @@
 			/* listCondition  */
 			var $listBranch = $("#listBranch");
 			var $divDataToggle = $("<div data-toggle='buttons'></div>").attr("class","btn-group btn-group-toggle").appendTo($listBranch);
+			
+			var $allOfList =$("<label id='allBrId'></label>").attr("class","btn btn-primary brIdBtn active").text("전체").appendTo($divDataToggle);
+			$("<input type='radio' name='listPeriod' value='all' autocomplete='off' >").appendTo($allOfList);
 			$.each(branchList, function(i, $list) {
-				if(i==0){
-					var $allOfList = $("<label id='"+$list.brId+"'></label>").attr("class","btn btn-primary brIdBtn active").text($list.brName).appendTo($divDataToggle);
-					$("<input type='radio' name='listPeriod' value='all' autocomplete='off' checked=''>").appendTo($allOfList);
-				}else{
-					var $allOfList = $("<label id='"+$list.brId+"'></label>").attr("class","btn btn-primary brIdBtn").text($list.brName).appendTo($divDataToggle);
-					$("<input  type='radio' name='listPeriod' value='all' autocomplete='off' >").appendTo($allOfList);
-				
-				}
-				
+				$allOfList = $("<label id='"+$list.brId+"'></label>").attr("class","btn btn-primary brIdBtn").text($list.brName).appendTo($divDataToggle);
+				$("<input  type='radio' name='listPeriod' value='all' autocomplete='off' >").appendTo($allOfList);
 		    });
 		}
 		function drawPage(myInfo){
@@ -67,6 +68,7 @@
 			var $headTrTag= $("<tr></tr>").appendTo($headTag);
 			$("<th></th>").text("예약일").appendTo($headTrTag);
 			$("<th></th>").text("사용일").appendTo($headTrTag);
+			$("<th></th>").text("부서").appendTo($headTrTag);
 			$("<th></th>").text("신청자").appendTo($headTrTag);
 			$("<th></th>").text("장소").appendTo($headTrTag);
 			$("<th></th>").text("회의목적").appendTo($headTrTag);
@@ -75,15 +77,36 @@
 			
 			var $bodyTag = $("<tbody></tbody>").appendTo($tableTag);
 			$.each(myInfo, function(i, $list) {
-				
+				resCost = $list.resCost;
+				headEmail = $list.headEmail;
+				empName = $list.empName;
+				resEndDate = $list.resEndDate;
+				deptId= $list.deptId;
 				var $bodyTrTag= $("<tr></tr>").appendTo($bodyTag);
-				$("<td id='resDate' class='showAllInfo' data-toggle='modal' data-target='#detail'></td>").attr("value",$list.resDate).text($list.resDate).appendTo($bodyTrTag);
-				$("<td id='resStartDate' class='showAllInfo' data-toggle='modal' data-target='#detail'></td>").attr("value",$list.resStartDate).text($list.resStartDate).appendTo($bodyTrTag);
-				$("<td data-toggle='modal' data-target='#detail'></td>").attr("class","showAllInfo").text($list.empName).appendTo($bodyTrTag);
-				$("<td data-toggle='modal' data-target='#detail'></td>").attr("class","showAllInfo").text(($list.brName) + " - " + ($list.mrName)).appendTo($bodyTrTag);
-				$("<td data-toggle='modal' data-target='#detail'></td>").attr("class","showAllInfo").text($list.resPurpose).appendTo($bodyTrTag);
+				
+				$("<td id='resDate' class='showAllInfo'></td>").attr("value",$list.resDate).text($list.resDate).appendTo($bodyTrTag);
+				$("<td id='resStartDate' class='showAllInfo'></td>").attr("value",$list.resStartDate).text($list.resStartDate+" ~ "+$list.resEndDate).appendTo($bodyTrTag);
+				$("<td></td>").attr("class","showAllInfo deptId").text($list.deptName).appendTo($bodyTrTag);
+				$("<td></td>").attr("class","showAllInfo").text($list.empName).appendTo($bodyTrTag);
+				$("<td></td>").attr("class","showAllInfo").text(($list.brName) + " - " + ($list.mrName)).appendTo($bodyTrTag);
+				$("<td></td>").attr("class","showAllInfo").text($list.resPurpose).appendTo($bodyTrTag);
+				
 				var $currentState = $("<td data-toggle='modal' data-target='#detail'></td>").text(mappingState($list.resState)).appendTo($bodyTrTag);
 				var $changeState = $("<td></td>").appendTo($bodyTrTag);
+				
+				
+				
+				
+				/* var $divModalStart = $("<div id='detail' style='position: relative; top: auto; right: auto; left: auto; bottom: auto; z-index: 1; display: block;'></div>").attr("class","modal");
+				var $divModalDialog = $("<div role='document'></div>").attr("class","modal-dialog").appendTo($divModalStart);
+				var $divModalContent = $("<div></div>").attr("class","modal-content").appendTo($divModalDialog);
+				var $divModalHeader = $("<div></div>").attr("class","modal-header").appendTo($divModalContent);
+				$("<h5></h5>").attr("class","modal-title").text("Modal title").appendTo($divModalHeader);
+				var $closeBtn =$("<button type='button' data-dismiss='modal' aria-label='Close'></button>").attr("class","modal-title").text("Modal title").appendTo($divModalHeader);
+				$("<span aria-hidden='true'></span>").text("X").appendTo($closeBtn);
+				
+				var $divModalBody = $("<div></div>").attr("class","modal-body").appendTo($divModalContent);
+				$("<p></p>").text("").appendTo($divModalBody);  */
 				
 				if($list.resState=="res_1"){
 					var $divChange = $("<div></div>").attr("class","bs-component").appendTo($changeState);
@@ -94,36 +117,35 @@
 					
 					$("<a id='approval' value='"+$list.resId+"'></a>").attr("class","dropdown-item").text("승인").appendTo($divDropdown);
 					$("<a id='back' value='"+$list.resId+"'></a>").attr("class","dropdown-item").text("반려").appendTo($divDropdown);
+					
 				}
+				
 			});
 
 			/* 카드푸터  */
 			var $divFooter = $("<div class='card-footer small text-muted'></div>").appendTo($divCol12);	
 		}
-		 function makeModal(){
-			/* var $divModalStart = $("<div id='detail' style='position: relative; top: auto; right: auto; left: auto; bottom: auto; z-index: 1; display: block;'></div>").attr("class","modal");
-			var $divModalDialog = $("<div role='document'></div>").attr("class","modal-dialog").appendTo($divModalStart);
-			var $divModalContent = $("<div></div>").attr("class","modal-content").appendTo($divModalDialog);
-			var $divModalHeader = $("<div></div>").attr("class","modal-header").appendTo($divModalContent);
-			$("<h5></h5>").attr("class","modal-title").text("Modal title").appendTo($divModalHeader);
-			var $closeBtn =$("<button type='button' data-dismiss='modal' aria-label='Close'></button>").attr("class","modal-title").text("Modal title").appendTo($divModalHeader);
-			$("<span aria-hidden='true'></span>").text("X").appendTo($closeBtn);
-			
-			var $divModalBody = $("<div></div>").attr("class","modal-body").appendTo($divModalContent);
-			$("<p></p>").text("").appendTo($divModalBody); */
-			
-			
-			
-		} 
+		 
 		/* drawListPeriod(myInfo); */
 		drawListBranch(branchList);
 		drawPage(myInfo);
-		makeModal();
+
+		
+		//Modal
+		/* $('.showAllInfo').on("click",function(e){
+			var res = e.currentTarget.getAttribute("text");
+			swal({
+ 	      		title: "상세 예약 정보 확인",
+ 	      		text: "회의실 사용일: "+res+"\n 인원: "
+			 })
+		}); */
+		
+		
 		$(document).on('click', '.nav-link', function(e){
 			email=e.currentTarget.id;
 			resDate=$('#resDate').attr("value");
-			resStartDate=$('#resStartDate').attr("value");
-			console.log(email);
+			resStartDate=$('#resStartDate').attr("value"); 
+			
 		})
 		
 		function mappingState(resState){
@@ -146,6 +168,9 @@
 		}
 		$('#approval').on("click",function(e){
 			
+		    console.log("deptId: "+deptId); 
+			console.log("resCost: "+resCost);  
+			console.log("headEmail: "+headEmail);
 			swal({
 	      		title: "승인하시겠습니까?",
 	      		type: "warning",
@@ -157,11 +182,11 @@
 	      	}, function(isConfirm) {
 	      		if (isConfirm) {
 	      		  resId =  $("#approval").attr("value");
-	      		   var str="[회의실 예약 승인 알림]\n"+resDate+"에 예약 신청하신 회의실 예약이 승인되었습니다.\n 사용 일정)\n"+resStartDate;
+	      		   var str="[회의실 예약 승인 알림]\n"+resDate+"에 "+empName+"님이 예약 신청하신 회의실 예약이 승인되었습니다.\n 사용 일정)\n"+resStartDate+" ~ "+resEndDate+"\n 비용)\n"+resCost+"(원)";
 	      			$.ajax({
 						  url : "/meeting/recognition/approval/"+resId,
 						  type : "post",
-						  data:"_csrf=${_csrf.token}"+"&str="+str+"&email="+email,
+						  data:"_csrf=${_csrf.token}"+"&str="+str+"&email="+email+"&deptId="+deptId+"&resCost="+resCost+"&headEmail="+headEmail,
 						  success:function(){
 							  location.href= "/meeting/recognition/waitForRecognition"
 						  }, error:function(){
@@ -220,8 +245,9 @@
 		
 		
         var btnClassClick = function(e){
+		
         	$.ajax({
-        	    url:"/meeting/recognition/searchByPeriod/searchtype="+searchtype+"&&searchtypeByBranch="+brId,
+        	    url:"/meeting/recognition/searchByPeriod/searchtype="+searchtype+"&searchtypeByBranch="+brId,
         	    type:"post",
         	    data:"_csrf=${_csrf.token}",
         	    success:function(data){	
@@ -229,6 +255,7 @@
 					  drawPage(pageInfo);
         	    }
         	   })
+			
         	    
         }
 	});
@@ -267,7 +294,9 @@
 				     <div id="meetingList">
 		
 					</div>
-					<!-- <div class="modal fade" id="detail" role="dialog">
+					
+					
+					 <!-- <div class="modal fade" id="detail" role="dialog">
 					    <div class="modal-dialog">
 					      Modal content
 					      <div class="modal-content">
@@ -280,7 +309,7 @@
 					        </div>
 					      </div>
 				   	   </div>
-         	        </div> -->
+         	        </div>  -->
 				</div>
 			</div>
 		</div>
@@ -290,3 +319,5 @@
 <script src="/meeting/resources/js/datatables/dataTables.bootstrap4.js"></script>
 <script src="/meeting/resources/js/plugins/sb-admin-datatables.min.js"></script>
 <script src="/meeting/resources/js/plugins/sweetalert.min.js"></script>
+<script type="text/javascript" src="/meeting/resources/js/plugins/bootstrap-notify.min.js"></script>
+<script type="text/javascript" src="/meeting/resources/js/plugins/sweetalert.min.js"></script>

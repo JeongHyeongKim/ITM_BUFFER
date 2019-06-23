@@ -20,6 +20,8 @@ public class ReservationDTO {
 		private String resId;
 		private String empId;
 		private String mrId;
+		private String deptId;
+		private String deptName;
 		private String resStartDate;
 		private String resEndDate;
 		private String resDate;
@@ -33,6 +35,8 @@ public class ReservationDTO {
 		private int resCost;
 		private int resOutside;
 		private String empEmail;
+		private String headEmail;
+		
 		
 		//예약자 이름
 		private String empName;

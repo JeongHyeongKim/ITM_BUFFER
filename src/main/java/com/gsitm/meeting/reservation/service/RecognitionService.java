@@ -96,5 +96,27 @@ public class RecognitionService {
 			e.printStackTrace();
 		}
 	}
+
+	public void updateDeptCost(String deptId, String resCost) {
+		System.out.println("Service시작 ");
+		recDao.updateDeptCost(deptId,resCost);
+		System.out.println("Service끝 ");
+	}
+
+	public void sendApprovalMailToHead(String headEmail, String str) {
+		// TODO Auto-generated method stub
+		MimeMessage message = mailSender.createMimeMessage();
+		try {
+			
+			MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
+			messageHelper.setFrom("dlgyqls77@gmail.com");
+			messageHelper.setTo(headEmail);
+			messageHelper.setSubject("[GSITM 회의실 예약 시스템]회의실 예약 승인 알림");
+			messageHelper.setText(str);
+			mailSender.send(message);
+		} catch (MessagingException e) {	
+			e.printStackTrace();
+		}
+	}
 	
 }
