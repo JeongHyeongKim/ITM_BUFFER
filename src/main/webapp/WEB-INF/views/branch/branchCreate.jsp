@@ -1,22 +1,33 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <style>
-    <style>.upload-wrapper {
-        position: relative;
-        overflow: hidden;
-        display: inline-block;
+    <style>
+    
+            .upload-wrapper {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
 
-    }
+        }
 
-    .upload-btn {
+        .upload-btn {
 
-        color: white;
-        background-color: #009688;
-        padding: 8px 20px;
-        border-radius: 8px;
-        font-size: 15px;
-        font-weight: bold;
-    }
+            color: white;
+            background-color: #009688;
+            padding: 8px 20px;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: bold;
+        }
+
+        .upload-wrapper input[type="file"] {
+
+            font-size: 100px;
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+        }
 
     .form-group{
     	padding-top:10px;
@@ -114,7 +125,10 @@
                         </div>
 
                         <div class="tile-footer" style="text-align:right; vertical-align:bottom;">
-                                <input type="file" id="imgUpload" name="brImg">
+                               <div class="upload-wrapper">
+	                            <button class="upload-btn" id="imgUpload">업로드</button> 
+	                            <input type="file" id="imgUpload" name="mrImg"> 
+	                        </div>
                         </div>
                     </div>
 

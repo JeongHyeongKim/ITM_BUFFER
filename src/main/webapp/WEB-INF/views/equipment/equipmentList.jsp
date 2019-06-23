@@ -36,38 +36,6 @@ function saveEqId(param){
      	});
 	}
 	
-    $("#branchSelect").change(function() {
-        if ($("#branchSelect option:selected").val() != "none") {
-            var buf = $("#branchSelect option:selected").val();
-            //console.log(buf);
-            $.ajax({
-                url: "/meeting/equipment/roomListInBranch/" + buf,
-                type: "get",
-                success: function(resTxt) {
-                    var meetingRoomList = resTxt.result;
-                    console.log(meetingRoomList)
-                    $("#meetingRoomSelect").empty();
-                    $("#meetingRoomSelect").append("<option value='none' hidden>회의실을 선택해주세요</option>")
-                    $.each(meetingRoomList, function(index, item) {
-                        $("#meetingRoomSelect").append("<option value='" + item.mrId + "'>" + item.mrName + "</option>")
-                    });
-                },
-                error: function() {
-                    alert("실패");
-                }
-            });
-            
-            function saveEqId(param){
-            	eqId=param;
-            }
-            
-            $(document).on('click', '.deleteAlert', function(e){
-            	consol.log("delete_button_clicked!");
-       		 
-       });
-
-        }
-    });
     
 
 </script>
@@ -109,7 +77,7 @@ function saveEqId(param){
                     <form action="/meeting/equipment/insert" method="POST" id="equipmentBranch">
                         <div class="col-lg-4" style="float:left">
                             <label for="exampleSelect1">지사</label>
-                            <select class="form-control" id="branchSelect" >
+                            <select class="form-control" id="branchSelect">
                                 <option value="none" hidden>지사 선택</option>
                                 <c:forEach items='${branchList}' var="branchList">
                                     <option value="${branchList.brId}">${branchList.brName}</option>
@@ -137,7 +105,7 @@ function saveEqId(param){
                                 <div class="col-md-12">
                                     <input type="hidden" name="_csrf" value="${_csrf.token}">
                                     <button class="btn btn-success" id="finallyConfirm" type="submit"><i class="fa fa-fw fa-lg fa-check-circle"></i>확인</button>
-                                    <button class="btn btn-success" type="button"><i class="fa fa-fw fa-lg fa-check-circle"></i>취소</button>
+                                    <button class="btn btn-success" type="button" data-dismiss="modal"><i class="fa fa-fw fa-lg fa-check-circle"></i>취소</button>
                                 </div>
                             </div>
                         </div>
@@ -201,6 +169,30 @@ function saveEqId(param){
 <script src="/meeting/resources/js/plugins/sb-admin-datatables.min.js"></script>
 <script type="text/javascript">
     $('#sampleTable').DataTable();
+    
+    $("#branchSelect").change(function() {
+    	console.log("branch is selected!");
+        if ($("#branchSelect option:selected").val() != "none") {
+            var buf = $("#branchSelect option:selected").val();
+            console.log(buf);
+            $.ajax({
+                url: "/meeting/equipment/roomListInBranch/" + buf,
+                type: "get",
+                success: function(resTxt) {
+                    var meetingRoomList = resTxt.result;
+                    console.log(meetingRoomList)
+                    $("#meetingRoomSelect").empty();
+                    $("#meetingRoomSelect").append("<option value='none' hidden>회의실을 선택해주세요</option>")
+                    $.each(meetingRoomList, function(index, item) {
+                        $("#meetingRoomSelect").append("<option value='" + item.mrId + "'>" + item.mrName + "</option>")
+                    });
+                },
+                error: function() {
+                    alert("실패");
+                }
+            });
+        }
+    });
 </script>
 
 <script type="text/javascript" src="/meeting/resources/js/plugins/bootstrap-notify.min.js"></script>

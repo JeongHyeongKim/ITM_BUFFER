@@ -14,13 +14,24 @@
             var tel = null;   
             var img = null;
             var imgChanged=false;
-            //console.log(name);	
+            console.log(branch.brImg);	
 
             /* document.getElementById("imgArea").src = branch.brImg; */
             document.getElementById("brName").value = branch.brName;
             document.getElementById("brAddress").value = branch.brLocation;
             document.getElementById("brTel").value = branch.brTel;
+            document.getElementById("imgArea").src= branch.brImg; 
             document.getElementById("brId").value = branch.brId;
+            
+            $('#imgArea').css("height", $("#rightCol").height() * 0.6);
+            $('#leftCol').css("height", $("#rightCol").height() * 0.9);
+
+            $(window).resize(function() {
+
+                $('#imgArea').css("height", $("#rightCol").height() * 0.6);
+                $('#leftCol').css("height", $("#rightCol").height() * 0.9);
+
+            });
 
 
             $('#modalOpen').click(function() {
@@ -57,6 +68,35 @@
         //파일 안바뀌면 fileuploader를 안거치고 그대로 db에 들어가고, 바뀌면 거친다.
         //현재 input tag가 있는데 클릭해도 file input dialog가 안뜬다. 이유가 뭘까?
     </script>
+    
+    <style>
+    	
+    	 .upload-wrapper {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+
+        }
+
+        .upload-btn {
+
+            color: white;
+            background-color: #009688;
+            padding: 8px 20px;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: bold;
+        }
+
+        .upload-wrapper input[type="file"] {
+ 
+            font-size: 100px;
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+        }
+    </style>
 </head>
 
 <body>
@@ -90,30 +130,33 @@
                     <div class="tile" id="leftCol">
 
                         <div class="tile-body" style="text-align:center;">
-                            <img class="user-img" id="imgArea" src="https://s3.amazonaws.com/uifaces/faces/twitter/jsa/128.jpg" style="border-radius: 10px;">
+                            <img class="user-img" id="imgArea" src="/meeting/resources/img/imgVoid.JPG" style="border-radius: 10px; margin-bottom:20px">
 
                         </div>
 
                         <div class="tile-footer" style="text-align:right; vertical-align:bottom;">
-                                <input type="file" id="imgUpload" name="brImg">
+                               <div class="upload-wrapper">	
+	                            <button class="upload-btn" id="imgUpload">업로드</button> 
+	                            <input type="file" id="imgUpload" name="brImg"> 
+	                        </div>
                         </div>
                     </div>
 
                 </div>
                 <div class="col-md-8">
                     <div class="tile" id="rightCol">
-                        <h3 class="tile-title">지사 정보를 입력하여 주십시오</h3>
+                        <h3 class="tile-title" style="padding-bottom:10px; border-bottom:1px solid #ddd">지사 정보를 입력하여 주십시오</h3>
                         <div class="tile-body">
                             <div class="form-group">
-                                <label class="control-label">지사 이름</label>
+                                <label class="control-label"><h5>지사 이름</h5></label>
                                 <input class="form-control" type="text" placeholder="지사를 입력해주세요" id="brName" name="brName">
                             </div>
                             <div class="form-group">
-                                <label class="control-label">지사 주소</label>
+                                <label class="control-label"><h5>지사 주소</h5></label>
                                 <input class="form-control" type="text" placeholder="주소를 입력해주세요" id="brAddress" name="brLocation">
                             </div>
                             <div class="form-group">
-                                <label class="control-label">대표 번호</label>
+                                <label class="control-label"><h5>대표 번호</h5></label>
                                 <input class="form-control" placeholder="대표번호를 입력해주세요" id="brTel" name="brTel"></input>
                             </div>
 
