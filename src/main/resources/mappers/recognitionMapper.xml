@@ -206,4 +206,76 @@
 		               AND dh.dept_id = d.dept_id) b 
 		WHERE  b.headid = e.emp_id 
 	</select>
+	
+	<!--1차승인목록  -->
+	<select id="resListForHead" resultType="com.gsitm.meeting.reservation.dto.ReservationDTO$ReservationTest" >
+		SELECT b.*, e.emp_email headEmail 
+		FROM   employee e, 
+		       (SELECT d.dept_name deptName, 
+		               a.*, 
+		               dh.emp_id   headId 
+		        FROM   department_head dh, 
+		               department d, 
+		               (SELECT res_id                                             resId, 
+		                       e.emp_id                                           empId, 
+		                       e.dept_id                                          deptId 
+		                       , 
+		                       e.emp_name 
+		                       empName, 
+		                       b.br_name                                          brName 
+		                       , 
+		                       mr.mr_name 
+		                       mrName, 
+		                       To_char(res_time, 'YYYY-MM-DD" "HH24:MI:SS') 
+		                       resDate, 
+		                       To_char(res_start_time, 'YYYY-MM-DD" "HH24:MI:SS') 
+		                       resStartDate, 
+		                       To_char(res_end_time, 'YYYY-MM-DD" "HH24:MI:SS') 
+		                       resEndDate, 
+		                       res_purpose 
+		                       resPurpose, 
+		                       res_attend_cnt 
+		                       resAttendCnt, 
+		                       res_add_request 
+		                       resAddRequest 
+		                       , 
+		                       res_state 
+		                       resState, 
+		                       res_snack 
+		                       resSnack, 
+		                       res_type 
+		                       resType, 
+		                       res_cancle 
+		                       resCancle, 
+		                       res_cost 
+		                       resCost, 
+		                       res_outside 
+		                       resOutside, 
+		                       e.emp_email 
+		                       empEmail 
+		                FROM   employee e, 
+		                       reservation r, 
+		                       meeting_room mr, 
+		                       branch b 
+		                WHERE  e.emp_id = r.emp_id 
+		                       AND b.br_id = mr.br_id 
+		                       AND mr.mr_id = r.mr_id 
+	                           AND res_state='res_0'
+		                ORDER  BY res_id DESC) a 
+		        WHERE  a.deptid = d.dept_id 
+		               AND dh.dept_id = d.dept_id) b 
+		WHERE  b.headid = e.emp_id
+	</select>
+	<update id="approvalByHead" parameterType="string">
+		update reservation
+		set res_state = 'res_1'
+		where res_id=#{resId}
+		and res_state='res_0'
+	</update>
+	<update id="backByHead" parameterType="string">
+		update reservation
+		set res_state = 'res_3'
+		where res_id=#{resId}
+		and res_state='res_0'
+	</update>
 </mapper>

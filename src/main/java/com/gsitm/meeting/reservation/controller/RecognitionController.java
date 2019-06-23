@@ -68,6 +68,22 @@ public class RecognitionController {
 	public  @ResponseBody ResponseEntity<String> getReservationBySearchtype(Principal principal,@PathVariable String searchtype,@PathVariable String brId) {
 		return new ResponseEntity<>(recService.getReservationBySearchtype(principal.getName(), searchtype,brId),HttpStatus.OK);
 	}
-	
-	
+	//상위관리자 승인 대기 페이지
+	@GetMapping("/waitForRecognitionByHead")
+	public String waitForRecognitionByHead(Model model) {
+		model.addAttribute("resListForHead",recService.waitForRecognitionByHead());
+		return "admin/waitForRecognitionByHead";
+	}
+	@PostMapping("/approvalByHead/{resId}")
+	public ResponseEntity<Void> approvalByHead(@PathVariable String resId,@RequestParam String str,@RequestParam String email) {
+		recService.sendApprovalMailByHead(email,str);
+		int result = recService.approvalByHead(resId);
+		return new ResponseEntity<>(result == 1 ? HttpStatus.OK : HttpStatus.BAD_REQUEST);
+	}
+	@PostMapping("/backByHead/{resId}")
+	public ResponseEntity<Void> backByHead(@PathVariable String resId,@RequestParam String str,@RequestParam String email) {
+		recService.sendBackMailByHead(email,str);
+		int result = recService.backByHead(resId);
+		return new ResponseEntity<>(result == 1 ? HttpStatus.OK : HttpStatus.BAD_REQUEST);
+	}
 }

@@ -53,7 +53,9 @@
         <li><a class="app-menu__item" href="/meeting/reservation/resShortMain/br_0001"><i class="app-menu__icon fa fa-calendar-check-o"></i><span class="app-menu__label">예약</span></a></li>
         <li><a class="app-menu__item" href="/meeting/notice/list/1"><i class="app-menu__icon fa fa-file-text-o"></i><span class="app-menu__label">공지사항</span></a></li>
         <li><a class="app-menu__item" href="/meeting/users/mypage"><i class="app-menu__icon fa fa-id-card"></i><span class="app-menu__label">마이페이지</span></a></li>
-		
+		<security:authorize access="hasRole('ROLE_HEAD')">
+			<li><a class="app-menu__item" href="/meeting/recognition/waitForRecognitionByHead"><i class="app-menu__icon fa fa-pause"></i><span class="app-menu__label">승인 대기 목록</span></a></li>
+		</security:authorize>
       </ul>
     </aside>
   </body>

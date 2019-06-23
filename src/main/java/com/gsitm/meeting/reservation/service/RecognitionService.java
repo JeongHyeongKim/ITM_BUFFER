@@ -118,5 +118,52 @@ public class RecognitionService {
 			e.printStackTrace();
 		}
 	}
+
+	public String waitForRecognitionByHead() {
+		// TODO Auto-generated method stub
+		return gson.toJson(recDao.resListForHead());
+	}
+
+	public void sendApprovalMailByHead(String email, String str) {
+		// TODO Auto-generated method stub
+		MimeMessage message = mailSender.createMimeMessage();
+		try {
+			
+			MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
+			messageHelper.setFrom("dlgyqls77@gmail.com");
+			messageHelper.setTo(email);
+			messageHelper.setSubject("[GSITM 회의실 예약 시스템]회의실 예약 1차 승인 알림");
+			messageHelper.setText(str);
+			mailSender.send(message);
+		} catch (MessagingException e) {	
+			e.printStackTrace();
+		}
+	}
+
+	public void sendBackMailByHead(String email, String str) {
+		// TODO Auto-generated method stub
+		MimeMessage message = mailSender.createMimeMessage();
+		try {
+			
+			MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
+			messageHelper.setFrom("dlgyqls77@gmail.com");
+			messageHelper.setTo(email);
+			messageHelper.setSubject("[GSITM 회의실 예약 시스템]회의실 예약 반려 알림");
+			messageHelper.setText(str);
+			mailSender.send(message);
+		} catch (MessagingException e) {	
+			e.printStackTrace();
+		}
+	}
+
+	public int approvalByHead(String resId) {
+		// TODO Auto-generated method stub
+		return recDao.approvalByHead(resId);
+	}
+
+	public int backByHead(String resId) {
+		// TODO Auto-generated method stub
+		return recDao.backByHead(resId);
+	}
 	
 }

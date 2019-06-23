@@ -77,7 +77,7 @@ public class RecognitionDaoImpl implements RecognitionDao{
 		result.put("brId",brId);
 		return session.selectList(namespace + ".getReservationBySearchtype",result);
 	}
-
+	@Override
 	public void updateDeptCost(String deptId, String resCost) {
 		// TODO Auto-generated method stub
 		Map<String, String> result = new HashMap<>();
@@ -87,6 +87,22 @@ public class RecognitionDaoImpl implements RecognitionDao{
 		System.out.println("DaolImpl Start: ");
 		session.update(namespace + ".updateDeptCost",result);
 		System.out.println("DaolImpl End: ");
+	}
+	@Override
+	public List<Reservation> resListForHead() {
+		// TODO Auto-generated method stub
+		return session.selectList(namespace+".resListForHead");
+	}
+	@Override
+	public int approvalByHead(String resId) {
+		// TODO Auto-generated method stub
+		return session.update(namespace+".approvalByHead",resId);
+	}
+
+	@Override
+	public int backByHead(String resId) {
+		// TODO Auto-generated method stub
+		return session.update(namespace+".backByHead",resId);
 	}
 
 }
