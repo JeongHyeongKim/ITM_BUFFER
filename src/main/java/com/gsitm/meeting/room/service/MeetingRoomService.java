@@ -23,7 +23,7 @@ public class MeetingRoomService {
 	private Gson gson;
 	
 	
-	public List<MeetingRoomDTO> meetingRoomList(){
+	public List<MeetingRoom> meetingRoomList(){
 		System.out.println(mrDao.meetingRoomList());
 		return mrDao.meetingRoomList();
 	}
@@ -73,8 +73,8 @@ public class MeetingRoomService {
 		mrDao.meetingRoomUpdate(meetingRoom);
 	}
 	
-	public void meetingRoomDelete(String mrId) {
-		mrDao.meetingRoomDelete(mrId);
+	public int meetingRoomDelete(String mrId) {
+		return mrDao.meetingRoomDelete(mrId);
 	}
 	
 

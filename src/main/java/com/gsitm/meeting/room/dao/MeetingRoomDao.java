@@ -10,9 +10,9 @@ import com.gsitm.meeting.vo.MeetingRoom;
 
 public interface MeetingRoomDao {
 	
-	public List<MeetingRoomDTO> meetingRoomList();
+	public List<MeetingRoom> meetingRoomList();
 	
-	public void meetingRoomDelete(String meetingRoomId);
+	public int meetingRoomDelete(String meetingRoomId);
 	
 	public MeetingRoom meetingRoomOne(String meetingRoomId);
 	

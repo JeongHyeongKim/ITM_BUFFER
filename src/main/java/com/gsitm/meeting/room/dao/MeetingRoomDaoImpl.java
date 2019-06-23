@@ -21,14 +21,14 @@ public class MeetingRoomDaoImpl implements MeetingRoomDao {
 	private String namespace = "com.gsitm.meeting.mappers.meetingRoomMapper";
 
 	@Override
-	public List<MeetingRoomDTO> meetingRoomList() {
+	public List<MeetingRoom> meetingRoomList() {
 		
 		return session.selectList(namespace+".meetingRoomList");
 	}
 
 	@Override
-	public void meetingRoomDelete(String meetingRoomId) {
-		session.delete(namespace+".meetingRoomDelete", meetingRoomId);
+	public int meetingRoomDelete(String meetingRoomId) {
+		return session.delete(namespace+".meetingRoomDelete", meetingRoomId);
 		
 	}
 
