@@ -43,6 +43,19 @@
             document.getElementById('mrNetworkHidden').checked = true;
         }
 
+        
+        $('#imgArea').attr('height', $("#rightCol").height() * 0.7);
+        $('#imgArea').attr("width", $("#leftCol").width() * 0.8);
+        $('#leftCol').css("height", $("#rightCol").height());
+
+        $(window).resize(function() {
+        	$('#imgArea').attr('height', $("#rightCol").height() * 0.7);
+            $('#imgArea').attr("width", $("#leftCol").width() * 0.8);
+            $('#leftCol').css("height", $("#rightCol").height());
+
+        });
+        
+        
         $('#finallyConfirm').click(function() {
             $('#meetingRoomUpdate').submit();
         });
@@ -52,8 +65,8 @@
 
                 reader.onload = function(e) {
                     $('#imgArea').attr('src', e.target.result);
-                    $('#imgArea').attr('height', '235px');
-                    $('#imgArea').attr('width', '235px');
+                    $('#imgArea').attr('height', $("#rightCol").height() * 0.7);
+                    $('#imgArea').attr("width", $("#leftCol").width() * 0.8);
                 }
                 reader.readAsDataURL(this.files[0]);
             }

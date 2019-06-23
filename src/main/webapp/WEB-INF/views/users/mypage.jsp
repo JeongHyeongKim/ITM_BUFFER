@@ -2,6 +2,10 @@
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<script src="/meeting/resources/js/datatables/jquery.dataTables.js"></script>
+<script src="/meeting/resources/js/datatables/dataTables.bootstrap4.js"></script>
+<script src="/meeting/resources/js/plugins/sb-admin-datatables.min.js"></script>
+<script src="/meeting/resources/js/plugins/sweetalert.min.js"></script>
 <script type="text/javascript">
 	$(function(){
 		var today = new Date();
@@ -12,6 +16,9 @@
 		var myCost = JSON.parse('${myCost}');
 		var mySchedule = JSON.parse('${mySchedule}');  
 		document.getElementById ( 'cntSchedule' ).innerHTML=mySchedule.length;
+		
+		
+		
 		function drawMySchedule(mySchedule){
 			$("#meetingInfo").empty(); 
 			var $meetingInfo = $("#meetingInfo");
@@ -28,7 +35,11 @@
 				}			
 			});
 		}
+		
+		
 		$("#deptCost").text(comma(myCost) +"(원)");
+		
+		
 		function drawListPeriod(myInfo){
 			$("#listCondition").empty(); 
 			/* listCondition  */
@@ -51,6 +62,8 @@
 			var $yearList = $("<label id='yearList'></label>").attr("class","btn btn-primary").text("1년").appendTo($divDataToggle);
 			$("<input id='yearList' type='radio' name='listPeriod'  autocomplete='off'>").appendTo($yearList);
 		}
+		
+		
 		function drawPage(myInfo){
 
 			$("#meetingList").empty();
@@ -65,7 +78,7 @@
 			var $divCard = $("<div class='card-body'></div>").appendTo($divCol12);
 			var $divRes = $("<div class='table-responsive'></div>").appendTo($divCard);
 			
-			var $tableTag = $("<table class='table table-bordered' id='dataTable' width='100%' cellspacing='0'></table>").appendTo($divRes);
+			var $tableTag = $("<table class='table table-hover table-bordered' id='dataTable' width='100%' cellspacing='0'></table>").appendTo($divRes);
 			
 			var $headTag = $("<thead></thead>").appendTo($tableTag);
 			var $headTrTag= $("<tr></tr>").appendTo($headTag);
@@ -166,6 +179,8 @@
 				  }
 			})
 		}) 
+		
+		$('#dataTable').DataTable();
 	})
 </script>
 
@@ -217,7 +232,5 @@
 		</div>
 	</div>
 </main>
-<script src="/meeting/resources/js/datatables/jquery.dataTables.js"></script>
-<script src="/meeting/resources/js/datatables/dataTables.bootstrap4.js"></script>
-<script src="/meeting/resources/js/plugins/sb-admin-datatables.min.js"></script>
-<script src="/meeting/resources/js/plugins/sweetalert.min.js"></script>
+
+

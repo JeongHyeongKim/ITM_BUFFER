@@ -10,18 +10,15 @@
         .grid-mt {
             padding: 20px;
             display: grid;
-
         }
-        
+
         .upload-wrapper {
             position: relative;
             overflow: hidden;
             display: inline-block;
-
         }
 
         .upload-btn {
-
             color: white;
             background-color: #009688;
             padding: 8px 20px;
@@ -31,91 +28,84 @@
         }
 
         .upload-wrapper input[type="file"] {
-
             font-size: 100px;
             position: absolute;
             left: 0;
             top: 0;
             opacity: 0;
         }
-        
-        
+
+        .col-md-4 {
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+
+        .col-md-6 {
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
     </style>
 
 
     <script>
-    $(function() {
-
-        var meetingRoom = JSON.parse('${meetingRoom}');
-
-        var mrId = null;
-        var mrName = null;
-        var brId = null;
-        var mrLimit=null;
-        var mrPrice=null;
-        var mrArea=null; 
-        var mrNetwork=null;
-        var mrType=null;
-        var empId=null;
-		var mrLocation=null;
-        var mrImg=null;
-		//잠시 저장하기 위한 임시 버퍼	
-		
-		document.getElementById("imgArea").src=meetingRoom.mrImg;
-		document.getElementById(meetingRoom.brId).selected=true;
-		document.getElementById("mrName").value=meetingRoom.mrName;
-		document.getElementById("mrLimit").value=meetingRoom.mrLimit;
-		document.getElementById("mrPrice").value=meetingRoom.mrPrice;
-		document.getElementById("mrArea").value=meetingRoom.mrArea;
-		document.getElementById("mrLocation").value=meetingRoom.mrLocation;
-		if(meetingRoom.mrNetwork=="net_1") {
-            document.getElementById('mrNetworkHidden').disabled = true;
-            document.getElementById('mrNetwork').checked=true;
-        }else{
-        	document.getElementById('mrNetworkHidden').checked = true;
-        	documet.getElementById('mrNetwork').disalbed=true;
-        }
-		document.getElementById("mrIdHiddenArea").value=meetingRoom.mrId;
-		document.getElementById(meetingRoom.mrType).selected=true;
-		document.getElementById(meetingRoom.empId).selected=true;
-		//페이지 오픈 시 기본 세팅
-		
+        $(function() {
 
 
-/*          $('#modalOpen').click(function() {
-            name = document.getElementById("brName").value;
-            address = document.getElementById("brAddress").value;
-            tel = document.getElementById("brTel").value;
 
-            document.getElementById("modalBranchName").innerHTML = name
-            document.getElementById("modalBranchLocation").innerHTML = address
-            document.getElementById("modalBranchTel").innerHTML = tel
-        }) */
+            var mrId = null;
+            var mrName = null;
+            var brId = null;
+            var mrLimit = null;
+            var mrPrice = null;
+            var mrArea = null;
+            var mrNetwork = null;
+            var mrType = null;
+            var empId = null;
+            var mrLocation = null;
+            var mrImg = null;
+            //잠시 저장하기 위한 임시 버퍼	
 
-        
-        if(document.getElementById('mrNetwork').checked==true) {
+
+
+            $('#imgArea').attr('height', $("#rightCol").height() * 0.7);
+            $('#imgArea').attr("width", $("#leftCol").width() * 0.8);
+            $('#leftCol').css("height", $("#rightCol").height());
+
+            $(window).resize(function() {
+                $('#imgArea').attr('height', $("#rightCol").height() * 0.7);
+                $('#imgArea').attr("width", $("#leftCol").width() * 0.8);
+                $('#leftCol').css("height", $("#rightCol").height());
+
+            });
+
+            //페이지 오픈 시 기본 세팅
+
+
+
+            if (document.getElementById('mrNetwork').checked == true) {
                 document.getElementById('mrNetworkHidden').disabled = true;
-            }else{
-            	document.getElementById('mrNetworkHidden').checked = true;
+            } else {
+                document.getElementById('mrNetworkHidden').checked = true;
             }
-        
-         $('#finallyConfirm').click(function() {
-            $('#meetingRoomUpdate').submit();
-        });  
-         $("#imgUpload").change(function(){
-    		if(this.files && this.files[0]){
-    			var reader = new FileReader();
-    			
-    			reader.onload = function(e){
-    				$('#imgArea').attr('src', e.target.result);
-    				$('#imgArea').attr('height', '235px');
-    				$('#imgArea').attr('width', '235px');
-    			}
-    			reader.readAsDataURL(this.files[0]);
-    		}
-    	}); 
 
-    });
+            $('#finallyConfirm').click(function() {
+                $('#meetingRoomUpdate').submit();
+            });
+            $("#imgUpload").change(function() {
+                if (this.files && this.files[0]) {
+                    var reader = new FileReader();
+
+                    reader.onload = function(e) {
+                        $('#imgArea').attr('src', e.target.result);
+                        $('#imgArea').attr('height', $("#rightCol").height() * 0.7);
+                        $('#imgArea').attr("width", $("#leftCol").width() * 0.8);
+
+                    }
+                    reader.readAsDataURL(this.files[0]);
+                }
+            });
+
+        });
     </script>
 </head>
 
@@ -132,24 +122,29 @@
             </ul>
         </div>
 
-        <form action="/meeting/file/meetingRoomUpdate"  id="meetingRoomUpdate" method="POST" enctype="multipart/form-data">
+        <form action="/meeting/file/meetingRoomUpdate" id="meetingRoomUpdate" method="POST" enctype="multipart/form-data">
             <div class="row">
-                <input type="hidden" name="mrId"  id="mrIdHiddenArea"> <!-- 바로 세팅이 안된다. 따로 해줘야할듯 -->
+                <input type="hidden" name="mrId" id="mrIdHiddenArea"> <!-- 바로 세팅이 안된다. 따로 해줘야할듯 -->
                 <input type="hidden" name="_csrf" value="${_csrf.token}">
                 <div class="col-md-4">
-                    <div class="tile" style="text-align:center">
-                        <img class="user-img" id="imgArea" src="/meeting/resources/img/imgVoid.JPG" height=235px>
-                        <div style="vertical-align:bottom;text-align:right"> 
-	                        <div class="upload-wrapper">
-	                            <button class="upload-btn" id="imgUpload">업로드</button> 
-	                            <input type="file" id="imgUpload" name="mrImg"> 
-	                        </div>
+                    <div class="tile" style="text-align:center" id="leftCol">
+                        <div class="tile-body" style="text-align:center;">
+                            <img class="user-img" id="imgArea" src="/meeting/resources/img/imgVoid.JPG" style="border-radius: 10px; margin-bottom:20px">
+
                         </div>
-<!--                         다이어로그가 안뜨고 submit 되어버리는 오류 -->
+
+                        <div class="tile-footer" style="text-align:right; vertical-align:bottom;">
+                            <div class="upload-wrapper">
+                                <button class="upload-btn" id="imgUpload">업로드</button>
+                                <input type="file" id="imgUpload" name="mrImg">
+                            </div>
+                        </div>
+                        <!--                         다이어로그가 안뜨고 submit 되어버리는 오류 -->
                     </div>
                 </div>
                 <div class="col-md-8">
-                    <div class="tile">
+                    <div class="tile" id="rightCol">
+                        <h3 class="tile-title" style="padding-bottom:10px; border-bottom:1px solid #ddd">회의실 정보를 입력하여 주십시오</h3>
                         <div class="tile-body">
                             <div class="form-horizontal">
                                 <div class="form-group row" style="padding-bottom:10px">
@@ -214,7 +209,7 @@
                             </div>
                         </div>
                         <div class="tile-footer">
-                        <!--  modal start -->
+                            <!--  modal start -->
                             <div class="modal fade" id="confirm" role="dialog">
                                 <div class="modal-dialog">
                                     <!-- Modal content-->
@@ -224,8 +219,8 @@
                                             <button type="button" class="close" data-dismiss="modal">×</button>
                                         </div>
                                         <div class="modal-body">
-                                                    <h5 id="modalBranchName">작성하신 내용이 맞습니까?</h5>
-                                               
+                                            <h5 id="modalBranchName">작성하신 내용이 맞습니까?</h5>
+
                                             <div class="modal-footer" style="margin-top:20px">
                                                 <div class="row mb-10">
                                                     <div class="col-md-12">
@@ -239,7 +234,7 @@
                                 </div>
                             </div>
                             <!-- modal end -->
-                            
+
                             <div class="row">
                                 <div class="col-md-8 col-md-offset-3">
                                     <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#confirm" id="modalOpen"><i class="fa fa-fw fa-lg fa-check-circle"></i>확인</button>&nbsp;&nbsp;&nbsp;

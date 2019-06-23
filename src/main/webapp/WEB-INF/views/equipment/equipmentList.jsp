@@ -132,7 +132,6 @@ function saveEqId(param){
                             </tr>
                         </thead>
                         <tbody>
-                        
                             <c:forEach items='${equipmentList}' var='equipmentList'>
                                 <tr>
                                 	<td>${equipmentList.brName} - ${equipmentList.mrName}</td>
@@ -149,11 +148,7 @@ function saveEqId(param){
                                         <td>V</td>
                                     </c:if>
                                     <td>${fn:split(equipmentList.eqId,'_')[1]}
-
-                                    		<a class="deleteAlert" id="demoSwal" onclick="saveEqId('${equipmentList.eqId}')" style="cursor:pointer">
-		                       X
-		                    </a>
-                                    
+                                    		<a class="deleteAlert" id="demoSwal" onclick="saveEqId('${equipmentList.eqId}')" style="cursor:pointer">X</a>
                                     </td>
                                 </tr>
                             </c:forEach>

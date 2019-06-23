@@ -1,102 +1,101 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script type="text/javascript">
-        $(function() {
+    $(function() {
 
-            var branch = JSON.parse('${branch}');
-            //var meetingRoomList = JSON.parse('${meetingRoomList}');
-            //console.log(branch);
-            //console.log(${branch});
+        var branch = JSON.parse('${branch}');
 
-            var brId = null;
-            var name = null;
-            var address = null;
-            var tel = null;   
-            var img = null;
-            var imgChanged=false;
-            console.log(branch.brImg);	
 
-            /* document.getElementById("imgArea").src = branch.brImg; */
-            document.getElementById("brName").value = branch.brName;
-            document.getElementById("brAddress").value = branch.brLocation;
-            document.getElementById("brTel").value = branch.brTel;
-            document.getElementById("imgArea").src= branch.brImg; 
-            document.getElementById("brId").value = branch.brId;
-            
-            $('#imgArea').css("height", $("#rightCol").height() * 0.6);
+        var brId = null;
+        var name = null;
+        var address = null;
+        var tel = null;
+        var img = null;
+        var imgChanged = false;
+        console.log(branch.brImg);
+
+
+        document.getElementById("brName").value = branch.brName;
+        document.getElementById("brAddress").value = branch.brLocation;
+        document.getElementById("brTel").value = branch.brTel;
+        document.getElementById("imgArea").src = branch.brImg;
+        document.getElementById("brId").value = branch.brId;
+
+        
+        $('#imgArea').attr('height', $("#rightCol").height() * 0.6);
+        $('#imgArea').attr("width", $("#leftCol").width() * 0.8);
+        $('#leftCol').css("height", $("#rightCol").height() * 0.9);
+
+        $(window).resize(function() {
+        	$('#imgArea').attr('height', $("#rightCol").height() * 0.6);
+            $('#imgArea').attr("width", $("#leftCol").width() * 0.8);
             $('#leftCol').css("height", $("#rightCol").height() * 0.9);
 
-            $(window).resize(function() {
-
-                $('#imgArea').css("height", $("#rightCol").height() * 0.6);
-                $('#leftCol').css("height", $("#rightCol").height() * 0.9);
-
-            });
-
-
-            $('#modalOpen').click(function() {
-                name = document.getElementById("brName").value;
-                address = document.getElementById("brAddress").value;
-                tel = document.getElementById("brTel").value;
-
-                document.getElementById("modalBranchName").innerHTML = name
-                document.getElementById("modalBranchLocation").innerHTML = address
-                document.getElementById("modalBranchTel").innerHTML = tel
-            })
-
-            $('#finallyConfirm').click(function() {
-                $('#branchDataUpdate').submit();
-            });
-             $("#imgUpload").change(function(){
-        		if(this.files && this.files[0]){
-        			var reader = new FileReader();
-        			
-        			reader.onload = function(e){
-        				$('#imgArea').attr('src', e.target.result);
-        				$('#imgArea').attr('height', '235px');
-        				$('#imgArea').attr('width', '235px');
-        			}
-        			reader.readAsDataURL(this.files[0]);
-        		}
-        	}); 
-
         });
-        //파일이 바뀌지 않을 경우는 기존에 있던 것을 그대로 써야하고, 바뀌면 바뀐 것으로 돌아가야 한다. 이를 참고하여 코드를 짜보자.
-        
-        //1. 파일이 안바뀔 경우 -> fileuploader안거치고 올라갈 때 전부 스트링 값으로 전달한다. -> 
-        //2. 파일이 바뀔 경우 -> fileuploader거치고 올라갈 때 
-        //파일 안바뀌면 fileuploader를 안거치고 그대로 db에 들어가고, 바뀌면 거친다.
-        //현재 input tag가 있는데 클릭해도 file input dialog가 안뜬다. 이유가 뭘까?
-    </script>
-    
-    <style>
-    	
-    	 .upload-wrapper {
-            position: relative;
-            overflow: hidden;
-            display: inline-block;
 
-        }
 
-        .upload-btn {
+        $('#modalOpen').click(function() {
+            name = document.getElementById("brName").value;
+            address = document.getElementById("brAddress").value;
+            tel = document.getElementById("brTel").value;
 
-            color: white;
-            background-color: #009688;
-            padding: 8px 20px;
-            border-radius: 8px;
-            font-size: 15px;
-            font-weight: bold;
-        }
+            document.getElementById("modalBranchName").innerHTML = name
+            document.getElementById("modalBranchLocation").innerHTML = address
+            document.getElementById("modalBranchTel").innerHTML = tel
+        })
 
-        .upload-wrapper input[type="file"] {
- 
-            font-size: 100px;
-            position: absolute;
-            left: 0;
-            top: 0;
-            opacity: 0;
-        }
-    </style>
+        $('#finallyConfirm').click(function() {
+            $('#branchDataUpdate').submit();
+        });
+        $("#imgUpload").change(function() {
+            if (this.files && this.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function(e) {
+                    $('#imgArea').attr('src', e.target.result);
+                    $('#imgArea').attr('height', $("#rightCol").height() * 0.6);
+                    $('#imgArea').attr("width", $("#leftCol").width() * 0.8);
+                }
+                reader.readAsDataURL(this.files[0]);
+            }
+        });
+
+    });
+</script>
+
+<style>
+    .form-group {
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+
+
+    .upload-wrapper {
+        position: relative;
+        overflow: hidden;
+        display: inline-block;
+
+    }
+
+    .upload-btn {
+
+        color: white;
+        background-color: #009688;
+        padding: 8px 20px;
+        border-radius: 8px;
+        font-size: 15px;
+        font-weight: bold;
+    }
+
+    .upload-wrapper input[type="file"] {
+
+        font-size: 100px;
+        position: absolute;
+        left: 0;
+        top: 0;
+        opacity: 0;
+    }
+</style>
 </head>
 
 <body>
@@ -135,10 +134,10 @@
                         </div>
 
                         <div class="tile-footer" style="text-align:right; vertical-align:bottom;">
-                               <div class="upload-wrapper">	
-	                            <button class="upload-btn" id="imgUpload">업로드</button> 
-	                            <input type="file" id="imgUpload" name="brImg"> 
-	                        </div>
+                            <div class="upload-wrapper">
+                                <button class="upload-btn" id="imgUpload">업로드</button>
+                                <input type="file" id="imgUpload" name="mrImg">
+                            </div>
                         </div>
                     </div>
 
@@ -148,15 +147,21 @@
                         <h3 class="tile-title" style="padding-bottom:10px; border-bottom:1px solid #ddd">지사 정보를 입력하여 주십시오</h3>
                         <div class="tile-body">
                             <div class="form-group">
-                                <label class="control-label"><h5>지사 이름</h5></label>
+                                <label class="control-label">
+                                    <h5>지사 이름</h5>
+                                </label>
                                 <input class="form-control" type="text" placeholder="지사를 입력해주세요" id="brName" name="brName">
                             </div>
                             <div class="form-group">
-                                <label class="control-label"><h5>지사 주소</h5></label>
+                                <label class="control-label">
+                                    <h5>지사 주소</h5>
+                                </label>
                                 <input class="form-control" type="text" placeholder="주소를 입력해주세요" id="brAddress" name="brLocation">
                             </div>
                             <div class="form-group">
-                                <label class="control-label"><h5>대표 번호</h5></label>
+                                <label class="control-label">
+                                    <h5>대표 번호</h5>
+                                </label>
                                 <input class="form-control" placeholder="대표번호를 입력해주세요" id="brTel" name="brTel"></input>
                             </div>
 
@@ -206,7 +211,7 @@
                         <div class="tile-footer">
                             <div style="text-align:right">
                                 <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#confirm" id="modalOpen"><i class="fa fa-fw fa-lg fa-check-circle"></i>확인</button>
-                                <a class="btn btn-secondary" href="/m	eeting/branch/list"><i class="fa fa-fw fa-lg fa-times-circle"></i>취소</a>
+                                <a class="btn btn-secondary" href="/meeting/branch/list"><i class="fa fa-fw fa-lg fa-times-circle"></i>취소</a>
                             </div>
                         </div>
                     </div>
