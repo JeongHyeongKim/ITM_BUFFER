@@ -76,6 +76,11 @@ $(function(){
 	}
 	
 	drawPage(myInfo);
+	//금액에 콤마
+	function comma(str) {
+        str = String(str);
+        return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+    }
 	$('#approval').on("click",function(e){
 		
 	    console.log("deptId: "+deptId); 
@@ -92,7 +97,7 @@ $(function(){
       	}, function(isConfirm) {
       		if (isConfirm) {
       		  resId =  $("#approval").attr("value");
-      		   var str="[회의실 예약 승인 알림]\n"+resDate+"에 "+empName+"님이 예약 신청하신 회의실 예약이 1차 승인되었습니다.\n 사용 일정)\n"+resStartDate+" ~ "+resEndDate+"\n 비용)\n"+resCost+"(원)";
+      		   var str="[회의실 예약 승인 알림]\n"+resDate+"에 "+empName+"님이 예약 신청하신 회의실 예약이 1차 승인되었습니다.\n 사용 일정)\n"+resStartDate+" ~ "+resEndDate+"\n 비용)\n"+comma(resCost)+"(원)";
       			$.ajax({
 					  url : "/meeting/recognition/approvalByHead/"+resId,
 					  type : "post",

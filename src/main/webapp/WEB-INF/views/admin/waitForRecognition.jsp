@@ -159,7 +159,7 @@
 		 	      		title: "상세 예약 정보 확인",
 		 	      		text: "\n [회의목적] "+myInfo[i].resPurpose+
 		 	      		      "\n [회의구분] "+myInfo[i].resType+
-		 	      		      "\n [사용비용] "+myInfo[i].resCost+"원"+
+		 	      		      "\n [사용비용] "+comma(myInfo[i].resCost)+"원"+
 		 	      			  "\n [참석인원수] "+myInfo[i].resAttendCnt + "명"+
 		 	      			  "\n [기자재]\n  노트북 " + note +"개/마이크 " + mic +"개/화이트보드 " + white +"개/빔프로젝터 " + beam+"개"+
 		 	      			  "\n [추가요청사항]\n"+resAddRequest		
@@ -211,7 +211,7 @@
 	      	}, function(isConfirm) {
 	      		if (isConfirm) {
 	      		  resId =  $("#approval").attr("value");
-	      		   var str="[회의실 예약 승인 알림]\n"+resDate+"에 "+empName+"님이 예약 신청하신 회의실 예약이 승인되었습니다.\n 사용 일정)\n"+resStartDate+" ~ "+resEndDate+"\n 비용)\n"+resCost+"(원)";
+	      		   var str="[회의실 예약 승인 알림]\n"+resDate+"에 "+empName+"님이 예약 신청하신 회의실 예약이 승인되었습니다.\n 사용 일정)\n"+resStartDate+" ~ "+resEndDate+"\n 비용)\n"+comma(resCost)+"(원)";
 	      			$.ajax({
 						  url : "/meeting/recognition/approval/"+resId,
 						  type : "post",
@@ -271,7 +271,11 @@
 			console.log(brId);
 			btnClassClick();
 		})
-		
+		//금액에 콤마
+		function comma(str) {
+	        str = String(str);
+	        return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+	    }
 		
         var btnClassClick = function(e){
 		

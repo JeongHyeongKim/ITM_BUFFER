@@ -67,7 +67,7 @@ $(function(){
 			var $bodyTrTag= $("<tr></tr>").appendTo($bodyTag);
 			$("<td></td>").text($list.deptId).appendTo($bodyTrTag);
 			$("<td></td>").text($list.deptName).appendTo($bodyTrTag);
-			$("<td></td>").text($list.deptCost).appendTo($bodyTrTag);
+			$("<td></td>").text(comma($list.deptCost)+"원").appendTo($bodyTrTag); 
 			$("<td></td>").text($list.brName).appendTo($bodyTrTag);
 			
 		});
