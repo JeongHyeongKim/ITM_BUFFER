@@ -10,12 +10,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.gsitm.meeting.users.dto.EmployeeDTO;
 import com.gsitm.meeting.users.service.EmployeeService;
 import com.gsitm.meeting.vo.Employee;
 
 @Controller
+@RequestMapping(produces="text/plain; charset=UTF-8")
 public class UserController {
 	
 	@Autowired
