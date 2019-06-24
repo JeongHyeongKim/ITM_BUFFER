@@ -2,6 +2,8 @@ package com.gsitm.meeting.reservation.dto;
 
 import java.util.Date;
 
+import lombok.Data;
+
 public class RecognitionDTO {
 	
 	private String recId;
@@ -51,6 +53,12 @@ public class RecognitionDTO {
 		this.recRefuse = recRefuse;
 	}
 	
-	
-
+	@Data
+	public static class EmpAuthority{
+		
+		private String empId;
+		private String empName;
+		private String deptName;
+		private String authority;
+	}
 }

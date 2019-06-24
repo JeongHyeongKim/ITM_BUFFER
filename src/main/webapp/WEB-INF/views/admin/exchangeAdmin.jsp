@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
      <link rel="stylesheet" href="/meeting/resources/css/duallistbox/bootstrap-duallistbox.min.css">
 <main class="app-content">
 	<div class="app-title">
@@ -32,21 +33,22 @@
                                     <div class="row">
                                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                             <div class="dual-list-box-inner">
-                                                <form id="form" action="#" class="wizard-big">
-                                                    <select class="form-control dual_select" multiple>
-															<option value="United States">United States</option>
-															<option value="United Kingdom">United Kingdom</option>
-															<option value="Australia">Australia</option>
-															<option selected value="Austria">Austria</option>
-															<option selected value="Bahamas">Bahamas</option>
-															<option value="Barbados">Barbados</option>
-															<option value="Belgium">Belgium</option>
-															<option value="Bermuda">Bermuda</option>
-															<option value="Brazil">Brazil</option>
-															<option value="Bulgaria">Bulgaria</option>
-															<option value="Cameroon">Cameroon</option>
-															<option value="Canada">Canada</option>
-														</select>
+                                                <form id="form" action="/meeting/recognition/changeAuth" method="post" class="wizard-big">
+                                                    <select class="form-control dual_select" id="empList" name="empList" multiple >
+														<c:forEach var="list" items="${empAuthority}">
+															<c:choose>
+																<c:when test="${list.authority eq 'ROLE_ADMIN'}">
+																<option value=${list.empId } selected>${list.empName} - ${list.deptName}</option>
+																</c:when>
+																<c:otherwise>
+																<option value=${list.empId } >${list.empName} - ${list.deptName}</option>	
+																</c:otherwise>
+															</c:choose>
+														</c:forEach>
+													</select>
+													<input type="hidden" name="_csrf" value="${_csrf.token }">
+													<br>
+													<button class="btn btn-primary">수정</button>
                                                 </form>
                                             </div>
                                         </div>
@@ -55,9 +57,6 @@
                             </div>
                         </div>
                         <div class="tile-footer" >
-			            	<div>
-			              		<button class="btn btn-primary" type="submit"><i class="fa fa-fw fa-lg fa-check-circle"></i>확인</button>&nbsp;&nbsp;&nbsp;<a class="btn btn-secondary" href="#"><i class="fa fa-fw fa-lg fa-times-circle"></i>취소</a>
-			            	</div>
 			            </div>
                  </div>
             </div>
@@ -65,3 +64,8 @@
 </main>
 <script src="/meeting/resources/js/duallistbox/jquery.bootstrap-duallistbox.js"></script>
 <script src="/meeting/resources/js/duallistbox/duallistbox.active.js"></script>
+<script>
+	$(function(){
+		
+	})
+</script>

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.gsitm.meeting.branch.dto.DepartmentDTO;
+import com.gsitm.meeting.reservation.dto.RecognitionDTO.EmpAuthority;
 import com.gsitm.meeting.users.dto.EmployeeDTO;
 import com.gsitm.meeting.vo.Branch;
 import com.gsitm.meeting.vo.EquipmentReservation;
@@ -106,6 +107,16 @@ public class RecognitionDaoImpl implements RecognitionDao{
 	@Override
 	public List<EquipmentReservation> allEquipList() {
 		return session.selectList(namespace +".allEquipList");
+	}
+
+	@Override
+	public List<EmpAuthority> empAuthority() {
+		return session.selectList(namespace +".empAuthority");
+	}
+
+	@Override
+	public void updateAuthority(String empId) {
+		session.update(namespace + ".updateAuthority", empId);
 	}
 
 }

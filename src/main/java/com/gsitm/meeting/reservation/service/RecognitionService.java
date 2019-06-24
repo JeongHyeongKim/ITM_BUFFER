@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import com.google.gson.Gson;
 import com.gsitm.meeting.reservation.dao.RecognitionDaoImpl;
+import com.gsitm.meeting.reservation.dto.RecognitionDTO.EmpAuthority;
 import com.gsitm.meeting.vo.Equipment;
 import com.gsitm.meeting.vo.EquipmentReservation;
 
@@ -192,5 +193,17 @@ public class RecognitionService {
 			
 		}
 		return gson.toJson(countEquip);
+	}
+	
+	public List<EmpAuthority> empAuthority() {
+		return recDao.empAuthority();
+	}
+	
+	public void updateAuthority(String empList) {
+		String[] targetEmp = empList.split(",");
+		for(int i=0; i<targetEmp.length; i++) {
+			System.out.println(targetEmp[i]);
+			recDao.updateAuthority(targetEmp[i]);
+		}
 	}
 }

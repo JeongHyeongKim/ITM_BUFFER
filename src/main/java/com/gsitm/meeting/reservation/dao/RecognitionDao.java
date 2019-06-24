@@ -3,6 +3,7 @@ package com.gsitm.meeting.reservation.dao;
 import java.util.List;
 
 import com.gsitm.meeting.branch.dto.DepartmentDTO;
+import com.gsitm.meeting.reservation.dto.RecognitionDTO.EmpAuthority;
 import com.gsitm.meeting.users.dto.EmployeeDTO;
 import com.gsitm.meeting.vo.Branch;
 import com.gsitm.meeting.vo.Department;
@@ -27,4 +28,6 @@ public interface RecognitionDao {
 	public int backByHead(String resId);
 	
 	public List<EquipmentReservation> allEquipList();
+	public List<EmpAuthority> empAuthority();
+	public void updateAuthority(String empId);
 }

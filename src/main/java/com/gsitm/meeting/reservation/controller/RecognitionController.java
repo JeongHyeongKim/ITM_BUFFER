@@ -46,7 +46,14 @@ public class RecognitionController {
 	}
 	@GetMapping("/exchangeAdmin")
 	public String exchangeAdmin(Model model){
+		model.addAttribute("empAuthority",recService.empAuthority());
 		return "admin/exchangeAdmin";
+	}
+	
+	@PostMapping("/changeAuth")
+	public String changeAuth(String empList) {
+		recService.updateAuthority(empList);
+		return "redirect:/reservation/list/br_0001";
 	}
 	@PostMapping("/approval/{resId}")
 	public ResponseEntity<Void> approval(@PathVariable String resId,@RequestParam String str,@RequestParam String email,@RequestParam String deptId,@RequestParam String resCost,@RequestParam String headEmail) {
