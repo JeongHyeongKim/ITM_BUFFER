@@ -48,6 +48,7 @@
 
 
     <script>
+        var imgChanged = false;
         $(function() {
             $('#imgArea').attr('height', $("#rightCol").height() * 0.7);
             $('#imgArea').attr("width", $("#leftCol").width() * 0.8);
@@ -60,19 +61,21 @@
             });
 
             //페이지 오픈 시 기본 세팅
-           
-            $('#mrNetwork').change(function(){
-            	if(document.getElementById('mrNetwork').checked == true){
-            		document.getElementById('mrNetworkHidden').value="net_1";
-            	}else if(document.getElementById('mrNetwork').checked==false){
-            		document.getElementById('mrNetworkHidden').value="net_0";
-            	}
+
+            $('#mrNetwork').change(function() {
+                if (document.getElementById('mrNetwork').checked == true) {
+                    document.getElementById('mrNetworkHidden').value = "net_1";
+                } else if (document.getElementById('mrNetwork').checked == false) {
+                    document.getElementById('mrNetworkHidden').value = "net_0";
+                }
             });
 
             $('#finallyConfirm').click(function() {
+                $('#imgUpload')
                 $('#meetingRoomInsert').submit();
             });
             $("#imgUpload").change(function() {
+                imgChanged = true;
                 if (this.files && this.files[0]) {
                     var reader = new FileReader();
 
@@ -84,23 +87,55 @@
                     reader.readAsDataURL(this.files[0]);
                 }
             });
-            $('#modalOpen').click(function(){       
-            	$("#modalBranchName").text($("#branchNameSelectBox").children(":selected").attr("id"));
-            	$("#modalMeetingRoomType").text($("#meetingRoomTypeSelectBox").children(":selected").attr("id"));
-            	$("#modalMeetingRoomName").text($("#mrName").val());
-            	$("#modalMeetingRoomLocation").text($("#mrLocation").val());
-            	$("#modalMeetingRoomPrice").text($("#mrPrice").val());
-            	$("#modalMeetingRoomLimit").text($("#mrLimit").val());
-            	$("#modalMeetingRoomArea").text($("#mrArea").val());
-            	$("#modalMeetingRoomAdmin").text($("#empNameSelectBox").children(":selected").attr("id"));
-            	
-            	if(document.getElementById('mrNetwork').checked==true){
-            		$("#modalMeetingRoomNetwork").text("지원 가능");
-            	}else{
-            		$("#modalMeetingRoomNetwork").text("지원 불가");
-            	}
-            });
+            $('#modalOpen').click(function() {
+				var missingList="";
+				if($("#branchNameSelectBox").children(":selected").attr("id") == null)
+					missingList=missingList+"소속 지사, ";
+				if($("#meetingRoomTypeSelectBox").children(":selected").attr("id") == null)
+					missingList=missingList+"회의실 유형, ";
+				if($("#mrName").val() == "")
+					missingList=missingList+"회의실 이름, ";
+				if($("#mrLocation").val() == "")
+					missingList=missingList+"회의실 위치, ";
+				if($("#mrPrice").val() == "")
+					missingList=missingList+"30분당 사용요금, ";
+				if($("#mrLimit").val() == "")
+					missingList=missingList+"수용인원, ";
+				if($("#mrArea").val() == "")
+					missingList=missingList+"회의실 면적, ";
+				if($("#empNameSelectBox").children(":selected").attr("id") == null)
+					missingList=missingList+"회의실 관리자, ";
+				if(imgChanged==false)
+					missingList=missingList+"회의실 사진, ";
+				console.log(missingList.index);
+                if (missingList!=null) {
+                	missingList = missingList.substr(0, missingList.length -2); 
+                    swal({
+                        title: "오류",
+                        text: missingList+"을(를) 입력해주세요.",
+                        type: "warning",
+                        confirmButtonText: "OK",
+                        closeOnConfirm: true,
+                    });
+                } else {
 
+                    $("#confirm").modal('show');
+                    $("#modalBranchName").text($("#branchNameSelectBox").children(":selected").attr("id"));
+                    $("#modalMeetingRoomType").text($("#meetingRoomTypeSelectBox").children(":selected").attr("id"));
+                    $("#modalMeetingRoomName").text($("#mrName").val());
+                    $("#modalMeetingRoomLocation").text($("#mrLocation").val());
+                    $("#modalMeetingRoomPrice").text($("#mrPrice").val());
+                    $("#modalMeetingRoomLimit").text($("#mrLimit").val());
+                    $("#modalMeetingRoomArea").text($("#mrArea").val());
+                    $("#modalMeetingRoomAdmin").text($("#empNameSelectBox").children(":selected").attr("id"));
+
+                    if (document.getElementById('mrNetwork').checked == true) {
+                        $("#modalMeetingRoomNetwork").text("지원 가능");
+                    } else {
+                        $("#modalMeetingRoomNetwork").text("지원 불가");
+                    }
+                }
+            });
         });
     </script>
 </head>
@@ -193,7 +228,7 @@
                                     <div class="col-md-4">
                                         <div class="animated-checkbox">
                                             <label>
-                                                <input  type="checkbox" value="net_1" id="mrNetwork"><span class="label-text">네트워크 지원</span>
+                                                <input type="checkbox" value="net_1" id="mrNetwork"><span class="label-text">네트워크 지원</span>
                                                 <input type="hidden" name="mrNetwork" value="net_0" id="mrNetworkHidden" style="display:none;" />
                                                 <!-- 여기서 엠알 타입 둘다 들어가는 현상이 있는데 이를 해결하는 jsp가 필요하다. -->
                                             </label>
@@ -223,7 +258,7 @@
                                                     <label>소속 지사</label>
                                                     <h5 id="modalBranchName"></h5>
                                                 </div>
-                                                
+
                                                 <div class="col-md-4">
                                                     <label>회의실 유형</label>
                                                     <h5 id="modalMeetingRoomType"></h5>
@@ -288,7 +323,7 @@
 
                             <div class="row">
                                 <div class="col-md-8 col-md-offset-3">
-                                    <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#confirm" id="modalOpen"><i class="fa fa-fw fa-lg fa-check-circle"></i>확인</button>&nbsp;&nbsp;&nbsp;
+                                    <button class="btn btn-primary" type="button" id="modalOpen"><i class="fa fa-fw fa-lg fa-check-circle"></i>확인</button>&nbsp;&nbsp;&nbsp;
                                     <a class="btn btn-secondary" href="/meeting/branch/list"><i class="fa fa-fw fa-lg fa-times-circle"></i>취소</a>
                                 </div>
                             </div>
@@ -299,5 +334,7 @@
         </form>
     </main>
 </body>
+<script type="text/javascript" src="/meeting/resources/js/plugins/bootstrap-notify.min.js"></script>
+<script type="text/javascript" src="/meeting/resources/js/plugins/sweetalert.min.js"></script>
 
 </html>
