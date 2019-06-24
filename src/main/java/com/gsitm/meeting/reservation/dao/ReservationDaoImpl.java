@@ -114,4 +114,9 @@ public class ReservationDaoImpl implements ReservationDao {
 		return session.selectList(namespace + ".getPastReservation", empId);
 	}
 
+	@Override
+	public List<Equipment> getResEquip(String mrId) {
+		return session.selectList(namespace + ".getResEquip", mrId);
+	}
+
 }

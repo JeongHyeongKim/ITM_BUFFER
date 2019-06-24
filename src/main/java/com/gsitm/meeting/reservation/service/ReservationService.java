@@ -1,5 +1,6 @@
 package com.gsitm.meeting.reservation.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,7 +28,8 @@ public class ReservationService {
 	@Autowired
 	private Gson gson;
 	
-	public void insertReservation(Reservation res, String times) {
+	public void insertReservation(Reservation res, String times, String equipElement) {
+		
 		String storedId = resDao.resMostRecent();
 		String nextId = calcId(storedId);
 		res.setResId(nextId);
@@ -36,9 +38,70 @@ public class ReservationService {
 		String changeEndTime = calcDate(res.getResEndDate());
 		res.setResEndDate(changeEndTime+" "+times.split(",")[1]);
 		System.out.println("service : "+res);
+		
+		List<Equipment> storedEquip = resDao.getResEquip(res.getMrId());
+		ArrayList<String> mrEquip = new ArrayList<>();
+		for(int i=0; i<storedEquip.size(); i++) {
+			mrEquip.add(storedEquip.get(i).getEqId());
+		}
+		System.out.println(equipElement);
+		String[] equipList = equipElement.split(",");
+		System.out.println(equipList);
+		ArrayList<String> resultEquip = new ArrayList<>();
+		System.out.println(equipList[2].split(" ")[0]);
+		System.out.println(equipList[2].split(" ")[1].substring(1, 2));
+		for(int i=0; i<equipList.length; i++) {
+			if(equipList[i].split(" ")[0].equals("빔프로젝터")) {
+				for(int j=0; j<Integer.parseInt(equipList[i].split(" ")[1].substring(1, 2)); j++) {
+					for(int k=0; k<mrEquip.size(); k++) {
+						if(mrEquip.get(k).substring(0, 1).equals("V")) {
+							resultEquip.add(mrEquip.get(k));
+						}
+					}
+				}
+			}
+			if(equipList[i].split(" ")[0].equals("화이트보드")) {
+				for(int j=0; j<Integer.parseInt(equipList[i].split(" ")[1].substring(1, 2)); j++) {
+					for(int k=0; k<mrEquip.size(); k++) {
+						if(mrEquip.get(k).substring(0, 1).equals("W")) {
+							resultEquip.add(mrEquip.get(k));
+						}
+					}
+				}
+			}
+			if(equipList[i].split(" ")[0].equals("마이크")) {
+				for(int j=0; j<Integer.parseInt(equipList[i].split(" ")[1].substring(1, 2)); j++) {
+					for(int k=0; k<mrEquip.size(); k++) {
+						if(mrEquip.get(k).substring(0, 1).equals("M")) {
+							resultEquip.add(mrEquip.get(k));
+						}
+					}
+				}
+			}
+			if(equipList[i].split(" ")[0].equals("노트북")) {
+				int count =0;
+				for(int j=0; j<Integer.parseInt(equipList[i].split(" ")[1].substring(1, 2)); j++) {
+					for(int k=0; k<mrEquip.size(); k++) {
+						
+						if(mrEquip.get(k).substring(0, 1).equals("N")) {
+							break;
+						}
+						count++;
+					}
+				}
+				for(int j=0; j<Integer.parseInt(equipList[i].split(" ")[1].substring(1, 2)); j++) {
+					resultEquip.add(mrEquip.get(count+j));
+				}
+			}
+		}
+		
+		System.out.println(resultEquip);
 	}
 	
 	public String calcDate(String currentDate) {
+		if(currentDate.length()==10) {
+			return currentDate;
+		}
 		String[] splitDate = currentDate.split("-");
 		String year = splitDate[0].substring(1,5);
 		String month = splitDate[1];

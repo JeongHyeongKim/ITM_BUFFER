@@ -38,9 +38,7 @@
                 <div class="tile-body" style="width:100%;">
                     <form class="row" id="resForm">
                     	<input type="hidden" name="_csrf" value="${_csrf.token}">
-                        
                         <input type="hidden" id="mrId" name="mrId" value="${mrId}">
-                        
                         <div class="form-group col-md-3">
                             <label class="control-label">신청자 명</label>
                             <input class="form-control" id="resName" type="text" readonly>
@@ -93,7 +91,7 @@
                         </div>
                          <div class="form-group col-md-6">
                             <label class="control-label">기자재 <a data-target="#equipList" data-toggle="modal">추가</a></label>
-                            <input class="form-control" type="text" id="equipElement">
+                            <input class="form-control" type="text" id="equipElement" name="equipElement">
                         </div>
                          
                         </div>
@@ -215,7 +213,7 @@
 		}
     	////////////////////////////////////////////////////////////  pastReservation List
     	var pastRes = JSON.parse('${pastReservation}');
-    	console.log(pastRes)
+    	
     	for(var i=0; i<pastRes.length; i++){
     		$("<p></p>").text(i+ ") 회의목적 : " + pastRes[i].resPurpose+", 정보추가 ...").appendTo($("#pastRes"));
     	}
@@ -275,15 +273,17 @@
     	/////////////////////////기자재 modal // id : equip-modal-body
     	
         var equipList = JSON.parse('${equipList}') ;
-    
-    	$("#equipElement").val("빔프로젝터 ("+equipList['V']+"), 화이트보드 ("+equipList['W']+"), 마이크 ("+equipList['M']+"), 노트북 ("+equipList['N']+")")
+    	console.log(equipList);
+    	$("#equipElement").val("빔프로젝터 ("+equipList['V']+"),화이트보드 ("+equipList['W']+"),마이크 ("+equipList['M']+"),노트북 ("+equipList['N']+")")
+		var test = "빔프로젝터 (1),화이트보드 (1),마이크 (1),노트북 (3)";
+    	console.log(test.split(","))
     	
     	for(var i=0; i<Object.keys(equipList).length; i++){
     		var $inputDiv = $("<div></div>").attr("class","input-group");
     		
     		if(Object.keys(equipList)[i] == 'N'){
     			var $minusBtn = $("<div class='input-group-prepend'><button class='btn btn-secondary' type='button' id='NMinusBtn'>-</button></div>").appendTo($inputDiv);
-    			$("<input class='form-control' id='N' type='text' value='노트북 대여 수량 : " + equipList['N'] + "'readonly>").appendTo($inputDiv);
+    			$("<input class='form-control' id='N' name='N' type='text' value='노트북 대여 수량 : " + equipList['N'] + "'readonly>").appendTo($inputDiv);
     			var $plusBtn = $("<div class='input-group-append'><button class='btn btn-secondary' type='button' id='NPlusBtn'>+</button></div>").appendTo($inputDiv);
     		} else if(Object.keys(equipList)[i] == 'V'){
     			var $minusBtn = $("<div class='input-group-prepend'><button class='btn btn-secondary' type='button' id='VMinusBtn'>-</button></div>").appendTo($inputDiv);
@@ -303,21 +303,21 @@
     	} 
     	
     	$(document).on("click","#NMinusBtn",function(){
-    		console.log(( ($("#N").val().split(":")[1]))) 
+    		
     		if(($("#N").val().split(":")[1]) == 0){
     		} else{
     			$("#N").val('노트북 대여 수량 : '+ ( ($("#N").val().split(":")[1]) -1))	
     		}
     	})
     	$(document).on("click","#NPlusBtn",function(){ 
-    		console.log(( ($("#N").val().split(":")[1]))) 
+    		
     		if(($("#N").val().split(":")[1]) == Number(equipList['N'])){
     		} else{
     			$("#N").val('노트북 대여 수량 : '+ ( Number(($("#N").val().split(":")[1])) +1))	
     		}
     	})
     	$(document).on("click","#VMinusBtn",function(){
-    		console.log(( ($("#V").val().split(":")[1]))) 
+    		 
     		if(($("#V").val().split(":")[1]) == 0){
     		} else{
     			$("#V").val('빔프로젝터 대여 수량 : '+ ( ($("#V").val().split(":")[1]) -1))	
@@ -359,7 +359,7 @@
     		}
     	})
     	$("#equipSubmit").on("click",function(){
-    		$("#equipElement").val("빔프로젝터 ("+Number(($("#V").val().split(":")[1]))+"), 화이트보드 ("+Number(($("#W").val().split(":")[1]))+"), 마이크 ("+Number(($("#M").val().split(":")[1]))+"), 노트북 ("+Number(($("#N").val().split(":")[1]))+")")
+    		$("#equipElement").val("빔프로젝터 ("+Number(($("#V").val().split(":")[1]))+"),화이트보드 ("+Number(($("#W").val().split(":")[1]))+"),마이크 ("+Number(($("#M").val().split(":")[1]))+"),노트북 ("+Number(($("#N").val().split(":")[1]))+")")
     	})
     	//////////////////////////////////////////////////////////////////////////////////////////
         var resStartDate = sessionStorage.getItem("currentDate");
@@ -393,7 +393,7 @@
     		}
     		$("#times").remove();
     		$("<input>").attr("type","hidden").attr("name","times").attr("id","times").attr("value",selectTimes).appendTo($("#resForm"));
-    		console.log(selectTimes)
+    		
         })
        
         ////////////////////////////////////////////////////////////////////////////////// 
@@ -437,7 +437,7 @@
              		newTimes[i] = newTimes[i]+"0"
              	}
              }
-             console.log(newTimes)
+             
              // 시간뿌리기
              for(var i=0; i<18; i++){
              	
@@ -463,7 +463,7 @@
              	}
      			changeTime = splitHourTime+ ":"+splitMinTime;
               }
-             console.log("for문끝")  
+               
         }
         //변경
        //$("<div style='width:100%;height:100%'></div>").html("<p>9&emsp;&emsp;10&emsp;&emsp;11&emsp;&emsp;12&emsp;&emsp;13&emsp;&emsp;14&emsp;&emsp;15&emsp;&emsp;16&emsp;&emsp;17&emsp;&emsp;18</p>").appendTo($(".bs-component"))
@@ -513,17 +513,17 @@
         
         
         //////////////////////////////////////////////////////////////////////////////
-  
+  		$("<input>").attr("type","hidden").attr("name","resStartDate").attr("value",sessionStorage.getItem("currentDate")).appendTo($("#resForm"));
         $('#resStartDate').datetimepicker({
         	onSelectDate: function(data) {
         		$("<input>").attr("type","hidden").attr("name","resStartDate").attr("value",JSON.stringify(data)).appendTo($("#resForm"));
-        		timeAJAX(data)
+        		timeAJAX(data);
         	}
         });
         $('#resEndDate').datetimepicker({
 			onSelectDate: function(data) {
 				$("<input>").attr("type","hidden").attr("name","resEndDate").attr("value",JSON.stringify(data)).appendTo($("#resForm"));
-        		timeAJAX(data)
+        		timeAJAX(data);
         	}
     	});
         

@@ -29,4 +29,5 @@ public interface ReservationDao {
 	public String resMostRecent();
 	
 	public List<Reservation> getPastReservation(String empId);
+	public List<Equipment> getResEquip(String mrId);
 }

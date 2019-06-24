@@ -78,7 +78,7 @@
             	var yy=date.format("YYYY");
             	var mm=date.format("MM");
             	var dd=date.format("DD");
-            	str = yy+"/"+mm+"/"+dd+" ";
+            	str = yy+"/"+mm+"/"+dd;
             	swal({
               		title: "예약 신청",
               		text: str+"에 예약을 진행하시겠습니까?",
@@ -108,7 +108,7 @@
             data : "_csrf=${_csrf.token}",
             success : function(data){
                var emp = data
-               console.log(emp.empName);
+             
             }
          });
         

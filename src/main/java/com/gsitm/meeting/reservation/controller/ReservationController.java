@@ -43,7 +43,7 @@ public class ReservationController {
 	}
 	@PostMapping("/writeReservation")
 	public String writeReservation(Model model, String mrId,@RequestParam(required=false) String resPurpose, @RequestParam(required=false)String resAddRequest,
-			String resStartDate, String resEndDate, String resSnack, String resType, String resOutside, Principal principal, String times) {
+			String resStartDate, String resEndDate, String resSnack, String resType, String resOutside, String equipElement, Principal principal, String times) {
 		System.out.println("time : "+times);
 		Reservation res = new Reservation();
 		res.setEmpId(principal.getName());
@@ -55,8 +55,9 @@ public class ReservationController {
 		res.setResSnack(Integer.parseInt(resSnack));
 		res.setResType(resType);
 		res.setResOutside(Integer.parseInt(resOutside));
+		
 		System.out.println("CTL : "+res);
-		resService.insertReservation(res, times);
+		resService.insertReservation(res, times, equipElement);
 		return "redirect:/users/mypage"; //리턴중, 리다이렉트는 url형식으로 전달된다.
 	}
 	@GetMapping("/resShortMain/{brId}")
