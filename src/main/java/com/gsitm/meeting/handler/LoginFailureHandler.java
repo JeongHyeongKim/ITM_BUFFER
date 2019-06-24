@@ -24,31 +24,15 @@ public class LoginFailureHandler implements AuthenticationFailureHandler
 			AuthenticationException exception) throws IOException, ServletException {
 		
 		String id = request.getParameter("id");
+		String exceptionMessage = String.valueOf(exception.getMessage());
 		System.out.println(id);
-		System.out.println(exception.getMessage());
+		System.out.println(exception.getClass());
 		
-		Integer cnt = dao.getLoginFailureCnt(id);
-		System.out.println(cnt);
-		if(exception.getMessage().equals("User is disabled")) {
-			System.out.println("블락된 계정");
-			request.getSession().setAttribute("msg", "블락된 계정");
-			response.sendRedirect("/meeting");
-		}
+		request.setAttribute("id", id);
+		request.setAttribute("exceptionMessage", exceptionMessage);
 		
-		if(cnt<5)
-		{
-			System.out.println("cnt5이하");
-			cnt = cnt+1;
-			dao.addLoginFailureCnt(id,cnt);
-			response.sendRedirect("/meeting");
-		}
-		else
-		{
-			System.out.println("계정블락");
-			dao.resetLoginCnt(id);
-			dao.lockAccount(id);
-			response.sendRedirect("/meeting");
-		}
+		request.getRequestDispatcher("/users/checkFailureCnt").forward(request, response);
+
 		
 	}
 

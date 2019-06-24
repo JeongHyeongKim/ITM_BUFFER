@@ -1,6 +1,10 @@
 package com.gsitm.meeting.users.controller;
 
+import java.io.IOException;
 import java.security.Principal;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,7 +21,7 @@ import com.gsitm.meeting.users.service.EmployeeService;
 import com.gsitm.meeting.vo.Employee;
 
 @Controller
-@RequestMapping(produces="application/json;charset=utf-8") 
+@RequestMapping(produces="text/plain; charset=UTF-8")
 public class UserController {
 	
 	@Autowired
@@ -45,5 +49,32 @@ public class UserController {
 	@PostMapping("/users/getCurrentInfo/{mrId}")
 	public ResponseEntity<String> CurrentInfoByMrId(@PathVariable String mrId){
 		return new ResponseEntity<>(empService.CurrentInfoByMrId(mrId), HttpStatus.OK);
+	}
+	
+	@PostMapping("/users/checkFailureCnt")
+	public void checkFailureCnt(Model model, HttpServletRequest request, HttpServletResponse response) throws IOException {
+		
+		String id = (String) request.getAttribute("id");
+		String exceptionMessage = (String) request.getAttribute("exceptionMessage");
+		int failureCnt = empService.getLoginFailureCnt(id);
+		System.out.println("user : "+id);
+		System.out.println("failureCnt"+failureCnt);
+		System.out.println(exceptionMessage);
+		
+		
+		if(exceptionMessage.equals("Bad credentials")) {
+			if(failureCnt<5) {
+				System.out.println("5회 미만 실패");
+				failureCnt++;
+				empService.addLoginFailureCnt(id, failureCnt);
+				response.sendRedirect("/meeting");
+			}
+		}
+		else 
+			response.sendRedirect("/meeting");
+		
+		//다른exception에 대해서도 메시지처리를 하여야 하며, 몇회 틀렸다고 띄워야함.
+		
+
 	}
 }

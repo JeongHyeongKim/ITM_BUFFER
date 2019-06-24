@@ -4,7 +4,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
@@ -139,4 +141,16 @@ public class EmployeeService {
 		
 		return gson.toJson(empDao.CurrentInfoByMrId(mrId));
 	}
+	
+	
+	public int getLoginFailureCnt(String empId) {
+		return empDao.getLoginFailureCnt(empId); 
+	}
+
+	
+	public void addLoginFailureCnt(String empId, Integer loginFailureCnt) {
+		empDao.addLoginFailureCnt(empId, loginFailureCnt);
+	}
+	
+	
 }
