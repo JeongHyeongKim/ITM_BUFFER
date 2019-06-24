@@ -1,6 +1,8 @@
 package com.gsitm.meeting.reservation.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
@@ -12,7 +14,8 @@ import org.springframework.stereotype.Service;
 
 import com.google.gson.Gson;
 import com.gsitm.meeting.reservation.dao.RecognitionDaoImpl;
-import com.gsitm.meeting.vo.Reservation;
+import com.gsitm.meeting.vo.Equipment;
+import com.gsitm.meeting.vo.EquipmentReservation;
 
 @Service
 public class RecognitionService {
@@ -166,4 +169,28 @@ public class RecognitionService {
 		return recDao.backByHead(resId);
 	}
 	
+	public String allEquipList() {
+		
+		Map<String,Map<String,Integer>> countEquip = new HashMap<>(); 
+		List<EquipmentReservation> equi = recDao.allEquipList();
+		
+		for(EquipmentReservation eqId : equi) {
+			
+			if(countEquip.get(eqId.getResId()) == null) {
+				
+				Map<String,Integer> equip = new HashMap<>();
+				equip.put(eqId.getEqId(), 1);
+				countEquip.put(eqId.getResId(), equip);
+				
+			} else {
+				if(countEquip.get(eqId.getResId()).get(eqId.getEqId())==null) {
+					countEquip.get(eqId.getResId()).put(eqId.getEqId(), 1);
+				} else {
+					countEquip.get(eqId.getResId()).put(eqId.getEqId(), countEquip.get(eqId.getResId()).get(eqId.getEqId())+1);
+				}
+			}
+			
+		}
+		return gson.toJson(countEquip);
+	}
 }
