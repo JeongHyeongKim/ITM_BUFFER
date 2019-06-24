@@ -6,20 +6,24 @@
 	<select id="noticeCount" resultType="int">
 		select count(*) from notice
 	</select>
-	
-	<select id="noticeList" resultType="noticeVO">
+	 
+	<select id="noticeList" resultType="com.gsitm.meeting.notice.dto.NoticeDTO$NoticeList">
 		<![CDATA[
-		select notice_id as noticeId, notice_title as noticeTitle, notice_title as noticeTitle, notice_writer as noticeWriter, notice_date as noticeDate from
-				(select rownum rnum, b.* from
-					(select * from notice) b
+		select notice_id as noticeId, notice_title as noticeTitle, notice_title as noticeTitle, emp_name as noticeWriter, notice_date as noticeDate
+from (select rownum rnum, b.* 
+      from (select * 
+            from notice n , employee e
+            where n.NOTICE_WRITER = e.emp_id) b
 				where rownum <= #{minRow})
 			where rnum >= #{maxRow}
 			]]>
 	</select>
 	
-	<select id="noticeRead" resultType="noticeVO">
+	<select id="noticeRead" resultType="NoticeVO">
 		select notice_id noticeId, notice_title noticeTitle, notice_content noticeContent, 
-		notice_writer noticeWriter, notice_date noticeDate from notice where notice_id = #{noticeId}
+		emp_name noticeWriter, notice_date noticeDate from notice n, employee e 
+        where notice_id = #{noticeId}
+        and e.emp_id = n.notice_writer
 	</select>
 	
 	<insert id="noticeInsert">

@@ -66,17 +66,23 @@
             <h3 class="tile-title"></h3>
             <div class="tile-body">
               <form>
-                <div class="form-group">
+                <!-- <div class="form-group" >
                   <label class="control-label"><h3 id="noticeTitle"></h3></label>
-                </div>
-                <div class="form-group" id="Writer">
-                  <label class="control-label" id="noticeWriter"></label>
-                </div>
-            
-               <hr>
+                  <label class="control-label"id="noticeWriter"></label>
+                </div> -->
+                <div class="tile-title-w-btn">
+	              <h3 class="title" id="noticeTitle"></h3>
+	              <label class="control-label"id="noticeWriter"></label>
+	            </div>
+	            <hr>
+	            <div class="tile-body">
+	              <label class="control-label" id="noticeContent"></label>
+	              
+	            </div>
+              <!--  <hr>
                 <div class="form-group">
                   <label class="control-label" id="noticeContent"></label>
-                </div>
+                </div> -->
                
               </form>
             </div>
