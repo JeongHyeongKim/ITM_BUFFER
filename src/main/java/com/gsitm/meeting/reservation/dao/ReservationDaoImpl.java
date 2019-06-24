@@ -1,6 +1,5 @@
 package com.gsitm.meeting.reservation.dao;
 
-import java.util.Date;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -8,11 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.gsitm.meeting.branch.dto.BranchDTO;
-import com.gsitm.meeting.reservation.dto.EquipmentReservationDTO;
 import com.gsitm.meeting.reservation.dto.ReservationDTO;
 import com.gsitm.meeting.reservation.dto.SearchDTO;
 import com.gsitm.meeting.room.dto.MeetingRoomDTO;
 import com.gsitm.meeting.users.dto.EmployeeDTO;
+import com.gsitm.meeting.vo.Equipment;
 import com.gsitm.meeting.vo.Reservation;
 
 @Repository
@@ -74,7 +73,7 @@ public class ReservationDaoImpl implements ReservationDao {
 	}
 
 	@Override
-	public List<EquipmentReservationDTO> equipList(String mrId) {
+	public List<Equipment> equipList(String mrId) {
 		// TODO Auto-generated method stub
 		return session.selectList(namespace+".equipList",mrId);
 	}
@@ -110,6 +109,9 @@ public class ReservationDaoImpl implements ReservationDao {
 		return session.selectOne(namespace+".resMostRecent");
 	}
 
-	
+	@Override
+	public List<Reservation> getPastReservation(String empId) {
+		return session.selectList(namespace + ".getPastReservation", empId);
+	}
 
 }

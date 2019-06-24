@@ -1,7 +1,8 @@
 package com.gsitm.meeting.reservation.service;
 
-import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,9 +13,10 @@ import com.gsitm.meeting.reservation.dao.ReservationDaoImpl;
 import com.gsitm.meeting.reservation.dto.EquipmentReservationDTO;
 import com.gsitm.meeting.reservation.dto.ReservationDTO;
 import com.gsitm.meeting.reservation.dto.SearchDTO;
-import com.gsitm.meeting.vo.Reservation;
 import com.gsitm.meeting.room.dto.MeetingRoomDTO;
 import com.gsitm.meeting.users.dto.EmployeeDTO;
+import com.gsitm.meeting.vo.Equipment;
+import com.gsitm.meeting.vo.Reservation;
 
 @Service
 public class ReservationService {
@@ -30,9 +32,9 @@ public class ReservationService {
 		String nextId = calcId(storedId);
 		res.setResId(nextId);
 		String changeStartTime = calcDate(res.getResStartDate());
-		res.setResStartDate(changeStartTime+" "+times.split(","));
+		res.setResStartDate(changeStartTime+" "+times.split(",")[0]);
 		String changeEndTime = calcDate(res.getResEndDate());
-		res.setResEndDate(changeEndTime+" "+times.split(","));
+		res.setResEndDate(changeEndTime+" "+times.split(",")[1]);
 		System.out.println("service : "+res);
 	}
 	
@@ -87,8 +89,22 @@ public class ReservationService {
 	public List<ReservationDTO> mrReservationList(String mrId){
 		return resDao.mrReservationList(mrId);
 	}
-	public List<EquipmentReservationDTO> equipList(String mrId){
-		return resDao.equipList(mrId);
+	public String equipList(String mrId){
+		
+		Map<String,Integer> countEquip = new HashMap<>(); 
+		List<Equipment> equi = resDao.equipList(mrId);
+		
+		for(Equipment eqId : equi) {
+			if(countEquip.get(eqId.getEqId())==null) {
+				
+				countEquip.put(eqId.getEqId(), 1);
+			} else {
+				
+				countEquip.put(eqId.getEqId(), countEquip.get(eqId.getEqId())+1);
+			}
+		}
+		
+		return gson.toJson(countEquip);
 	}
 	public List<MeetingRoomDTO> search(SearchDTO search) {
 		// TODO Auto-generated method stub
@@ -106,15 +122,17 @@ public class ReservationService {
 		// TODO Auto-generated method stub
 		return gson.toJson(resDao.mySchedule(empId));
 	}
-	public List<EmployeeDTO> empList() {
+	public String empList() {
 		// TODO Auto-generated method stub
-		return resDao.empList();
+		return gson.toJson(resDao.empList());
 	}
 	public List<ReservationDTO> myListPeriod(String resStartDate) {
 		// TODO Auto-generated method stub
 		return resDao.myListPeriod(resStartDate);
 	}
 	
-	
-
+	public String getPastReservation(String empId) {
+		System.out.println(gson.toJson(resDao.getPastReservation(empId)));
+		return gson.toJson(resDao.getPastReservation(empId));
+	}
 }

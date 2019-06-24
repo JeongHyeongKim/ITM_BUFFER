@@ -38,8 +38,19 @@
                             <input class="form-control" id="resMrName" type="text" readonly>
                         </div>
                         <div class="form-group col-md-3">
+                            <!-- <label class="control-label">회의 구분</label>
+                            <input class="form-control" placeholder="내부회의, 고객미팅 등" type="text" name="resType"> -->
+                            <div>
                             <label class="control-label">회의 구분</label>
-                            <input class="form-control" placeholder="내부회의, 고객미팅 등" type="text" name="resType">
+                            <input class="form-control" id="resType" placeholder="직접입력" type="text" name="resType" >
+                            <button class="btn btn-info dropdown-toggle" id="btnGroupDrop3" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"></button>
+                            <div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end" style="position: absolute; transform: translate3d(-124px, 35px, 0px); top: 0px; left: 0px; will-change: transform;">
+                            	<a class="dropdown-item" id="resType1">내부회의</a>
+                            	<a class="dropdown-item" id="resType2">고객미팅</a>
+                            	<a class="dropdown-item" id="resType3">정기회의</a>
+                            	<a class="dropdown-item" id="resType4">긴급회의</a>
+                            </div>
+                            </div>
                         </div>
                         <div class="form-group col-md-3">
                             <label class="control-label">최근 회의 목록 불러오기</label>
@@ -69,26 +80,11 @@
                         </div>
                         <div class="form-group col-md-3">
                         </div>
-                        <div class="form-group col-md-3"> 
-                            <label class="control-label">기자재</label>
-                            <c:forEach items="${equipList}" var="list">
-                            		<div class="animated-checkbox">
-		                                <label>
-		                                	<c:if test="${list.eqId eq 'N'}">
-		                                    	<input name="equip" type="checkbox" value="N"><span class="label-text">노트북</span>
-		                                    </c:if>
-		                                    <c:if test="${list.eqId eq 'V'}">
-		                                    	<input name="equip" type="checkbox" value="V"><span class="label-text">빔 프로젝트</span>
-		                                    </c:if>
-		                                    <c:if test="${list.eqId eq 'W'}">
-		                                    	<input name="equip" type="checkbox" value="W"><span class="label-text">화이트보드</span>
-		                                    </c:if>
-		                                    <c:if test="${list.eqId eq 'M'}">
-		                                    	<input name="equip" type="checkbox" value="V"><span class="label-text">마이크</span>
-		                                    </c:if>
-		                                </label>
-		                            </div>
-                            </c:forEach>
+                         <div class="form-group col-md-6">
+                            <label class="control-label">기자재 <a data-target="#equipList" data-toggle="modal">추가</a></label>
+                            <input class="form-control" type="text" id="equipElement">
+                        </div>
+                         
                         </div>
                         <div class="form-group col-md-3">
                             <label class="control-label">간식 유무</label>
@@ -110,20 +106,45 @@
                         <div class="form-group col-md-3"></div>
                         <div class="form-group col-md-3"></div>
                         <div class="form-group col-md-3"></div>
-                        
-                    <div class="bs-component" style="margin-bottom: 15px;">
-						<div class="btn-group btn-group-toggle" data-toggle="buttons">
-
+	                        
+	                    <div class="bs-component" style="margin-bottom: 15px;">
+							<div class="btn-group btn-group-toggle" data-toggle="buttons">
+	
+							</div>
 						</div>
-					</div>
 
-					<div class="form-group col-md-3" style="padding-top:50px;text-align:right">
+						<div class="form-group col-md-3" style="padding-top:50px;text-align:right">
                             <input class="btn btn-info" id="sendForm" type="button" value="예약 신청"/>
                         </div>
-                    </form>
+                  </form>
                 </div>
             </div>
         </div>
+        <!-- equipList -->
+         <div class="modal fade" id="equipList" role="dialog">
+			<div class="modal-dialog">
+				<!-- Modal content-->
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title">회의실 기자재수량</h4>
+						<button type="button" class="close" data-dismiss="modal">×</button>
+					</div>
+					<div class="modal-body" id="equip-modal-body">
+						<div class="input-group">
+	                       
+                    	</div>
+					</div>
+					<div class="modal-footer" style="margin-top:20px">
+						<div class="row mb-10">
+							<div class="col-md-12">
+								<input type="button" class="btn btn-success" data-dismiss="modal" value="작성" id="equipSubmit">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+        
          <!-- Modal -->
         <div class="modal fade" id="MyReservationList" role="dialog">
 			<div class="modal-dialog">
@@ -133,20 +154,8 @@
 						<h4 class="modal-title">최근 나의 회의예약신청 목록</h4>
 						<button type="button" class="close" data-dismiss="modal">×</button>
 					</div>
-					<div class="modal-body">
-						<form action="/meeting/reservation/writeReservation" method="POST">
-							<div class="row mb-4">
-							</div>
-							<div class="row">
-							</div>
-							<div class="modal-footer" style="margin-top:20px">
-								<div class="row mb-10">
-									<div class="col-md-12">
-										<input type="submit" class="btn btn-success" data-dismiss="modal" value="예약 작성">
-									</div>
-								</div>
-							</div>
-						</form>
+					<div class="modal-body" id="pastRes">
+						
 					</div>
 				</div>
 			</div>
@@ -158,43 +167,187 @@
 				<!-- Modal content-->
 				<div class="modal-content">
 					<div class="modal-header">
-						<h4 class="modal-title">참석 명단 작성</h4>
+						<h4 class="modal-title">참석 명단 추가</h4>
 						<button type="button" class="close" data-dismiss="modal">×</button>
 					</div>
-					<div class="modal-body">
-						<form action="/meeting/reservation/writeReservation" method="POST">
-							<div class="row mb-4">
+					<div class="modal-body" id="empList-modal-body">
+					
+					</div>
+					<div class="modal-footer" style="margin-top:20px">
+						<div class="row mb-10">
+							<div class="col-md-12">
+								<input type="submit" class="btn btn-success" data-dismiss="modal" value="작성">
 							</div>
-							<c:forEach items="${empList}"  var="list">
-								<div class="row">
-									<div class="col-md-7">
-										<div class="animated-checkbox">
-			                                <label> 
-			                                    <input name="empName" type="checkbox"><span class="label-text">${list.empId} / ${list.empName} - ${list.deptName}</span> 
-			                                </label>
-			                            </div>
-			                         </div>
-								</div>
-							</c:forEach>
-							<div class="modal-footer" style="margin-top:20px">
-								<div class="row mb-10">
-									<div class="col-md-12">
-										<input type="submit" class="btn btn-success" data-dismiss="modal" value="작성">
-									</div>
-								</div>
-							</div>
-						</form>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-    </div>
+    
 </main>
 <script src="/meeting/resources/js/plugins/jquery.datetimepicker.full.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.17.0/dist/jquery.validate.min.js"></script>
 <script>
     $(document).ready(function () {
     	
+    	// Array contains method추가      
+        Array.prototype.contains = function(element) {
+		for (var i = 0; i < this.length; i++) {
+			if (this[i] == element) {
+				return true;
+			}
+		}
+		return false;
+		}
+    	////////////////////////////////////////////////////////////  pastReservation List
+    	var pastRes = JSON.parse('${pastReservation}');
+    	console.log(pastRes)
+    	for(var i=0; i<pastRes.length; i++){
+    		$("<p></p>").text(i+ ") 회의목적 : " + pastRes[i].resPurpose+", 정보추가 ...").appendTo($("#pastRes"));
+    	}
+    	
+    	////////////////////////////////////////////////////////////참석자명단 id : empList-modal-body
+    	var empList = JSON.parse('${empList}');
+    	
+    	var deptList = [];
+    	
+    	// deptList 중복제거
+    	for(var i=0; i<empList.length; i++){
+    		if(deptList.contains(empList[i].deptName)){
+    			const idx = deptList.indexOf(empList[i].deptName) 
+    			if (idx > -1) deptList.splice(idx, 1)
+    		} else{
+    			deptList.push(empList[i].deptName);
+    		}	
+    	}
+    	
+    	// model 화면에 deptList출력
+    	for(var i=0; i<deptList.length; i++){
+    		var $backDiv = $("<div></div>").attr("class","col-md-12").appendTo($("#empList-modal-body"));
+    		var $colsix = $("<div></div>").attr("class","col-md-6").appendTo($backDiv);
+    		// div정렬중 ///////////////////////////////////
+    		$("<p></p>").attr("id",deptList[i]).attr("class","col-md-6").attr("class","showDept").text("> "+deptList[i]).appendTo($colsix);
+    		// $("<div></div>").attr("class","col-md-3").text("주관").appendTo($backDiv);
+    		for(var j=0; j<empList.length; j++){
+    			if(empList[j].deptName == deptList[i]){
+    				var $deptDiv = $("<div></div>").attr("id","child"+deptList[i]).appendTo($backDiv);
+    				$("<p></p>").text(empList[j].empName).appendTo($deptDiv);
+    				
+    			}
+    			
+    		}
+    		
+    		$("#child"+deptList[i]).hide();
+    	}
+    	$(".showDept").on("click",function(e){
+    
+    		$("#child"+e.currentTarget.id).toggle();
+    	})
+    	///////////////////////////////////////////////////////////////회의구분 선택자
+    	$("#resType1").on("click",function(){
+    		$("#resType").attr("value",$("#resType1").text());
+    	})
+    	$("#resType2").on("click", function(){
+    		//$("#btnGroupDrop3").attr("value",$("#customer").text());
+    		$("#resType").val($("#resType2").text());
+    	})
+    	$("#resType3").on("click",function(){
+    		$("#resType").val($("#resType3").text());
+    	})
+    	$("#resType4").on("click",function(){
+    		$("#resType").val($("#resType4").text());
+    	})
+
+    	/////////////////////////기자재 modal // id : equip-modal-body
+    	
+        var equipList = JSON.parse('${equipList}') ;
+    
+    	$("#equipElement").val("빔프로젝터 ("+equipList['V']+"), 화이트보드 ("+equipList['W']+"), 마이크 ("+equipList['M']+"), 노트북 ("+equipList['N']+")")
+    	
+    	for(var i=0; i<Object.keys(equipList).length; i++){
+    		var $inputDiv = $("<div></div>").attr("class","input-group");
+    		
+    		if(Object.keys(equipList)[i] == 'N'){
+    			var $minusBtn = $("<div class='input-group-prepend'><button class='btn btn-secondary' type='button' id='NMinusBtn'>-</button></div>").appendTo($inputDiv);
+    			$("<input class='form-control' id='N' type='text' value='노트북 대여 수량 : " + equipList['N'] + "'readonly>").appendTo($inputDiv);
+    			var $plusBtn = $("<div class='input-group-append'><button class='btn btn-secondary' type='button' id='NPlusBtn'>+</button></div>").appendTo($inputDiv);
+    		} else if(Object.keys(equipList)[i] == 'V'){
+    			var $minusBtn = $("<div class='input-group-prepend'><button class='btn btn-secondary' type='button' id='VMinusBtn'>-</button></div>").appendTo($inputDiv);
+    			$("<input class='form-control' id='V' type='text' value='빔프로젝터 대여 수량 : "+equipList['V']+ "'readonly>").appendTo($inputDiv);
+    			var $plusBtn = $("<div class='input-group-append'><button class='btn btn-secondary' type='button' id='VPlusBtn'>+</button></div>").appendTo($inputDiv);
+    		} else if(Object.keys(equipList)[i] == 'M'){
+    			var $minusBtn = $("<div class='input-group-prepend'><button class='btn btn-secondary' type='button' id='MMinusBtn'>-</button></div>").appendTo($inputDiv);
+    			$("<input class='form-control' id='M' type='text' value='마이크 대여 수량 : "+equipList['M']+ "'readonly>").appendTo($inputDiv);
+    			var $plusBtn = $("<div class='input-group-append'><button class='btn btn-secondary' type='button' id='MPlusBtn'>+</button></div>").appendTo($inputDiv);
+    		} else {
+    			var $minusBtn = $("<div class='input-group-prepend'><button class='btn btn-secondary' type='button' id='WMinusBtn'>-</button></div>").appendTo($inputDiv);
+    			$("<input class='form-control' id='W' type='text' value='화이트보드 대여 수량 : "+equipList['W']+ "'readonly>").appendTo($inputDiv);
+    			var $plusBtn = $("<div class='input-group-append'><button class='btn btn-secondary' type='button' id='WPlusBtn'>+</button></div>").appendTo($inputDiv);
+    		}
+    		
+    		$inputDiv.appendTo($("#equip-modal-body"))
+    	} 
+    	
+    	$(document).on("click","#NMinusBtn",function(){
+    		console.log(( ($("#N").val().split(":")[1]))) 
+    		if(($("#N").val().split(":")[1]) == 0){
+    		} else{
+    			$("#N").val('노트북 대여 수량 : '+ ( ($("#N").val().split(":")[1]) -1))	
+    		}
+    	})
+    	$(document).on("click","#NPlusBtn",function(){ 
+    		console.log(( ($("#N").val().split(":")[1]))) 
+    		if(($("#N").val().split(":")[1]) == Number(equipList['N'])){
+    		} else{
+    			$("#N").val('노트북 대여 수량 : '+ ( Number(($("#N").val().split(":")[1])) +1))	
+    		}
+    	})
+    	$(document).on("click","#VMinusBtn",function(){
+    		console.log(( ($("#V").val().split(":")[1]))) 
+    		if(($("#V").val().split(":")[1]) == 0){
+    		} else{
+    			$("#V").val('빔프로젝터 대여 수량 : '+ ( ($("#V").val().split(":")[1]) -1))	
+    		}
+    	})
+    	$(document).on("click","#VPlusBtn",function(){ 
+    		console.log(( ($("#V").val().split(":")[1]))) 
+    		if(($("#V").val().split(":")[1]) == Number(equipList['V'])){
+    		} else{
+    			$("#V").val('빔프로젝터 대여 수량 : '+ ( Number(($("#V").val().split(":")[1])) +1))	
+    		}
+    	})
+    	$(document).on("click","#WMinusBtn",function(){
+    		console.log(( ($("#W").val().split(":")[1]))) 
+    		if(($("#W").val().split(":")[1]) == 0){
+    		} else{
+    			$("#W").val('화이트보드 대여 수량 : '+ ( ($("#W").val().split(":")[1]) -1))	
+    		}
+    	})
+    	$(document).on("click","#WPlusBtn",function(){ 
+    		console.log(( ($("#W").val().split(":")[1]))) 
+    		if(($("#W").val().split(":")[1]) == Number(equipList['W'])){
+    		} else{
+    			$("#W").val('화이트보드 대여 수량 : '+ ( Number(($("#W").val().split(":")[1])) +1))	
+    		}
+    	})
+    	$(document).on("click","#MMinusBtn",function(){
+    		console.log(( ($("#M").val().split(":")[1]))) 
+    		if(($("#M").val().split(":")[1]) == 0){
+    		} else{
+    			$("#M").val('마이크 대여 수량 : '+ ( ($("#M").val().split(":")[1]) -1))	
+    		}
+    	})
+    	$(document).on("click","#MPlusBtn",function(){ 
+    		console.log(( ($("#M").val().split(":")[1]))) 
+    		if(($("#M").val().split(":")[1]) == Number(equipList['M'])){
+    		} else{
+    			$("#M").val('마이크 대여 수량 : '+ ( Number(($("#M").val().split(":")[1])) +1))	
+    		}
+    	})
+    	$("#equipSubmit").on("click",function(){
+    		$("#equipElement").val("빔프로젝터 ("+Number(($("#V").val().split(":")[1]))+"), 화이트보드 ("+Number(($("#W").val().split(":")[1]))+"), 마이크 ("+Number(($("#M").val().split(":")[1]))+"), 노트북 ("+Number(($("#N").val().split(":")[1]))+")")
+    	})
+    	//////////////////////////////////////////////////////////////////////////////////////////
         var resStartDate = sessionStorage.getItem("currentDate");
         resStartDate += "00:00";
         
@@ -228,17 +381,7 @@
     		$("<input>").attr("type","hidden").attr("name","times").attr("id","times").attr("value",selectTimes).appendTo($("#resForm"));
     		console.log(selectTimes)
         })
-        
        
-  		// Array contains method추가      
-        Array.prototype.contains = function(element) {
-		for (var i = 0; i < this.length; i++) {
-			if (this[i] == element) {
-				return true;
-			}
-		}
-		return false;
-	}
         ////////////////////////////////////////////////////////////////////////////////// 
        
     	$("#sendForm").on("click",function(){

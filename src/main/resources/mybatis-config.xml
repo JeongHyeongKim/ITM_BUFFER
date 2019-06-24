@@ -3,6 +3,10 @@
 
 <!-- MyBatis XML 설정 파일(MyBatis설정의 중앙 허브 역할) -->
 <configuration>
+	<settings>
+		<setting name="mapUnderscoreToCamelCase" value="true" />
+		<setting name="jdbcTypeForNull" value="NULL" />
+	</settings>
 	<typeAliases>
 		<!-- 지사 및 부서 -->
 		<typeAlias type="com.gsitm.meeting.vo.Branch" alias="branchVO"/>

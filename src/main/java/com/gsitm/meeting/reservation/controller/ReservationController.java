@@ -42,7 +42,7 @@ public class ReservationController {
 		return "reservation/resList";
 	}
 	@PostMapping("/writeReservation")
-	public String writeReservation(Model model, String mrId, String resPurpose, @RequestParam(required=false)String resAddRequest,
+	public String writeReservation(Model model, String mrId,@RequestParam(required=false) String resPurpose, @RequestParam(required=false)String resAddRequest,
 			String resStartDate, String resEndDate, String resSnack, String resType, String resOutside, Principal principal, String times) {
 		System.out.println("time : "+times);
 		Reservation res = new Reservation();
@@ -72,8 +72,13 @@ public class ReservationController {
 		model.addAttribute("mrReservationList",resService.mrReservationList(mrId));
 		return "reservation/resShortDetail";
 	}
+	
 	@GetMapping("/resWrite/{mrId}")
-	public String resWrite(Model model,@PathVariable String mrId) {
+	public String resWrite(Model model,@PathVariable String mrId, Principal principal) {
+		System.out.println(principal.getName());
+		model.addAttribute("pastReservation",resService.getPastReservation(principal.getName()));
+		System.out.println(resService.getPastReservation(principal.getName()));
+		
 		model.addAttribute("equipList",resService.equipList(mrId));
 		model.addAttribute("empList",resService.empList());
 		return "reservation/resWrite";

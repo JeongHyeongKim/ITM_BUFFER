@@ -49,8 +49,8 @@
 	<select id="mrLimitList" resultType="MeetingRoomVO">
 		select distinct(mr_limit) mrLimit from meeting_room 
 	</select>
-	<select id="equipList" resultType="EquipmentReservationVO" parameterType="string">
-		select distinct(substr(eq_id,1,1)) eqId, mr_id mrId 
+	<select id="equipList" resultType="equipmentVO" parameterType="string">
+		select substr(eq_id,1,1) eqId, mr_id mrId 
 		from equipment
 		where mr_id=#{mrId}
 	</select> 
@@ -108,5 +108,9 @@
         and to_char(res_start_time,'YYYY-MM-DD"T"HH24:MI:SS')>to_char(sysdate,'YYYY-MM-DD"T"HH24:MI:SS')
         order by to_char(res_start_time,'YYYY-MM-DD"T"HH24:MI:SS')
         
+	</select>
+	
+	<select id="getPastReservation" parameterType="string" resultType="reservationVO">
+		select res_id resId, res_purpose resPurpose, res_add_request resAddRequest from reservation where emp_id = #{empId}
 	</select>
 </mapper>
