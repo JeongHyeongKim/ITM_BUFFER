@@ -4,6 +4,9 @@
 <link href="/meeting/resources/css/jquery.datetimepicker.css" rel="stylesheet"/>
 <link href="/meeting/resources/css/fullcalendar.min.css" rel="stylesheet"/>
 <link href="/meeting/resources/css/fullcalendar.print.min.css" media="print" rel="stylesheet"/>
+<style>
+	.fc-past:hover{cursor: no-drop;}
+</style>
 <main class="app-content">
     <div class="app-title">
         <div>
@@ -66,6 +69,11 @@
             	</c:forEach> 
                 ],
             dayClick: function(date, allDay, jsEvent, view) {
+                //주말 선택 금지
+                if(moment(date).format('E')==6 || moment(date).format('E')==7) return false;
+                //과거일 선택 금지
+                if(moment(date).format('YYYY-MM-DD') < moment(new Date()).format('YYYY-MM-DD')) return false;
+                
             	var str="";
             	var yy=date.format("YYYY");
             	var mm=date.format("MM");

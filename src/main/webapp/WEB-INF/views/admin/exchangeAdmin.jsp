@@ -15,7 +15,7 @@
 			<i class="fa fa-home fa-lg"></i>
 			</li>
 			<li class="breadcrumb-item">
-			<a href="#">관리자 권한 관리</a>
+			<a href="/meeting/recognition/exchangeAdmin">관리자 권한 관리</a>
 			</li>
 		</ul>
 	</div>

@@ -6,9 +6,9 @@
 	$(function(){
 		var notice = JSON.parse('${notice}');
 		console.log(notice);
-		$("#noticeTitle").text(notice.noticeTitle);
+		$("#noticeTitle").text("[공지]"+notice.noticeTitle);
 		$("#noticeContent").text(notice.noticeContent);
-		$("#noticeWriter").text(notice.noticeWriter);
+		$("#noticeWriter").text("[작성자]"+notice.noticeWriter);
 		
 		 var noticeURL = window.location.href;
          var splitId = noticeURL.split("/");
@@ -55,7 +55,7 @@
 			<i class="fa fa-home fa-lg"></i>
 			</li>
 			<li class="breadcrumb-item">
-			<a href="#">공지사항</a>
+			<a href="/meeting/notice/list/1">공지사항</a>
 			</li>
 			
 		</ul>
@@ -72,7 +72,7 @@
                 </div> -->
                 <div class="tile-title-w-btn">
 	              <h3 class="title" id="noticeTitle"></h3>
-	              <label class="control-label"id="noticeWriter"></label>
+	              <label class="control-label" id="noticeWriter"></label>
 	            </div>
 	            <hr>
 	            <div class="tile-body">

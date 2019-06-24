@@ -22,6 +22,23 @@
 </script>
 
 	<main class="app-content">
+	<div class="app-title">
+		<div>
+			<h1><i class="fa fa-calendar"></i>공지사항</h1>
+			<p>
+				공지사항을 확인하세요.
+			</p>
+		</div>
+		<ul class="app-breadcrumb breadcrumb">
+			<li class="breadcrumb-item">
+			<i class="fa fa-home fa-lg"></i>
+			</li>
+			<li class="breadcrumb-item">
+			<a href="/meeting/notice/list/1">공지사항</a>
+			</li>
+			
+		</ul>
+	</div>
 	<div class="row">
 		<div class="col-md-12">
 			<div class="tile">

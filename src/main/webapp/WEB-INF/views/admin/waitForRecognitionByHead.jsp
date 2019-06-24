@@ -42,6 +42,7 @@ $(function(){
 			resCost = $list.resCost;
 			email = $list.empEmail;
 			empName = $list.empName;
+			resStartDate = $list.resStartDate;
 			resEndDate = $list.resEndDate;
 			deptId= $list.deptId;
 			var $bodyTrTag= $("<tr></tr>").appendTo($bodyTag);

@@ -15,7 +15,7 @@
 			var $link = $("<a>").attr("href", "/meeting/notice/read/" + $list.noticeId);
 			
 			$("<td></td>").text($list.noticeId).appendTo($tr);
-			$("<td></td>").text($list.noticeTitle).wrapInner($link).appendTo($tr);
+			$("<td></td>").text("[공지]"+$list.noticeTitle).wrapInner($link).appendTo($tr);
 			$("<td></td>").text($list.noticeWriter).appendTo($tr);
 			$("<td></td>").text($list.noticeDate).appendTo($tr);
 		})
@@ -56,12 +56,17 @@
 			<i class="fa fa-home fa-lg"></i>
 			</li>
 			<li class="breadcrumb-item">
-			<a href="#">공지사항</a>
+			<a href="/meeting/notice/list/1">공지사항</a>
 			</li>
 			
 		</ul>
 	</div>
-
+	<security:authorize access="hasRole('ROLE_ADMIN')">
+		<div style="text-align:right;">
+	        <a class="btn btn-primary btn-sm" href="/meeting/notice/writePage">글작성</a>
+	    </div>
+    </security:authorize>
+    <div class="row" style="padding-top:20px">
 	<div class="col-md-12">
           <div class="tile" >
             <table class="table table-striped-3" id="noticeTable" >
@@ -80,6 +85,7 @@
 					</ul>
 				</nav>
 			</div>
+         </div>
          </div>
 	</div> 
 </main>

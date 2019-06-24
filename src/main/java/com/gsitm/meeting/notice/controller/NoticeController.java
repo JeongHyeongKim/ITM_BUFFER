@@ -33,9 +33,13 @@ public class NoticeController {
 		model.addAttribute("notice", noticeService.noticeRead(noticeNum));
 		return "notice/noticeRead";
 	}
-	
+	@GetMapping("/writePage")
+	public String noticeWritePage(Model model) {
+		return "notice/noticeWrite";
+	}
 	@PostMapping("/write")
 	public String noticeInsert(Notice notice) {
+		System.out.println(notice.getNoticeTitle());
 		noticeService.noticeInsert(notice);
 		return "redirect:/notice/list";
 	}

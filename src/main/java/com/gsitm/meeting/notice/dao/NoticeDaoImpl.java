@@ -17,7 +17,7 @@ public class NoticeDaoImpl implements NoticeDao{
 	@Autowired
 	private SqlSession session;
 	
-	// session.selectOne(namespace + id); �� ���
+	// session.selectOne(namespace + id); 
 	private String namespace = "com.gsitm.meeting.mappers.noticeMapper";
 
 	@Override

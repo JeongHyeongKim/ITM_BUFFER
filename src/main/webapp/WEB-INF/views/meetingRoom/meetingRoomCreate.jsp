@@ -144,14 +144,25 @@
 <body>
     <main class="app-content">
         <div class="app-title">
-            <div>
-                <h1>회의실/교육실 관리</h1>
-                <p>>회의실 관리</p>
-            </div>
-            <ul class="app-breadcrumb breadcrumb">
-                <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i>회의실 교육실 관리 / 지사관리</li>
-            </ul>
+        <div>
+            <h1>
+                <i class="fa fa-calendar"></i>회의실관리</h1>
+            <p>
+                전체 회의실 목록입니다.
+            </p>
         </div>
+        <ul class="app-breadcrumb breadcrumb">
+            <li class="breadcrumb-item">
+                <i class="fa fa-home fa-lg"></i>
+            </li>
+            <li class="breadcrumb-item">
+                <a>회의실관리</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="/meeting/meetingRoom/list">회의실관리</a>
+            </li>
+        </ul>
+    </div>
 
         <form action="/meeting/file/meetingRoomWrite" id="meetingRoomInsert" method="POST" enctype="multipart/form-data">
             <div class="row">

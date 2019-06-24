@@ -56,7 +56,6 @@ $(function(){
 		
 		var $headTag = $("<thead></thead>").appendTo($tableTag);
 		var $headTrTag= $("<tr></tr>").appendTo($headTag);
-		$("<th></th>").text("부서번호").appendTo($headTrTag);
 		$("<th></th>").text("부서이름").appendTo($headTrTag);
 		$("<th></th>").text("누적금액").appendTo($headTrTag);
 		$("<th></th>").text("지사위치").appendTo($headTrTag);
@@ -65,7 +64,6 @@ $(function(){
 		
 		$.each(alldeptPayment, function(i, $list) {
 			var $bodyTrTag= $("<tr></tr>").appendTo($bodyTag);
-			$("<td></td>").text($list.deptId).appendTo($bodyTrTag);
 			$("<td></td>").text($list.deptName).appendTo($bodyTrTag);
 			$("<td></td>").text(comma($list.deptCost)+"원").appendTo($bodyTrTag); 
 			$("<td></td>").text($list.brName).appendTo($bodyTrTag);
@@ -112,10 +110,10 @@ $(function(){
 			<i class="fa fa-home fa-lg"></i>
 			</li>
 			<li class="breadcrumb-item">
-			<a href="#">예약이력</a>
+			<a>예약이력</a>
 			</li>
 			<li class="breadcrumb-item">
-			<a href="#">결제관리</a>
+			<a href="/meeting/recognition/paymentManagement">결제관리</a>
 			</li>
 		</ul>
 	</div>

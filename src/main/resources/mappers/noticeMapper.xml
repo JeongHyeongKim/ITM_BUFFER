@@ -27,7 +27,7 @@ from (select rownum rnum, b.*
 	</select>
 	
 	<insert id="noticeInsert">
-		insert into notice values( #{noticeId}, #{noticeTitle}, #{noticeContent}, #{noticeWriter}, sysdate)
+		insert into notice values( seq_notice_id.nextval, #{noticeTitle}, #{noticeContent}, #{noticeWriter}, sysdate)
 	</insert>
 	
 	<delete id="noticeDelete">

@@ -213,37 +213,19 @@
          	     </div>
           	<div class="tile row">
             	<div class="col-md-3">
-            	<c:forEach items="${branchList}" var="branchList">
-					<div class="fc-event">
+            		<c:forEach items="${branchList}" var="branchList">
+						<div class="fc-event">
 					        <label class="btn btn-primary branchList" style="width:100%;">
 					           <input id="${branchList.brId}" type="radio" name="options" style="display:none;margin:10px"onClick="location.href='/meeting/reservation/list/${branchList.brId}'"> ${branchList.brName}
 					        </label>
-					</div>
+						</div>
 					</c:forEach>	
-                	<!-- <button class="btn btn-warning" type="button" data-toggle="modal" onclick="">회의실 바로 예약하기</button> -->
-            	 </div>
+            	</div>
             	 <div class="col-md-9">
 	              <div id="calendar"></div>
 	            </div> 
           	</div>
           	</div>
-		          	<div class="col-md-6">
-		          <div class="tile">
-		            <h3 class="tile-title">Line Chart</h3>
-		            <div class="embed-responsive embed-responsive-16by9">
-		              <canvas class="embed-responsive-item" id="lineChartDemo"></canvas>
-		            </div>
-		          </div>
-		        </div>
-		        
-		        <div class="col-md-6">
-          <div class="tile">
-            <h3 class="tile-title">Bar Chart</h3>
-            <div class="embed-responsive embed-responsive-16by9">
-              <canvas class="embed-responsive-item" id="barChartDemo"></canvas>
-            </div>
-          </div>
-        </div>
         </div>
 </main>
 <%-- Essential javascripts for application to work--%>

@@ -53,10 +53,10 @@ function saveEqId(param){
                 <i class="fa fa-home fa-lg"></i>
             </li>
             <li class="breadcrumb-item">
-                <a href="#">회의실관리</a>
+                <a>회의실관리</a>
             </li>
             <li class="breadcrumb-item">
-                <a href="#">기자재관리</a>
+                <a href="/meeting/equipment/list">기자재관리</a>
             </li>
         </ul>
     </div>
