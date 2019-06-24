@@ -36,8 +36,8 @@
       </ul>
       <form action="/meeting/users/logout" method="POST">
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-        <i class="fa fa-sign-out fa-lg"></i><button type="submit">LOGOUT</button>
-	    </form>
+        <button class="btn btn-primary" type="submit" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Logout"><i class="fa fa-user fa-lg"></i></button>
+	    </form> 
     </header>
    
     
@@ -50,6 +50,7 @@
     <!-- The javascript plugin to display page loading on top-->
     <!-- Google analytics script-->
     <script type="text/javascript">
+    $('[data-toggle="tooltip"]').tooltip();
       if(document.location.hostname == 'pratikborsadiya.in') {
          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),

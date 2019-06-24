@@ -151,11 +151,18 @@
 				}
 				
 				if(myInfo[i].resId == resId){
+					var resAddRequest;
+					if(myInfo[i].resAddRequest==(" ")){
+						resAddRequest = "없음";
+					}
 					swal({
 		 	      		title: "상세 예약 정보 확인",
-		 	      		text: "\n 회의목적 : "+myInfo[i].resPurpose+"\n 회의실명 : "+ myInfo[i].mrName +
-		 	      				"\n 참석인원수 : "+myInfo[i].resAttendCnt + 
-		 	      				"\n 기자재 : "+"노트북 : " + note +"마이크 : " + mic +"화이트보드 : " + white +"빔프로젝터 : " + beam
+		 	      		text: "\n [회의목적] "+myInfo[i].resPurpose+
+		 	      		      "\n [회의구분] "+myInfo[i].resType+
+		 	      		      "\n [사용비용] "+myInfo[i].resCost+"원"+
+		 	      			  "\n [참석인원수] "+myInfo[i].resAttendCnt + "명"+
+		 	      			  "\n [기자재]\n  노트북 " + note +"개/마이크 " + mic +"개/화이트보드 " + white +"개/빔프로젝터 " + beam+"개"+
+		 	      			  "\n [추가요청사항]\n"+resAddRequest		
 					 })		
 				}	
 			}
