@@ -275,6 +275,7 @@
         	    success:function(data){	
         	    	var pageInfo = JSON.parse(data);
 					  drawPage(pageInfo);
+					  $("#dataTable").DataTable();
         	    }
         	   })
 			   

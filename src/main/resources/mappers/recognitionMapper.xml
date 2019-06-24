@@ -111,7 +111,7 @@
 				<![CDATA[and ((sysdate - 365) < res_start_time)]]> 
 			</if>
 		</if>
-		and res_state ='res_5'
+		and res_state ='res_2'
 		group by dept_id,dept_name,dept_cost,br_name
 		order by dept_id
 	</select>

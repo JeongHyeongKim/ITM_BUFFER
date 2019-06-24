@@ -34,7 +34,7 @@ public class RecognitionController {
 		model.addAttribute("equipList",recService.allEquipList());
 		return "admin/waitForRecognition";
 	}
-	@GetMapping("/paymentManagement")
+	@GetMapping("/paymentManagement") 
 	public String paymentManagement(Model model) {
 		model.addAttribute("allPayment",recService.allPayment());
 		model.addAttribute("allDeptPayment",recService.allDeptPayment());

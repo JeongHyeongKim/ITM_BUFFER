@@ -111,6 +111,6 @@
 	</select>
 	
 	<select id="getPastReservation" parameterType="string" resultType="reservationVO">
-		select res_id resId, res_purpose resPurpose, res_add_request resAddRequest from reservation where emp_id = #{empId}
+		select res_id resId, res_purpose resPurpose from reservation where emp_id = #{empId}
 	</select>
 </mapper>

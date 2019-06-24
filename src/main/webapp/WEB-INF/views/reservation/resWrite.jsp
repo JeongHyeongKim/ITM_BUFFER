@@ -2,7 +2,19 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <link href="/meeting/resources/css/jquery.datetimepicker.css" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.0/css/swiper.min.css">
+<style>
 
+.swiper-slide {
+	text-align:center;
+	display:flex; /* 내용을 중앙정렬 하기위해 flex 사용 */
+	align-items:center; /* 위아래 기준 중앙정렬 */
+	justify-content:center; /* 좌우 기준 중앙정렬 */
+}
+.swiper-slide btn {
+	box-shadow:0 0 5px #555;
+}
+</style>
 <main class="app-content">
 	<div class="app-title">
 		<div>
@@ -38,12 +50,11 @@
                             <input class="form-control" id="resMrName" type="text" readonly>
                         </div>
                         <div class="form-group col-md-3">
-                            <!-- <label class="control-label">회의 구분</label>
-                            <input class="form-control" placeholder="내부회의, 고객미팅 등" type="text" name="resType"> -->
-                            <div>
                             <label class="control-label">회의 구분</label>
-                            <input class="form-control" id="resType" placeholder="직접입력" type="text" name="resType" >
-                            <button class="btn btn-info dropdown-toggle" id="btnGroupDrop3" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"></button>
+                            <div style="width:100%;">
+                            <input style="padding:0.275rem 0.60rem;font-size:0.875rem; ling-height:1.5; background-clip:padding-box;border:2px solid #ced4da;border-radius:4px;"id="resType" placeholder="직접입력" type="text" name="resType" >
+                           
+                            <button class="btn btn-info dropdown-toggle" style="display:inline;" id="btnGroupDrop3" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"></button>
                             <div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end" style="position: absolute; transform: translate3d(-124px, 35px, 0px); top: 0px; left: 0px; will-change: transform;">
                             	<a class="dropdown-item" id="resType1">내부회의</a>
                             	<a class="dropdown-item" id="resType2">고객미팅</a>
@@ -71,7 +82,7 @@
                             <input class="form-control" placeholder="회의 목적을 작성해주십시오" type="text" name="resPurpose">
                         </div>
                          <div class="form-group col-md-3">
-                            <label class="control-label">참석 인원 명단 <a data-target="#empList" data-toggle="modal">명단등록</a></label>
+                            <label class="control-label">참석 인원 명단 <a data-target="#empList" data-toggle="modal">+</a></label>
                             <input class="form-control" type="text">
                         </div>
                         <div class="form-group col-md-3">
@@ -107,10 +118,12 @@
                         <div class="form-group col-md-3"></div>
                         <div class="form-group col-md-3"></div>
 	                        
-	                    <div class="bs-component" style="margin-bottom: 15px;">
-							<div class="btn-group btn-group-toggle" data-toggle="buttons">
-	
+	                    <div class="bs-component"  style="width:100%;height:100%">		
+	                    	
+							<div class="btn-group btn-group-toggle" style="width:100%;height:100%" data-toggle="buttons">
+								
 							</div>
+							
 						</div>
 
 						<div class="form-group col-md-3" style="padding-top:50px;text-align:right">
@@ -187,6 +200,7 @@
 </main>
 <script src="/meeting/resources/js/plugins/jquery.datetimepicker.full.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.17.0/dist/jquery.validate.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.0/js/swiper.min.js"></script>
 <script>
     $(document).ready(function () {
     	
@@ -425,15 +439,15 @@
              }
              console.log(newTimes)
              // 시간뿌리기
-             for(var i=0; i<19; i++){
+             for(var i=0; i<18; i++){
              	
-             	for(var j=0; j<newTimes.length; j++){
+             	for(var j=0; j<newTimes.length; j++){ 
              		var $label ;
              		if(changeTime==newTimes[j]){ //style="height: 10px;"
-             			$label = $("<button type='button'></button>").attr("class","btn btn-warning").attr("id",changeTime).attr("style","height:40px; width:70px;").attr("disabled","").text(changeTime);  
+             			$label = $("<button type='button'></button>").attr("class","btn btn-warning btn-sm").attr("id",changeTime).attr("style","width:100%;height:100%;border: 2px solid #ced4da;font-size:0.3rem;").attr("disabled","").text(changeTime);  
              			break;
              		} else{
-             			$label = $("<button type='button'></button>").attr("class","btn btn-primary").attr("id",changeTime).attr("style","height:40px; width:70px;").text(changeTime);
+             			$label = $("<button type='button'></button>").attr("class","btn btn-primary btn-sm").attr("id",changeTime).attr("style","width:100%;height:100%;border: 2px solid #ced4da;font-size:0.3rem;").text(changeTime);
              		}
              	} 
            		var $secondLabel = $label.appendTo($(".btn-group"))
@@ -452,8 +466,17 @@
              console.log("for문끝")  
         }
         //변경
-       $("<div></div>").html("<p>09:00&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;10:00&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;11:00&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;12:00&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;13:00&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;14:00&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;15:00&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;16:00&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;17:00&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;18:00</p>").appendTo($(".bs-component"))
+       //$("<div style='width:100%;height:100%'></div>").html("<p>9&emsp;&emsp;10&emsp;&emsp;11&emsp;&emsp;12&emsp;&emsp;13&emsp;&emsp;14&emsp;&emsp;15&emsp;&emsp;16&emsp;&emsp;17&emsp;&emsp;18</p>").appendTo($(".bs-component"))
         drawTime();
+        new Swiper('.swiper-container', {
+
+        	// 자동높이 사용여부 : 사용하지 않을시 기본값은 false
+        	autoHeight : true,
+
+        	loop : true, // 슬라이드 반복
+        	
+        	
+        });
         ///////////////////////////////////////////////////////////////////////
    
         $('#resStartDate').val(resStartDate);

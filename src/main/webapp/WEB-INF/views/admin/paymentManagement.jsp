@@ -92,7 +92,8 @@ $(function(){
 			  data:"_csrf=${_csrf.token}",
 			  success:function(data){
 				  var pageInfo = JSON.parse(data);
-				  drawPage(pageInfo);				  
+				  drawPage(pageInfo);			
+				  $("#dataTable").DataTable();
 			  }
 		})
 	})
