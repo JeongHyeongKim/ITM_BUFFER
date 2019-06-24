@@ -21,7 +21,7 @@ import com.gsitm.meeting.users.service.EmployeeService;
 import com.gsitm.meeting.vo.Employee;
 
 @Controller
-@RequestMapping(produces="text/plain; charset=UTF-8")
+@RequestMapping(produces="application/json;charset=utf-8") 
 public class UserController {
 	
 	@Autowired
