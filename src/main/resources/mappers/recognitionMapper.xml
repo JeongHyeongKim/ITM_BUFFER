@@ -98,16 +98,16 @@
 				
 			</if>
 			<if test="searchtype == 'oneWeek'.toString()">
-				<![CDATA[and ((sysdate - 7) < res_end_time)]]>
+				<![CDATA[and ((sysdate - 7) < res_start_time)]]>
 			</if>
 			<if test="searchtype == 'oneMonth'.toString()">
-				<![CDATA[and ((sysdate - 30) < res_end_time)]]> 
+				<![CDATA[and ((sysdate - 30) < res_start_time)]]> 
 			</if>
 			<if test="searchtype == 'sixMonth'.toString()">
-				<![CDATA[and ((sysdate - 180) < res_end_time)]]> 
+				<![CDATA[and ((sysdate - 180) < res_start_time)]]> 
 			</if>
 			<if test="searchtype == 'oneYear'.toString()">
-				<![CDATA[and ((sysdate - 365) < res_end_time)]]> 
+				<![CDATA[and ((sysdate - 365) < res_start_time)]]> 
 			</if>
 		</if>
 		and res_state ='res_5'
