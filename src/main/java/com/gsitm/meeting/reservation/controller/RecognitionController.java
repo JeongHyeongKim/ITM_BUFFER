@@ -26,13 +26,12 @@ public class RecognitionController {
 
 	@Autowired
 	private RecognitionService recService;
-	@Autowired
-	private ReservationService resService;
 	
 	@GetMapping("/waitForRecognition")
 	public String waitForRecognition(Model model) {
 		model.addAttribute("branchList",recService.branchList());
 		model.addAttribute("resList",recService.resList());
+		model.addAttribute("equipList",recService.allEquipList());
 		return "admin/waitForRecognition";
 	}
 	@GetMapping("/paymentManagement")

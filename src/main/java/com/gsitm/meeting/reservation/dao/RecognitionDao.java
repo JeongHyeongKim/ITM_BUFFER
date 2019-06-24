@@ -6,6 +6,8 @@ import com.gsitm.meeting.branch.dto.DepartmentDTO;
 import com.gsitm.meeting.users.dto.EmployeeDTO;
 import com.gsitm.meeting.vo.Branch;
 import com.gsitm.meeting.vo.Department;
+import com.gsitm.meeting.vo.Equipment;
+import com.gsitm.meeting.vo.EquipmentReservation;
 import com.gsitm.meeting.vo.Reservation;
 
 public interface RecognitionDao {
@@ -23,4 +25,6 @@ public interface RecognitionDao {
 	public List<Reservation> resListForHead();
 	public int approvalByHead(String resId);
 	public int backByHead(String resId);
+	
+	public List<EquipmentReservation> allEquipList();
 }

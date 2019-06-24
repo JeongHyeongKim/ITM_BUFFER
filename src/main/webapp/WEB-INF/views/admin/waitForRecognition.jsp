@@ -7,6 +7,7 @@
 		var resId;
 		var myInfo = JSON.parse('${resList}');
 		var branchList = JSON.parse('${branchList}');
+		var equipList = JSON.parse('${equipList}');
 		var searchtype ;
 		var brId ;
 		var email;
@@ -17,6 +18,7 @@
 		var resCost;
 		var headEmail;
 		var empName;
+		
 		function drawListBranch(branchList){
 			$("#listCondition").empty(); 
 			$("#listBranch").empty(); 
@@ -68,10 +70,8 @@
 			var $headTrTag= $("<tr></tr>").appendTo($headTag);
 			$("<th></th>").text("예약일").appendTo($headTrTag);
 			$("<th></th>").text("사용일").appendTo($headTrTag);
-			$("<th></th>").text("부서").appendTo($headTrTag);
-			$("<th></th>").text("신청자").appendTo($headTrTag);
+			$("<th></th>").text("신청자(부서명)").appendTo($headTrTag);
 			$("<th></th>").text("장소").appendTo($headTrTag);
-			$("<th></th>").text("회의목적").appendTo($headTrTag);
 			$("<th></th>").text("상태").appendTo($headTrTag);
 			$("<th></th>").text("변경").appendTo($headTrTag);
 			
@@ -84,18 +84,13 @@
 				deptId= $list.deptId;
 				var $bodyTrTag= $("<tr></tr>").appendTo($bodyTag);
 				
-				$("<td id='resDate' class='showAllInfo'></td>").attr("value",$list.resDate).text($list.resDate).appendTo($bodyTrTag);
-				$("<td id='resStartDate' class='showAllInfo'></td>").attr("value",$list.resStartDate).text($list.resStartDate+" ~ "+$list.resEndDate).appendTo($bodyTrTag);
-				$("<td></td>").attr("class","showAllInfo deptId").text($list.deptName).appendTo($bodyTrTag);
-				$("<td></td>").attr("class","showAllInfo").text($list.empName).appendTo($bodyTrTag);
+				$("<td id='"+$list.resId+"' class='showAllInfo'></td>").attr("value",$list.resDate).text($list.resDate.substr(2,14)).appendTo($bodyTrTag);
+				$("<td id='"+$list.resId+"' class='showAllInfo'></td>").attr("value",$list.resStartDate).text($list.resStartDate.substr(2,14)+" ~ "+$list.resEndDate.substr(2,14)).appendTo($bodyTrTag);
+				$("<td id='"+$list.resId+"'></td>").attr("class","showAllInfo deptId").text($list.empName + "("+$list.deptName+")").appendTo($bodyTrTag);
 				$("<td></td>").attr("class","showAllInfo").text(($list.brName) + " - " + ($list.mrName)).appendTo($bodyTrTag);
-				$("<td></td>").attr("class","showAllInfo").text($list.resPurpose).appendTo($bodyTrTag);
 				
 				var $currentState = $("<td data-toggle='modal' data-target='#detail'></td>").text(mappingState($list.resState)).appendTo($bodyTrTag);
 				var $changeState = $("<td></td>").appendTo($bodyTrTag);
-				
-				
-				
 				
 				/* var $divModalStart = $("<div id='detail' style='position: relative; top: auto; right: auto; left: auto; bottom: auto; z-index: 1; display: block;'></div>").attr("class","modal");
 				var $divModalDialog = $("<div role='document'></div>").attr("class","modal-dialog").appendTo($divModalStart);
@@ -112,7 +107,7 @@
 					var $divChange = $("<div></div>").attr("class","bs-component").appendTo($changeState);
 					var $urChange = $("<ul></ul>").attr("class","nav nav-pills").appendTo($divChange);
 					var $liChange = $("<li></li>").attr("class","nav-item dropdown").appendTo($urChange);
-					$("<a id='"+$list.empEmail+"' data-toggle='dropdown' href='#' role='button' aria-haspopup='true' aria-expanded='false'></a>").attr("class","nav-link dropdown-toggle").text("상태").appendTo($liChange);
+					$("<a id='"+$list.empEmail+"' data-toggle='dropdown' href='#' role='button' aria-haspopup='true' aria-expanded='false'></a>").attr("class","nav-link dropdown-toggle").appendTo($liChange);
 					var $divDropdown = $("<div></div>").attr("class","dropdown-menu showAllInfo").appendTo($liChange);
 					
 					$("<a id='approval' value='"+$list.resId+"'></a>").attr("class","dropdown-item").text("승인").appendTo($divDropdown);
@@ -129,16 +124,43 @@
 		/* drawListPeriod(myInfo); */
 		drawListBranch(branchList);
 		drawPage(myInfo);
-
-		
+		console.log(equipList)
+		console.log(myInfo)
 		//Modal
-		/* $('.showAllInfo').on("click",function(e){
-			var res = e.currentTarget.getAttribute("text");
-			swal({
- 	      		title: "상세 예약 정보 확인",
- 	      		text: "회의실 사용일: "+res+"\n 인원: "
-			 })
-		}); */
+		$('.showAllInfo').on("click",function(e){
+			var resId = e.currentTarget.id
+			
+			for(var i=0; i<myInfo.length; i++){ 
+				var note;
+				var beam;
+				var white;
+				var mic;
+				
+				if(equipList[myInfo[i].resId] == null){
+					
+					note = 0;
+					beam = 0;
+					white = 0;
+					mic = 0;
+				} else{
+					
+					note = equipList[myInfo[i].resId]['N'];
+					beam = equipList[myInfo[i].resId]['V'];
+					white = equipList[myInfo[i].resId]['W'];
+					mic = equipList[myInfo[i].resId]['M'];
+				}
+				
+				if(myInfo[i].resId == resId){
+					swal({
+		 	      		title: "상세 예약 정보 확인",
+		 	      		text: "\n 회의목적 : "+myInfo[i].resPurpose+"\n 회의실명 : "+ myInfo[i].mrName +
+		 	      				"\n 참석인원수 : "+myInfo[i].resAttendCnt + 
+		 	      				"\n 기자재 : "+"노트북 : " + note +"마이크 : " + mic +"화이트보드 : " + white +"빔프로젝터 : " + beam
+					 })		
+				}	
+			}
+			
+		}); 
 		
 		
 		$(document).on('click', '.nav-link', function(e){
@@ -255,8 +277,7 @@
 					  drawPage(pageInfo);
         	    }
         	   })
-			
-        	    
+			   
         }
 	});
 	
@@ -294,7 +315,6 @@
 				     <div id="meetingList">
 		
 					</div>
-					
 					
 					 <!-- <div class="modal fade" id="detail" role="dialog">
 					    <div class="modal-dialog">

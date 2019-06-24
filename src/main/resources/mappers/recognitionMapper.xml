@@ -32,8 +32,9 @@
 	                       res_attend_cnt 
 	                       resAttendCnt, 
 	                       res_add_request 
-	                       resAddRequest 
-	                       , 
+	                       resAddRequest,
+	                       r.mr_id 
+	                       mrId, 
 	                       res_state 
 	                       resState, 
 	                       res_snack 
@@ -278,4 +279,8 @@
 		where res_id=#{resId}
 		and res_state='res_0'
 	</update>
+	
+	<select id="allEquipList" resultType="equipmentReservationVO">
+		select substr(eq_id,1,1) eqId, res_id res_id from equipment_reservation
+	</select>
 </mapper>

@@ -15,7 +15,6 @@
 		document.getElementById ( 'cntSchedule' ).innerHTML=mySchedule.length;
 		
 		
-		
 		function drawMySchedule(mySchedule){
 			$("#meetingInfo").empty(); 
 			var $meetingInfo = $("#meetingInfo");
@@ -170,9 +169,10 @@
 				  data:"_csrf=${_csrf.token}",
 				  success:function(data){
 					  var pageInfo = JSON.parse(data);
-					  $('#meetingList').html(drawPage(myInfo));
+					  console.log(data);
+					  // $('#meetingList').html(drawPage(myInfo));
 					  drawPage(pageInfo);
-					  
+					  $("#dataTable").DataTable();
 				  }
 			})
 		}) 

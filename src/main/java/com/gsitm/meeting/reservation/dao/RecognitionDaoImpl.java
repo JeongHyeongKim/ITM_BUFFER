@@ -1,6 +1,5 @@
 package com.gsitm.meeting.reservation.dao;
 
-import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,11 +8,10 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.google.gson.JsonElement;
 import com.gsitm.meeting.branch.dto.DepartmentDTO;
 import com.gsitm.meeting.users.dto.EmployeeDTO;
 import com.gsitm.meeting.vo.Branch;
-import com.gsitm.meeting.vo.Department;
+import com.gsitm.meeting.vo.EquipmentReservation;
 import com.gsitm.meeting.vo.Reservation;
 
 @Repository
@@ -103,6 +101,11 @@ public class RecognitionDaoImpl implements RecognitionDao{
 	public int backByHead(String resId) {
 		// TODO Auto-generated method stub
 		return session.update(namespace+".backByHead",resId);
+	}
+
+	@Override
+	public List<EquipmentReservation> allEquipList() {
+		return session.selectList(namespace +".allEquipList");
 	}
 
 }
