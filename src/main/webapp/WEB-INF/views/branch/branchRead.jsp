@@ -74,7 +74,6 @@
         position: relative;
         overflow: hidden;
         display: inline-block;
-
     }
 
     .upload-btn {
@@ -135,8 +134,8 @@
 
                         <div class="tile-footer" style="text-align:right; vertical-align:bottom;">
                             <div class="upload-wrapper">
-                                <button class="upload-btn" id="imgUpload">업로드</button>
-                                <input type="file" id="imgUpload" name="mrImg">
+                                <button class="upload-btn" >업로드</button>
+                                <input type="file" id="imgUpload" name="brImg">
                             </div>
                         </div>
                     </div>

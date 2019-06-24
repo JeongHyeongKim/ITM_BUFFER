@@ -49,24 +49,6 @@
 
     <script>
         $(function() {
-
-
-
-            var mrId = null;
-            var mrName = null;
-            var brId = null;
-            var mrLimit = null;
-            var mrPrice = null;
-            var mrArea = null;
-            var mrNetwork = null;
-            var mrType = null;
-            var empId = null;
-            var mrLocation = null;
-            var mrImg = null;
-            //잠시 저장하기 위한 임시 버퍼	
-
-
-
             $('#imgArea').attr('height', $("#rightCol").height() * 0.7);
             $('#imgArea').attr("width", $("#leftCol").width() * 0.8);
             $('#leftCol').css("height", $("#rightCol").height());
@@ -75,21 +57,20 @@
                 $('#imgArea').attr('height', $("#rightCol").height() * 0.7);
                 $('#imgArea').attr("width", $("#leftCol").width() * 0.8);
                 $('#leftCol').css("height", $("#rightCol").height());
-
             });
 
             //페이지 오픈 시 기본 세팅
-
-
-
-            if (document.getElementById('mrNetwork').checked == true) {
-                document.getElementById('mrNetworkHidden').disabled = true;
-            } else {
-                document.getElementById('mrNetworkHidden').checked = true;
-            }
+           
+            $('#mrNetwork').change(function(){
+            	if(document.getElementById('mrNetwork').checked == true){
+            		document.getElementById('mrNetworkHidden').value="net_1";
+            	}else if(document.getElementById('mrNetwork').checked==false){
+            		document.getElementById('mrNetworkHidden').value="net_0";
+            	}
+            });
 
             $('#finallyConfirm').click(function() {
-                $('#meetingRoomUpdate').submit();
+                $('#meetingRoomInsert').submit();
             });
             $("#imgUpload").change(function() {
                 if (this.files && this.files[0]) {
@@ -99,10 +80,25 @@
                         $('#imgArea').attr('src', e.target.result);
                         $('#imgArea').attr('height', $("#rightCol").height() * 0.7);
                         $('#imgArea').attr("width", $("#leftCol").width() * 0.8);
-
                     }
                     reader.readAsDataURL(this.files[0]);
                 }
+            });
+            $('#modalOpen').click(function(){       
+            	$("#modalBranchName").text($("#branchNameSelectBox").children(":selected").attr("id"));
+            	$("#modalMeetingRoomType").text($("#meetingRoomTypeSelectBox").children(":selected").attr("id"));
+            	$("#modalMeetingRoomName").text($("#mrName").val());
+            	$("#modalMeetingRoomLocation").text($("#mrLocation").val());
+            	$("#modalMeetingRoomPrice").text($("#mrPrice").val());
+            	$("#modalMeetingRoomLimit").text($("#mrLimit").val());
+            	$("#modalMeetingRoomArea").text($("#mrArea").val());
+            	$("#modalMeetingRoomAdmin").text($("#empNameSelectBox").children(":selected").attr("id"));
+            	
+            	if(document.getElementById('mrNetwork').checked==true){
+            		$("#modalMeetingRoomNetwork").text("지원 가능");
+            	}else{
+            		$("#modalMeetingRoomNetwork").text("지원 불가");
+            	}
             });
 
         });
@@ -122,7 +118,7 @@
             </ul>
         </div>
 
-        <form action="/meeting/file/meetingRoomUpdate" id="meetingRoomUpdate" method="POST" enctype="multipart/form-data">
+        <form action="/meeting/file/meetingRoomWrite" id="meetingRoomInsert" method="POST" enctype="multipart/form-data">
             <div class="row">
                 <input type="hidden" name="mrId" id="mrIdHiddenArea"> <!-- 바로 세팅이 안된다. 따로 해줘야할듯 -->
                 <input type="hidden" name="_csrf" value="${_csrf.token}">
@@ -135,7 +131,7 @@
 
                         <div class="tile-footer" style="text-align:right; vertical-align:bottom;">
                             <div class="upload-wrapper">
-                                <button class="upload-btn" id="imgUpload">업로드</button>
+                                <button class="upload-btn">업로드</button>
                                 <input type="file" id="imgUpload" name="mrImg">
                             </div>
                         </div>
@@ -149,20 +145,20 @@
                             <div class="form-horizontal">
                                 <div class="form-group row" style="padding-bottom:10px">
                                     <div class="col-md-4">
-                                        <select class="form-control" name="brId">
+                                        <select class="form-control" name="brId" id="branchNameSelectBox">
                                             <!-- 보여지는거는 네임으로, 보내지는 파라미터는 지사이름으로 보내져야한다. -->
                                             <option value="none" hidden>지사 선택</option>
                                             <c:forEach items='${branchList}' var="branchList">
-                                                <option value="${branchList.brId}" id="${branchList.brId}">${branchList.brName}</option>
+                                                <option value="${branchList.brId}" id="${branchList.brName}">${branchList.brName}</option>
                                             </c:forEach>
                                         </select>
                                     </div>
                                     <div class="col-md-4">
-                                        <select class="form-control" name="mrType">
+                                        <select class="form-control" name="mrType" id="meetingRoomTypeSelectBox">
                                             <option value="" hidden>회의실 유형 선택</option>
-                                            <option value="mr_type_0" id="mr_type_0">회의실</option>
-                                            <option value="mr_type_1" id="mr_type_1">대회의실</option>
-                                            <option value="mr_type_2" id="mr_type_2">교육실</option>
+                                            <option value="mr_type_0" id="회의실">회의실</option>
+                                            <option value="mr_type_1" id="대회의실">대회의실</option>
+                                            <option value="mr_type_2" id="교육실">교육실</option>
                                         </select>
                                     </div>
                                     <div class="col-md-4">
@@ -187,18 +183,18 @@
                                         <input class="form-control" id="mrArea" type="text" placeholder="면적(m²)를 입력해주세요" name="mrArea">
                                     </div>
                                     <div class="col-md-4">
-                                        <select class="form-control" name="empId">
+                                        <select class="form-control" name="empId" id="empNameSelectBox">
                                             <option value="none" hidden>관리자 선택</option>
                                             <c:forEach items='${administrator}' var="administrator">
-                                                <option value="${administrator.empId}" id="${administrator.empId}">${administrator.empName}</option>
+                                                <option value="${administrator.empId}" id="${administrator.empName}">${administrator.empName}</option>
                                             </c:forEach>
                                         </select>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="animated-checkbox">
                                             <label>
-                                                <input name="mrNetwork" type="checkbox" value="net_1" id="mrNetwork"><span class="label-text">네트워크 지원</span>
-                                                <input type="hidden" name="mrNetworkHidden" value="net_0" id="mrNetworkHidden" />
+                                                <input  type="checkbox" value="net_1" id="mrNetwork"><span class="label-text">네트워크 지원</span>
+                                                <input type="hidden" name="mrNetwork" value="net_0" id="mrNetworkHidden" style="display:none;" />
                                                 <!-- 여기서 엠알 타입 둘다 들어가는 현상이 있는데 이를 해결하는 jsp가 필요하다. -->
                                             </label>
                                         </div>
@@ -210,6 +206,7 @@
                         </div>
                         <div class="tile-footer">
                             <!--  modal start -->
+                            <!-- 지사, 회의실 유형, 회의실이름, 주소, 30분당 비용, 최대 수용인원, 면적, 관리자, 네트워크 지원 유무 -->
                             <div class="modal fade" id="confirm" role="dialog">
                                 <div class="modal-dialog">
                                     <!-- Modal content-->
@@ -218,8 +215,62 @@
                                             <h4 class="modal-title" style="text-align:center;">입력 확인</h4>
                                             <button type="button" class="close" data-dismiss="modal">×</button>
                                         </div>
+
+
                                         <div class="modal-body">
-                                            <h5 id="modalBranchName">작성하신 내용이 맞습니까?</h5>
+                                            <div class="row mb-4">
+                                                <div class="col-md-4">
+                                                    <label>소속 지사</label>
+                                                    <h5 id="modalBranchName"></h5>
+                                                </div>
+                                                
+                                                <div class="col-md-4">
+                                                    <label>회의실 유형</label>
+                                                    <h5 id="modalMeetingRoomType"></h5>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label>회의실 이름</label>
+                                                    <h5 id="modalMeetingRoomName"></h5>
+                                                </div>
+                                            </div>
+                                            <div class="row mb-4">
+                                                <div class="col-md-4">
+                                                    <label>회의실 층수</label>
+                                                    <h5 id="modalMeetingRoomLocation"></h5>
+                                                </div>
+                                            </div>
+                                            <div class="row mb-4">
+                                                <div class="col-md-4">
+                                                    <label>30분당 회의실 사용료</label>
+                                                    <h5 id="modalMeetingRoomPrice"></h5>
+                                                </div>
+                                            </div>
+                                            <div class="row mb-4">
+                                                <div class="col-md-4">
+                                                    <label>최대 수용인원</label>
+                                                    <h5 id="modalMeetingRoomLimit"></h5>
+                                                </div>
+                                            </div>
+                                            <div class="row mb-4">
+                                                <div class="col-md-4">
+                                                    <label>회의실 면적</label>
+                                                    <h5 id="modalMeetingRoomArea"></h5>
+                                                </div>
+                                            </div>
+                                            <div class="row mb-4">
+                                                <div class="col-md-4">
+                                                    <label>회의실 관리자</label>
+                                                    <h5 id="modalMeetingRoomAdmin"></h5>
+                                                </div>
+                                            </div>
+                                            <div class="row mb-4">
+                                                <div class="col-md-4">
+                                                    <label>네트워크 지원 유무</label>
+                                                    <h5 id="modalMeetingRoomNetwork"></h5>
+                                                </div>
+                                            </div>
+
+
 
                                             <div class="modal-footer" style="margin-top:20px">
                                                 <div class="row mb-10">

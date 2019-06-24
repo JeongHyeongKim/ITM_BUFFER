@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <style>
-    <style>.upload-wrapper {
+    .upload-wrapper {
         position: relative;
         overflow: hidden;
         display: inline-block;
@@ -45,7 +45,7 @@
         $('#leftCol').css("height", $("#rightCol").height() * 0.9);
 
         $(window).resize(function() {
-        	$('#imgArea').attr('height', $("#rightCol").height() * 0.6);
+            $('#imgArea').attr('height', $("#rightCol").height() * 0.6);
             $('#imgArea').attr("width", $("#leftCol").width() * 0.8);
             $('#leftCol').css("height", $("#rightCol").height() * 0.9);
 
@@ -78,7 +78,6 @@
         });
 
     });
-    
 </script>
 </head>
 
@@ -119,8 +118,8 @@
 
                         <div class="tile-footer" style="text-align:right; vertical-align:bottom;">
                             <div class="upload-wrapper">
-                                <button class="upload-btn" id="imgUpload">업로드</button>
-                                <input type="file" id="imgUpload" name="mrImg">
+                                <button class="upload-btn">업로드</button>
+                                <input type="file" id="imgUpload" name="brImg">
                             </div>
                         </div>
                     </div>
