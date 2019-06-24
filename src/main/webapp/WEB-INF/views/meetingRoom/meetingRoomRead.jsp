@@ -48,7 +48,7 @@
 
     <script>
         $(function() {
-
+        	var imgChanged = false;
             var meetingRoom = JSON.parse('${meetingRoom}');
             //잠시 저장하기 위한 임시 버퍼	
 
@@ -86,6 +86,7 @@
             });
 
             $("#imgUpload").change(function() {
+            	imgChanged = true;
                 if (this.files && this.files[0]) {
                     var reader = new FileReader();
 
@@ -126,7 +127,7 @@
                 if (imgChanged == false)
                     missingList = missingList + "회의실 사진, ";
                 console.log(missingList.index);
-                if (missingList != null) {
+                if (missingList != "") {
                     missingList = missingList.substr(0, missingList.length - 2);
                     swal({
                         title: "오류",
@@ -343,7 +344,7 @@
 
                             <div class="row">
                                 <div class="col-md-8 col-md-offset-3">
-                                    <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#confirm" id="modalOpen"><i class="fa fa-fw fa-lg fa-check-circle"></i>확인</button>&nbsp;&nbsp;&nbsp;
+                                    <button class="btn btn-primary" type="button"  id="modalOpen"><i class="fa fa-fw fa-lg fa-check-circle"></i>확인</button>&nbsp;&nbsp;&nbsp;
                                     <a class="btn btn-secondary" href="/meeting/branch/list"><i class="fa fa-fw fa-lg fa-times-circle"></i>취소</a>
                                 </div>
                             </div>

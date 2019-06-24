@@ -34,11 +34,7 @@
 </style>
 <script type="text/javascript">
     $(function() {
-
-        var brId = null;
-        var name = null;
-        var address = null;
-        var tel = null;
+    	var imgChanged = false;
 
         $('#imgArea').attr('height', $("#rightCol").height() * 0.6);
         $('#imgArea').attr("width", $("#leftCol").width() * 0.8);
@@ -52,19 +48,38 @@
         });
 
         $('#modalOpen').click(function() {
-            name = document.getElementById("brName").value;
-            address = document.getElementById("brAddress").value;
-            tel = document.getElementById("brTel").value;
-
-            document.getElementById("modalBranchName").innerHTML = name
-            document.getElementById("modalBranchLocation").innerHTML = address
-            document.getElementById("modalBranchTel").innerHTML = tel
+            var missingList = "";
+            if ($("#brName").val()=="")
+                missingList = missingList + "지사 이름, ";
+            if ($("#brAddress").val()=="")
+                missingList = missingList + "지사 위치, ";
+            if ($("#brTel").val() == "")
+                missingList = missingList + "대표 번호, ";
+            if (imgChanged == false)
+                missingList = missingList + "지사 사진, ";
+            console.log(missingList.index);
+            if (missingList != "") {
+                missingList = missingList.substr(0, missingList.length - 2);
+                swal({
+                    title: "오류",
+                    text: missingList + "을(를) 입력해주세요.",
+                    type: "warning",
+                    confirmButtonText: "OK",
+                    closeOnConfirm: true,
+                });
+            } else {
+                $("#confirm").modal('show');
+                $("#modalBranchName").text($("#brName").val());
+                $("#modalBranchLocation").text($("#brAddress").val());
+                $("#modalBranchTel").text($("#brTel").val());
+            }
         });
 
         $('#finallyConfirm').click(function() {
             $('#branchDataWrite').submit();
         });
         $("#imgUpload").change(function() {
+        	imgChanged=true;
             if (this.files && this.files[0]) {
                 var reader = new FileReader();
 
@@ -76,6 +91,8 @@
                 reader.readAsDataURL(this.files[0]);
             }
         });
+        
+        
 
     });
 </script>
@@ -193,7 +210,7 @@
                         <!-- modal end -->
                         <div class="tile-footer">
                             <div style="text-align:right">
-                                <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#confirm" id="modalOpen"><i class="fa fa-fw fa-lg fa-check-circle"></i>확인</button>
+                                <button class="btn btn-primary" type="button"  id="modalOpen"><i class="fa fa-fw fa-lg fa-check-circle"></i>확인</button>
                                 <a class="btn btn-secondary" href="/meeting/branch/list"><i class="fa fa-fw fa-lg fa-times-circle"></i>취소</a>
                             </div>
                         </div>
@@ -201,3 +218,5 @@
                 </div>
             </div>
         </form>
+        <script type="text/javascript" src="/meeting/resources/js/plugins/bootstrap-notify.min.js"></script>
+<script type="text/javascript" src="/meeting/resources/js/plugins/sweetalert.min.js"></script>

@@ -108,7 +108,7 @@
 				if(imgChanged==false)
 					missingList=missingList+"회의실 사진, ";
 				console.log(missingList.index);
-                if (missingList!=null) {
+                if (missingList!="") {
                 	missingList = missingList.substr(0, missingList.length -2); 
                     swal({
                         title: "오류",
