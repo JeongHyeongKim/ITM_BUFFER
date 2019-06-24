@@ -51,8 +51,8 @@ $(function(){
 		/* 카드 바디 */
 		var $divCard = $("<div class='card-body'></div>").appendTo($divCol12);
 		var $divRes = $("<div class='table-responsive'></div>").appendTo($divCard);
-		
-		var $tableTag = $("<table class='table table-bordered' id='dataTable' width='100%' cellspacing='0'></table>").appendTo($divRes);
+		 
+		var $tableTag = $("<table class='table table-hover table-bordered' id='dataTable' width='100%' cellspacing='0'></table>").appendTo($divRes);
 		
 		var $headTag = $("<thead></thead>").appendTo($tableTag);
 		var $headTrTag= $("<tr></tr>").appendTo($headTag);
