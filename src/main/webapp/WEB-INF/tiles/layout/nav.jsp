@@ -11,7 +11,7 @@
 			method :"post",
 			data : "_csrf=${_csrf.token}",
 			success : function(data){
-				var emp = data
+				var emp = data;
 				$("#part").text(emp.deptName);
 				$("#name").text(emp.empName);
 			}

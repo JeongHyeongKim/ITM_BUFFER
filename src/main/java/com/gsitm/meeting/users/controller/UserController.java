@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.gsitm.meeting.users.dto.EmployeeDTO;
@@ -24,7 +25,7 @@ import com.gsitm.meeting.users.service.EmployeeService;
 import com.gsitm.meeting.vo.Employee;
 
 @Controller
-@RequestMapping(produces="application/json;charset=utf-8") 
+@RequestMapping(produces="application/json;charset=utf-8")  
 public class UserController {
 	
 	@Autowired
@@ -51,7 +52,7 @@ public class UserController {
 	
 	//윤영
 	@PostMapping("/users/getCurrentInfo/{mrId}")
-	public ResponseEntity<String> CurrentInfoByMrId(@PathVariable String mrId){
+	public @ResponseBody ResponseEntity<String> CurrentInfoByMrId(@PathVariable String mrId){
 		return new ResponseEntity<>(empService.CurrentInfoByMrId(mrId), HttpStatus.OK);
 	}
 	

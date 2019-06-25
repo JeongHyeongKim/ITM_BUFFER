@@ -129,8 +129,7 @@
             	    	type:"post",
             	    	data:"_csrf=${_csrf.token}",
             	    	success:function(data){
-            	    		var info = JSON.parse(data);
-            	    		console.log(info)
+            	    		var info = data;
             	    		window.sessionStorage.setItem("mrName",info.mrName);
                     		window.sessionStorage.setItem("brName",info.brName);		
             	    	}

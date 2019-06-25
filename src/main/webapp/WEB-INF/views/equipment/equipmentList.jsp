@@ -45,7 +45,7 @@ function saveEqId(param){
             <h1>
                 <i class="fa fa-calendar"></i>기자재관리</h1>
             <p>
-                기자재 목록
+               전체 기자재 목록입니다.
             </p>
         </div>
         <ul class="app-breadcrumb breadcrumb">

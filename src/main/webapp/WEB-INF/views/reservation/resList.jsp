@@ -63,7 +63,7 @@
 				</div>
 				
 				<div id="deptCostInfo" style="float:right;text-align:right">
-					<h3 class="tile-title">팀별 회의실 사용 누적금액</h3>
+					<h3 class="tile-title">부서별 회의실 사용 누적금액</h3>
 					<h3 class="tile-title" id="deptCost"></h3>
 				</div>
 			</div>
@@ -213,13 +213,13 @@
          	     </div>
           	<div class="tile row">
             	<div class="col-md-3">
-            		<c:forEach items="${branchList}" var="branchList">
-						<div class="fc-event">
-					        <label class="btn btn-primary branchList" style="width:100%;">
-					           <input id="${branchList.brId}" type="radio" name="options" style="display:none;margin:10px"onClick="location.href='/meeting/reservation/list/${branchList.brId}'"> ${branchList.brName}
-					        </label>
-						</div>
-					</c:forEach>	
+            		<div class="fc-event">
+            			<c:forEach items="${branchList}" var="branchList">
+					        	<label class="btn btn-primary branchList" style="width:100%;">
+					           		<input id="${branchList.brId}" type="radio" name="options" style="display:none;margin:10px"onClick="location.href='/meeting/reservation/list/${branchList.brId}'"> ${branchList.brName}
+					        	</label>
+						</c:forEach>	
+					</div>
             	</div>
             	 <div class="col-md-9">
 	              <div id="calendar"></div>
