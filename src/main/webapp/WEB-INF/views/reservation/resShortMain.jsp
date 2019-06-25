@@ -130,6 +130,7 @@
             	    	data:"_csrf=${_csrf.token}",
             	    	success:function(data){
             	    		var info = JSON.parse(data);
+            	    		console.log(info)
             	    		window.sessionStorage.setItem("mrName",info.mrName);
                     		window.sessionStorage.setItem("brName",info.brName);		
             	    	}

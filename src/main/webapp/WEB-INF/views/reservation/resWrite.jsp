@@ -118,7 +118,7 @@
 	                        
 	                    <div class="bs-component"  style="width:100%;height:100%">		
 	                    	
-							<div class="btn-group btn-group-toggle" style="width:100%;height:100%" data-toggle="buttons">
+							<div class="btn-group btn-group-toggle btn-group-time" style="width:100%;height:100%" data-toggle="buttons">
 								
 							</div>
 							
@@ -173,8 +173,8 @@
 		</div>
 		
 		 <!-- EmpModal -->
-        <div class="modal fade" id="empList" role="dialog">
-			<div class="modal-dialog">
+        <div class="modal fade" id="empList" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+			<div class="modal-dialog modal-lg" role="document">
 				<!-- Modal content-->
 				<div class="modal-content">
 					<div class="modal-header">
@@ -182,12 +182,44 @@
 						<button type="button" class="close" data-dismiss="modal">×</button>
 					</div>
 					<div class="modal-body" id="empList-modal-body">
-					
+						<!--  -->
+						<div class="row">
+							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+								<div class="tile" >
+                        			<div class="sparkline10-list">
+		                           	 <div class="sparkline10-hd">
+		                                <div class="main-sparkline10-hd">
+		                                    <h1>명단추가</h1>
+		                                </div>
+		                            </div>
+                            <div class="sparkline10-graph">
+                                <div class="basic-login-form-ad">
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                            <div class="dual-list-box-inner">
+                                              
+                                            <select class="form-control dual_select" id="empListOption" multiple >
+												<c:forEach var="list" items="${empList }">
+													<option value="${list.empId }">${list.empName } - ${list.deptName }</option>
+												</c:forEach>
+											</select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tile-footer" >
+			            </div>
+		                 </div>
+		            </div>
+			</div>
+						
 					</div>
 					<div class="modal-footer" style="margin-top:20px">
 						<div class="row mb-10">
 							<div class="col-md-12">
-								<input type="submit" class="btn btn-success" data-dismiss="modal" value="작성">
+								<input type="button" id="btnEmpList" class="btn btn-success" data-dismiss="modal" value="작성">
 							</div>
 						</div>
 					</div>
@@ -199,18 +231,25 @@
 <script src="/meeting/resources/js/plugins/jquery.datetimepicker.full.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.17.0/dist/jquery.validate.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.0/js/swiper.min.js"></script>
+<script src="/meeting/resources/js/duallistbox/jquery.bootstrap-duallistbox.js"></script>
+<script src="/meeting/resources/js/duallistbox/duallistbox.active.js"></script>
+<script src="/meeting/resources/js/moment.js"></script>
+<script src="/meeting/resources/js/moment.min.js"></script>
 <script>
     $(document).ready(function () {
-    	
+    	$("#btnEmpList").on("click",function(){
+    		$("<input>").attr("type","hidden").attr("name","empList").attr("value",$("#empListOption").val()).appendTo($("#resForm"));
+    	})
     	// Array contains method추가      
         Array.prototype.contains = function(element) {
-		for (var i = 0; i < this.length; i++) {
-			if (this[i] == element) {
-				return true;
+			for (var i = 0; i < this.length; i++) {
+				if (this[i] == element) {
+					return true;
+				}
 			}
+			return false;
 		}
-		return false;
-		}
+    	
     	////////////////////////////////////////////////////////////  pastReservation List
     	var pastRes = JSON.parse('${pastReservation}');
     	
@@ -219,6 +258,7 @@
     	}
     	
     	////////////////////////////////////////////////////////////참석자명단 id : empList-modal-body
+    	/* 
     	var empList = JSON.parse('${empList}');
     	
     	var deptList = [];
@@ -232,35 +272,32 @@
     			deptList.push(empList[i].deptName);
     		}	
     	}
-    	
+    	 */
     	// model 화면에 deptList출력
+    	/* 
     	for(var i=0; i<deptList.length; i++){
-    		var $backDiv = $("<div></div>").attr("class","col-md-12").appendTo($("#empList-modal-body"));
+    		
+    		var $backDiv = $("<div></div>").attr("class","col-md-12").appendTo($("#empListOption"));
     		var $colsix = $("<div></div>").attr("class","col-md-6").appendTo($backDiv);
     		// div정렬중 ///////////////////////////////////
     		$("<p></p>").attr("id",deptList[i]).attr("class","col-md-6").attr("class","showDept").text("> "+deptList[i]).appendTo($colsix);
-    		// $("<div></div>").attr("class","col-md-3").text("주관").appendTo($backDiv);
     		for(var j=0; j<empList.length; j++){
     			if(empList[j].deptName == deptList[i]){
     				var $deptDiv = $("<div></div>").attr("id","child"+deptList[i]).appendTo($backDiv);
-    				$("<p></p>").text(empList[j].empName).appendTo($deptDiv);
-    				
+    				$("<p></p>").text(empList[j].empName).appendTo($deptDiv);	
     			}
-    			
     		}
-    		
     		$("#child"+deptList[i]).hide();
     	}
     	$(".showDept").on("click",function(e){
-    
     		$("#child"+e.currentTarget.id).toggle();
     	})
+    	 */
     	///////////////////////////////////////////////////////////////회의구분 선택자
     	$("#resType1").on("click",function(){
     		$("#resType").attr("value",$("#resType1").text());
     	})
     	$("#resType2").on("click", function(){
-    		//$("#btnGroupDrop3").attr("value",$("#customer").text());
     		$("#resType").val($("#resType2").text());
     	})
     	$("#resType3").on("click",function(){
@@ -271,12 +308,10 @@
     	})
 
     	/////////////////////////기자재 modal // id : equip-modal-body
-    	
         var equipList = JSON.parse('${equipList}') ;
-    	console.log(equipList);
+    	
     	$("#equipElement").val("빔프로젝터 ("+equipList['V']+"),화이트보드 ("+equipList['W']+"),마이크 ("+equipList['M']+"),노트북 ("+equipList['N']+")")
 		var test = "빔프로젝터 (1),화이트보드 (1),마이크 (1),노트북 (3)";
-    	console.log(test.split(","))
     	
     	for(var i=0; i<Object.keys(equipList).length; i++){
     		var $inputDiv = $("<div></div>").attr("class","input-group");
@@ -298,13 +333,12 @@
     			$("<input class='form-control' id='W' type='text' value='화이트보드 대여 수량 : "+equipList['W']+ "'readonly>").appendTo($inputDiv);
     			var $plusBtn = $("<div class='input-group-append'><button class='btn btn-secondary' type='button' id='WPlusBtn'>+</button></div>").appendTo($inputDiv);
     		}
-    		
     		$inputDiv.appendTo($("#equip-modal-body"))
     	} 
-    	
     	$(document).on("click","#NMinusBtn",function(){
     		
     		if(($("#N").val().split(":")[1]) == 0){
+    		
     		} else{
     			$("#N").val('노트북 대여 수량 : '+ ( ($("#N").val().split(":")[1]) -1))	
     		}
@@ -363,7 +397,7 @@
     	})
     	//////////////////////////////////////////////////////////////////////////////////////////
         var resStartDate = sessionStorage.getItem("currentDate");
-        resStartDate += "00:00";
+        resStartDate += " 09:00";
         
         var now = new Date();
 
@@ -391,8 +425,9 @@
     				selectTimes.push(choiceTime);
     			}
     		}
-    		$("#times").remove();
-    		$("<input>").attr("type","hidden").attr("name","times").attr("id","times").attr("value",selectTimes).appendTo($("#resForm"));
+    	
+    	$("#times").remove();
+    	$("<input>").attr("type","hidden").attr("name","times").attr("id","times").attr("value",selectTimes).appendTo($("#resForm"));
     		
         })
        
@@ -450,7 +485,7 @@
              			$label = $("<button type='button'></button>").attr("class","btn btn-primary btn-sm").attr("id",changeTime).attr("style","width:100%;height:100%;border: 2px solid #ced4da;font-size:0.3rem;").text(changeTime);
              		}
              	} 
-           		var $secondLabel = $label.appendTo($(".btn-group"))
+           		var $secondLabel = $label.appendTo($(".btn-group-time"))
                 var $input = $("<input>").attr("type","checkbox").attr("autocomplete","off").appendTo($secondLabel);
      			
            		if(splitMinTime=="00"){
@@ -475,7 +510,6 @@
 
         	loop : true, // 슬라이드 반복
         	
-        	
         });
         ///////////////////////////////////////////////////////////////////////
    
@@ -494,7 +528,7 @@
             }
          });
         $("#resEndDate").blur(function() {
-        	 
+        	/*  
             var resStartDateArr = $('#resStartDate').val();
         	var startDateArr = resStartDateArr.split('/');
         	
@@ -509,6 +543,40 @@
                 $('#resEndDate').val("");
             }else if(((endDateArr[2].substring(3,5))-(startDateArr[2].substring(3,5))) >= 8)
            		console.log("장기")
+           	 */
+         
+            var start = Number( ($("#resStartDate").val().split("/")[2]).split(" ")[0] );
+            var end = Number( ($("#resEndDate").val().split("/")[2]).split(" ")[0] );
+            var longtime = end - start;
+           	
+           	if(longtime >= 1){
+           		alert("장기예약입니다. \n(장기예약은 상위관리자의 승인이 필요합니다.)")
+           		$("<input>").attr("type","hidden").attr("value","res_0").attr("name","resState").appendTo($("#resForm"));
+           	} else if(longtime > 0 && longtime < 1 ){
+           		$("<input>").attr("type","hidden").attr("value","res_1").attr("name","resState").appendTo($("#resForm"));
+           	} else if(longtime < 0){
+           		alert("시작시간보다 뒤의 날짜를 선택하세요")
+           		$("#resEndDate").val("");
+           	}
+           	
+           	/////////////////////////////////////////////cost계산
+           	var t1 = $("#resStartDate").val();
+           	var t2 = $("#resEndDate").val();
+           	
+           	var t1split = t1.split(" ")[0];
+           	var t1splitYear = t1split.split("/")[0];
+           	var t1splitMonth = t1split.split("/")[1];
+           	var t1splitDay = t1split.split("/")[2];
+           	
+           	var t2split = t2.split(" ")[0];
+           	var t2splitYear = t2split.split("/")[0];
+           	var t2splitMonth = t2split.split("/")[1];
+           	var t2splitDay = t2split.split("/")[2];
+           	
+           	var yearCost = (t2splitYear - t1splitYear)*365;
+           	if(t)
+           	var monthCost = (t2splitMonth - t1splitMonth)*30;
+           	var 
         });
         
         

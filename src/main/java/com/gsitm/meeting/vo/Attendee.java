@@ -1,5 +1,12 @@
 package com.gsitm.meeting.vo;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Attendee {
 	
 	private String resId;
@@ -7,42 +14,4 @@ public class Attendee {
 	private String attendType;
 	private String deptId;
 	
-	public Attendee () {
-		super();
-	}
-
-	public String getResId() {
-		return resId;
-	}
-
-	public void setResId(String resId) {
-		this.resId = resId;
-	}
-
-	public String getAttendId() {
-		return attendId;
-	}
-
-	public void setAttendId(String attendId) {
-		this.attendId = attendId;
-	}
-
-	public String getAttendType() {
-		return attendType;
-	}
-
-	public void setAttendType(String attendType) {
-		this.attendType = attendType;
-	}
-
-	public String getDeptId() {
-		return deptId;
-	}
-
-	public void setDeptId(String deptId) {
-		this.deptId = deptId;
-	}
-	
-	
-
 }

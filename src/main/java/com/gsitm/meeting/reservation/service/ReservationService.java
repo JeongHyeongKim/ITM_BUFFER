@@ -16,7 +16,9 @@ import com.gsitm.meeting.reservation.dto.ReservationDTO;
 import com.gsitm.meeting.reservation.dto.SearchDTO;
 import com.gsitm.meeting.room.dto.MeetingRoomDTO;
 import com.gsitm.meeting.users.dto.EmployeeDTO;
+import com.gsitm.meeting.vo.Attendee;
 import com.gsitm.meeting.vo.Equipment;
+import com.gsitm.meeting.vo.EquipmentReservation;
 import com.gsitm.meeting.vo.Reservation;
 
 @Service
@@ -28,54 +30,75 @@ public class ReservationService {
 	@Autowired
 	private Gson gson;
 	
-	public void insertReservation(Reservation res, String times, String equipElement) {
+	public void insertReservation(Reservation res, String times, String equipElement, String empList) {
 		
 		String storedId = resDao.resMostRecent();
 		String nextId = calcId(storedId);
+		// 계산된 ID값 입력
 		res.setResId(nextId);
+		
+		// 데이트포멧 변경후 입력
 		String changeStartTime = calcDate(res.getResStartDate());
 		res.setResStartDate(changeStartTime+" "+times.split(",")[0]);
 		String changeEndTime = calcDate(res.getResEndDate());
 		res.setResEndDate(changeEndTime+" "+times.split(",")[1]);
-		System.out.println("service : "+res);
 		
+		// 기자재 입력
 		List<Equipment> storedEquip = resDao.getResEquip(res.getMrId());
 		ArrayList<String> mrEquip = new ArrayList<>();
 		for(int i=0; i<storedEquip.size(); i++) {
 			mrEquip.add(storedEquip.get(i).getEqId());
 		}
-		System.out.println(equipElement);
+		
 		String[] equipList = equipElement.split(",");
-		System.out.println(equipList);
+		
 		ArrayList<String> resultEquip = new ArrayList<>();
-		System.out.println(equipList[2].split(" ")[0]);
-		System.out.println(equipList[2].split(" ")[1].substring(1, 2));
+		
 		for(int i=0; i<equipList.length; i++) {
+			
 			if(equipList[i].split(" ")[0].equals("빔프로젝터")) {
+				int count = 0 ;
 				for(int j=0; j<Integer.parseInt(equipList[i].split(" ")[1].substring(1, 2)); j++) {
 					for(int k=0; k<mrEquip.size(); k++) {
+						
 						if(mrEquip.get(k).substring(0, 1).equals("V")) {
-							resultEquip.add(mrEquip.get(k));
+							break;
 						}
+						count++;
 					}
+				}
+				for(int j=0; j<Integer.parseInt(equipList[i].split(" ")[1].substring(1, 2)); j++) {
+					resultEquip.add(mrEquip.get(count+j));
 				}
 			}
 			if(equipList[i].split(" ")[0].equals("화이트보드")) {
+				int count = 0 ;
 				for(int j=0; j<Integer.parseInt(equipList[i].split(" ")[1].substring(1, 2)); j++) {
 					for(int k=0; k<mrEquip.size(); k++) {
+						
 						if(mrEquip.get(k).substring(0, 1).equals("W")) {
-							resultEquip.add(mrEquip.get(k));
+							break;
 						}
+						count++;
 					}
+				}
+				for(int j=0; j<Integer.parseInt(equipList[i].split(" ")[1].substring(1, 2)); j++) {
+					resultEquip.add(mrEquip.get(count+j));
 				}
 			}
 			if(equipList[i].split(" ")[0].equals("마이크")) {
+				int count = 0 ;
 				for(int j=0; j<Integer.parseInt(equipList[i].split(" ")[1].substring(1, 2)); j++) {
 					for(int k=0; k<mrEquip.size(); k++) {
+						
 						if(mrEquip.get(k).substring(0, 1).equals("M")) {
-							resultEquip.add(mrEquip.get(k));
+							break;
 						}
+						count++;
 					}
+				}
+				for(int j=0; j<Integer.parseInt(equipList[i].split(" ")[1].substring(1, 2)); j++) {
+					resultEquip.add(mrEquip.get(count+j));
 				}
 			}
 			if(equipList[i].split(" ")[0].equals("노트북")) {
@@ -94,8 +117,27 @@ public class ReservationService {
 				}
 			}
 		}
+		List<EquipmentReservation> sendEquip = new ArrayList<>();
+		for(int i=0; i<resultEquip.size(); i++) {
+			EquipmentReservation temp = new EquipmentReservation(nextId, resultEquip.get(i));
+			sendEquip.add(temp);
+		}
+		// attendee 객체
+		String[] empListArray = empList.split(",");
+		List<Attendee> sendAttendee = new ArrayList<>();
 		
-		System.out.println(resultEquip);
+		for(int i=0; i<empListArray.length; i++) {
+			String deptId = resDao.getDeptIdByEmpId(empListArray[i]);
+			Attendee temp = new Attendee(nextId, empListArray[i], "att_type_0", deptId);
+			sendAttendee.add(temp);
+		}
+
+		// resultEquip 전송 (기자재)
+		System.out.println("equip : " + sendEquip);
+		// res 전송 (예약)
+		System.out.println("reservation : " + res);
+		// empList 전송 (참석자)
+		System.out.println("attendee : " + sendAttendee);
 	}
 	
 	public String calcDate(String currentDate) {
@@ -170,32 +212,30 @@ public class ReservationService {
 		return gson.toJson(countEquip);
 	}
 	public List<MeetingRoomDTO> search(SearchDTO search) {
-		// TODO Auto-generated method stub
-		System.out.println(search);
+		
 		return resDao.search(search);
 	}
 	
 	//이후에 users 패키지로 옮길 것
 	public int cancelRes(String resId) {
-		// TODO Auto-generated method stub
+		
 		return resDao.cancelRes(resId);
 	}
 	
 	public String mySchedule(String empId) {
-		// TODO Auto-generated method stub
+		
 		return gson.toJson(resDao.mySchedule(empId));
 	}
-	public String empList() {
-		// TODO Auto-generated method stub
-		return gson.toJson(resDao.empList());
+	public List<EmployeeDTO> empList() {
+		return resDao.empList();
 	}
 	public List<ReservationDTO> myListPeriod(String resStartDate) {
-		// TODO Auto-generated method stub
+		
 		return resDao.myListPeriod(resStartDate);
 	}
 	
 	public String getPastReservation(String empId) {
-		System.out.println(gson.toJson(resDao.getPastReservation(empId)));
+		
 		return gson.toJson(resDao.getPastReservation(empId));
 	}
 }

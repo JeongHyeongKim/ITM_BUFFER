@@ -42,9 +42,11 @@ public class ReservationController {
 		return "reservation/resList";
 	}
 	@PostMapping("/writeReservation")
-	public String writeReservation(Model model, String mrId,@RequestParam(required=false) String resPurpose, @RequestParam(required=false)String resAddRequest,
-			String resStartDate, String resEndDate, String resSnack, String resType, String resOutside, String equipElement, Principal principal, String times) {
-		System.out.println("time : "+times);
+	public String writeReservation(Model model, String mrId,@RequestParam(required=false) String resPurpose, 
+			@RequestParam(required=false)String resAddRequest, String resStartDate, String resEndDate, 
+			String resSnack, String resType, String resOutside, String equipElement, Principal principal, 
+			String times, String empList, String resState) {
+		
 		Reservation res = new Reservation();
 		res.setEmpId(principal.getName());
 		res.setMrId(mrId);
@@ -54,10 +56,10 @@ public class ReservationController {
 		res.setResAddRequest(resAddRequest);
 		res.setResSnack(Integer.parseInt(resSnack));
 		res.setResType(resType);
+		res.setResState(resState);
 		res.setResOutside(Integer.parseInt(resOutside));
 		
-		System.out.println("CTL : "+res);
-		resService.insertReservation(res, times, equipElement);
+		resService.insertReservation(res, times, equipElement, empList);
 		return "redirect:/users/mypage"; //리턴중, 리다이렉트는 url형식으로 전달된다.
 	}
 	@GetMapping("/resShortMain/{brId}")
@@ -76,10 +78,7 @@ public class ReservationController {
 	
 	@GetMapping("/resWrite/{mrId}")
 	public String resWrite(Model model,@PathVariable String mrId, Principal principal) {
-		System.out.println(principal.getName());
 		model.addAttribute("pastReservation",resService.getPastReservation(principal.getName()));
-		System.out.println(resService.getPastReservation(principal.getName()));
-		
 		model.addAttribute("equipList",resService.equipList(mrId));
 		model.addAttribute("empList",resService.empList());
 		return "reservation/resWrite";

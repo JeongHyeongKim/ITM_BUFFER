@@ -29,78 +29,64 @@ public class ReservationDaoImpl implements ReservationDao {
 
 	@Override
 	public List<MeetingRoomDTO> meetingRoomList(String brId) {
-		// TODO Auto-generated method stub
 		return session.selectList(namespace + ".meetingRoomList", brId);
 	}
 
 	@Override
 	public List<EmployeeDTO> meetingPeopleList() {
-		// TODO Auto-generated method stub
 		return session.selectList(namespace + ".meetingPeopleList");
 	}
 	@Override
 	public List<ReservationDTO> resList(String brId) {
-		// TODO Auto-generated method stub
 		return session.selectList(namespace + ".resList" ,brId);
 	}
 	@Override
 	public List<BranchDTO> branchList() {
-		// TODO Auto-generated method stub
 		return session.selectList(namespace+".branchList");
 	}
 
 	@Override
 	public void writeReservation(ReservationDTO reservation) {
-		// TODO Auto-generated method stub
 		session.insert(namespace+".writeReservation", reservation);
 	}
 
 	@Override
 	public List<MeetingRoomDTO> mrTypeList() {
-		// TODO Auto-generated method stub
 		return session.selectList(namespace+".mrTypeList");
 	}
 
 	public List<MeetingRoomDTO> mrLimitList() {
-		// TODO Auto-generated method stub
 		return session.selectList(namespace+".mrLimitList");
 	}
 
 	@Override
 	public List<ReservationDTO> mrReservationList(String mrId) {
-		// TODO Auto-generated method stub
 		return session.selectList(namespace+".mrReservationList",mrId);
 	}
 
 	@Override
 	public List<Equipment> equipList(String mrId) {
-		// TODO Auto-generated method stub
 		return session.selectList(namespace+".equipList",mrId);
 	}
 
 	public List<MeetingRoomDTO> search(SearchDTO search) {
-		// TODO Auto-generated method stub
 		return session.selectList(namespace+".search",search);
 	}
 
 	public int cancelRes(String resId) {
-		// TODO Auto-generated method stub
 		return session.delete(namespace+".cancelRes",resId);
 	}
 
 	public List<ReservationDTO.mySchedule> mySchedule(String empId) {
-		// TODO Auto-generated method stub
 		return session.selectList(namespace+".mySchedule",empId);
 	}
 
 	@Override
 	public List<EmployeeDTO> empList() {
-		// TODO Auto-generated method stub
 		return session.selectList(namespace+".empList");
 	}
 
 	public List<ReservationDTO> myListPeriod(String resStartDate) {
-		// TODO Auto-generated method stub
 		return session.selectList(namespace+".myListPeriod");
 	}
 
@@ -117,6 +103,11 @@ public class ReservationDaoImpl implements ReservationDao {
 	@Override
 	public List<Equipment> getResEquip(String mrId) {
 		return session.selectList(namespace + ".getResEquip", mrId);
+	}
+
+	@Override
+	public String getDeptIdByEmpId(String empId) {
+		return session.selectOne(namespace + ".getDeptIdByEmpId", empId);
 	}
 
 }
