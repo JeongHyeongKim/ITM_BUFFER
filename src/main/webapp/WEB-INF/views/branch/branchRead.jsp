@@ -82,16 +82,6 @@
         display: inline-block;
     }
 
-    .upload-btn {
-
-        color: white;
-        background-color: #009688;
-        padding: 8px 20px;
-        border-radius: 8px;
-        font-size: 15px;
-        font-weight: bold;
-    }
-
     .upload-wrapper input[type="file"] {
 
         font-size: 100px;
@@ -140,7 +130,7 @@
 
                         <div class="tile-footer" style="text-align:right; vertical-align:bottom;">
                             <div class="upload-wrapper">
-                                <button class="upload-btn" >업로드</button>
+                                <button class="btn btn-primary"><i class="fa fa-file-image-o" aria-hidden="true"></i>업로드</button>
                                 <input type="file" id="imgUpload" name="brImg">
                             </div>
                         </div>

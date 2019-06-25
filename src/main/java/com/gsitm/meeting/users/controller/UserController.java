@@ -77,11 +77,12 @@ public class UserController {
 			}else if(failureCnt==4) {
 				failureCnt++;
 				empService.addLoginFailureCnt(id, failureCnt);
+				empService.lockAccount(id);
 				redirectAttributes.addFlashAttribute("message", "5회 인증 실패로 계정이 비활성화 됩니다. 관리자에게 문의해주세요.");
 			}
-			else if(failureCnt==5)
-				redirectAttributes.addFlashAttribute("message", "5회 인증 실패로 비활성화 된 계정입니다. 관리자에게 문의해주세요.");
-		}
+		}else if(exceptionMessage.equals("User is disabled"))
+			redirectAttributes.addFlashAttribute("message", "5회 인증 실패로 비활성화 된 계정입니다.\n"
+					+ "관리자에게 문의해주세요.");
 		return "redirect:/";
 		
 	}
