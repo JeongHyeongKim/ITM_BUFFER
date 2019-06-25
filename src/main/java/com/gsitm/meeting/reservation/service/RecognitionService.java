@@ -14,7 +14,9 @@ import org.springframework.stereotype.Service;
 
 import com.google.gson.Gson;
 import com.gsitm.meeting.reservation.dao.RecognitionDaoImpl;
+import com.gsitm.meeting.reservation.dto.AttendeeDTO;
 import com.gsitm.meeting.reservation.dto.RecognitionDTO.EmpAuthority;
+import com.gsitm.meeting.vo.Attendee;
 import com.gsitm.meeting.vo.Equipment;
 import com.gsitm.meeting.vo.EquipmentReservation;
 
@@ -101,11 +103,11 @@ public class RecognitionService {
 		}
 	}
 
-	public void updateDeptCost(String deptId, String resCost) {
-		System.out.println("Service시작 ");
+	/*public void updateDeptCost(String deptId, int resCost) {
+		
 		recDao.updateDeptCost(deptId,resCost);
-		System.out.println("Service끝 ");
-	}
+
+	}*/
 
 	public void sendApprovalMailToHead(String headEmail, String str) {
 		// TODO Auto-generated method stub
@@ -206,4 +208,40 @@ public class RecognitionService {
 			recDao.updateAuthority(targetEmp[i]);
 		}
 	}
+
+	public List<AttendeeDTO.forUpdateCost> getDeptIdDeptCostForUpdateDeptCost(String resId) {
+		// TODO Auto-generated method stub
+		return recDao.getDeptIdDeptCostForUpdateDeptCost(resId);
+	}
+
+	public void updateDeptCost(AttendeeDTO.forUpdateCost list) {
+		// TODO Auto-generated method stub
+		recDao.updateDeptCost(list);
+	}
+
+	public void updateFinalRecognition(String resId,String adminId) {
+		// TODO Auto-generated method stub
+		recDao.updateFinalRecognition(resId,adminId);
+	}
+
+	public void updateFinalNotRecognition(String resId, String adminId,String inputValue) {
+		// TODO Auto-generated method stub
+		recDao.updateFinalNotRecognition(resId,adminId,inputValue);
+	}
+
+	public void updateByHeadRecognition(String resId, String adminId) {
+		// TODO Auto-generated method stub
+		recDao.updateByHeadRecognition(resId,adminId);
+	}
+
+	public void updateByHeadNotRecognition(String resId, String adminId, String inputValue) {
+		// TODO Auto-generated method stub
+		recDao.updateByHeadNotRecognition(resId,adminId,inputValue);
+	}
+
+	public String RecognitionInfo() {
+		// TODO Auto-generated method stub
+		return gson.toJson(recDao.recogList());
+	}
+
 }

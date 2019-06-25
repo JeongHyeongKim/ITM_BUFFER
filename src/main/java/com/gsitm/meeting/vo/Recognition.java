@@ -9,7 +9,7 @@ public class Recognition {
 	private String manId;
 	private Date recAcceptDate;
 	private String resId;
-	private Date recRefuse;
+	private String recRefuse;
 	
 	public Recognition() {
 		super();
@@ -44,10 +44,10 @@ public class Recognition {
 	public void setResId(String resId) {
 		this.resId = resId;
 	}
-	public Date getRecRefuse() {
+	public String getRecRefuse() {
 		return recRefuse;
 	}
-	public void setRecRefuse(Date recRefuse) {
+	public void setRecRefuse(String recRefuse) {
 		this.recRefuse = recRefuse;
 	}
 	

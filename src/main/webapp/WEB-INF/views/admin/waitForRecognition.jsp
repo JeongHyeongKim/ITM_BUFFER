@@ -8,6 +8,7 @@
 		var myInfo = JSON.parse('${resList}');
 		var branchList = JSON.parse('${branchList}');
 		var equipList = JSON.parse('${equipList}');
+		var recogList = JSON.parse('${recogList}');
 		var searchtype ;
 		var brId ;
 		var email;
@@ -49,6 +50,7 @@
 				$allOfList = $("<label id='"+$list.brId+"'></label>").attr("class","btn btn-primary brIdBtn").text($list.brName).appendTo($divDataToggle);
 				$("<input  type='radio' name='listPeriod' value='all' autocomplete='off' >").appendTo($allOfList);
 		    });
+			$("<input  type='hidden' id='adminId'  autocomplete='off' >").appendTo($allOfList);
 		}
 		function drawPage(myInfo){
 
@@ -81,6 +83,8 @@
 				headEmail = $list.headEmail;
 				empName = $list.empName;
 				resEndDate = $list.resEndDate;
+				resDate = $list.resDate;
+				resStartDate = $list.resStartDate;
 				deptId= $list.deptId;
 				var $bodyTrTag= $("<tr></tr>").appendTo($bodyTag);
 				
@@ -92,16 +96,7 @@
 				var $currentState = $("<td data-toggle='modal' data-target='#detail'></td>").text(mappingState($list.resState)).appendTo($bodyTrTag);
 				var $changeState = $("<td></td>").appendTo($bodyTrTag);
 				
-				/* var $divModalStart = $("<div id='detail' style='position: relative; top: auto; right: auto; left: auto; bottom: auto; z-index: 1; display: block;'></div>").attr("class","modal");
-				var $divModalDialog = $("<div role='document'></div>").attr("class","modal-dialog").appendTo($divModalStart);
-				var $divModalContent = $("<div></div>").attr("class","modal-content").appendTo($divModalDialog);
-				var $divModalHeader = $("<div></div>").attr("class","modal-header").appendTo($divModalContent);
-				$("<h5></h5>").attr("class","modal-title").text("Modal title").appendTo($divModalHeader);
-				var $closeBtn =$("<button type='button' data-dismiss='modal' aria-label='Close'></button>").attr("class","modal-title").text("Modal title").appendTo($divModalHeader);
-				$("<span aria-hidden='true'></span>").text("X").appendTo($closeBtn);
 				
-				var $divModalBody = $("<div></div>").attr("class","modal-body").appendTo($divModalContent);
-				$("<p></p>").text("").appendTo($divModalBody);  */
 				
 				if($list.resState=="res_1"){
 					var $divChange = $("<div></div>").attr("class","bs-component").appendTo($changeState);
@@ -172,9 +167,10 @@
 		
 		$(document).on('click', '.nav-link', function(e){
 			email=e.currentTarget.id;
-			resDate=$('#resDate').attr("value");
+			/* resDate=$('#resDate').attr("value");
 			resStartDate=$('#resStartDate').attr("value"); 
-			
+			console.log("resStartDate: "+resStartDate);  
+			console.log("resDate: "+resDate); */
 		})
 		
 		function mappingState(resState){
@@ -200,6 +196,10 @@
 		    console.log("deptId: "+deptId); 
 			console.log("resCost: "+resCost);  
 			console.log("headEmail: "+headEmail);
+			console.log("resStartDate: "+resStartDate);  
+			console.log("resDate: "+resDate);
+			var adminId = $("#adminId").attr("value");
+			console.log("adminId: "+adminId);
 			swal({
 	      		title: "승인하시겠습니까?",
 	      		type: "warning",
@@ -215,7 +215,7 @@
 	      			$.ajax({
 						  url : "/meeting/recognition/approval/"+resId,
 						  type : "post",
-						  data:"_csrf=${_csrf.token}"+"&str="+str+"&email="+email+"&deptId="+deptId+"&resCost="+resCost+"&headEmail="+headEmail,
+						  data:"_csrf=${_csrf.token}"+"&str="+str+"&email="+email+"&deptId="+deptId+"&resCost="+resCost+"&headEmail="+headEmail+"&adminId="+adminId,
 						  success:function(){
 							  location.href= "/meeting/recognition/waitForRecognition"
 						  }, error:function(){
@@ -229,6 +229,7 @@
 	      	});
 		});
 		$('#back').on("click",function(e){
+			var adminId = $("#adminId").attr("value");
 			swal({
 				  title: "반려하시겠습니까?",
 				  text: "반려 사유를 입력해주십시오(메일 발송):",
@@ -251,7 +252,7 @@
 	      			$.ajax({
 						  url : "/meeting/recognition/back/"+resId,
 						  type : "post",
-						  data:"_csrf=${_csrf.token}"+"&str="+str+"&email="+email,
+						  data:"_csrf=${_csrf.token}"+"&str="+str+"&email="+email+"&adminId="+adminId+"&inputValue="+inputValue,
 						  success:function(){
 							  location.href= "/meeting/recognition/waitForRecognition"
 						  }, error:function(){
@@ -291,6 +292,16 @@
         	   })
 			   
         }
+        $.ajax({
+            url:"/meeting/users/getCurrentId",
+            method :"post",
+            data : "_csrf=${_csrf.token}",
+            success : function(data){
+               var emp = data
+               $('#adminId').attr("value",emp.empId);
+               console.log(emp.empName);
+            }
+         })
 	});
 	
 </script>

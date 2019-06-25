@@ -53,7 +53,7 @@ $(function(){
 			$("<td></td>").attr("class","showAllInfo").text($list.empName).appendTo($bodyTrTag);
 			$("<td></td>").attr("class","showAllInfo").text(($list.brName) + " - " + ($list.mrName)).appendTo($bodyTrTag);
 			$("<td></td>").attr("class","showAllInfo").text($list.resPurpose).appendTo($bodyTrTag);
-			
+			$("<input  type='hidden' id='adminId'  autocomplete='off' >").appendTo($bodyTrTag);
 			var $currentState = $("<td data-toggle='modal' data-target='#detail'></td>").text("1차승인대기").appendTo($bodyTrTag);
 			var $changeState = $("<td></td>").appendTo($bodyTrTag);
 			
@@ -83,7 +83,7 @@ $(function(){
         return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
     }
 	$('#approval').on("click",function(e){
-		
+		var adminId = $("#adminId").attr("value");
 	    console.log("deptId: "+deptId); 
 		console.log("resCost: "+resCost);  
 		console.log("Email: "+email);
@@ -102,7 +102,7 @@ $(function(){
       			$.ajax({
 					  url : "/meeting/recognition/approvalByHead/"+resId,
 					  type : "post",
-					  data:"_csrf=${_csrf.token}"+"&str="+str+"&email="+email,
+					  data:"_csrf=${_csrf.token}"+"&str="+str+"&email="+email+"&adminId="+adminId,
 					  success:function(){
 						  location.href= "/meeting/recognition/waitForRecognitionByHead"
 					  }, error:function(){
@@ -116,6 +116,7 @@ $(function(){
       	});
 	});
 	$('#back').on("click",function(e){
+		var adminId = $("#adminId").attr("value");
 		swal({
 			  title: "반려하시겠습니까?",
 			  text: "반려 사유를 입력해주십시오(메일 발송):",
@@ -138,7 +139,7 @@ $(function(){
       			$.ajax({
 					  url : "/meeting/recognition/backByHead/"+resId,
 					  type : "post",
-					  data:"_csrf=${_csrf.token}"+"&str="+str+"&email="+email,
+					  data:"_csrf=${_csrf.token}"+"&str="+str+"&email="+email+"&adminId="+adminId+"&inputValue="+inputValue,
 					  success:function(){
 						  location.href= "/meeting/recognition/waitForRecognitionByHead"
 					  }, error:function(){
@@ -148,6 +149,16 @@ $(function(){
 			  swal("반려 및 메일 전송 완료!", "You wrote: " + inputValue, "success");
 			});
 	});	
+	$.ajax({
+        url:"/meeting/users/getCurrentId",
+        method :"post",
+        data : "_csrf=${_csrf.token}",
+        success : function(data){
+           var emp = data
+           $('#adminId').attr("value",emp.empId);
+           console.log(emp.empName);
+        }
+     })
 });
 </script>
 <main class="app-content">

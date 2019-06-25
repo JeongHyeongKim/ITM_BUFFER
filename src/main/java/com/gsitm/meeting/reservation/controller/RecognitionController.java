@@ -3,6 +3,9 @@ package com.gsitm.meeting.reservation.controller;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.security.Principal;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,8 +20,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.gsitm.meeting.reservation.dao.RecognitionDaoImpl;
+import com.gsitm.meeting.reservation.dto.AttendeeDTO;
 import com.gsitm.meeting.reservation.service.RecognitionService;
 import com.gsitm.meeting.reservation.service.ReservationService;
+import com.gsitm.meeting.vo.Attendee;
 
 @Controller
 @RequestMapping(value ="/recognition", produces="text/plain; charset=UTF-8")
@@ -32,6 +37,7 @@ public class RecognitionController {
 		model.addAttribute("branchList",recService.branchList());
 		model.addAttribute("resList",recService.resList());
 		model.addAttribute("equipList",recService.allEquipList());
+		model.addAttribute("recogList",recService.RecognitionInfo());
 		return "admin/waitForRecognition";
 	}
 	@GetMapping("/paymentManagement") 
@@ -56,16 +62,24 @@ public class RecognitionController {
 		return "redirect:/reservation/list/br_0001";
 	}
 	@PostMapping("/approval/{resId}")
-	public ResponseEntity<Void> approval(@PathVariable String resId,@RequestParam String str,@RequestParam String email,@RequestParam String deptId,@RequestParam String resCost,@RequestParam String headEmail) {
-		recService.updateDeptCost(deptId,resCost);
+	public ResponseEntity<Void> approval(@PathVariable String resId,@RequestParam String str,@RequestParam String email,@RequestParam String deptId,@RequestParam String resCost,@RequestParam String headEmail,@RequestParam String adminId) {
+		List<AttendeeDTO.forUpdateCost> list = recService.getDeptIdDeptCostForUpdateDeptCost(resId);
+		System.out.println(list);
+		for(int i=0;i<list.size();i++ ){
+            recService.updateDeptCost(list.get(i));
+        }
+		//승인테이블 갱신
+		recService.updateFinalRecognition(resId,adminId);
 		recService.sendApprovalMailToHead(headEmail,str);
 		recService.sendApprovalMail(email,str);
 		int result = recService.approval(resId);
 		return new ResponseEntity<>(result == 1 ? HttpStatus.OK : HttpStatus.BAD_REQUEST);
 	}
 	@PostMapping("/back/{resId}")
-	public ResponseEntity<Void> back(@PathVariable String resId,@RequestParam String str,@RequestParam String email) {
+	public ResponseEntity<Void> back(@PathVariable String resId,@RequestParam String str,@RequestParam String email,@RequestParam String adminId,@RequestParam String inputValue) {
 		recService.sendMail(email,str);
+		//승인테이블 (반려) 갱신
+		recService.updateFinalNotRecognition(resId,adminId,inputValue);
 		int result = recService.back(resId);
 		return new ResponseEntity<>(result == 1 ? HttpStatus.OK : HttpStatus.BAD_REQUEST);
 	}
@@ -81,13 +95,16 @@ public class RecognitionController {
 		return "admin/waitForRecognitionByHead";
 	}
 	@PostMapping("/approvalByHead/{resId}")
-	public ResponseEntity<Void> approvalByHead(@PathVariable String resId,@RequestParam String str,@RequestParam String email) {
+	public ResponseEntity<Void> approvalByHead(@PathVariable String resId,@RequestParam String str,@RequestParam String email,@RequestParam String adminId) {
+		recService.updateByHeadRecognition(resId,adminId);
 		recService.sendApprovalMailByHead(email,str);
+		
 		int result = recService.approvalByHead(resId);
 		return new ResponseEntity<>(result == 1 ? HttpStatus.OK : HttpStatus.BAD_REQUEST);
 	}
 	@PostMapping("/backByHead/{resId}")
-	public ResponseEntity<Void> backByHead(@PathVariable String resId,@RequestParam String str,@RequestParam String email) {
+	public ResponseEntity<Void> backByHead(@PathVariable String resId,@RequestParam String str,@RequestParam String email,@RequestParam String adminId,@RequestParam String inputValue) {
+		recService.updateByHeadNotRecognition(resId,adminId,inputValue);
 		recService.sendBackMailByHead(email,str);
 		int result = recService.backByHead(resId);
 		return new ResponseEntity<>(result == 1 ? HttpStatus.OK : HttpStatus.BAD_REQUEST);
