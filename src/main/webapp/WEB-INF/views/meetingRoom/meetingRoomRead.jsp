@@ -65,6 +65,12 @@
             document.getElementById("mrIdHiddenArea").value = meetingRoom.mrId;
             document.getElementById("meetingRoomTypeSelectBox").value = meetingRoom.mrType;
             document.getElementById("empNameSelectBox").value = meetingRoom.empId;
+            
+            $('#mrLimit').numeric();
+    		$('#mrArea').numeric();
+    		$('#mrPrice').numeric();
+    		
+    		
             //데이터 및 이미지 기본 세팅 
 
 
@@ -369,5 +375,6 @@
 </body>
 <script type="text/javascript" src="/meeting/resources/js/plugins/bootstrap-notify.min.js"></script>
 <script type="text/javascript" src="/meeting/resources/js/plugins/sweetalert.min.js"></script>
+<script type="text/javascript" src="/meeting/resources/js/plugins/jquery.numeric.min.js"></script>
 
 </html>
