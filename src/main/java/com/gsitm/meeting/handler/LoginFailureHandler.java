@@ -16,8 +16,7 @@ import com.gsitm.meeting.users.dao.EmployeeDaoImpl;
 
 public class LoginFailureHandler implements AuthenticationFailureHandler 
 {
-	@Autowired
-	private EmployeeDaoImpl dao;
+
 	
 	@Override
 	public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
@@ -27,6 +26,7 @@ public class LoginFailureHandler implements AuthenticationFailureHandler
 		String exceptionMessage = String.valueOf(exception.getMessage());
 		System.out.println(id);
 		System.out.println(exception.getClass());
+		System.out.println(exception.getMessage());
 		
 		request.setAttribute("id", id);
 		request.setAttribute("exceptionMessage", exceptionMessage);

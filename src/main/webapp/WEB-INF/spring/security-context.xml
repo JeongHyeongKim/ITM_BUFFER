@@ -12,7 +12,6 @@
 			login-page="/login"
 			default-target-url="/reservation/list/br_0001" 
 			login-processing-url="/login"
-			authentication-failure-url="/login?job=false"
 			authentication-failure-handler-ref="loginFailureHandler"/>
 		<sec:access-denied-handler error-page="/system/e403" /> 
 		
