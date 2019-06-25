@@ -131,7 +131,55 @@ public class ReservationService {
 			Attendee temp = new Attendee(nextId, empListArray[i], "att_type_0", deptId);
 			sendAttendee.add(temp);
 		}
-
+		////////// cost계산
+		
+		String t1 = res.getResStartDate();
+		String t2 = res.getResEndDate();
+		
+		String t1split = t1.split(" ")[0];
+       	String t1splitYear = t1split.split("-")[0];
+       	int t1splitMonth = Integer.parseInt(t1split.split("-")[1]);
+       	int t1splitDay = Integer.parseInt(t1split.split("-")[2]);
+       	
+       	String t2split = t2.split(" ")[0];
+       	String t2splitYear = t2split.split("-")[0];
+       	int t2splitMonth = Integer.parseInt(t2split.split("-")[1]);
+       	int t2splitDay = Integer.parseInt(t2split.split("-")[2]);
+       	
+       	int yearCost = (Integer.parseInt(t2splitYear) - Integer.parseInt(t1splitYear))*365;
+       	int monthCost=0;
+       	// 한달이상 예외
+       	if(t1splitMonth==1 || t1splitMonth==3 || t1splitMonth==5 || t1splitMonth==7 || t1splitMonth==8 || t1splitMonth==10 || t1splitMonth==12){
+       		monthCost = (t2splitMonth - t1splitMonth)*31;
+       	} else if(t1splitMonth==4 || t1splitMonth==6 || t1splitMonth==9 || t1splitMonth==11){
+       		monthCost = (t2splitMonth - t1splitMonth)*30;
+       	} else {
+       		monthCost = (t2splitMonth - t1splitMonth)*28;
+       	}
+       	int dayCost = (t2splitDay - t1splitDay);
+       	int dateCost = (yearCost + monthCost + dayCost) *9;
+       	
+       	String t1splitTime = t1.split(" ")[1];
+       	String t2splitTime = t2.split(" ")[1];
+       	int t1splitHour = Integer.parseInt(t1splitTime.split(":")[0]); 
+       	int t2splitHour = Integer.parseInt(t2splitTime.split(":")[0]);
+       	int t1splitMinute = Integer.parseInt(t1splitTime.split(":")[1]);
+       	int t2splitMinute = Integer.parseInt(t2splitTime.split(":")[1]);
+       	
+       	int minuteCost = t2splitMinute - t1splitMinute; // 0 || 30 || -30
+       	int hourCost = t2splitHour - t1splitHour;
+       	if(minuteCost<0) {
+       		hourCost = hourCost -1;
+       		minuteCost = 30;
+       	}
+       	
+       	int mrCost = resDao.getCostByErId(res.getMrId()); // 5000원
+       	
+       	int cost = (dateCost+hourCost)*(2*mrCost);
+       	if(minuteCost ==30) {
+       		cost = cost + mrCost;
+       	}
+       	res.setResCost(cost);
 		// resultEquip 전송 (기자재)
 		System.out.println("equip : " + sendEquip);
 		// res 전송 (예약)
@@ -142,8 +190,12 @@ public class ReservationService {
 	
 	public String calcDate(String currentDate) {
 		if(currentDate.length()==10) {
+			
+			currentDate.replaceAll("/", "-");
+			
 			return currentDate;
 		}
+		
 		String[] splitDate = currentDate.split("-");
 		String year = splitDate[0].substring(1,5);
 		String month = splitDate[1];

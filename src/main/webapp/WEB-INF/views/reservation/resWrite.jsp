@@ -544,15 +544,28 @@
             }else if(((endDateArr[2].substring(3,5))-(startDateArr[2].substring(3,5))) >= 8)
            		console.log("장기")
            	 */
-         
-            var start = Number( ($("#resStartDate").val().split("/")[2]).split(" ")[0] );
-            var end = Number( ($("#resEndDate").val().split("/")[2]).split(" ")[0] );
+           	var startTime = $("#resStartDate").val();
+           	if(startTime.includes("/")){
+           		var startMonth = Number( ($("#resStartDate").val().split("/")[1]));
+                var endMonth = Number( ($("#resEndDate").val().split("/")[1]));
+                var start = Number( ($("#resStartDate").val().split("/")[2]).split(" ")[0] );
+                var end = Number( ($("#resEndDate").val().split("/")[2]).split(" ")[0] );
+           	} else{
+           		var startMonth = Number( ($("#resStartDate").val().split("-")[1]));
+                var endMonth = Number( ($("#resEndDate").val().split("/")[1]));
+                var start = Number( ($("#resStartDate").val().split("-")[2]).split(" ")[0] );
+                var end = Number( ($("#resEndDate").val().split("/")[2]).split(" ")[0] );
+                	
+           	}
             var longtime = end - start;
-           	
+            if( endMonth > startMonth ){
+            	longtime =1;
+            }
+            
            	if(longtime >= 1){
            		alert("장기예약입니다. \n(장기예약은 상위관리자의 승인이 필요합니다.)")
            		$("<input>").attr("type","hidden").attr("value","res_0").attr("name","resState").appendTo($("#resForm"));
-           	} else if(longtime > 0 && longtime < 1 ){
+           	} else if(longtime >= 0 && longtime < 1 ){
            		$("<input>").attr("type","hidden").attr("value","res_1").attr("name","resState").appendTo($("#resForm"));
            	} else if(longtime < 0){
            		alert("시작시간보다 뒤의 날짜를 선택하세요")
@@ -563,33 +576,20 @@
            	var t1 = $("#resStartDate").val();
            	var t2 = $("#resEndDate").val();
            	
-           	var t1split = t1.split(" ")[0];
-           	var t1splitYear = t1split.split("/")[0];
-           	var t1splitMonth = t1split.split("/")[1];
-           	var t1splitDay = t1split.split("/")[2];
            	
-           	var t2split = t2.split(" ")[0];
-           	var t2splitYear = t2split.split("/")[0];
-           	var t2splitMonth = t2split.split("/")[1];
-           	var t2splitDay = t2split.split("/")[2];
-           	
-           	var yearCost = (t2splitYear - t1splitYear)*365;
-           	if(t)
-           	var monthCost = (t2splitMonth - t1splitMonth)*30;
-           	var 
         });
         
         
         //////////////////////////////////////////////////////////////////////////////
-  		$("<input>").attr("type","hidden").attr("name","resStartDate").attr("value",sessionStorage.getItem("currentDate")).appendTo($("#resForm"));
+  		$("<input>").attr("type","hidden").attr("id","startTime").attr("name","resStartDate").attr("value",sessionStorage.getItem("currentDate")).appendTo($("#resForm"));
         $('#resStartDate').datetimepicker({
         	onSelectDate: function(data) {
-        		$("<input>").attr("type","hidden").attr("name","resStartDate").attr("value",JSON.stringify(data)).appendTo($("#resForm"));
+        		$("#startTime").val(JSON.stringify(data));
         		timeAJAX(data);
         	}
         });
         $('#resEndDate').datetimepicker({
-			onSelectDate: function(data) {
+        	onSelectDate: function(data) {
 				$("<input>").attr("type","hidden").attr("name","resEndDate").attr("value",JSON.stringify(data)).appendTo($("#resForm"));
         		timeAJAX(data);
         	}

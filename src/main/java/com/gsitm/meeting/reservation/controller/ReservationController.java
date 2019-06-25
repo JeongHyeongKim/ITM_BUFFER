@@ -46,7 +46,7 @@ public class ReservationController {
 			@RequestParam(required=false)String resAddRequest, String resStartDate, String resEndDate, 
 			String resSnack, String resType, String resOutside, String equipElement, Principal principal, 
 			String times, String empList, String resState) {
-		
+		System.out.println(times); // 세번클릭시 최대최소값채택
 		Reservation res = new Reservation();
 		res.setEmpId(principal.getName());
 		res.setMrId(mrId);

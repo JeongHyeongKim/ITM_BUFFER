@@ -121,4 +121,8 @@
 	<select id="getDeptIdByEmpId" resultType="string">
 		select dept_id deptId from employee where emp_id = #{empId}
 	</select>
+	
+	<select id="getCostByErId" resultType="int">
+		select mr_price from meeting_room where mr_id = #{mrId}
+	</select>
 </mapper>

@@ -31,4 +31,5 @@ public interface ReservationDao {
 	public List<Reservation> getPastReservation(String empId);
 	public List<Equipment> getResEquip(String mrId);
 	public String getDeptIdByEmpId(String empId);
+	public int getCostByErId(String mrId);
 }

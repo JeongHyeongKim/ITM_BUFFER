@@ -110,4 +110,9 @@ public class ReservationDaoImpl implements ReservationDao {
 		return session.selectOne(namespace + ".getDeptIdByEmpId", empId);
 	}
 
+	@Override
+	public int getCostByErId(String mrId) {
+		return session.selectOne(namespace + ".getCostByErId", mrId);
+	}
+
 }
