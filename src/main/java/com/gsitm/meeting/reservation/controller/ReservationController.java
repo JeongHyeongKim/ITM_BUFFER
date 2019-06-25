@@ -45,8 +45,9 @@ public class ReservationController {
 	public String writeReservation(Model model, String mrId,@RequestParam(required=false) String resPurpose, 
 			@RequestParam(required=false)String resAddRequest, String resStartDate, String resEndDate, 
 			String resSnack, String resType, String resOutside, String equipElement, Principal principal, 
-			String times, String empList, String resState) {
+			String times, String empList, String resState, String mainDept) {
 		System.out.println(times); // 세번클릭시 최대최소값채택
+		System.out.println(mainDept);
 		Reservation res = new Reservation();
 		res.setEmpId(principal.getName());
 		res.setMrId(mrId);
@@ -81,6 +82,7 @@ public class ReservationController {
 		model.addAttribute("pastReservation",resService.getPastReservation(principal.getName()));
 		model.addAttribute("equipList",resService.equipList(mrId));
 		model.addAttribute("empList",resService.empList());
+		model.addAttribute("empDeptList",resService.empDeptList());
 		return "reservation/resWrite";
 	}
 	@GetMapping("/search")
@@ -105,4 +107,6 @@ public class ReservationController {
 //		/*model.addAttribute("mySchedule",resService.mySchedule(empId));*/
 //		return "/users/mypage";
 //	}
+	
+	
 }

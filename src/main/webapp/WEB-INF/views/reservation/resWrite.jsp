@@ -200,9 +200,11 @@
                                               
                                             <select class="form-control dual_select" id="empListOption" multiple >
 												<c:forEach var="list" items="${empList }">
-													<option value="${list.empId }">${list.empName } - ${list.deptName }</option>
+													<option value="${list.empId }" class="modal-deptName" id="${list.deptName }">${list.empName } - ${list.deptName }</option>
 												</c:forEach>
+												
 											</select>
+											
                                             </div>
                                         </div>
                                     </div>
@@ -210,7 +212,19 @@
                             </div>
                         </div>
                         <div class="tile-footer" >
+			            	
+			            	<div class="row" id="mainDeptList">
+			            		<div class="col-lg-3">
+			            			<button type="button" id="test">주관부서선택</button>
+			            		</div>
+			            		
+			            		
+			            			
+			            	</div>
+                        	
+                        		          
 			            </div>
+			            
 		                 </div>
 		            </div>
 			</div>
@@ -233,13 +247,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.0/js/swiper.min.js"></script>
 <script src="/meeting/resources/js/duallistbox/jquery.bootstrap-duallistbox.js"></script>
 <script src="/meeting/resources/js/duallistbox/duallistbox.active.js"></script>
-<script src="/meeting/resources/js/moment.js"></script>
-<script src="/meeting/resources/js/moment.min.js"></script>
 <script>
     $(document).ready(function () {
-    	$("#btnEmpList").on("click",function(){
-    		$("<input>").attr("type","hidden").attr("name","empList").attr("value",$("#empListOption").val()).appendTo($("#resForm"));
-    	})
+    	
     	// Array contains method추가      
         Array.prototype.contains = function(element) {
 			for (var i = 0; i < this.length; i++) {
@@ -249,7 +259,56 @@
 			}
 			return false;
 		}
+    	var empList = JSON.parse('${empDeptList}');
     	
+    	/////////////////////////////////////////////////////////////  model 클릭시 주관부서 추가
+    	 var newDeptName = [];
+    	$("#test").on("click",function(){
+    	/* 	<div class ="col-md-3">
+    		<div class="alert alert-dismissible alert-success">
+            	<button class="close" type="button" data-dismiss="alert">×</button>
+            	<strong>인사파트</strong>
+        	</div>
+		</div> */
+			var empListOption = $("#empListOption").val()
+			var mainDeptName = [];
+			for(var i=0; i<empListOption.length; i++){
+				
+				for(var j=0; j<empList.length; j++){
+					var selectEmpId = empList[j].empId;
+					
+					if(empListOption[i] == selectEmpId){
+						var deptName = empList[j].deptName;
+						mainDeptName.push(deptName);
+						break;
+					}
+				}
+			}
+			
+             $.each(mainDeptName, function(i, el){
+             	if($.inArray(el, newDeptName) === -1) newDeptName.push(el);
+             });
+             
+			for(var i=0; i<newDeptName.length; i++){
+				var $div3col = $("<div></div>").attr("class","col-lg-3").appendTo($("#mainDeptList"))
+				var $divAlert = $("<div><div>").attr("class","alert alert-dismissible alert-success").appendTo($div3col);
+				$("<button></button>").attr("class","close").attr("id",newDeptName[i]).attr("type","button").attr("data-dismiss","alert").text("×").appendTo($divAlert);
+				$("<strong></strong>").text(newDeptName[i]).appendTo($divAlert);	
+			}
+			
+    	})
+    	
+    	$(document).on("click",".close",function(e){
+    		console.log(e.currentTarget.id);
+    		newDeptName.splice(newDeptName.indexOf(e.currentTarget.id),1);
+    		
+    	})
+    	
+    	$("#btnEmpList").on("click",function(){
+    
+    		$("<input>").attr("type","hidden").attr("name","empList").attr("value",$("#empListOption").val()).appendTo($("#resForm"));
+    		$("<input>").attr("type","hidden").attr("value",newDeptName).attr("name","mainDept").appendTo($("#resForm"));
+    	})
     	////////////////////////////////////////////////////////////  pastReservation List
     	var pastRes = JSON.parse('${pastReservation}');
     	

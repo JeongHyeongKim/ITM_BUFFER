@@ -281,6 +281,11 @@ public class ReservationService {
 	public List<EmployeeDTO> empList() {
 		return resDao.empList();
 	}
+	
+	public String empDeptList() {
+		return gson.toJson(resDao.empList());
+	}
+	
 	public List<ReservationDTO> myListPeriod(String resStartDate) {
 		
 		return resDao.myListPeriod(resStartDate);
