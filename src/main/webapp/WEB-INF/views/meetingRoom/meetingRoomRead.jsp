@@ -39,7 +39,7 @@
 
     <script>
         $(function() {
-        	var imgChanged = false;
+            var imgChanged = false;
             var meetingRoom = JSON.parse('${meetingRoom}');
             //잠시 저장하기 위한 임시 버퍼	
 
@@ -77,16 +77,26 @@
             });
 
             $("#imgUpload").change(function() {
-            	imgChanged = true;
-                if (this.files && this.files[0]) {
-                    var reader = new FileReader();
+                if (this.files[0].type.indexOf("image") == -1) {
+                    swal({
+                        title: "오류",
+                        text: "사진 형식의 파일을 업로드 해주세요.",
+                        type: "warning",
+                        confirmButtonText: "OK",
+                        closeOnConfirm: true,
+                    });
+                } else {
+                    imgChanged = true;
+                    if (this.files && this.files[0]) {
+                        var reader = new FileReader();
 
-                    reader.onload = function(e) {
-                        $('#imgArea').attr('src', e.target.result);
-                        $('#imgArea').attr('height', $("#rightCol").height() * 0.7);
-                        $('#imgArea').attr("width", $("#leftCol").width() * 0.8);
+                        reader.onload = function(e) {
+                            $('#imgArea').attr('src', e.target.result);
+                            $('#imgArea').attr('height', $("#rightCol").height() * 0.6);
+                            $('#imgArea').attr("width", $("#leftCol").width() * 0.8);
+                        }
+                        reader.readAsDataURL(this.files[0]);
                     }
-                    reader.readAsDataURL(this.files[0]);
                 }
             });
 
@@ -159,25 +169,25 @@
 <body>
     <main class="app-content">
         <div class="app-title">
-        <div>
-            <h1>
-                <i class="fa fa-calendar"></i>회의실관리</h1>
-            <p>
-                전체 회의실 목록입니다.
-            </p>
+            <div>
+                <h1>
+                    <i class="fa fa-calendar"></i>회의실관리</h1>
+                <p>
+                    전체 회의실 목록입니다.
+                </p>
+            </div>
+            <ul class="app-breadcrumb breadcrumb">
+                <li class="breadcrumb-item">
+                    <i class="fa fa-home fa-lg"></i>
+                </li>
+                <li class="breadcrumb-item">
+                    <a>회의실관리</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="/meeting/meetingRoom/list">회의실관리</a>
+                </li>
+            </ul>
         </div>
-        <ul class="app-breadcrumb breadcrumb">
-            <li class="breadcrumb-item">
-                <i class="fa fa-home fa-lg"></i>
-            </li>
-            <li class="breadcrumb-item">
-                <a>회의실관리</a>
-            </li>
-            <li class="breadcrumb-item">
-                <a href="/meeting/meetingRoom/list">회의실관리</a>
-            </li>
-        </ul>
-    </div>
 
         <form action="/meeting/file/meetingRoomUpdate" id="meetingRoomUpdate" method="POST" enctype="multipart/form-data">
             <div class="row">
@@ -193,7 +203,7 @@
                         <div class="tile-footer" style="text-align:right; vertical-align:bottom;">
                             <div class="upload-wrapper">
                                 <button class="btn btn-primary"><i class="fa fa-file-image-o" aria-hidden="true"></i>업로드</button>
-                                <input type="file" id="imgUpload" name="mrImg">
+                                <input type="file" id="imgUpload" name="mrImg" accept="image/*">
                             </div>
                         </div>
                         <!--                         다이어로그가 안뜨고 submit 되어버리는 오류 -->
@@ -346,7 +356,7 @@
 
                             <div class="row">
                                 <div class="col-md-8 col-md-offset-3">
-                                    <button class="btn btn-primary" type="button"  id="modalOpen"><i class="fa fa-fw fa-lg fa-check-circle"></i>확인</button>&nbsp;&nbsp;&nbsp;
+                                    <button class="btn btn-primary" type="button" id="modalOpen"><i class="fa fa-fw fa-lg fa-check-circle"></i>확인</button>&nbsp;&nbsp;&nbsp;
                                     <a class="btn btn-secondary" href="/meeting/branch/list"><i class="fa fa-fw fa-lg fa-times-circle"></i>취소</a>
                                 </div>
                             </div>

@@ -3,7 +3,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script type="text/javascript">
     var buffer;
-    $(function () {
+    $(function() {
         /* $('#finallyConfirm').click(function () {
             console.log(buffer);
             document.getElementById("hiddenBrId").value = buffer;
@@ -19,43 +19,44 @@
             $(brId).css('color', 'black');
         }); */
     });
+
     function readBranch(brId) {
         location.replace('/meeting/branch/read/' + brId);
     }
-    function savebrId(brId){
-    	buffer=brId;
-    	console.log(buffer); 
+
+    function savebrId(brId) {
+        buffer = brId;
+        console.log(buffer);
     }
-    $(document).on('click', '.deleteAlert', function(e){
-    		 swal({
-    	      		title: "삭제하시겠습니까?",
-    	      		text: "삭제 시,해당 지사 정보 복원 불가",
-    	      		type: "warning",
-    	      		showCancelButton: true,
-    	      		confirmButtonText: "네, 삭제하겠습니다",
-    	      		cancelButtonText: "아뇨, 취소하겠습니다",
-    	      		closeOnConfirm: true,
-    	      		closeOnCancel: true
-    	      	}, function(isConfirm) { 
-    	      		if (isConfirm) {
-    	      			console.log(buffer);
-    	      			
-    	      			$.ajax({
-    	    				url:"/meeting/branch/delete/"+buffer,
-    	    				data : "_csrf=${_csrf.token}",
-    	    				method:"post",
-    	    				success:function(){
-    	    					location.reload();
-    	    				},
-    	    				error:function(resTxt){
-    	    					console.log(resTxt);
-    	    					alert("실패");
-    	    				}
-    	    			});
-    	      		}
-    	      	});
+    $(document).on('click', '.deleteAlert', function(e) {
+        swal({
+            title: "삭제하시겠습니까?",
+            text: "삭제 시,해당 지사 정보 복원 불가",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonText: "네, 삭제하겠습니다",
+            cancelButtonText: "아뇨, 취소하겠습니다",
+            closeOnConfirm: true,
+            closeOnCancel: true
+        }, function(isConfirm) {
+            if (isConfirm) {
+                console.log(buffer);
+
+                $.ajax({
+                    url: "/meeting/branch/delete/" + buffer,
+                    data: "_csrf=${_csrf.token}",
+                    method: "post",
+                    success: function() {
+                        location.reload();
+                    },
+                    error: function(resTxt) {
+                        console.log(resTxt);
+                        alert("실패");
+                    }
+                });
+            }
+        });
     });
-    
 </script>
 <main class="app-content">
     <div class="app-title">
@@ -83,39 +84,37 @@
     </div>
     <div class="row">
         <c:forEach items='${branchList}' var="branchList">
-        	<div class="col-lg-4" id="${branchList.brId}"  style="padding-top:20px">
-	            <div class="bs-component">
-	              <div class="card" width="100%">
-	                <h4 class="card-header">
-	                	<span onclick="readBranch('${branchList.brId}')" style="cursor:pointer;">${branchList.brName }</span>
-	                	<span style="float:right">
-
-			                <a class="deleteAlert" id="demoSwal" onclick="savebrId('${branchList.brId}')" style="cursor:pointer">
-		                       X
-		                    </a>
-
-	                    </span>
-	                </h4>
-	                <div class="card-body">
-	                  <h5 class="card-title">${branchList.brLocation }</h5>
-	                  <h6 class="card-subtitle text-muted">${branchList.brTel }</h6>
-	                </div><img style="height: 200px; width: 100%; display: block; border-bottom: 3px solid #EEE;border-top:3px solid #EEE" src="${branchList.brImg}" alt="Card image" onclick="readBranch('${branchList.brId}')">
-	                <div class="card-body">
-	                  <p class="card-text">
-	                  <b>[회의실]</b><br>
-							<c:forEach items='${meetingRoomListOrderByBranch}' var="meetingRoomList" varStatus="status">
-                                <c:if test="${meetingRoomList.BRID eq branchList.brId}">
-                                      ${meetingRoomList.MRNAME} <br>
-                                </c:if>
-                            </c:forEach>	                  
-	                  </p>
-	                </div>
-	                <div class="card-footer text-muted"></div>
-	              </div>
-	            </div>
-	          </div>
+            <div class="col-lg-4" id="${branchList.brId}" style="padding-top:20px">
+                <div class="bs-component">
+                    <div class="card" width="100%">
+                        <h4 class="card-header">
+                            <span onclick="readBranch('${branchList.brId}')" style="cursor:pointer;">${branchList.brName }</span>
+                            <span style="float:right">
+                                <a class="deleteAlert" id="demoSwal" onclick="savebrId('${branchList.brId}')" style="cursor:pointer">
+                                    X
+                                </a>
+                            </span>
+                        </h4>
+                        <div class="card-body">
+                            <h5 class="card-title">${branchList.brLocation }</h5>
+                            <h6 class="card-subtitle text-muted">${branchList.brTel }</h6>
+                        </div><img style="height: 200px; width: 100%; display: block; border-bottom: 3px solid #EEE;border-top:3px solid #EEE" src="${branchList.brImg}" alt="Card image" onclick="readBranch('${branchList.brId}')">
+                        <div class="card-body">
+                            <p class="card-text">
+                                <b>[회의실]</b><br>
+                                <c:forEach items='${meetingRoomListOrderByBranch}' var="meetingRoomList" varStatus="status">
+                                    <c:if test="${meetingRoomList.BRID eq branchList.brId}">
+                                        ${meetingRoomList.MRNAME} <br>
+                                    </c:if>
+                                </c:forEach>
+                            </p>
+                        </div>
+                        <div class="card-footer text-muted"></div>
+                    </div>
+                </div>
+            </div>
         </c:forEach>
-     </div>
+    </div>
 </main>
 <script type="text/javascript" src="/meeting/resources/js/plugins/bootstrap-notify.min.js"></script>
 <script type="text/javascript" src="/meeting/resources/js/plugins/sweetalert.min.js"></script>

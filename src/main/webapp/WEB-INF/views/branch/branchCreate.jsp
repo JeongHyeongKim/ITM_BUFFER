@@ -24,7 +24,7 @@
 </style>
 <script type="text/javascript">
     $(function() {
-    	var imgChanged = false;
+        var imgChanged = false;
 
         $('#imgArea').attr('height', $("#rightCol").height() * 0.6);
         $('#imgArea').attr("width", $("#leftCol").width() * 0.8);
@@ -39,9 +39,9 @@
 
         $('#modalOpen').click(function() {
             var missingList = "";
-            if ($("#brName").val()=="")
+            if ($("#brName").val() == "")
                 missingList = missingList + "지사 이름, ";
-            if ($("#brAddress").val()=="")
+            if ($("#brAddress").val() == "")
                 missingList = missingList + "지사 위치, ";
             if ($("#brTel").val() == "")
                 missingList = missingList + "대표 번호, ";
@@ -69,21 +69,28 @@
             $('#branchDataWrite').submit();
         });
         $("#imgUpload").change(function() {
-        	imgChanged=true;
-            if (this.files && this.files[0]) {
-                var reader = new FileReader();
+            if (this.files[0].type.indexOf("image") == -1) {
+                swal({
+                    title: "오류",
+                    text: "사진 형식의 파일을 업로드 해주세요.",
+                    type: "warning",
+                    confirmButtonText: "OK",
+                    closeOnConfirm: true,
+                });
+            } else {
+                imgChanged = true;
+                if (this.files && this.files[0]) {
+                    var reader = new FileReader();
 
-                reader.onload = function(e) {
-                    $('#imgArea').attr('src', e.target.result);
-                    $('#imgArea').attr('height', $("#rightCol").height() * 0.6);
-                    $('#imgArea').attr("width", $("#leftCol").width() * 0.8);
+                    reader.onload = function(e) {
+                        $('#imgArea').attr('src', e.target.result);
+                        $('#imgArea').attr('height', $("#rightCol").height() * 0.6);
+                        $('#imgArea').attr("width", $("#leftCol").width() * 0.8);
+                    }
+                    reader.readAsDataURL(this.files[0]);
                 }
-                reader.readAsDataURL(this.files[0]);
             }
         });
-        
-        
-
     });
 </script>
 </head>
@@ -117,16 +124,13 @@
                 <input type="hidden" name="_csrf" value="${_csrf.token}">
                 <div class="col-md-4">
                     <div class="tile" id="leftCol">
-
                         <div class="tile-body" style="text-align:center;">
                             <img class="user-img" id="imgArea" src="/meeting/resources/img/imgVoid.JPG" style="border-radius: 10px; margin-bottom:20px">
-
                         </div>
-
                         <div class="tile-footer" style="text-align:right; vertical-align:bottom;">
                             <div class="upload-wrapper">
                                 <button class="btn btn-primary"><i class="fa fa-file-image-o" aria-hidden="true"></i>업로드</button>
-                                <input type="file" id="imgUpload" name="brImg">
+                                <input type="file" id="imgUpload" name="brImg" accept="image/*">
                             </div>
                         </div>
                     </div>
@@ -200,7 +204,7 @@
                         <!-- modal end -->
                         <div class="tile-footer">
                             <div style="text-align:right">
-                                <button class="btn btn-primary" type="button"  id="modalOpen"><i class="fa fa-fw fa-lg fa-check-circle"></i>확인</button>
+                                <button class="btn btn-primary" type="button" id="modalOpen"><i class="fa fa-fw fa-lg fa-check-circle"></i>확인</button>
                                 <a class="btn btn-secondary" href="/meeting/branch/list"><i class="fa fa-fw fa-lg fa-times-circle"></i>취소</a>
                             </div>
                         </div>
@@ -209,4 +213,4 @@
             </div>
         </form>
         <script type="text/javascript" src="/meeting/resources/js/plugins/bootstrap-notify.min.js"></script>
-<script type="text/javascript" src="/meeting/resources/js/plugins/sweetalert.min.js"></script>
+        <script type="text/javascript" src="/meeting/resources/js/plugins/sweetalert.min.js"></script>

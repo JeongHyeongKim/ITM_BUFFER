@@ -66,44 +66,54 @@
                 $('#meetingRoomInsert').submit();
             });
             $("#imgUpload").change(function() {
-                imgChanged = true;
-                if (this.files && this.files[0]) {
-                    var reader = new FileReader();
+                if (this.files[0].type.indexOf("image") == -1) {
+                    swal({
+                        title: "오류",
+                        text: "사진 형식의 파일을 업로드 해주세요.",
+                        type: "warning",
+                        confirmButtonText: "OK",
+                        closeOnConfirm: true,
+                    });
+                } else {
+                    imgChanged = true;
+                    if (this.files && this.files[0]) {
+                        var reader = new FileReader();
 
-                    reader.onload = function(e) {
-                        $('#imgArea').attr('src', e.target.result);
-                        $('#imgArea').attr('height', $("#rightCol").height() * 0.7);
-                        $('#imgArea').attr("width", $("#leftCol").width() * 0.8);
+                        reader.onload = function(e) {
+                            $('#imgArea').attr('src', e.target.result);
+                            $('#imgArea').attr('height', $("#rightCol").height() * 0.6);
+                            $('#imgArea').attr("width", $("#leftCol").width() * 0.8);
+                        }
+                        reader.readAsDataURL(this.files[0]);
                     }
-                    reader.readAsDataURL(this.files[0]);
                 }
             });
             $('#modalOpen').click(function() {
-				var missingList="";
-				if($("#branchNameSelectBox").children(":selected").attr("id") == null)
-					missingList=missingList+"소속 지사, ";
-				if($("#meetingRoomTypeSelectBox").children(":selected").attr("id") == null)
-					missingList=missingList+"회의실 유형, ";
-				if($("#mrName").val() == "")
-					missingList=missingList+"회의실 이름, ";
-				if($("#mrLocation").val() == "")
-					missingList=missingList+"회의실 위치, ";
-				if($("#mrPrice").val() == "")
-					missingList=missingList+"30분당 사용요금, ";
-				if($("#mrLimit").val() == "")
-					missingList=missingList+"수용인원, ";
-				if($("#mrArea").val() == "")
-					missingList=missingList+"회의실 면적, ";
-				if($("#empNameSelectBox").children(":selected").attr("id") == null)
-					missingList=missingList+"회의실 관리자, ";
-				if(imgChanged==false)
-					missingList=missingList+"회의실 사진, ";
-				console.log(missingList.index);
-                if (missingList!="") {
-                	missingList = missingList.substr(0, missingList.length -2); 
+                var missingList = "";
+                if ($("#branchNameSelectBox").children(":selected").attr("id") == null)
+                    missingList = missingList + "소속 지사, ";
+                if ($("#meetingRoomTypeSelectBox").children(":selected").attr("id") == null)
+                    missingList = missingList + "회의실 유형, ";
+                if ($("#mrName").val() == "")
+                    missingList = missingList + "회의실 이름, ";
+                if ($("#mrLocation").val() == "")
+                    missingList = missingList + "회의실 위치, ";
+                if ($("#mrPrice").val() == "")
+                    missingList = missingList + "30분당 사용요금, ";
+                if ($("#mrLimit").val() == "")
+                    missingList = missingList + "수용인원, ";
+                if ($("#mrArea").val() == "")
+                    missingList = missingList + "회의실 면적, ";
+                if ($("#empNameSelectBox").children(":selected").attr("id") == null)
+                    missingList = missingList + "회의실 관리자, ";
+                if (imgChanged == false)
+                    missingList = missingList + "회의실 사진, ";
+                console.log(missingList.index);
+                if (missingList != "") {
+                    missingList = missingList.substr(0, missingList.length - 2);
                     swal({
                         title: "오류",
-                        text: missingList+"을(를) 입력해주세요.",
+                        text: missingList + "을(를) 입력해주세요.",
                         type: "warning",
                         confirmButtonText: "OK",
                         closeOnConfirm: true,
@@ -135,44 +145,42 @@
 <body>
     <main class="app-content">
         <div class="app-title">
-        <div>
-            <h1>
-                <i class="fa fa-calendar"></i>회의실관리</h1>
-            <p>
-                전체 회의실 목록입니다.
-            </p>
+            <div>
+                <h1>
+                    <i class="fa fa-calendar"></i>회의실관리</h1>
+                <p>
+                    전체 회의실 목록입니다.
+                </p>
+            </div>
+            <ul class="app-breadcrumb breadcrumb">
+                <li class="breadcrumb-item">
+                    <i class="fa fa-home fa-lg"></i>
+                </li>
+                <li class="breadcrumb-item">
+                    <a>회의실관리</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="/meeting/meetingRoom/list">회의실관리</a>
+                </li>
+            </ul>
         </div>
-        <ul class="app-breadcrumb breadcrumb">
-            <li class="breadcrumb-item">
-                <i class="fa fa-home fa-lg"></i>
-            </li>
-            <li class="breadcrumb-item">
-                <a>회의실관리</a>
-            </li>
-            <li class="breadcrumb-item">
-                <a href="/meeting/meetingRoom/list">회의실관리</a>
-            </li>
-        </ul>
-    </div>
 
         <form action="/meeting/file/meetingRoomWrite" id="meetingRoomInsert" method="POST" enctype="multipart/form-data">
             <div class="row">
-                <input type="hidden" name="mrId" id="mrIdHiddenArea"> <!-- 바로 세팅이 안된다. 따로 해줘야할듯 -->
+                <input type="hidden" name="mrId" id="mrIdHiddenArea">
                 <input type="hidden" name="_csrf" value="${_csrf.token}">
                 <div class="col-md-4">
                     <div class="tile" style="text-align:center" id="leftCol">
                         <div class="tile-body" style="text-align:center;">
                             <img class="user-img" id="imgArea" src="/meeting/resources/img/imgVoid.JPG" style="border-radius: 10px; margin-bottom:20px">
-
                         </div>
 
                         <div class="tile-footer" style="text-align:right; vertical-align:bottom;">
                             <div class="upload-wrapper">
                                 <button class="btn btn-primary"><i class="fa fa-file-image-o" aria-hidden="true"></i>업로드</button>
-                                <input type="file" id="imgUpload" name="mrImg">
+                                <input type="file" id="imgUpload" name="mrImg" accept="image/*">
                             </div>
                         </div>
-                        <!--                         다이어로그가 안뜨고 submit 되어버리는 오류 -->
                     </div>
                 </div>
                 <div class="col-md-8">
