@@ -37,11 +37,11 @@ public class NoticeController {
 	public String noticeWritePage(Model model) {
 		return "notice/noticeWrite";
 	}
+	
 	@PostMapping("/write")
 	public String noticeInsert(Notice notice) {
-		System.out.println(notice.getNoticeTitle());
 		noticeService.noticeInsert(notice);
-		return "redirect:/notice/list";
+		return "redirect:/notice/list/1";
 	}
 	
 	@PostMapping("/delete/{noticeId}")

@@ -94,6 +94,5 @@
             </security:authorize>
           </div>
         </div>
-        </div>
-	
+     </div>
 </main>

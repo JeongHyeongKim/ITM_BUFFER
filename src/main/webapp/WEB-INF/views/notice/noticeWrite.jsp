@@ -1,8 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<script>
-
-</script>
+    <!-- <script>
+    	$(function(){
+    		$('#noticeSubmit').on("click",function(){
+    			var form = $('#noticeForm').serialize();
+       		 $.ajax({
+       		   	 
+       		       url:"/meeting/notice/write",
+       		       method :"post",
+       		       data : form,
+       		       success : function(data){
+       		         console.log("cc")
+       		       }
+       		    })
+    		})
+    	});
+    </script> -->
 <main class="app-content">
 	<div class="app-title">
 		<div>
@@ -25,32 +38,34 @@
 		<div class="col-md-12">
           <div class="tile" >
            <h3 class="tile-title" style="padding-bottom:10px; border-bottom:1px solid #ddd">공지사항을 작성하여 주십시오</h3>
-           <form action="/meeting/notice/write" method="POST">
-              <div class="tile-body">
-              		<input type="hidden" name="noticeDate" id="noticeDate">
-              		 <input type="hidden" name="_csrf" value="${_csrf.token}">
+           <form action="/meeting/notice/write" method="POST" id="noticeForm">
+              <div class="tile-body"><!-- 
+              		<input type="hidden" name="noticeId" id="noticeId">
+              		<input type="hidden" name="noticeDate" id="noticeDate"> -->
+              		<input type="hidden" name="_csrf" value="${_csrf.token}">
 	          		<div class="form-group">
-	                    <label class="control-label">
-	                        <h5>제목</h5>
-	                    </label>
-	                    <input class="form-control" type="text" id="noticeTitle" name="noticeTitle">
-	                </div>
-	                <div class="form-group">
-	                    <label class="control-label">
-	                        <h5>작성자</h5>
-	                    </label>
+						<label class="control-label">제목</label> 
+						<input
+							class="form-control" type="text"
+							placeholder="Enter Notice Title" name="noticeTitle" id="noticeTitle">
+					</div>
+					
+					<div class="form-group">
+	                    <label class="control-label">작성자</label>
 	                    <input class="form-control" type="text" id="noticeWriter" name="noticeWriter" readonly>
 	                </div>
-	                <div class="form-group">
-	                    <label class="control-label">
-	                        <h5>내용</h5>
-	                    </label>
-	                    <textarea class="form-control" type="text" id="noticeContent" name="noticeContent"></textarea>
-	                </div>
+	                
+					<div class="form-group">
+						<label class="control-label">내용</label>
+						<textarea class="form-control" rows="4"
+							placeholder="Enter Notice Content" name="noticeContent" id="noticeContent"></textarea>
+					</div>
+	                
+	                
 	                <div class="tile-footer">
                        <div>
-                          <button class="btn btn-primary" type="submit" ><i class="fa fa-fw fa-lg fa-check-circle"></i>확인</button>
-                          <a class="btn btn-secondary" href="/meeting/noitce/list/1"><i class="fa fa-fw fa-lg fa-times-circle"></i>취소</a>
+                          <button class="btn btn-primary" type="submit" id="noticeSubmit"><i class="fa fa-fw fa-lg fa-check-circle"></i>확인</button>
+                          <a class="btn btn-secondary" href="/meeting/notice/list/1"><i class="fa fa-fw fa-lg fa-times-circle"></i>취소</a>
                        </div>
                     </div>
           	  </div>
@@ -73,5 +88,7 @@ $.ajax({
        $('#noticeWriter').attr("value",emp.empId);
     }
  })
+ 
+ 
 });
 </script>

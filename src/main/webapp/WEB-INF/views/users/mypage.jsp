@@ -196,7 +196,7 @@
 				<i class="fa fa-home fa-lg"></i>
 			</li>
 			<li class="breadcrumb-item">
-				<a href="#">예약이력</a>
+				<a href="/meeting/users/mypage">예약이력</a>
 			</li>
 		</ul>
 	</div>
