@@ -317,7 +317,7 @@
 	</update>
 	<update id="updateByHeadRecognition">
 		update recognition
-		set dept_head_id = #{adminId}, rec_accept_date = sysdate
+		set dept_head_id = #{adminId}, rec_accept_date = to_char(sysdate,'YYYY-MM-DD" "HH24:MI:SS')
 		where res_id=#{resId}
 	</update>
 	<update id="updateByHeadNotRecognition">
@@ -326,12 +326,15 @@
 		where res_id=#{resId}
 	</update>
 	<select id="recogList" resultType="RecognitionVO">
-		select REC_ID recId,
-				DEPT_HEAD_ID deptHeadId,
-				MAN_ID manId,
-				REC_ACCEPT_DATE recAcceptDate,
-				RES_ID resId,
-				REC_REFUSE recRefuse
-		from recognition
+		select rc.REC_ID recId,
+		       NVL(e.emp_name,' ') deptHeadId,
+		       NVL(s.emp_name,' ') manId,
+		       NVL(To_char(REC_ACCEPT_DATE, 'YYYY-MM-DD" "HH24:MI:SS'),' ')  recAcceptDate, 
+		       RES_ID resId,
+		       NVL(REC_REFUSE,' ') recRefuse
+		from recognition rc, employee e,(select emp_name,rec_id from recognition r,employee ep where r.man_id=ep.emp_id) s
+		where rc.dept_head_id = e.emp_id(+)
+		and s.rec_id = rc.rec_id(+)
+		order by rc.rec_id
 	</select>
 </mapper>

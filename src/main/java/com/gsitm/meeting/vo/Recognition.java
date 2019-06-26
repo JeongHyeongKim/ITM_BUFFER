@@ -7,7 +7,7 @@ public class Recognition {
 	private String recId;
 	private String deptHeadId;
 	private String manId;
-	private Date recAcceptDate;
+	private String recAcceptDate;
 	private String resId;
 	private String recRefuse;
 	
@@ -32,10 +32,10 @@ public class Recognition {
 	public void setManId(String manId) {
 		this.manId = manId;
 	}
-	public Date getRecAcceptDate() {
+	public String getRecAcceptDate() {
 		return recAcceptDate;
 	}
-	public void setRecAcceptDate(Date recAcceptDate) {
+	public void setRecAcceptDate(String recAcceptDate) {
 		this.recAcceptDate = recAcceptDate;
 	}
 	public String getResId() {

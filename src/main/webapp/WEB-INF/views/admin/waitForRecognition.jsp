@@ -119,13 +119,43 @@
 		/* drawListPeriod(myInfo); */
 		drawListBranch(branchList);
 		drawPage(myInfo);
-		console.log(equipList)
-		console.log(myInfo)
+		console.log(recogList);
 		//Modal
 		$('.showAllInfo').on("click",function(e){
-			var resId = e.currentTarget.id
 			
-			for(var i=0; i<myInfo.length; i++){ 
+			var resId = e.currentTarget.id
+			var manId="승인자 없음";
+			var deptHeadId="승인자 없음";
+			var RecAcceptDate="승인 내역 없음";
+			var recRefuse="-반려된 예약 아님-";
+			for(var i=0;i<recogList.length;i++){
+				console.log(recogList[i].recAcceptDate)
+				if(recogList[i].resId==resId){
+						var deptHeadIdTemp =recogList[i].deptHeadId; 
+						console.log(deptHeadIdTemp)
+						if(recogList[i].recRefuse==" "){						
+							if(deptHeadIdTemp.includes("it") && recogList[i].manId==" "){ // 1차승인완료
+								deptHeadId=recogList[i].deptHeadId;
+								manId="2차승인없음";
+							
+								break;
+							}else if(recogList[i].deptHeadId==" "&&recogList[i].manId==" "&&recogList[i].recAcceptDate==" "){ // 예약신청만
+							
+								RecAcceptDate="승인내역없음";
+								break;
+							}else{ // 2차 승인완료
+								deptHeadId=recogList[i].deptHeadId;
+								manId=recogList[i].manId;
+								RecAcceptDate=recogList[i].recAcceptDate;
+								break;
+							}
+					}else{
+						recRefuse=recogList[i].recRefuse;
+					}
+				}
+			}
+			for(var i=0; i<myInfo.length; i++){
+				
 				var note;
 				var beam;
 				var white;
@@ -144,21 +174,27 @@
 					white = equipList[myInfo[i].resId]['W'];
 					mic = equipList[myInfo[i].resId]['M'];
 				}
-				
+					
 				if(myInfo[i].resId == resId){
-					var resAddRequest;
-					if(myInfo[i].resAddRequest==(" ")){
-						resAddRequest = "없음";
-					}
-					swal({
-		 	      		title: "상세 예약 정보 확인",
-		 	      		text: "\n [회의목적] "+myInfo[i].resPurpose+
-		 	      		      "\n [회의구분] "+myInfo[i].resType+
-		 	      		      "\n [사용비용] "+comma(myInfo[i].resCost)+"원"+
-		 	      			  "\n [참석인원수] "+myInfo[i].resAttendCnt + "명"+
-		 	      			  "\n [기자재]\n  노트북 " + note +"개/마이크 " + mic +"개/화이트보드 " + white +"개/빔프로젝터 " + beam+"개"+
-		 	      			  "\n [추가요청사항]\n"+resAddRequest		
-					 })		
+
+						var resAddRequest;
+						if(myInfo[i].resAddRequest==(" ")){
+							resAddRequest = "없음";
+						}
+					
+						
+						swal({
+		 	      			title: "상세 예약 정보 확인",
+		 	      			text: "\n [회의목적] "+myInfo[i].resPurpose+
+		 	      		     	  "\n [회의구분] "+myInfo[i].resType+
+		 	      		     	  "\n [사용비용] "+comma(myInfo[i].resCost)+"원"+
+		 	      				  "\n [참석인원수] "+myInfo[i].resAttendCnt + "명"+
+		 	      			 	  "\n [기자재]\n  노트북 " + note +"개/마이크 " + mic +"개/화이트보드 " + white +"개/빔프로젝터 " + beam+"개"+
+		 	      			 	  "\n [추가요청사항]\n"+resAddRequest+
+		 	      			 	  "\n[승인자 및 승인 날짜]\n"+deptHeadId+" / "+manId+" / "+RecAcceptDate+
+		 	      			 	  "\n[반려사유]\n"+recRefuse
+						 })		
+					
 				}	
 			}
 			

@@ -38,6 +38,7 @@ public class RecognitionController {
 		model.addAttribute("resList",recService.resList());
 		model.addAttribute("equipList",recService.allEquipList());
 		model.addAttribute("recogList",recService.RecognitionInfo());
+		System.out.println(recService.RecognitionInfo());
 		return "admin/waitForRecognition";
 	}
 	@GetMapping("/paymentManagement") 
