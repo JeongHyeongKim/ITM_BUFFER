@@ -125,30 +125,34 @@ function saveEqId(param){
                 <div class="tile-body">
                     <table class="table table-hover table-bordered" id="sampleTable">
                         <thead>
-                            <tr>
-                            	<th>기자재 관리 회의실</th>
-                                <th>기자재 유형</th>
-                                <th>고유 번호</th>
+                            <tr >
+                            	<th style="text-align:center">기자재 관리 회의실</th>
+                                <th style="text-align:center">기자재 유형</th>
+                                <th style="text-align:center">고유 번호</th>
+                                <th style="text-align:center">삭제</th>
                             </tr>
                         </thead>
                         <tbody>
                             <c:forEach items='${equipmentList}' var='equipmentList'>
                                 <tr>
-                                	<td>${equipmentList.brName} - ${equipmentList.mrName}</td>
+                                	<td style="text-align:center">${equipmentList.brName} - ${equipmentList.mrName}</td>
                                     <c:if test="${fn:contains(equipmentList.eqId,'N')}">
-                                        <td>N</td>
+                                        <td style="text-align:center">N</td>
                                     </c:if>
                                     <c:if test="${fn:contains(equipmentList.eqId,'M')}">
-                                        <td>M</td>
+                                        <td style="text-align:center">M</td>
                                     </c:if>
                                     <c:if test="${fn:contains(equipmentList.eqId,'WB')}">
-                                        <td>WB</td>
+                                        <td style="text-align:center">WB</td>
                                     </c:if>
                                     <c:if test="${fn:contains(equipmentList.eqId,'V')}">
-                                        <td>V</td>
+                                        <td style="text-align:center">V</td>
                                     </c:if>
-                                    <td>${fn:split(equipmentList.eqId,'_')[1]}
-                                    		<a class="deleteAlert" id="demoSwal" onclick="saveEqId('${equipmentList.eqId}')" style="cursor:pointer">X</a>
+                                    <td style="text-align:center">
+                                    	${fn:split(equipmentList.eqId,'_')[1]}	
+                                    </td>
+                                    <td style="text-align:center">
+                                    	<a class="deleteAlert" id="demoSwal" onclick="saveEqId('${equipmentList.eqId}')" style="cursor:pointer"><b>X</b></a>
                                     </td>
                                 </tr>
                             </c:forEach>

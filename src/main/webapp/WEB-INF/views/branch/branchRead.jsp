@@ -157,13 +157,13 @@
                                 <label class="control-label">
                                     <h5>지사 주소</h5>
                                 </label>
-                                <input class="form-control" type="text" placeholder="주소를 입력해주세요" id="brAddress" name="brLocation">
+                                <input class="form-control" type="text" placeholder="주소를 입력해주세요" id="brAddress" name="brLocation" autocomplete="off">
                             </div>
                             <div class="form-group">
                                 <label class="control-label">
                                     <h5>대표 번호</h5>
                                 </label>
-                                <input class="form-control" placeholder="대표번호를 입력해주세요" id="brTel" name="brTel"></input>
+                                <input class="form-control" placeholder="대표번호를 입력해주세요" id="brTel" name="brTel" autocomplete="off"></input>
                             </div>
 
                         </div>

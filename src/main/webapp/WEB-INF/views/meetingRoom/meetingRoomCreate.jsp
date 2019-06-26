@@ -210,17 +210,17 @@
                                         </select>
                                     </div>
                                     <div class="col-md-4">
-                                        <input class="form-control" id="mrName" name="mrName" type="text" placeholder="회의실 이름 입력">
+                                        <input class="form-control" id="mrName" name="mrName" type="text" placeholder="회의실 이름 입력" autocomplete="off">
                                     </div>
                                 </div>
                                 <div class="form-group row" style="padding-bottom:10px">
                                     <div class="col-md-12">
-                                        <input class="form-control" id="mrLocation" type="text" placeholder="주소 입력" name="mrLocation">
+                                        <input class="form-control" id="mrLocation" type="text" placeholder="주소 입력" name="mrLocation" autocomplete="off">
                                     </div>
                                 </div>
                                 <div class="form-group row" style="padding-bottom:10px">
                                     <div class="col-md-6">
-                                        <input class="form-control" id="mrPrice" type="number" placeholder="30분당 비용 입력" name="mrPrice">
+                                        <input class="form-control" id="mrPrice" type="number" placeholder="30분당 비용 입력" name="mrPrice" >
                                     </div>
                                     <div class="col-md-6">
                                         <input class="form-control" id="mrLimit" placeholder="최대 수용인원 입력" name="mrLimit" type="number">
@@ -228,7 +228,7 @@
                                 </div>
                                 <div class="form-group row" style="padding-bottom:10px">
                                     <div class="col-md-4">
-                                        <input class="form-control" id="mrArea" type="number" placeholder="면적(m²) 입력" name="mrArea">
+                                        <input class="form-control" id="mrArea" type="number" placeholder="면적(m²) 입력" name="mrArea" >
                                     </div>
                                     <div class="col-md-4">
                                         <select class="form-control" name="empId" id="empNameSelectBox">
@@ -241,7 +241,7 @@
                                     <div class="col-md-4">
                                         <div class="animated-checkbox">
                                             <label>
-                                                <input type="checkbox" value="net_1" id="mrNetwork"><span class="label-text">네트워크 지원</span>
+                                                <input type="checkbox" value="net_1" id="mrNetwork" ><span class="label-text">네트워크 지원</span>
                                                 <input type="hidden" name="mrNetwork" value="net_0" id="mrNetworkHidden" style="display:none;" />
                                                 <!-- 여기서 엠알 타입 둘다 들어가는 현상이 있는데 이를 해결하는 jsp가 필요하다. -->
                                             </label>

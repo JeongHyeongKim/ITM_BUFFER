@@ -63,7 +63,7 @@
 				</div>
 				
 				<div id="deptCostInfo" style="float:right;text-align:right">
-					<h3 class="tile-title">부서별 회의실 사용 누적금액</h3>
+					<h3 class="tile-title">부서별 회의실 사용 연간 누적금액</h3>
 					<h3 class="tile-title" id="deptCost"></h3>
 				</div>
 			</div>
@@ -106,7 +106,7 @@
 	                </div>
 	                <div class="form-group col-md-3"> 
 	                  <div class="tile-body">
-						 <input class="form-control" type="text" placeholder="예약일" id="searchDate">
+						 <input class="form-control" type="text" placeholder="예약일" id="searchDate" autocomplete="off">
 					  </div>
 	                </div>
 	                <input type="hidden" id="resStartDate" name="resStartDate"> 
@@ -263,7 +263,7 @@
         lang : "ko",
         droppable: true, // this allows things to be dropped onto the calendar
         eventLimit: true, // allow "more" link when too many events
-        
+        timeFormat: 'HH:mm',
         events : [
         	 <c:forEach items="${resList}" var="list" varStatus="status"> 
             { 
