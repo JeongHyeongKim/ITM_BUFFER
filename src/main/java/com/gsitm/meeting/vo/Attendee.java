@@ -13,5 +13,6 @@ public class Attendee {
 	private String attendId;
 	private String attendType;
 	private String deptId;
+	private int deptCost;
 	
 }

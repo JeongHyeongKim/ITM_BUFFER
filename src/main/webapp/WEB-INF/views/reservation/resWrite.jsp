@@ -262,7 +262,9 @@
     	var empList = JSON.parse('${empDeptList}');
     	
     	/////////////////////////////////////////////////////////////  model 클릭시 주관부서 추가
-    	 var newDeptName = [];
+    	
+    	var newDeptName = [];
+    	
     	$("#test").on("click",function(){
     	/* 	<div class ="col-md-3">
     		<div class="alert alert-dismissible alert-success">
@@ -307,7 +309,30 @@
     	$("#btnEmpList").on("click",function(){
     
     		$("<input>").attr("type","hidden").attr("name","empList").attr("value",$("#empListOption").val()).appendTo($("#resForm"));
-    		$("<input>").attr("type","hidden").attr("value",newDeptName).attr("name","mainDept").appendTo($("#resForm"));
+    		if(newDeptName.length==0){
+    			var empListOption = $("#empListOption").val()
+    			var mainDeptName = [];
+    			for(var i=0; i<empListOption.length; i++){
+    				
+    				for(var j=0; j<empList.length; j++){
+    					var selectEmpId = empList[j].empId;
+    					
+    					if(empListOption[i] == selectEmpId){
+    						var deptName = empList[j].deptName;
+    						mainDeptName.push(deptName);
+    						break;
+    					}
+    				}
+    			}
+    			
+                 $.each(mainDeptName, function(i, el){
+                 	if($.inArray(el, newDeptName) === -1) newDeptName.push(el);
+                 });
+                 $("<input>").attr("type","hidden").attr("value",newDeptName).attr("name","mainDept").appendTo($("#resForm"));
+    		} else{
+    			$("<input>").attr("type","hidden").attr("value",newDeptName).attr("name","mainDept").appendTo($("#resForm"));
+    		}
+    		
     	})
     	////////////////////////////////////////////////////////////  pastReservation List
     	var pastRes = JSON.parse('${pastReservation}');

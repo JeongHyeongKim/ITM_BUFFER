@@ -44,8 +44,9 @@ public class ReservationController {
 	@PostMapping("/writeReservation")
 	public String writeReservation(Model model, String mrId,@RequestParam(required=false) String resPurpose, 
 			@RequestParam(required=false)String resAddRequest, String resStartDate, String resEndDate, 
-			String resSnack, String resType, String resOutside, String equipElement, Principal principal, 
-			String times, String empList, String resState, String mainDept) {
+			@RequestParam(required=false) String resSnack, String resType, String resOutside, String equipElement, 
+			Principal principal, String times, String empList, String resState, String mainDept, 
+			@RequestParam(required=false) String resNetwork) {
 		System.out.println(times); // 세번클릭시 최대최소값채택
 		System.out.println(mainDept);
 		Reservation res = new Reservation();
@@ -60,7 +61,7 @@ public class ReservationController {
 		res.setResState(resState);
 		res.setResOutside(Integer.parseInt(resOutside));
 		
-		resService.insertReservation(res, times, equipElement, empList);
+		resService.insertReservation(res, times, equipElement, empList, mainDept);
 		return "redirect:/users/mypage"; //리턴중, 리다이렉트는 url형식으로 전달된다.
 	}
 	@GetMapping("/resShortMain/{brId}")

@@ -7,7 +7,10 @@ import com.gsitm.meeting.reservation.dto.ReservationDTO;
 import com.gsitm.meeting.reservation.dto.SearchDTO;
 import com.gsitm.meeting.room.dto.MeetingRoomDTO;
 import com.gsitm.meeting.users.dto.EmployeeDTO;
+import com.gsitm.meeting.vo.Attendee;
 import com.gsitm.meeting.vo.Equipment;
+import com.gsitm.meeting.vo.EquipmentReservation;
+import com.gsitm.meeting.vo.Recognition;
 import com.gsitm.meeting.vo.Reservation;
 
 public interface ReservationDao {
@@ -32,4 +35,12 @@ public interface ReservationDao {
 	public List<Equipment> getResEquip(String mrId);
 	public String getDeptIdByEmpId(String empId);
 	public int getCostByErId(String mrId);
+	public String getDeptIdByDeptName(String deptName);
+	public String recMostRecent();
+	
+	// 예약 insert
+	public void insertReservation(Reservation reservation);
+	public void insertRecognition(Recognition recognition);
+	public void insertAttendee(Attendee attendee);
+	public void insertResEquipment(EquipmentReservation equipmentRes);
 }

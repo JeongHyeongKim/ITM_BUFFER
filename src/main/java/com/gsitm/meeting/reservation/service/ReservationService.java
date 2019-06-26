@@ -19,6 +19,7 @@ import com.gsitm.meeting.users.dto.EmployeeDTO;
 import com.gsitm.meeting.vo.Attendee;
 import com.gsitm.meeting.vo.Equipment;
 import com.gsitm.meeting.vo.EquipmentReservation;
+import com.gsitm.meeting.vo.Recognition;
 import com.gsitm.meeting.vo.Reservation;
 
 @Service
@@ -30,10 +31,10 @@ public class ReservationService {
 	@Autowired
 	private Gson gson;
 	
-	public void insertReservation(Reservation res, String times, String equipElement, String empList) {
+	public void insertReservation(Reservation res, String times, String equipElement, String empList, String mainDept) {
 		
 		String storedId = resDao.resMostRecent();
-		String nextId = calcId(storedId);
+		String nextId = calcId(storedId,"res_");
 		// 계산된 ID값 입력
 		res.setResId(nextId);
 		
@@ -51,7 +52,7 @@ public class ReservationService {
 		}
 		
 		String[] equipList = equipElement.split(",");
-		
+		System.out.println("equipList : " + equipList);
 		ArrayList<String> resultEquip = new ArrayList<>();
 		
 		for(int i=0; i<equipList.length; i++) {
@@ -122,20 +123,12 @@ public class ReservationService {
 			EquipmentReservation temp = new EquipmentReservation(nextId, resultEquip.get(i));
 			sendEquip.add(temp);
 		}
-		// attendee 객체
-		String[] empListArray = empList.split(",");
-		List<Attendee> sendAttendee = new ArrayList<>();
 		
-		for(int i=0; i<empListArray.length; i++) {
-			String deptId = resDao.getDeptIdByEmpId(empListArray[i]);
-			Attendee temp = new Attendee(nextId, empListArray[i], "att_type_0", deptId);
-			sendAttendee.add(temp);
-		}
 		////////// cost계산
 		
 		String t1 = res.getResStartDate();
 		String t2 = res.getResEndDate();
-		
+		System.out.println("t1:"+t1+"t2 : "+t2);
 		String t1split = t1.split(" ")[0];
        	String t1splitYear = t1split.split("-")[0];
        	int t1splitMonth = Integer.parseInt(t1split.split("-")[1]);
@@ -180,12 +173,57 @@ public class ReservationService {
        		cost = cost + mrCost;
        	}
        	res.setResCost(cost);
-		// resultEquip 전송 (기자재)
-		System.out.println("equip : " + sendEquip);
-		// res 전송 (예약)
+       	//////////////////////////////////////////////////////////////
+       	// attendee 객체
+ 		String[] empListArray = empList.split(",");
+ 		res.setResAttendCnt(empListArray.length); // 참석자인원 set
+ 		
+ 		List<Attendee> sendAttendee = new ArrayList<>();
+ 		String[] mainDeptList = mainDept.split(",");
+ 		ArrayList<String> mainDeptIdList = new ArrayList<>();
+ 		
+ 		for(int i=0; i<mainDeptList.length; i++) {
+ 			String deptId = resDao.getDeptIdByDeptName(mainDeptList[i]);
+ 			mainDeptIdList.add(deptId);
+ 		}
+ 		for(int i=0; i<empListArray.length; i++) {
+ 			String deptId = resDao.getDeptIdByEmpId(empListArray[i]);
+ 			Attendee temp = null;
+ 			for(int j=0; j<mainDeptIdList.size(); j++) { 
+ 				if(deptId.equals(mainDeptIdList.get(j))) {
+ 					temp = new Attendee(nextId, empListArray[i], "att_type_0", deptId, cost/mainDeptList.length);
+ 					break;
+ 				} else {
+ 					temp = new Attendee(nextId, empListArray[i], "att_type_1", deptId, 0);
+ 				}
+ 			}
+ 			sendAttendee.add(temp);
+ 		}
+ 		
+       	// sendRec 객체
+ 		String storedRecId = resDao.recMostRecent();
+ 		String nextRecId = calcId(storedRecId,"rec_");
+ 		Recognition sendRec = new Recognition(nextRecId, nextId);
+ 		
+ 		// reservation insert, res 전송 (예약)
 		System.out.println("reservation : " + res);
-		// empList 전송 (참석자)
+		resDao.insertReservation(res);
+		
+		// recognition insert, sendRec전송
+ 		System.out.println("recognition : "+sendRec);
+ 		resDao.insertRecognition(sendRec);
+		
+ 		// equipment_reservation insert, resultEquip 전송 (기자재)
+		System.out.println("equip : " + sendEquip);
+		for(int i=0; i<sendEquip.size(); i++) {
+			resDao.insertResEquipment(sendEquip.get(i));
+		}
+		
+		// attendee insert, empList 전송 (참석자)
 		System.out.println("attendee : " + sendAttendee);
+		for(int i=0; i<sendAttendee.size(); i++) {
+			resDao.insertAttendee(sendAttendee.get(i));
+		}
 	}
 	
 	public String calcDate(String currentDate) {
@@ -203,19 +241,20 @@ public class ReservationService {
 		String date = year+"-"+month+"-"+day;
 		return date;
 	}
-	public String calcId(String storedId) {
+	
+	public String calcId(String storedId, String type) {
 		String resId = storedId.split("_")[1]; // 숫자 뒤에 있는거 자르고 쓰기
 		int resIdInt = Integer.parseInt(resId)+1;
 		
 		String nextId=null;
 		if(resIdInt>999) {
-			nextId="res_"+resIdInt;
+			nextId= type+resIdInt;
 		} else if(resIdInt>99) {
-			nextId="res_0"+resIdInt;
+			nextId= type+"0"+resIdInt;
 		} else if(resIdInt>9) {
-			nextId="res_00"+resIdInt;
+			nextId= type+"00"+resIdInt;
 		} else if(resIdInt>=0) {
-			nextId="res_000"+resIdInt;	
+			nextId= type+"000"+resIdInt;	
 		}
 		return nextId;
 	}

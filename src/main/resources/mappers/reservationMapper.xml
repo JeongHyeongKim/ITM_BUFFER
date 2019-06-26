@@ -39,6 +39,9 @@
 	<select id="resMostRecent" resultType="string">
 		select max(res_id) resId from reservation
 	</select>
+	<select id="recMostRecent" resultType="string">
+		select max(rec_id) recId from recognition
+	</select>
 	
 	<select id="branchList" resultType="BranchVO">
 		select br_name brName,br_id brId from branch
@@ -125,4 +128,25 @@
 	<select id="getCostByErId" resultType="int">
 		select mr_price from meeting_room where mr_id = #{mrId}
 	</select>
+	<select id="getDeptIdByDeptName" resultType="string">
+		select dept_id deptId from department where dept_name = #{deptName}
+	</select>
+	
+	<insert id="insertReservation" parameterType="reservationVO">
+		insert into reservation values(#{resId}, #{empId}, #{mrId}, to_date(#{resStartDate}, 'YYYY-MM-DD HH24:MI'), to_date(#{resEndDate}, 'YYYY-MM-DD HH24:MI'), 
+		sysdate, #{resPurpose}, #{resAttendCnt}, #{resAddRequest},
+		#{resState}, #{resSnack}, #{resType}, #{resCancle}, #{resCost}, #{resOutside}, null)
+	</insert>
+	
+	<insert id="insertRecognition" parameterType="recognitionVO">
+		insert into recognition(rec_id, res_id) values(#{recId}, #{resId})
+	</insert>
+	
+	<insert id="insertAttendee" parameterType="attendeeVO">
+		insert into attendee values(#{resId}, #{attendId}, #{attendType}, #{deptId}, #{deptCost})
+	</insert>
+	
+	<insert id="insertResEquipment" parameterType="equipmentReservationVO">
+		insert into equipment_reservation values(#{resId}, #{eqId})
+	</insert>
 </mapper>

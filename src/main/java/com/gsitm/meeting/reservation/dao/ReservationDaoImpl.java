@@ -11,7 +11,10 @@ import com.gsitm.meeting.reservation.dto.ReservationDTO;
 import com.gsitm.meeting.reservation.dto.SearchDTO;
 import com.gsitm.meeting.room.dto.MeetingRoomDTO;
 import com.gsitm.meeting.users.dto.EmployeeDTO;
+import com.gsitm.meeting.vo.Attendee;
 import com.gsitm.meeting.vo.Equipment;
+import com.gsitm.meeting.vo.EquipmentReservation;
+import com.gsitm.meeting.vo.Recognition;
 import com.gsitm.meeting.vo.Reservation;
 
 @Repository
@@ -94,6 +97,9 @@ public class ReservationDaoImpl implements ReservationDao {
 	public String resMostRecent() {
 		return session.selectOne(namespace+".resMostRecent");
 	}
+	public String recMostRecent() {
+		return session.selectOne(namespace +".recMostRecent");
+	}
 
 	@Override
 	public List<Reservation> getPastReservation(String empId) {
@@ -113,6 +119,33 @@ public class ReservationDaoImpl implements ReservationDao {
 	@Override
 	public int getCostByErId(String mrId) {
 		return session.selectOne(namespace + ".getCostByErId", mrId);
+	}
+
+	@Override
+	public String getDeptIdByDeptName(String deptName) {
+		return session.selectOne(namespace + ".getDeptIdByDeptName", deptName);
+	}
+
+	@Override
+	public void insertReservation(Reservation reservation) {
+		session.insert(namespace+".insertReservation", reservation);
+	}
+
+	@Override
+	public void insertRecognition(Recognition recognition) {
+		session.insert(namespace + ".insertRecognition", recognition);
+	}
+
+	@Override
+	public void insertAttendee(Attendee attendee) {
+		session.insert(namespace + ".insertAttendee", attendee);
+		
+	}
+
+	@Override
+	public void insertResEquipment(EquipmentReservation equipmentRes) {
+		session.insert(namespace + ".insertResEquipment", equipmentRes);
+		
 	}
 
 }
