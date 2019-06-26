@@ -130,7 +130,7 @@
                         <div class="tile-footer" style="text-align:right; vertical-align:bottom;">
                             <div class="upload-wrapper">
                                 <button class="btn btn-primary"><i class="fa fa-file-image-o" aria-hidden="true"></i>업로드</button>
-                                <input type="file" id="imgUpload" name="brImg" accept="image/*">
+                                <input type="file" id="imgUpload" name="brImg" accept="image/*" >
                             </div>
                         </div>
                     </div>
@@ -144,19 +144,19 @@
                                 <label class="control-label">
                                     <h5>지사 이름</h5>
                                 </label>
-                                <input class="form-control" type="text" placeholder="지사 입력" id="brName" name="brName">
+                                <input class="form-control" type="text" placeholder="지사 입력" id="brName" name="brName" autocomplete="off">
                             </div>
                             <div class="form-group">
                                 <label class="control-label">
                                     <h5>지사 주소</h5>
                                 </label>
-                                <input class="form-control" type="text" placeholder="주소 입력" id="brAddress" name="brLocation">
+                                <input class="form-control" type="text" placeholder="주소 입력" id="brAddress" name="brLocation" autocomplete="off">
                             </div>
                             <div class="form-group">
                                 <label class="control-label">
                                     <h5>대표 번호</h5>
                                 </label>
-                                <input class="form-control" placeholder="대표번호 입력" id="brTel" name="brTel"></input>
+                                <input class="form-control" placeholder="대표번호 입력" id="brTel" name="brTel" autocomplete="off"></input>
                             </div>
 
                         </div>

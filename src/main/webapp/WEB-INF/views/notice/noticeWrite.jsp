@@ -47,18 +47,18 @@
 						<label class="control-label">제목</label> 
 						<input
 							class="form-control" type="text"
-							placeholder="Enter Notice Title" name="noticeTitle" id="noticeTitle">
+							placeholder="Enter Notice Title" name="noticeTitle" id="noticeTitle" autocomplete="off">
 					</div>
 					
 					<div class="form-group">
 	                    <label class="control-label">작성자</label>
-	                    <input class="form-control" type="text" id="noticeWriter" name="noticeWriter" readonly>
+	                    <input class="form-control" type="text" id="noticeWriter" name="noticeWriter" autocomplete="off" readonly>
 	                </div>
 	                
 					<div class="form-group">
 						<label class="control-label">내용</label>
 						<textarea class="form-control" rows="4"
-							placeholder="Enter Notice Content" name="noticeContent" id="noticeContent"></textarea>
+							placeholder="Enter Notice Content" name="noticeContent" id="noticeContent" ></textarea>
 					</div>
 	                
 	                

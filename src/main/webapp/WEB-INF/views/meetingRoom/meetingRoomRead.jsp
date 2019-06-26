@@ -209,7 +209,7 @@
                         <div class="tile-footer" style="text-align:right; vertical-align:bottom;">
                             <div class="upload-wrapper">
                                 <button class="btn btn-primary"><i class="fa fa-file-image-o" aria-hidden="true"></i>업로드</button>
-                                <input type="file" id="imgUpload" name="mrImg" accept="image/*">
+                                <input type="file" id="imgUpload" name="mrImg" accept="image/*" >
                             </div>
                         </div>
                         <!--                         다이어로그가 안뜨고 submit 되어버리는 오류 -->
@@ -244,20 +244,20 @@
                                 </div>
                                 <div class="form-group row" style="padding-bottom:10px">
                                     <div class="col-md-12">
-                                        <input class="form-control" id="mrLocation" type="text" placeholder="주소를 입력해주세요" name="mrLocation">
+                                        <input class="form-control" id="mrLocation" type="text" placeholder="주소를 입력해주세요" name="mrLocation" autocomplete="off">
                                     </div>
                                 </div>
                                 <div class="form-group row" style="padding-bottom:10px">
                                     <div class="col-md-6">
-                                        <input class="form-control" id="mrPrice" type="text" placeholder="30분당 비용을 입력헤주세요" name="mrPrice">
+                                        <input class="form-control" id="mrPrice" type="text" placeholder="30분당 비용을 입력헤주세요" name="mrPrice" autocomplete="off">
                                     </div>
                                     <div class="col-md-6">
-                                        <input class="form-control" id="mrLimit" type="text" placeholder="최대 수용인원을 입력해주세요" name="mrLimit">
+                                        <input class="form-control" id="mrLimit" type="text" placeholder="최대 수용인원을 입력해주세요" name="mrLimit" autocomplete="off">
                                     </div>
                                 </div>
                                 <div class="form-group row" style="padding-bottom:10px">
                                     <div class="col-md-4">
-                                        <input class="form-control" id="mrArea" type="text" placeholder="면적(m²)를 입력해주세요" name="mrArea">
+                                        <input class="form-control" id="mrArea" type="text" placeholder="면적(m²)를 입력해주세요" name="mrArea" autocomplete="off">
                                     </div>
                                     <div class="col-md-4">
                                         <select class="form-control" name="empId" id="empNameSelectBox">

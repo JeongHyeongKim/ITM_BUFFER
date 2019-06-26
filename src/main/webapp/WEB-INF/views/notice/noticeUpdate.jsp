@@ -49,7 +49,7 @@
 							<label class="control-label">제목</label> 
 							<input
 								class="form-control" type="text"
-								placeholder="Enter Notice Title" name="noticeTitle" id="noticeTitle">
+								placeholder="Enter Notice Title" name="noticeTitle" id="noticeTitle" autocomplete="off">
 						</div>
 
 						<div class="form-group">

@@ -29,7 +29,7 @@
           <h3 class="login-head"><i class="fa fa-lg fa-fw fa-user"></i>LOGIN</h3>
           <div class="form-group">
             <label class="control-label">ID</label>
-            <input class="form-control" type="text" placeholder="사원번호" name="id" autofocus>
+            <input class="form-control" type="text" placeholder="사원번호" name="id" autofocus autocomplete="off">
           </div>
           <div class="form-group">
             <label class="control-label">PASSWORD</label>

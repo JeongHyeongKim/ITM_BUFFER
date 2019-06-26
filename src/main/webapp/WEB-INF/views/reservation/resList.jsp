@@ -106,7 +106,7 @@
 	                </div>
 	                <div class="form-group col-md-3"> 
 	                  <div class="tile-body">
-						 <input class="form-control" type="text" placeholder="예약일" id="searchDate">
+						 <input class="form-control" type="text" placeholder="예약일" id="searchDate" autocomplete="off">
 					  </div>
 	                </div>
 	                <input type="hidden" id="resStartDate" name="resStartDate"> 
