@@ -32,7 +32,9 @@ public interface RecognitionDao {
 	
 	public List<EquipmentReservation> allEquipList();
 	public List<EmpAuthority> empAuthority();
-	public void updateAuthority(String empId);
+	public void updateAuthorityAdminToUser(String empId);
+	
+	public void updateAuthorityUserToAdmin(String empId);
 	
 	List<AttendeeDTO.forUpdateCost> getDeptIdDeptCostForUpdateDeptCost(String resId);
 	public void updateDeptCost(AttendeeDTO.forUpdateCost list);

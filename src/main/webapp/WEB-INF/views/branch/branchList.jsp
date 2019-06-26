@@ -3,22 +3,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script type="text/javascript">
     var buffer;
-    $(function() {
-        /* $('#finallyConfirm').click(function () {
-            console.log(buffer);
-            document.getElementById("hiddenBrId").value = buffer;
-            $('#deleteBranch').submit();
-        });
-        $('.brNameArea').mouseover(function (e) {
-            var brId = "#" + e.currentTarget.id;
-            console.log(brId);
-            $(brId).css('color', 'blue');
-        });
-        $('.brNameArea').mouseout(function (e) {
-            var brId = "#" + e.currentTarget.id;
-            $(brId).css('color', 'black');
-        }); */
-    });
+    
 
     function readBranch(brId) {
         location.replace('/meeting/branch/read/' + brId);

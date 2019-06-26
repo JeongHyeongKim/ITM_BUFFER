@@ -110,8 +110,12 @@ public class RecognitionDaoImpl implements RecognitionDao{
 	}
 
 	@Override
-	public void updateAuthority(String empId) {
-		session.update(namespace + ".updateAuthority", empId);
+	public void updateAuthorityAdminToUser(String empId) {
+		session.update(namespace + ".updateAuthorityAdminToUser", empId);
+	}
+	
+	public void updateAuthorityUserToAdmin(String empId) {
+		session.update(namespace + ".updateAuthorityUserToAdmin", empId);
 	}
 	@Override
 	public List<AttendeeDTO.forUpdateCost> getDeptIdDeptCostForUpdateDeptCost(String resId) {

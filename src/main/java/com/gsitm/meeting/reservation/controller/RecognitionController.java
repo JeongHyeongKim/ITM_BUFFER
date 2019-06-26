@@ -1,11 +1,8 @@
 package com.gsitm.meeting.reservation.controller;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
 import java.security.Principal;
-import java.util.Iterator;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,11 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.gsitm.meeting.reservation.dao.RecognitionDaoImpl;
 import com.gsitm.meeting.reservation.dto.AttendeeDTO;
 import com.gsitm.meeting.reservation.service.RecognitionService;
-import com.gsitm.meeting.reservation.service.ReservationService;
-import com.gsitm.meeting.vo.Attendee;
 
 @Controller
 @RequestMapping(value ="/recognition", produces="text/plain; charset=UTF-8")
@@ -53,14 +47,15 @@ public class RecognitionController {
 	}
 	@GetMapping("/exchangeAdmin")
 	public String exchangeAdmin(Model model){
+		model.addAttribute("empAuthorityJson", recService.empAuthorityGson());
 		model.addAttribute("empAuthority",recService.empAuthority());
 		return "admin/exchangeAdmin";
 	}
 	
 	@PostMapping("/changeAuth")
-	public String changeAuth(String empList) {
-		recService.updateAuthority(empList);
-		return "redirect:/reservation/list/br_0001";
+	public String changeAuth(String resultArray) {
+		recService.updateAuthority(resultArray);
+		return "redirect:/recognition/exchangeAdmin";
 	}
 	@PostMapping("/approval/{resId}")
 	public ResponseEntity<Void> approval(@PathVariable String resId,@RequestParam String str,@RequestParam String email,@RequestParam String deptId,@RequestParam String resCost,@RequestParam String headEmail,@RequestParam String adminId) {

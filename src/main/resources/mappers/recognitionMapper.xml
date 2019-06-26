@@ -290,8 +290,12 @@
 		select emp_id empId, emp_name empName, dept_name deptName, authority from employee e, authorities a, department d where e.emp_id = a.id and e.dept_id = d.dept_id
 	</select>
 	
-	<update id="updateAuthority" parameterType="string">
+	<update id="updateAuthorityUserToAdmin" parameterType="string">
 		update authorities set authority = 'ROLE_ADMIN' where id = #{empId}
+	</update>
+	
+	<update id="updateAuthorityAdminToUser" parameterType="string">
+		update authorities set authority = 'ROLE_USER' where id = #{empId}
 	</update>
 	
 	<select id="getDeptIdDeptCostForUpdateDeptCost" resultType="com.gsitm.meeting.reservation.dto.AttendeeDTO$forUpdateCost" parameterType="string">

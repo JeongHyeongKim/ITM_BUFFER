@@ -1,5 +1,7 @@
 package com.gsitm.meeting.reservation.service;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,6 +15,7 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.gsitm.meeting.reservation.dao.RecognitionDaoImpl;
 import com.gsitm.meeting.reservation.dto.AttendeeDTO;
 import com.gsitm.meeting.reservation.dto.RecognitionDTO.EmpAuthority;
@@ -31,17 +34,17 @@ public class RecognitionService {
 	JavaMailSender mailSender;
 	
 	public String resList() {
-		// TODO Auto-generated method stub
+		
 		return gson.toJson(recDao.resList());
 	}
 
 	public String branchList() {
-		// TODO Auto-generated method stub
+		
 		return gson.toJson(recDao.branchList());
 	}
 
 	public String allPayment() {
-		// TODO Auto-generated method stub
+		
 		return gson.toJson(recDao.allPayment());
 	}
 	public String allDeptPayment() {
@@ -49,11 +52,11 @@ public class RecognitionService {
 	}
 
 	public String myPaymentBySearch(String searchtype) {
-		// TODO Auto-generated method stub
+		
 		return gson.toJson(recDao.myPaymentBySearch(searchtype));
 	}
 	public int approval(String resId) {
-		// TODO Auto-generated method stub
+		
 		return recDao.approval(resId);
 	}
 	/*public String updateResState(String resId) {
@@ -62,17 +65,17 @@ public class RecognitionService {
 	}*/
 
 	public int back(String resId) {
-		// TODO Auto-generated method stub
+		
 		return recDao.back(resId);
 	}
 
 	public String getReservationBySearchtype(String empId, String searchtype,String brId) {
-		// TODO Auto-generated method stub
+		
 		return gson.toJson(recDao.getReservationBySearchtype(empId, searchtype,brId));
 	}
 
 	public void sendMail(String email, String inputValue) {
-		// TODO Auto-generated method stub
+		
 		MimeMessage message = mailSender.createMimeMessage();
 		try {
 			
@@ -88,7 +91,7 @@ public class RecognitionService {
 	}
 
 	public void sendApprovalMail(String email, String str) {
-		// TODO Auto-generated method stub
+		
 		MimeMessage message = mailSender.createMimeMessage();
 		try {
 			
@@ -110,7 +113,7 @@ public class RecognitionService {
 	}*/
 
 	public void sendApprovalMailToHead(String headEmail, String str) {
-		// TODO Auto-generated method stub
+		
 		MimeMessage message = mailSender.createMimeMessage();
 		try {
 			
@@ -126,12 +129,12 @@ public class RecognitionService {
 	}
 
 	public String waitForRecognitionByHead() {
-		// TODO Auto-generated method stub
+		
 		return gson.toJson(recDao.resListForHead());
 	}
 
 	public void sendApprovalMailByHead(String email, String str) {
-		// TODO Auto-generated method stub
+		
 		MimeMessage message = mailSender.createMimeMessage();
 		try {
 			
@@ -147,7 +150,7 @@ public class RecognitionService {
 	}
 
 	public void sendBackMailByHead(String email, String str) {
-		// TODO Auto-generated method stub
+		
 		MimeMessage message = mailSender.createMimeMessage();
 		try {
 			
@@ -163,12 +166,12 @@ public class RecognitionService {
 	}
 
 	public int approvalByHead(String resId) {
-		// TODO Auto-generated method stub
+		
 		return recDao.approvalByHead(resId);
 	}
 
 	public int backByHead(String resId) {
-		// TODO Auto-generated method stub
+		
 		return recDao.backByHead(resId);
 	}
 	
@@ -201,46 +204,61 @@ public class RecognitionService {
 		return recDao.empAuthority();
 	}
 	
-	public void updateAuthority(String empList) {
-		String[] targetEmp = empList.split(",");
-		for(int i=0; i<targetEmp.length; i++) {
-			System.out.println(targetEmp[i]);
-			recDao.updateAuthority(targetEmp[i]);
+	public String empAuthorityGson() {
+		return gson.toJson(recDao.empAuthority());
+	}
+	
+	public void updateAuthority(String empString) {
+		List<String> empList = new ArrayList<String>(Arrays.asList(empString.split(",")));
+		System.out.println(empList);
+		boolean param=false;
+		for(int i=0;i<empList.size();i++) {
+			if(param==false) { // admin to user
+				if(empList.get(i).equals("A")) {
+					param=true;
+					continue;
+				}else {
+					recDao.updateAuthorityAdminToUser(empList.get(i));
+				}
+			}else if(param==true) {  // user to admin
+				recDao.updateAuthorityUserToAdmin(empList.get(i));
+				
+			}
 		}
 	}
 
 	public List<AttendeeDTO.forUpdateCost> getDeptIdDeptCostForUpdateDeptCost(String resId) {
-		// TODO Auto-generated method stub
+		
 		return recDao.getDeptIdDeptCostForUpdateDeptCost(resId);
 	}
 
 	public void updateDeptCost(AttendeeDTO.forUpdateCost list) {
-		// TODO Auto-generated method stub
+		
 		recDao.updateDeptCost(list);
 	}
 
 	public void updateFinalRecognition(String resId,String adminId) {
-		// TODO Auto-generated method stub
+		
 		recDao.updateFinalRecognition(resId,adminId);
 	}
 
 	public void updateFinalNotRecognition(String resId, String adminId,String inputValue) {
-		// TODO Auto-generated method stub
+		
 		recDao.updateFinalNotRecognition(resId,adminId,inputValue);
 	}
 
 	public void updateByHeadRecognition(String resId, String adminId) {
-		// TODO Auto-generated method stub
+		
 		recDao.updateByHeadRecognition(resId,adminId);
 	}
 
 	public void updateByHeadNotRecognition(String resId, String adminId, String inputValue) {
-		// TODO Auto-generated method stub
+		
 		recDao.updateByHeadNotRecognition(resId,adminId,inputValue);
 	}
 
 	public String RecognitionInfo() {
-		// TODO Auto-generated method stub
+		
 		return gson.toJson(recDao.recogList());
 	}
 
