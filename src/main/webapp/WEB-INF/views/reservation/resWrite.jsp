@@ -667,12 +667,16 @@
         //////////////////////////////////////////////////////////////////////////////
   		$("<input>").attr("type","hidden").attr("id","startTime").attr("name","resStartDate").attr("value",sessionStorage.getItem("currentDate")).appendTo($("#resForm"));
         $('#resStartDate').datetimepicker({
+        	 timepicker:false,
+             format:'Y-m-d',
         	onSelectDate: function(data) {
         		$("#startTime").val(JSON.stringify(data));
         		timeAJAX(data);
         	}
         });
         $('#resEndDate').datetimepicker({
+        	timepicker:false,
+            format:'Y-m-d',
         	onSelectDate: function(data) {
 				$("<input>").attr("type","hidden").attr("name","resEndDate").attr("value",JSON.stringify(data)).appendTo($("#resForm"));
         		timeAJAX(data);

@@ -19,7 +19,7 @@ $(function(){
 		/* 카드 헤더 */
 		var $divTile = $("<div></div>").attr("class","card-header").appendTo($divCol12);
 		var $divItag = $("<i></i>").attr("class","fa fa-table").text("회의실 예약 현황").appendTo($divTile);
-		
+		$("<input  type='hidden' id='adminId'  autocomplete='off' >").appendTo($divItag);
 		/* 카드 바디 */
 		var $divCard = $("<div class='card-body'></div>").appendTo($divCol12);
 		var $divRes = $("<div class='table-responsive'></div>").appendTo($divCard);
@@ -53,7 +53,7 @@ $(function(){
 			$("<td></td>").attr("class","showAllInfo").text($list.empName).appendTo($bodyTrTag);
 			$("<td></td>").attr("class","showAllInfo").text(($list.brName) + " - " + ($list.mrName)).appendTo($bodyTrTag);
 			$("<td></td>").attr("class","showAllInfo").text($list.resPurpose).appendTo($bodyTrTag);
-			$("<input  type='hidden' id='adminId'  autocomplete='off' >").appendTo($bodyTrTag);
+
 			var $currentState = $("<td data-toggle='modal' data-target='#detail'></td>").text("1차승인대기").appendTo($bodyTrTag);
 			var $changeState = $("<td></td>").appendTo($bodyTrTag);
 			
@@ -84,6 +84,7 @@ $(function(){
     }
 	$('#approval').on("click",function(e){
 		var adminId = $("#adminId").attr("value");
+		console.log(adminId)
 	    console.log("deptId: "+deptId); 
 		console.log("resCost: "+resCost);  
 		console.log("Email: "+email);
