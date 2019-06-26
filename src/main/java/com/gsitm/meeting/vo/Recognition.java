@@ -18,4 +18,10 @@ public class Recognition {
 	private String resId;
 	private String recRefuse;
 	
+	public Recognition(String recId, String resId) {
+		super();
+		this.recId = recId;
+		this.resId = resId;
+	}
+	
 }

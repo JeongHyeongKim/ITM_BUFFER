@@ -67,11 +67,11 @@
                         </div>
                         <div class="form-group col-md-3">
                             <label class="control-label">예약 시작 일자</label>
-                            <input class="form-control" id="resStartDate" placeholder="예약 시작 일자" type="text">
+                            <input class="form-control" id="resStartDate" placeholder="예약 시작 일자" type="text" autocomplete="off">
                         </div>
                         <div class="form-group col-md-3">
                             <label class="control-label">예약 종료 일자</label>
-                            <input class="form-control" id="resEndDate" placeholder="예약 종료 일자" type="text">
+                            <input class="form-control" id="resEndDate" placeholder="예약 종료 일자" type="text" autocomplete="off">
                         </div>
                         <div class="form-group col-md-3"></div>
                         <div class="form-group col-md-3"></div>
