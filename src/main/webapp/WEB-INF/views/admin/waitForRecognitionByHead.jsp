@@ -77,6 +77,9 @@ $(function(){
 	}
 	
 	drawPage(myInfo);
+	$("#dataTable").DataTable({
+		  "order":[[0,"desc"]]
+	  });
 	//금액에 콤마
 	function comma(str) {
         str = String(str);

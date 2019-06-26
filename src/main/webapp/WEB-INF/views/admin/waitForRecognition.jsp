@@ -120,6 +120,9 @@
 		drawListBranch(branchList);
 		drawPage(myInfo);
 		console.log(recogList);
+		$("#dataTable").DataTable({
+			  "order":[[0,"desc"]]
+		  });
 		//Modal
 		$('.showAllInfo').on("click",function(e){
 			
@@ -324,6 +327,9 @@
         	    	var pageInfo = JSON.parse(data);
 					  drawPage(pageInfo);
 					  $("#dataTable").DataTable();
+					  $("#dataTable").DataTable({
+						  "order":[[0,"desc"]]
+					  })
         	    }
         	   })
 			   
