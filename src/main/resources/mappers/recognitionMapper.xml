@@ -307,7 +307,7 @@
 	</update>
 	<update id="updateFinalRecognition">
 		update recognition
-		set man_id = #{adminId}, rec_accept_date = sysdate
+		set man_id = #{adminId}, rec_accept_date = to_date(sysdate,'YYYY-MM-DD" "HH24:MI:SS')
 		where res_id=#{resId}
 	</update>
 	<update id="updateFinalNotRecognition">
@@ -317,7 +317,7 @@
 	</update>
 	<update id="updateByHeadRecognition">
 		update recognition
-		set dept_head_id = #{adminId}, rec_accept_date = to_char(sysdate,'YYYY-MM-DD" "HH24:MI:SS')
+		set dept_head_id = #{adminId}, rec_accept_date = to_date(sysdate,'YYYY-MM-DD" "HH24:MI:SS')
 		where res_id=#{resId}
 	</update>
 	<update id="updateByHeadNotRecognition">

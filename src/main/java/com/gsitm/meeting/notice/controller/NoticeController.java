@@ -62,6 +62,7 @@ public class NoticeController {
 	}
 
 	//noticeDTO사용예제
+	@GetMapping("/test")
 	public String noticeTest(Model model) {
 		model.addAttribute("test",noticeService.noticeTest());
 		return "notice/noticeTestPage";
