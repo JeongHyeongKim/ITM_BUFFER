@@ -63,7 +63,7 @@
 				</div>
 				
 				<div id="deptCostInfo" style="float:right;text-align:right">
-					<h3 class="tile-title">부서별 회의실 사용 누적금액</h3>
+					<h3 class="tile-title">부서별 회의실 사용 연간 누적금액</h3>
 					<h3 class="tile-title" id="deptCost"></h3>
 				</div>
 			</div>
@@ -263,7 +263,7 @@
         lang : "ko",
         droppable: true, // this allows things to be dropped onto the calendar
         eventLimit: true, // allow "more" link when too many events
-        
+        timeFormat: 'HH:mm',
         events : [
         	 <c:forEach items="${resList}" var="list" varStatus="status"> 
             { 

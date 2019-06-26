@@ -56,7 +56,7 @@
             lang : "ko",
             droppable: true, // this allows things to be dropped onto the calendar
             eventLimit: true, // allow "more" link when too many events
-            
+            timeFormat: 'HH:mm',
             events : [
             	 <c:forEach items="${mrReservationList}" var="list" varStatus="status">  
                 { 

@@ -177,7 +177,7 @@
 					
 				if(myInfo[i].resId == resId){
 
-						var resAddRequest;
+						var resAddRequest = myInfo[i].resAddRequest;
 						if(myInfo[i].resAddRequest==(" ")){
 							resAddRequest = "없음";
 						}
@@ -240,8 +240,8 @@
 	      		title: "승인하시겠습니까?",
 	      		type: "warning",
 	      		showCancelButton: true,
-	      		confirmButtonText: "네, 승인하겠습니다",
-	      		cancelButtonText: "아뇨, 취소하겠습니다",
+	      		confirmButtonText: "네",
+	      		cancelButtonText: "아뇨",
 	      		closeOnConfirm: false,
 	      		closeOnCancel: false
 	      	}, function(isConfirm) {
