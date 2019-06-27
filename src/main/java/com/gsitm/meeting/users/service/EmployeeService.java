@@ -87,13 +87,13 @@ public class EmployeeService {
 	
 	//윤영
 	public String availableMeetingDate(String availableDate, String mrId) throws ParseException {
-		System.out.println(availableDate);
+		
 		String[] splitDate = availableDate.split("-");
 		String year = splitDate[0].substring(3, 5);
 		String month = splitDate[1];
 		String day = Integer.toString((Integer.parseInt(splitDate[2].substring(0, 2)) + 1));
 		String transDate = year + "/" + month + "/" + day;
-		System.out.println(transDate);
+		
 		List<EmployeeDTO.AvailableMeetingDate> result = empDao.availableMeetingDate(transDate, mrId);
 		List<String[]> resultTime = new ArrayList<>();
 		for(int i=0; i<result.size(); i++) {
@@ -106,24 +106,24 @@ public class EmployeeService {
 			
 			resultTime.add(calcTime(mod,startDate));
 		}
-		System.out.println(resultTime);
+		
 		return gson.toJson(resultTime);
 	}
 	
 	public String[] calcTime(int mod, String startTime) {
 		String[] resultTime = new String[mod + 3];
-		System.out.println(startTime);
+		
 		int hour =0;
 		int minute =0;
 		
 		if(startTime.substring(2,4).equals("00")) {
 			hour = (Integer.parseInt(startTime.substring(0,2))-1);
 			minute = 30;
-			System.out.println(hour +":"+minute);
+			
 		} else {
 			hour = Integer.parseInt(startTime.substring(0,2));
 			minute = 00;
-			System.out.println(hour +":"+minute);
+		
 		}
 		resultTime[0] = Integer.toString(hour) +":"+Integer.toString(minute);
 		for(int i=1; i<mod+3; i++) {

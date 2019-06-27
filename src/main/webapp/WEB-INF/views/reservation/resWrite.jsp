@@ -48,11 +48,11 @@
                             <input class="form-control" id="resMrName" type="text" readonly autocomplete="off">
                         </div>
                         <div class="form-group col-md-3">
-                            <label class="control-label">회의 구분</label>
+                            <label class="control-label">회의 구분</label>&emsp;<button class="btn btn-info dropdown-toggle" style="display:inline; width:10px; height:10px;" id="btnGroupDrop3" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"></button>
                             <div style="width:100%;">
                             <input style="padding:0.275rem 0.60rem;font-size:0.875rem; ling-height:1.5; background-clip:padding-box;border:2px solid #ced4da;border-radius:4px;"id="resType" placeholder="직접입력" type="text" name="resType" autocomplete="off" >
                            
-                            <button class="btn btn-info dropdown-toggle" style="display:inline;" id="btnGroupDrop3" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"></button>
+                            
                             <div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end" style="position: absolute; transform: translate3d(-124px, 35px, 0px); top: 0px; left: 0px; will-change: transform;">
                             	<a class="dropdown-item" id="resType1">내부회의</a>
                             	<a class="dropdown-item" id="resType2">고객미팅</a>
@@ -89,7 +89,7 @@
                             <input class="form-control" placeholder="회의 목적을 작성해주십시오" type="text" id="resPurpose" name="resPurpose" autocomplete="off">
                         </div>
                          <div class="form-group col-md-3">
-                            <label class="control-label">참석 인원 명단 <a data-target="#empList" data-toggle="modal">+</a></label>
+                            <label class="control-label">참석 인원 명단 <a data-target="#empList" data-toggle="modal">&emsp;<button type="button" class="btn btn-secondary" style="width:10px; height:10px;">+</button></a></label>
                             <input class="form-control" type="text" id="attendeeList" autocomplete="off">
                         </div>
                         <div class="form-group col-md-3">
@@ -99,7 +99,7 @@
                         <div class="form-group col-md-3">
                         </div>
                          <div class="form-group col-md-6">
-                            <label class="control-label">기자재 <a data-target="#equipList" data-toggle="modal">추가</a></label>
+                            <label class="control-label">기자재추가 <a data-target="#equipList" data-toggle="modal">&emsp;<button type="button" class="btn btn-secondary" style="width:10px; height:10px; text-align: center;">+</button></a></label>     
                             <input class="form-control" type="text" id="equipElement" name="equipElement" autocomplete="off">
                         </div>
                          
@@ -181,6 +181,7 @@
 					<div class="modal-header">
 						<h4 class="modal-title">참석 명단 추가</h4>
 						<button type="button" class="close" data-dismiss="modal">×</button>
+						
 					</div>
 					<div class="modal-body" id="empList-modal-body">
 						<!--  -->
@@ -189,9 +190,9 @@
 								<div class="tile" >
                         			<div class="sparkline10-list">
 		                           	 <div class="sparkline10-hd">
-		                                <div class="main-sparkline10-hd">
+		                                <!-- <div class="main-sparkline10-hd">
 		                                    <h1>명단추가</h1>
-		                                </div>
+		                                </div> -->
 		                            </div>
                             <div class="sparkline10-graph">
                                 <div class="basic-login-form-ad">
@@ -216,17 +217,13 @@
                         <div class="tile-footer" >
 			            	
 			            	<div class="row" id="mainDeptList">
-			            		<div class="col-lg-3">
+			            		<div class="col-md-3">
 			            			<button type="button" id="test">주관부서선택</button>
 			            		</div>
-			            		
-			            		
-			            			
+			            	
 			            	</div>
-                        	
-                        		          
+                       
 			            </div>
-			            
 		                 </div>
 		            </div>
 			</div>
@@ -268,12 +265,7 @@
     	var newDeptName = [];
     	
     	$("#test").on("click",function(){
-    	/* 	<div class ="col-md-3">
-    		<div class="alert alert-dismissible alert-success">
-            	<button class="close" type="button" data-dismiss="alert">×</button>
-            	<strong>인사파트</strong>
-        	</div>
-		</div> */
+    	
 			var empListOption = $("#empListOption").val()
 			var mainDeptName = [];
 			for(var i=0; i<empListOption.length; i++){
@@ -292,7 +284,7 @@
              $.each(mainDeptName, function(i, el){
              	if($.inArray(el, newDeptName) === -1) newDeptName.push(el);
              });
-             
+           
 			for(var i=0; i<newDeptName.length; i++){
 				var $div3col = $("<div></div>").attr("class","col-lg-3").appendTo($("#mainDeptList"))
 				var $divAlert = $("<div><div>").attr("class","alert alert-dismissible alert-success").appendTo($div3col);
@@ -335,6 +327,15 @@
     			$("<input>").attr("type","hidden").attr("value",newDeptName).attr("name","mainDept").appendTo($("#resForm"));
     		}
     		
+    		var mainEmpName;
+    		var empListValue = $("#empListOption").val();
+    		for(var i=0; i<empList.length; i++){
+    			if(empList[i].empId==empListValue[0]){
+    				mainEmpName = empList[i].empName;
+    			}
+    		}
+    		
+    		$("#attendeeList").attr("value", mainEmpName + "외 " + (empListValue.length -1) +"명");
     	})
     	////////////////////////////////////////////////////////////  pastReservation List
     	var pastRes = JSON.parse('${pastReservation}');
@@ -369,7 +370,7 @@
     	    						W++;
     	    					}
     	    				}
-    	    				console.log(N);
+    	    			
     	    				$("#equipElement").val("빔프로젝터 ("+V +"),화이트보드 ("+W+"),마이크 ("+M+"),노트북 ("+N+")")
 	    	    			// $("<input class='form-control' id='N' name='N' type='text' value='노트북 대여 수량 : " + equipList['N'] + "'readonly>").appendTo($inputDiv);
     	    				$("#N").val("노트북 대여 수량 : "+N);
@@ -498,35 +499,35 @@
     		}
     	})
     	$(document).on("click","#VPlusBtn",function(){ 
-    		console.log(( ($("#V").val().split(":")[1]))) 
+    		
     		if(($("#V").val().split(":")[1]) == Number(equipList['V'])){
     		} else{
     			$("#V").val('빔프로젝터 대여 수량 : '+ ( Number(($("#V").val().split(":")[1])) +1))	
     		}
     	})
     	$(document).on("click","#WMinusBtn",function(){
-    		console.log(( ($("#W").val().split(":")[1]))) 
+    		
     		if(($("#W").val().split(":")[1]) == 0){
     		} else{
     			$("#W").val('화이트보드 대여 수량 : '+ ( ($("#W").val().split(":")[1]) -1))	
     		}
     	})
     	$(document).on("click","#WPlusBtn",function(){ 
-    		console.log(( ($("#W").val().split(":")[1]))) 
+    		
     		if(($("#W").val().split(":")[1]) == Number(equipList['W'])){
     		} else{
     			$("#W").val('화이트보드 대여 수량 : '+ ( Number(($("#W").val().split(":")[1])) +1))	
     		}
     	})
     	$(document).on("click","#MMinusBtn",function(){
-    		console.log(( ($("#M").val().split(":")[1]))) 
+    		
     		if(($("#M").val().split(":")[1]) == 0){
     		} else{
     			$("#M").val('마이크 대여 수량 : '+ ( ($("#M").val().split(":")[1]) -1))	
     		}
     	})
     	$(document).on("click","#MPlusBtn",function(){ 
-    		console.log(( ($("#M").val().split(":")[1]))) 
+    		
     		if(($("#M").val().split(":")[1]) == Number(equipList['M'])){
     		} else{
     			$("#M").val('마이크 대여 수량 : '+ ( Number(($("#M").val().split(":")[1])) +1))	
@@ -537,7 +538,7 @@
     	})
     	//////////////////////////////////////////////////////////////////////////////////////////
         var resStartDate = sessionStorage.getItem("currentDate");
-        resStartDate += " 09:00";
+        resStartDate;
         
         var now = new Date();
 
@@ -552,7 +553,46 @@
     	// 시간버튼클릭시 배열에 해당시간 입력후 중복제거 
         var selectTimes = [];
         var sendTimes = [];
-    	$(document).on('click', '.btn-primary', function(e){
+    	
+        $(document).on('click', '.btn-outline-secondary', function(e){
+    		var rsd = $("#resStartDate").val();
+	    	var red = $("#resEndDate").val();
+	    
+			if(rsd.includes("-") && red.includes("-")){
+	    		
+	    		if(selectTimes.length==1){
+	    			console.log("check")
+	    			console.log(selectTimes)
+	    			var startTime = $("#resStartDate").val();
+	           		var startMonth = Number( ($("#resStartDate").val().split("-")[1]));
+	                var endMonth = Number( ($("#resEndDate").val().split("-")[1]));
+	                var start = Number( ($("#resStartDate").val().split("-")[2]).split(" ")[0] );
+	                var end = Number( ($("#resEndDate").val().split("-")[2]).split(" ")[0] );
+	       
+	                var longtime = end - start;
+	              
+	                if( endMonth > startMonth ){
+	                	longtime = 1;
+	                } else if(endMonth < startMonth){
+	                	longtime = -1;
+	                }
+	         
+	               	if(longtime >= 1){
+	               		alert("장기예약입니다. \n(장기예약은 상위관리자의 승인이 필요합니다.)")
+	               		$("<input>").attr("type","hidden").attr("value","res_0").attr("name","resState").appendTo($("#resForm"));
+	               	} else if(longtime >= 0 && longtime < 1 ){
+	               		$("<input>").attr("type","hidden").attr("value","res_1").attr("name","resState").appendTo($("#resForm"));
+	               	} else if(longtime < 0){
+	               		alert("시작시간보다 뒤의 날짜를 선택하세요")
+	               		$("#resEndDate").val("");
+	               	}
+	               	
+	        	}
+	    		
+	    	} else{
+	    			
+	    	}
+
     		var choiceTime = e.currentTarget.id;
     		
     		if(selectTimes.length==0){
@@ -566,9 +606,16 @@
     			}
     		}
     	
-    	$("#times").remove();
-    	$("<input>").attr("type","hidden").attr("name","times").attr("id","times").attr("value",selectTimes).appendTo($("#resForm"));
-    		
+    		if(selectTimes.length==1){
+    			var rrsd = $("#resStartDate").val();
+    			$("#resStartDate").val(rrsd.split(" ")[0]+" "+selectTimes[0]);
+    		} else if(selectTimes.length==2){
+    			var rred = $("#resEndDate").val();
+    			$("#resEndDate").val(rred.split(" ")[0]+" "+selectTimes[1]);
+    		}
+	    	$("#times").remove();
+	    	$("<input>").attr("type","hidden").attr("name","times").attr("id","times").attr("value",selectTimes).appendTo($("#resForm"));
+	    	
         })
        
         ////////////////////////////////////////////////////////////////////////////////// 
@@ -581,7 +628,7 @@
         		data:form,
         		method:"post",
         		success:function(){
-        			location.href="/meeting/reservation/resShortMain/br_0001";
+        			location.href="/meeting/users/mypage";
         		}
         	})
         })
@@ -641,14 +688,14 @@
                
         }
     	var splitDate = resStartDate.split("-")[2];
-    	var transDate = splitDate.split(" ")[0];
-    	console.log(resStartDate);
-    	console.log(transDate-1)
-    	timeAJAX(resStartDate);
+    	var transDate = splitDate.split(" ")[0]-1;
+    	var resultDate = resStartDate.split("-")[0]+"-"+resStartDate.split("-")[1]+"-"+transDate+" "+"09:00";
+   
+    	timeAJAX(resultDate);
     	drawTime();
     	$(document).on("click",".btn-sm",function(){
     		if($("#resEndDate").val()==""){
-    			$("#resEndDate").focus();	
+    			$("#resEndDate").focus();
     		}
     	})
         //변경
@@ -697,19 +744,19 @@
            		console.log("장기")
            	 */
            	var startTime = $("#resStartDate").val();
-           	if(startTime.includes("/")){
+           
+           	/* if(startTime.includes("/")){
            		var startMonth = Number( ($("#resStartDate").val().split("/")[1]));
                 var endMonth = Number( ($("#resEndDate").val().split("/")[1]));
                 var start = Number( ($("#resStartDate").val().split("/")[2]).split(" ")[0] );
                 var end = Number( ($("#resEndDate").val().split("/")[2]).split(" ")[0] );
-           	} else{
-           		var startMonth = Number( ($("#resStartDate").val().split("-")[1]));
-                var endMonth = Number( ($("#resEndDate").val().split("-")[1]));
-                var start = Number( ($("#resStartDate").val().split("-")[2]).split(" ")[0] );
-                var end = Number( ($("#resEndDate").val().split("-")[2]).split(" ")[0] );
-                	
-           	}
-           	
+           	} */ 
+           
+       		var startMonth = Number( ($("#resStartDate").val().split("-")[1]));
+            var endMonth = Number( ($("#resEndDate").val().split("-")[1]));
+            var start = Number( ($("#resStartDate").val().split("-")[2]).split(" ")[0] );
+            var end = Number( ($("#resEndDate").val().split("-")[2]).split(" ")[0] );
+
             var longtime = end - start;
           
             if( endMonth > startMonth ){
@@ -735,6 +782,7 @@
         });
         
         
+        
         //////////////////////////////////////////////////////////////////////////////
   		$("<input>").attr("type","hidden").attr("id","startTime").attr("name","resStartDate").attr("value",sessionStorage.getItem("currentDate")).appendTo($("#resForm"));
         $('#resStartDate').datetimepicker({
@@ -742,7 +790,7 @@
              format:'Y-m-d',
         	onSelectDate: function(data) {
         		$("#startTime").val(JSON.stringify(data));
-        		console.log(JSON.stringify(data));
+        		
         		timeAJAX(data);
         	}
         });
@@ -750,7 +798,7 @@
         	timepicker:false,
             format:'Y-m-d',
         	onSelectDate: function(data) {
-        		console.log(JSON.stringify(data));
+        		
 				$("<input>").attr("type","hidden").attr("name","resEndDate").attr("value",JSON.stringify(data)).appendTo($("#resForm"));
         		timeAJAX(data);
         	}

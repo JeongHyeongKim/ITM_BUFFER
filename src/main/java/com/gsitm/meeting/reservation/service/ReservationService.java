@@ -32,7 +32,7 @@ public class ReservationService {
 	private Gson gson;
 	
 	public void insertReservation(Reservation res, String times, String equipElement, String empList, String mainDept) {
-		
+	
 		String storedId = resDao.resMostRecent();
 		String nextId = calcId(storedId,"res_");
 		// 계산된 ID값 입력
@@ -52,7 +52,7 @@ public class ReservationService {
 		}
 		
 		String[] equipList = equipElement.split(",");
-		System.out.println("equipList : " + equipList);
+	
 		ArrayList<String> resultEquip = new ArrayList<>();
 		
 		for(int i=0; i<equipList.length; i++) {
@@ -128,7 +128,7 @@ public class ReservationService {
 		
 		String t1 = res.getResStartDate();
 		String t2 = res.getResEndDate();
-		System.out.println("t1:"+t1+"t2 : "+t2);
+	
 		String t1split = t1.split(" ")[0];
        	String t1splitYear = t1split.split("-")[0];
        	int t1splitMonth = Integer.parseInt(t1split.split("-")[1]);
@@ -273,7 +273,6 @@ public class ReservationService {
 		return resDao.branchList();
 	}
 	public void writeReservation(ReservationDTO reservation) {
-		// TODO Auto-generated method stub
 		resDao.writeReservation(reservation);
 	}
 	public List<MeetingRoomDTO> mrTypeList(){
