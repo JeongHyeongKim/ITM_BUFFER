@@ -35,6 +35,8 @@ public class RecognitionService {
 	@Autowired
 	JavaMailSender mailSender;
 	
+	
+	
 	public String resList() {
 		
 		return gson.toJson(recDao.resList());
@@ -214,17 +216,37 @@ public class RecognitionService {
 		List<String> empList = new ArrayList<String>(Arrays.asList(empString.split(",")));
 		System.out.println(empList);
 		boolean param=false;
-		
+
 		for(int i=0;i<empList.size();i++) {
 			if(param==false) { // admin to user
 				if(empList.get(i).equals("A")) {
 					param=true;
 					continue;
 				}else {
-					recDao.updateAuthorityAdminToUser(empList.get(i));
+					//recDao.updateAuthorityAdminToUser(empList.get(i));
 				}
 			}else if(param==true) {  // user to admin
-				recDao.updateAuthorityUserToAdmin(empList.get(i));
+				//recDao.updateAuthorityUserToAdmin(empList.get(i));
+				String userEmail=recDao.getUserEmail(empList.get(i));
+				MimeMessage message = mailSender.createMimeMessage();
+				try {
+					
+					MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
+					messageHelper.setFrom("admin@gsitm.com");
+					messageHelper.setTo(userEmail);
+					messageHelper.setSubject("[GSITM 회의실 예약 시스템]관리자 본인 인증");
+					MakeAdminChangeEmail html = new MakeAdminChangeEmail(empList.get(i)); // 사번으로 메일 만든다.
+					messageHelper.setText(html.getEmailString(), true);
+					mailSender.send(message);
+				} catch (MessagingException e) {	
+					e.printStackTrace();
+				} // 이메일 발송
+				
+				try {
+					sendSMS(recDao.getUserPhoneNumber(empList.get(i)), empList.get(i));
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 				
 			}
 		}
@@ -276,11 +298,11 @@ public class RecognitionService {
 	    int randomInteger = (int)(randomValue*999999)+100000;
 	    
 	    HashMap<String, String> params = new HashMap<String, String>();
-	    params.put("to", "");
-	    params.put("from", userPhoneNumber);
+	    params.put("to", userPhoneNumber);
+	    params.put("from", "");
 	    params.put("type", "SMS");
 	    params.put("text", "[GSITM 회의실관리 시스템] 인증번호를 이메일에 입력해주세요. 인증번호 : "+randomInteger);
-	    //recDao.insertCertification(empId, String.valueOf(randomInteger)); // 인증해야하는 부분
+	    recDao.insertCertification(empId, String.valueOf(randomInteger)); // 인증해야하는 부분
 	    try {
 	      JSONObject obj = (JSONObject) coolsms.send(params);
 	      System.out.println(obj.toString());
@@ -288,6 +310,20 @@ public class RecognitionService {
 	      System.out.println(e.getMessage());
 	      System.out.println(e.getCode());
 	    }
+	}
+	
+	public int infoContrast(String empId, String randomVal) {
+		
+		String result = recDao.infoContrast(empId, randomVal);
+		
+		if(result.equals(empId)) {//성공
+			System.out.println("success");
+			recDao.deleteCertification(empId);
+			return 1;
+		}else {
+			System.out.println("fail");
+			return 0;
+		}
 	}
 	
 

@@ -39,5 +39,9 @@ public interface RecognitionDao {
 	List<AttendeeDTO.forUpdateCost> getDeptIdDeptCostForUpdateDeptCost(String resId);
 	public void updateDeptCost(AttendeeDTO.forUpdateCost list);
 	public void updateFinalRecognition(String resId, String adminId);
-	public void insertCertification(String empId, String empPnum);
+	public void insertCertification(String empId, String randomVal);
+	public String getUserPhoneNumber(String empId);
+	public String getUserEmail(String empId);
+	public String infoContrast(String empId, String randomVar);
+	public void deleteCertification(String empId);
 }

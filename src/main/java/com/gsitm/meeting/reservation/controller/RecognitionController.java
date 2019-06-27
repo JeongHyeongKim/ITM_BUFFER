@@ -4,6 +4,8 @@ import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.gsitm.meeting.reservation.dto.AttendeeDTO;
 import com.gsitm.meeting.reservation.service.RecognitionService;
@@ -104,5 +107,29 @@ public class RecognitionController {
 		recService.sendBackMailByHead(email,str);
 		int result = recService.backByHead(resId);
 		return new ResponseEntity<>(result == 1 ? HttpStatus.OK : HttpStatus.BAD_REQUEST);
+	}
+	
+	@GetMapping("/success")
+	public String randomVarCollect(HttpServletRequest request, RedirectAttributes redirectAttributes) {
+		redirectAttributes.addFlashAttribute("message", "관리자로 권한이 상승하셨습니다. 로그인해주세요.");
+		return "redirect:/";
+	}
+	
+	@GetMapping("/fail")
+	public String ramdomVarNotCollect(HttpServletRequest request, RedirectAttributes redirectAttributes) {
+		redirectAttributes.addFlashAttribute("message", "인증에 실패하셨습니다. 인증번호를 확인해주세요");
+		return "redirect:/";
+	}
+	
+
+	
+	@GetMapping ("/isCorrect")
+	public String isCorrect(String empId, String randomVar) {
+		int result = recService.infoContrast(empId, randomVar);
+		if(result==1) {
+			return "redirect:/recognition/success";
+		}else {
+			return "redirect:/recognition/fail";
+		}
 	}
 }

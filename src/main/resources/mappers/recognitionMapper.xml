@@ -347,6 +347,20 @@
 	</select>
 	
 	<insert id="insertCertification">
-		insert into (EMPID, RANDOMVAL) certificate values(#{empId}, #{randonVal})
+		insert into certificate (emp_id, random_val)  values(#{empId}, #{randomVal})
 	</insert>
+	
+	<select id="getUserEmail" resultType="String">
+		select emp_email from employee where emp_id=#{empId}
+	</select>
+	
+	<select id="infoContrast" resultType="string" parameterType="map">
+		select emp_id from certificate where emp_id=#{empId} and random_val=#{randomVal}
+	</select>
+	
+	<delete id="deleteCertification">
+		delete certificate where emp_id=#{empId}
+	</delete>
+	
+	
 </mapper>

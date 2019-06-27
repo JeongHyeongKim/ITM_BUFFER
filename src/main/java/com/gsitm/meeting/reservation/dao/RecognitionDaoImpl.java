@@ -166,14 +166,43 @@ public class RecognitionDaoImpl implements RecognitionDao{
 	}
 
 	public List<Recognition> recogList() {
-		// TODO Auto-generated method stub
 		return session.selectList(namespace+".recogList");
 	}
 
 	@Override
-	public void insertCertification(String empId, String empPnum) {
-		// TODO Auto-generated method stub
+	public void insertCertification(String empId, String randomVal) { //인증값 DB저장
+		Map<String, String> result = new HashMap<>();
+		result.put("empId", empId);
+		result.put("randomVal", randomVal);
+		session.insert(namespace+".insertCertification", result);
+	}
+
+	@Override
+	public String getUserPhoneNumber(String empId) {
+		return session.selectOne(namespace+".getUserPhoneNumber", empId);
 		
 	}
+
+	@Override
+	public String getUserEmail(String empId) {
+		return session.selectOne(namespace+".getUserEmail", empId);
+	}
+
+	@Override
+	public String infoContrast(String empId, String randomVar) {
+		System.out.println(empId + ":"+randomVar);
+		Map<String, String> result = new HashMap<>();
+		result.put("empId", empId);
+		result.put("randomVal", randomVar);
+		return session.selectOne(namespace+".infoContrast", result);
+	}
+
+	@Override
+	public void deleteCertification(String empId) {
+		session.delete(namespace+".deleteCertification",empId);
+		
+	}
+	
+	
 
 }

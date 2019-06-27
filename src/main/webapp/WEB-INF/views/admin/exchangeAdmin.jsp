@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="/meeting/resources/css/duallistbox/bootstrap-duallistbox.min.css">
 
 <style>
-	
+
 </style>
 <main class="app-content">
     <div class="app-title">
@@ -30,7 +30,7 @@
                     <div class="sparkline10-hd">
                         <div class="main-sparkline10-hd">
                             <h1>관리자 권한 관리</h1>
-                        </div> 
+                        </div>
                     </div>
                     <div class="sparkline10-graph">
                         <div class="basic-login-form-ad">
@@ -115,22 +115,22 @@
 
         var resultArray = new Array();
         var empId = "";
+        $.ajax({
+            url: "/meeting/users/getCurrentId",
+            method: "post",
+            data: "_csrf=${_csrf.token}",
+            success: function(data) {
+                empId = data.empId;
+                console.log("에이작스");
+                console.log(data.empId);
+                console.log("로컬 변수 : " + empId);
+            }
+        });
+
 
 
 
         $("#dataChangeConfirm").click(function() {
-
-            $.ajax({
-                url: "/meeting/users/getCurrentId",
-                method: "post",
-                data: "_csrf=${_csrf.token}",
-                success: function(data) {
-                    empId = data.empId;
-                    console.log(data.empId);
-                }
-            });
-
-
             var allUsers = JSON.parse('${empAuthorityJson}');
             var originRoleAdmin = new Array();
 
@@ -172,7 +172,8 @@
                 if (newRoleAdmin[i] != null)
                     allNull++;
             }
-
+            console.log("바뀐 결과2")
+            console.log(newRoleAdmin);
 
             if (allNull == 0) {
                 console.log("nothing is changed"); // 바뀐 값 없음.
@@ -184,15 +185,16 @@
                     closeOnConfirm: true,
                 });
             } else { // 바뀐 값 있음!! 진행!
-                var sameUserChanged = true; // 리스트에 아무것도 없다
-                console.log("현재 접속 유저");
-                console.log(empId);
-                for (var i = 0; i < newRoleAdmin.length; i++) {
-                    if (empId == newRoleAdmin[i]) {
-                        sameUserChanged = false; //아직 리스트에 자기 아이디가 있다.
-                        break;
-                    }
-                } // 지금 접속한 유저의 권한이 바뀌었나?
+                var sameUserChanged = false; // 리스트에 아무것도 없다
+
+                var nowStateRoleAdmin = $("#empList").val();
+                if ($.inArray(empId, nowStateRoleAdmin) != -1) {
+
+                    sameUserChanged = false;
+                } else {
+
+                    sameUserChanged = true;
+                }
                 console.log("현재 유저가 자기꺼 바꾸는지?");
                 console.log(sameUserChanged);
                 if (sameUserChanged == false) {
@@ -206,7 +208,7 @@
                     console.log("ResultArray");
                     resultArray = resultArray.filter(n => n);
                     console.log(resultArray);
-                    //resultArrayBuf = resultArray; 
+
                     var modalAtoN = "";
                     var modalNtoA = "";
                     var modeChange = false
@@ -231,7 +233,7 @@
                     $("#confirm").modal('show');
                     $("#AtoN").text(modalNtoA.substr(0, modalNtoA.length - 2));
                     $("#NtoA").text(modalAtoN.substr(0, modalAtoN.length - 2));
-                } else {
+                } else if (sameUserChanged == true) {
                     swal({
                         title: "오류",
                         text: "자신의 권한은 수정 할 수 없습니다.",
@@ -251,14 +253,10 @@
                 else
                     newResult = newResult + resultArray[i] + ",";
             }
-
-
-
             document.getElementById("result").value = newResult;
-            console.log(document.getElementById("result").value);
             $("#hiddenForm").submit();
         });
-        
+
         var customSettings = $('#empList').bootstrapDualListbox('getContainer');
         customSettings.find('.btn-default').remove();
         customSettings.find('.btn-group').remove();
