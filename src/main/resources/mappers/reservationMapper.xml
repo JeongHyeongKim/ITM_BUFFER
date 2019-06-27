@@ -116,7 +116,9 @@
 	<select id="getPastReservation" parameterType="string" resultType="reservationVO">
 		select res_id resId, to_char(res_start_time,'YYYY-MM-DD HH24:MI') resStartDate, res_type resType, res_purpose resPurpose, res_snack resSnack, res_nw resNW from reservation where emp_id =#{empId}
 	</select>
-	
+	<select id="getPastAttendee" resultType="attendeeVO" parameterType="string">
+		select res_id resId, attend_id attendId from attendee where res_id = #{resId}
+	</select>
 	<select id="getPastEquip" resultType="string" parameterType="string">
 		select eq_id eqId from equipment_reservation where res_id = #{resId}
 	</select>
