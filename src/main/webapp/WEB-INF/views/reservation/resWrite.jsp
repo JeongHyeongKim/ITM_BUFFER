@@ -687,7 +687,7 @@
         $('#resStartDate').val(resStartDate);
         $('#resMrName').val(sessionStorage.getItem("mrName"));
         $('#mrId').val(sessionStorage.getItem("mrId"));
-        $('#resDate').val(today);
+        // $('#resDate').val(today);
         $.ajax({
             url:"/meeting/users/getCurrentId",
             method :"post",
