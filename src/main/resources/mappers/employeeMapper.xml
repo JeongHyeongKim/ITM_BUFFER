@@ -36,8 +36,9 @@
 	<select id="getReservationByEmpId" resultType="com.gsitm.meeting.users.dto.EmployeeDTO$MyPageInfo">
 		select res_id resId, reservation.emp_id empId, reservation.mr_id mrId, mr_name mrName, br_name brName, to_char(res_start_time,'YYYY-MM-DD HH24:MI') resStartTime,
 		to_char(res_end_time,'YYYY-MM-DD HH24:MI') resEndTime, to_char(res_time,'YYYY-MM-DD HH24:MI') resDate, res_purpose resPurpose, res_state resState, res_type resType, res_cost resCost 
-		from reservation, branch, meeting_room
-		where reservation.mr_id = meeting_room.mr_id and meeting_room.br_id = branch.br_id and reservation.emp_id = #{empId}
+		,dept_id deptId
+        from reservation, branch, meeting_room,department d
+		where reservation.mr_id = meeting_room.mr_id and meeting_room.br_id = branch.br_id and branch.br_id = d.br_id and reservation.emp_id =#{empId}
 	</select>
 	
 	<select id="getReservationBySearchtype" resultType="com.gsitm.meeting.users.dto.EmployeeDTO$MyPageInfo">
@@ -94,6 +95,7 @@
         and m.mr_id=r.mr_id
         and b.br_id=m.br_id
         and a.attend_id =#{empId}
+        and res_state='res_2'
         and to_char(res_start_time,'YYYY-MM')= to_char(sysdate,'YYYY-MM')
         and to_char(res_start_time,'YYYY-MM-DD"T"HH24:MI:SS')>to_char(sysdate,'YYYY-MM-DD"T"HH24:MI:SS')
         order by to_char(res_start_time,'YYYY-MM-DD"T"HH24:MI:SS')

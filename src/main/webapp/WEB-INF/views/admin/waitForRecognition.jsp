@@ -20,6 +20,15 @@
 		var headEmail;
 		var empName;
 		
+		//이메일 보낼것들
+		var tempEmail;
+		var tempResStartDate;
+		var tempResEndDate;
+		var tempResCost;
+		var tempHeadEmail;
+		var tempResDate;
+		var tempEmpName;
+		
 		function drawListBranch(branchList){
 			$("#listCondition").empty(); 
 			$("#listBranch").empty(); 
@@ -86,6 +95,7 @@
 				resDate = $list.resDate;
 				resStartDate = $list.resStartDate;
 				deptId= $list.deptId;
+				
 				var $bodyTrTag= $("<tr></tr>").appendTo($bodyTag);
 				
 				$("<td id='"+$list.resId+"' class='showAllInfo'></td>").attr("value",$list.resDate).text($list.resDate.substr(2,14)).appendTo($bodyTrTag);
@@ -102,7 +112,7 @@
 					var $divChange = $("<div></div>").attr("class","bs-component").appendTo($changeState);
 					var $urChange = $("<ul></ul>").attr("class","nav nav-pills").appendTo($divChange);
 					var $liChange = $("<li></li>").attr("class","nav-item dropdown").appendTo($urChange);
-					$("<a id='"+$list.empEmail+"' data-toggle='dropdown' href='#' role='button' aria-haspopup='true' aria-expanded='false'></a>").attr("class","nav-link dropdown-toggle").appendTo($liChange);
+					$("<a id='"+$list.resId+"' data-toggle='dropdown' href='#' role='button' aria-haspopup='true' aria-expanded='false'></a>").attr("class","nav-link dropdown-toggle").appendTo($liChange);
 					var $divDropdown = $("<div></div>").attr("class","dropdown-menu showAllInfo").appendTo($liChange);
 					
 					$("<a id='approval' value='"+$list.resId+"'></a>").attr("class","dropdown-item").text("승인").appendTo($divDropdown);
@@ -205,7 +215,19 @@
 		
 		
 		$(document).on('click', '.nav-link', function(e){
-			email=e.currentTarget.id;
+			currentResId=e.currentTarget.id;
+			
+			for(var i =0; i<myInfo.length;i++){
+				if(myInfo[i].resId==currentResId){
+					tempEmail =myInfo[i].empEmail;
+					tempResStartDate=myInfo[i].resStartDate;
+					tempResEndDate=myInfo[i].resEndDate;
+					tempResCost=myInfo[i].resCost;
+					tempHeadEmail=myInfo[i].HeadEmail;
+					tempResDate=myInfo[i].resDate;
+					tempEmpName=myInfo[i].empName;
+				}
+			}
 			/* resDate=$('#resDate').attr("value");
 			resStartDate=$('#resStartDate').attr("value"); 
 			console.log("resStartDate: "+resStartDate);  
@@ -237,6 +259,8 @@
 			console.log("headEmail: "+headEmail);
 			console.log("resStartDate: "+resStartDate);  
 			console.log("resDate: "+resDate);
+			
+			
 			var adminId = $("#adminId").attr("value");
 			console.log("adminId: "+adminId);
 			swal({
@@ -250,11 +274,11 @@
 	      	}, function(isConfirm) {
 	      		if (isConfirm) {
 	      		  resId =  $("#approval").attr("value");
-	      		   var str="[회의실 예약 승인 알림]\n"+resDate+"에 "+empName+"님이 예약 신청하신 회의실 예약이 승인되었습니다.\n 사용 일정)\n"+resStartDate+" ~ "+resEndDate+"\n 비용)\n"+comma(resCost)+"(원)";
+	      		   var str="[회의실 예약 승인 알림]\n"+tempResDate+"에 "+tempEmpName+"님이 예약 신청하신 회의실 예약이 승인되었습니다.\n 사용 일정)\n"+tempResStartDate+" ~ "+tempResEndDate+"\n 비용)\n"+comma(tempResCost)+"(원)";
 	      			$.ajax({
 						  url : "/meeting/recognition/approval/"+resId,
 						  type : "post",
-						  data:"_csrf=${_csrf.token}"+"&str="+str+"&email="+email+"&deptId="+deptId+"&resCost="+resCost+"&headEmail="+headEmail+"&adminId="+adminId,
+						  data:"_csrf=${_csrf.token}"+"&str="+str+"&email="+tempEmail+"&deptId="+deptId+"&resCost="+resCost+"&headEmail="+headEmail+"&adminId="+adminId,
 						  success:function(){
 							  location.href= "/meeting/recognition/waitForRecognition"
 						  }, error:function(){

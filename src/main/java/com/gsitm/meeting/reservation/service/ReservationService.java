@@ -308,10 +308,6 @@ public class ReservationService {
 	}
 	
 	//이후에 users 패키지로 옮길 것
-	public int cancelRes(String resId) {
-		
-		return resDao.cancelRes(resId);
-	}
 	
 	public String mySchedule(String empId) {
 		
@@ -348,6 +344,19 @@ public class ReservationService {
 	public List<MeetingRoom> mrList(String brId) {
 		// TODO Auto-generated method stub
 		return resDao.mrList(brId);
+	}
+
+	public int cancelRes(String resId) {
+		
+		return resDao.cancelRes(resId);
+	}
+	
+	public void minusResCost(String resId) {
+		List<Attendee> result = resDao.getCostDept(resId);
+		for(int i=0; i<result.size(); i++) {
+			resDao.minusResCost(result.get(i).getDeptId(), result.get(i).getDeptCost());
+		}
+		
 	}
 	
 }

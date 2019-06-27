@@ -55,7 +55,7 @@ public class EmployeeController {
 	
 	@PostMapping("/reservation/available/{mrId}/{availableDate}")
 	public ResponseEntity<String> availableMeetingDate(@PathVariable String mrId, @PathVariable String availableDate) throws ParseException{
-		
+		System.out.println(availableDate);
 		return new ResponseEntity<>(empService.availableMeetingDate(availableDate, mrId),HttpStatus.OK);
 	}
 }

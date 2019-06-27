@@ -1,6 +1,9 @@
 package com.gsitm.meeting.reservation.dao;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -163,4 +166,13 @@ public class ReservationDaoImpl implements ReservationDao {
 		return session.selectList(namespace + ".mrList" ,brId);
 	}
 
+	public void minusResCost(String deptId, int deptCost) {
+		Map<String, Object> result = new HashMap<>();
+		result.put("deptId", deptId);
+		result.put("deptCost", deptCost);
+		session.update(namespace + ".minusResCost" ,result);
+	}
+	public List<Attendee> getCostDept(String resId){
+		return session.selectList(namespace +".getCostDeptId", resId);
+	}
 }

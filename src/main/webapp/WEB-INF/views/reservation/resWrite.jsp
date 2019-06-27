@@ -50,7 +50,7 @@
                         <div class="form-group col-md-3">
                             <label class="control-label">회의 구분</label>&emsp;<button class="btn btn-info dropdown-toggle" style="display:inline; width:10px; height:10px;" id="btnGroupDrop3" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"></button>
                             <div style="width:100%;">
-                            <input style="padding:0.275rem 0.60rem;font-size:0.875rem; ling-height:1.5; background-clip:padding-box;border:2px solid #ced4da;border-radius:4px;"id="resType" placeholder="직접입력" type="text" name="resType" autocomplete="off" >
+                            <input class="form-control" id="resType" placeholder="직접입력" type="text" name="resType" autocomplete="off" >
                            
                             
                             <div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end" style="position: absolute; transform: translate3d(-124px, 35px, 0px); top: 0px; left: 0px; will-change: transform;">
@@ -94,7 +94,7 @@
                         </div>
                         <div class="form-group col-md-3">
                             <label class="control-label">외부인 참석 인원 수</label>
-                            <input class="form-control" min="1" type="number" name="resOutside" id="resOutside" autocomplete="off">
+                            <input class="form-control" min="1" type="number" name="resOutside" id="resOutside" autocomplete="off" value="0">
                         </div>
                         <div class="form-group col-md-3">
                         </div>
@@ -519,16 +519,15 @@
     	// 시간버튼클릭시 배열에 해당시간 입력후 중복제거 
         var selectTimes = [];
         var sendTimes = [];
-    	
+    	console.log(resStartDate)
         $(document).on('click', '.btn-outline-secondary', function(e){
-    		var rsd = $("#resStartDate").val();
-	    	var red = $("#resEndDate").val();
+        	var rsd = $("#resStartDate").val();
+        	var red = $("#resEndDate").val();
 	    
 			if(rsd.includes("-") && red.includes("-")){
 	    		
 	    		if(selectTimes.length==1){
-	    			console.log("check")
-	    			console.log(selectTimes)
+	    			
 	    			var startTime = $("#resStartDate").val();
 	           		var startMonth = Number( ($("#resStartDate").val().split("-")[1]));
 	                var endMonth = Number( ($("#resEndDate").val().split("-")[1]));
@@ -598,7 +597,15 @@
         		}
         	})
         })
+        //////////////////////////////////////////////////////////////
+        $("#resStartDate").on("focus",function(){
+        	sessionStorage.setItem("currentDateUse"," ");
+        })
+        
+        
         ///////////////////////////////////////////////////////////////////////////////// 
+        
+        
         function drawTime(){
         	 $(".btn-group").empty();
         	 var changeTime = "09:00"; 
@@ -657,14 +664,54 @@
              if(currentMonth.length==1){
             	 currentMonth = "0"+currentMonth;
              }
-             var getCurrentTime = currentTime.getFullYear()+"-"+currentMonth+"-"+currentTime.getDate();
+             var currentDay = String(currentTime.getDate());
+             if(currentDay.length==1){
+            	 currentDay = "0"+currentDay;
+             }
+             var getCurrentTime = currentTime.getFullYear()+"-"+currentMonth+"-"+currentDay;
              
-             // if(sessionStorage.getItem())
+             if(sessionStorage.getItem("currentDateUse").includes("-")){
+            	 if( (sessionStorage.getItem("currentDateUse")==getCurrentTime && $("#resStartDate").val()==getCurrentTime ) ){
+            		 console.log("세션있고 현재날짜가 오늘날짜")
+            		 console.log(getCurrentTime)
+            		 var currentHour = new Date();
+            		 ctrHour = String(currentHour.getHours());
+            		
+            		 if(ctrHour.length==1){
+            			
+            			 ctrHour = "0"+ctrHour;
+            		 }
+            		 ctrMinute = currentHour.getMinutes();
+            		
+            		 if(ctrMinute>=0 && ctrMinute<=30){
+            			 ctrMinute = "00";
+            		 } else{
+            			 ctrMinute = "30";
+            		 }
+            		 console.log(ctrHour+":"+ctrMinute); 
+            		 var resultHour = "#"+ctrHour+":"+ctrMinute;
+            		drawBtn(resultHour)
+            	 }
+             } else{
+            	 if(  $("#resStartDate").val()==getCurrentTime){
+            		 console.log("세션없고 현재날짜로만")
+            		 console.log(getCurrentTime)
+            	 }
+             }
+        }
+        function drawBtn(data){
+        	
+        	$(data).removeClass("btn btn-outline-secondary btn-sm");
+        	$(data).addClass("btn btn-warning btn-sm");
         }
     	var splitDate = resStartDate.split("-")[2];
     	var transDate = splitDate.split(" ")[0]-1;
+    	
+    	if(String(transDate).length==1){
+    		transDate = "0"+transDate;
+    	}
     	var resultDate = resStartDate.split("-")[0]+"-"+resStartDate.split("-")[1]+"-"+transDate+" "+"09:00";
-   
+   		
     	timeAJAX(resultDate);
     	drawTime();
     	$(document).on("click",".btn-sm",function(){
@@ -683,7 +730,7 @@
         	
         });
         ///////////////////////////////////////////////////////////////////////
-   
+		   
         $('#resStartDate').val(resStartDate);
         $('#resMrName').val(sessionStorage.getItem("mrName"));
         $('#mrId').val(sessionStorage.getItem("mrId"));

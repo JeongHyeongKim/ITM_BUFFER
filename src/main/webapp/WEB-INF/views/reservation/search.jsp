@@ -28,9 +28,9 @@
                     <input id="mrName" type="hidden" value="${search.mrName }">
                     <input id="mrId" type="hidden" value="${search.mrId }">
                     <input id="brName" type="hidden" value="${search.brName }">
-                        <div class="tab-pane active" id="meeting-room" onclick="location.href='/meeting/reservation/resShortDetail/${search.mrId}'">
+                        <div class="tab-pane active meeting-room" id="${search.mrId }" onclick="location.href='/meeting/reservation/resShortDetail/${search.mrId}'">
                             <div class="card">
-                                <h4 class="card-header">${search.mrName }</h4>
+                                <h4 class="card-header" id="mrN">${search.mrName }</h4>
                                 <div class="card-body">
                                     <h5 class="card-title">${search.brLocation } ${search.mrLocation }</h5>
                                     <h6 class="card-subtitle text-muted">
@@ -98,3 +98,40 @@
                 </c:forEach>
     </div>
 </main>
+<script>
+/* $(document).ready(function() { 
+	
+	$('.meeting-room').on("click",function(){
+		var mrId = e.currentTarget.id;
+		var mrName = $('#mrName').val();
+		var brName = $('#brName').val();
+		window.sessionStorage.setItem("mrId",e.currentTarget.id);
+		
+	    window.sessionStorage.setItem("mrName",mrName);
+        window.sessionStorage.setItem("brName",brName);		
+   	    alert(mrName);
+	});
+
+	
+}); */
+$(document).ready(function() { 
+	
+	var btnClassClick = function(e){
+		var mrId = e.currentTarget.id;
+		window.sessionStorage.setItem("mrId",e.currentTarget.id);
+		
+	    $.ajax({
+	    	url:"/meeting/users/getCurrentInfo/"+mrId,
+	    	type:"post",
+	    	data:"_csrf=${_csrf.token}",
+	    	success:function(data){
+	    		var info = data;
+	    		window.sessionStorage.setItem("mrName",info.mrName);
+        		window.sessionStorage.setItem("brName",info.brName);		
+	    	}
+	    })
+	    
+	}
+	$('.meeting-room').on('click', btnClassClick);
+});
+</script>

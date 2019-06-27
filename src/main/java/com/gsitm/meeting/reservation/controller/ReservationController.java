@@ -44,7 +44,7 @@ public class ReservationController {
 	@PostMapping("/writeReservation")
 	public String writeReservation(Model model, String mrId,@RequestParam(required=false) String resPurpose, 
 			@RequestParam(required=false)String resAddRequest, String resStartDate, String resEndDate, 
-			@RequestParam(required=false) String resSnack, String resType, String resOutside, String equipElement, 
+			@RequestParam(required=false) String resSnack, String resType, @RequestParam(required=false) String resOutside, String equipElement, 
 			Principal principal, String times, String empList, String resState, String mainDept, 
 			@RequestParam(required=false) String resNetwork) {
 		
@@ -114,8 +114,10 @@ public class ReservationController {
 	
 	//이후에 users 패키지로 바꾸기
 	@PostMapping("/cancelRes/{resId}")
-	public ResponseEntity<Void> cancelRes(@PathVariable String resId) {
-		
+	public ResponseEntity<Void> cancelRes(@PathVariable String resId,@RequestParam String currentState) {
+		if(currentState.equals("res_2")){
+			resService.minusResCost(resId);
+		}
 		int result = resService.cancelRes(resId);
 		return new ResponseEntity<>(result == 1 ? HttpStatus.OK : HttpStatus.BAD_REQUEST);
 	}
