@@ -2,6 +2,10 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <link rel="stylesheet" href="/meeting/resources/css/duallistbox/bootstrap-duallistbox.min.css">
+
+<style>
+	
+</style>
 <main class="app-content">
     <div class="app-title">
         <div>
@@ -26,7 +30,7 @@
                     <div class="sparkline10-hd">
                         <div class="main-sparkline10-hd">
                             <h1>관리자 권한 관리</h1>
-                        </div>
+                        </div> 
                     </div>
                     <div class="sparkline10-graph">
                         <div class="basic-login-form-ad">
@@ -254,6 +258,10 @@
             console.log(document.getElementById("result").value);
             $("#hiddenForm").submit();
         });
+        
+        var customSettings = $('#empList').bootstrapDualListbox('getContainer');
+        customSettings.find('.btn-default').remove();
+        customSettings.find('.btn-group').remove();
 
 
 

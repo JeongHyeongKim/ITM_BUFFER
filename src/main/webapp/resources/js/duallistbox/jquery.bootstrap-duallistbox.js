@@ -19,8 +19,8 @@
             removeAllLabel: 'Remove all',
             moveOnSelect: true,                                                                 // true/false (forced true on androids, see the comment later)
             preserveSelectionOnMove: false,                                                     // 'all' / 'moved' / false
-            selectedListLabel: false,                                                           // 'string', false
-            nonSelectedListLabel: false,                                                        // 'string', false
+            selectedListLabel: '관리자 목록',                                                           // 'string', false
+            nonSelectedListLabel: '사용자 목록',                                                        // 'string', false
             helperSelectNamePostfix: '_helper',                                                 // 'string_of_postfix' / false
             selectorMinimalHeight: 100,
             showFilterInputs: true,                                                             // whether to show filter inputs

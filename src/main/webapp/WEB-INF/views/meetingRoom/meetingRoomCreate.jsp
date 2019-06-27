@@ -290,7 +290,8 @@
                                                     <p id="modalMeetingRoomPrice"></p>
                                                 </div>
                                             </div>
-                                            <div class="row mb-4">
+                                            
+                                            <div class= "row mb-4">
                                                 <div class="col-md-6">
                                                     <label><h5>최대 수용인원</h5></label>
                                                     <p id="modalMeetingRoomLimit"></p>
