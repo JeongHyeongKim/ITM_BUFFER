@@ -148,4 +148,13 @@ public class ReservationDaoImpl implements ReservationDao {
 		
 	}
 
+	@Override
+	public List<String> getPastAttendee(String empId) {
+		return session.selectList(namespace + ".getPastAttendee", empId);
+	}
+	
+	public List<String> getPastEquip(String resId){
+		return session.selectList(namespace +".getPastEquip", resId);
+	}
+
 }

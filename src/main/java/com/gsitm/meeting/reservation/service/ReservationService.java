@@ -191,10 +191,10 @@ public class ReservationService {
  			Attendee temp = null;
  			for(int j=0; j<mainDeptIdList.size(); j++) { 
  				if(deptId.equals(mainDeptIdList.get(j))) {
- 					temp = new Attendee(nextId, empListArray[i], "att_type_0", deptId, cost/mainDeptList.length);
+ 					temp = new Attendee(nextId, empListArray[i], "att_type_0", deptId, cost/mainDeptList.length, res.getEmpId());
  					break;
  				} else {
- 					temp = new Attendee(nextId, empListArray[i], "att_type_1", deptId, 0);
+ 					temp = new Attendee(nextId, empListArray[i], "att_type_1", deptId, 0, res.getEmpId());
  				}
  			}
  			sendAttendee.add(temp);
@@ -330,8 +330,18 @@ public class ReservationService {
 		return resDao.myListPeriod(resStartDate);
 	}
 	
+	// 예약이력불러오기
 	public String getPastReservation(String empId) {
 		
 		return gson.toJson(resDao.getPastReservation(empId));
+	}
+	public String getPastAttendee(String empId) {
+		return gson.toJson(resDao.getPastAttendee(empId));
+	}
+	public List<String> getPastAttendee2(String resId) {
+		return resDao.getPastAttendee(resId);
+	}
+	public String getPastEquip(String resId) {
+		return gson.toJson(resDao.getPastEquip(resId));
 	}
 }

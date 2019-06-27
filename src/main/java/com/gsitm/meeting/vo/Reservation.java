@@ -26,5 +26,6 @@ public class Reservation {
 	private String resCancle;
 	private int resCost;
 	private int resOutside;
-
+	private int resNW;
+	
 }

@@ -1,7 +1,7 @@
 package com.gsitm.meeting.reservation.controller;
 
 import java.security.Principal;
-import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,11 +14,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.gsitm.meeting.reservation.dto.ReservationDTO;
 import com.gsitm.meeting.reservation.dto.SearchDTO;
-import com.gsitm.meeting.reservation.service.EquipmentReservationService;
 import com.gsitm.meeting.reservation.service.ReservationService;
 import com.gsitm.meeting.users.service.EmployeeService;
+import com.gsitm.meeting.vo.Attendee;
 import com.gsitm.meeting.vo.Reservation;
 
 @Controller
@@ -49,6 +48,8 @@ public class ReservationController {
 			@RequestParam(required=false) String resNetwork) {
 		System.out.println(times); // 세번클릭시 최대최소값채택
 		System.out.println(mainDept);
+		System.out.println("네트워크 : "+resNetwork);
+		System.out.println("간식 : "+resSnack);
 		Reservation res = new Reservation();
 		res.setEmpId(principal.getName());
 		res.setMrId(mrId);
@@ -56,7 +57,16 @@ public class ReservationController {
 		res.setResEndDate(resEndDate);
 		res.setResPurpose(resPurpose);
 		res.setResAddRequest(resAddRequest);
-		res.setResSnack(Integer.parseInt(resSnack));
+		if(resSnack==null) {
+			res.setResSnack(0);
+		} else {
+			res.setResSnack(Integer.parseInt(resSnack));
+		}
+		if(resNetwork==null) {
+			res.setResNW(0);
+		} else {
+			res.setResNW(Integer.parseInt(resNetwork));
+		}
 		res.setResType(resType);
 		res.setResState(resState);
 		res.setResOutside(Integer.parseInt(resOutside));
@@ -81,10 +91,20 @@ public class ReservationController {
 	@GetMapping("/resWrite/{mrId}")
 	public String resWrite(Model model,@PathVariable String mrId, Principal principal) {
 		model.addAttribute("pastReservation",resService.getPastReservation(principal.getName()));
+		model.addAttribute("pastAttendee",resService.getPastAttendee2(principal.getName()));
 		model.addAttribute("equipList",resService.equipList(mrId));
 		model.addAttribute("empList",resService.empList());
 		model.addAttribute("empDeptList",resService.empDeptList());
 		return "reservation/resWrite";
+	}
+	@PostMapping("/pastAttendee/{resId}")
+	public ResponseEntity<String> getPastAttendee(@PathVariable String resId, Model model){
+		model.addAttribute("pastAttendee", resService.getPastAttendee2(resId));
+		return new ResponseEntity<>(resService.getPastAttendee(resId), HttpStatus.OK);
+	}
+	@PostMapping("/pastEquip/{resId}")
+	public ResponseEntity<String> getPastEquip(@PathVariable String resId){
+		return new ResponseEntity<>(resService.getPastEquip(resId), HttpStatus.OK);
 	}
 	@GetMapping("/search")
 	public String search(Model model,SearchDTO search) {

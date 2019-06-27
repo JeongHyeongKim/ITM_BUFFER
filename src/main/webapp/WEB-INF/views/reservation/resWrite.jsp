@@ -41,16 +41,16 @@
                         <input type="hidden" id="mrId" name="mrId" value="${mrId}">
                         <div class="form-group col-md-3">
                             <label class="control-label">신청자 명</label>
-                            <input class="form-control" id="resName" type="text" readonly>
+                            <input class="form-control" id="resName" type="text" readonly autocomplete="off">
                         </div>
                         <div class="form-group col-md-3">
                             <label class="control-label">회의실 명</label>
-                            <input class="form-control" id="resMrName" type="text" readonly>
+                            <input class="form-control" id="resMrName" type="text" readonly autocomplete="off">
                         </div>
                         <div class="form-group col-md-3">
                             <label class="control-label">회의 구분</label>
                             <div style="width:100%;">
-                            <input style="padding:0.275rem 0.60rem;font-size:0.875rem; ling-height:1.5; background-clip:padding-box;border:2px solid #ced4da;border-radius:4px;"id="resType" placeholder="직접입력" type="text" name="resType" >
+                            <input style="padding:0.275rem 0.60rem;font-size:0.875rem; ling-height:1.5; background-clip:padding-box;border:2px solid #ced4da;border-radius:4px;"id="resType" placeholder="직접입력" type="text" name="resType" autocomplete="off" >
                            
                             <button class="btn btn-info dropdown-toggle" style="display:inline;" id="btnGroupDrop3" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"></button>
                             <div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end" style="position: absolute; transform: translate3d(-124px, 35px, 0px); top: 0px; left: 0px; will-change: transform;">
@@ -63,7 +63,7 @@
                         </div>
                         <div class="form-group col-md-3">
                             <label class="control-label">최근 회의 목록 불러오기</label>
-                            <input class="form-control" type="button" value="불러오기" data-target="#MyReservationList" data-toggle="modal"/>
+                            <input class="form-control" type="button" value="불러오기" data-target="#MyReservationList" data-toggle="modal" autocomplete="off"/>
                         </div>
                         <div class="form-group col-md-3">
                             <label class="control-label">예약 시작 일자</label>
@@ -77,21 +77,21 @@
                         <div class="form-group col-md-3"></div>
                         <div class="form-group col-md-3">
                             <label class="control-label">사용 목적</label>
-                            <input class="form-control" placeholder="회의 목적을 작성해주십시오" type="text" name="resPurpose">
+                            <input class="form-control" placeholder="회의 목적을 작성해주십시오" type="text" id="resPurpose" name="resPurpose" autocomplete="off">
                         </div>
                          <div class="form-group col-md-3">
                             <label class="control-label">참석 인원 명단 <a data-target="#empList" data-toggle="modal">+</a></label>
-                            <input class="form-control" type="text">
+                            <input class="form-control" type="text" id="attendeeList" autocomplete="off">
                         </div>
                         <div class="form-group col-md-3">
                             <label class="control-label">외부인 참석 인원 수</label>
-                            <input class="form-control" min="1" type="number" name="resOutside">
+                            <input class="form-control" min="1" type="number" name="resOutside" id="resOutside" autocomplete="off">
                         </div>
                         <div class="form-group col-md-3">
                         </div>
                          <div class="form-group col-md-6">
                             <label class="control-label">기자재 <a data-target="#equipList" data-toggle="modal">추가</a></label>
-                            <input class="form-control" type="text" id="equipElement" name="equipElement">
+                            <input class="form-control" type="text" id="equipElement" name="equipElement" autocomplete="off">
                         </div>
                          
                         </div>
@@ -107,11 +107,11 @@
                             <label class="control-label">네트워크 사용 유무</label>
                             <div class="animated-checkbox">
                                 <label>
-                                    <input name="resNetwork" type="checkbox"><span class="label-text">네트워크 사용</span>
+                                    <input id="resNetwork" name="resNetwork" type="checkbox" ><span class="label-text">네트워크 사용</span>
                                 </label>
                             </div>
                         </div>
-                        <textarea class="form-control" placeholder="기타 전달 사항을 입력해 주십시오" rows="4" name="resAddRequest"></textarea>
+                        <textarea class="form-control" placeholder="기타 전달 사항을 입력해 주십시오" rows="4" id="resAddRequest" name="resAddRequest"></textarea>
                         <div class="form-group col-md-3"></div>
                         <div class="form-group col-md-3"></div>
                         <div class="form-group col-md-3"></div>
@@ -162,7 +162,7 @@
 				<!-- Modal content-->
 				<div class="modal-content">
 					<div class="modal-header">
-						<h4 class="modal-title">최근 나의 회의예약신청 목록</h4>
+						<h4 class="modal-title" id="targetName"></h4><h4 class="modal-title">님의 최근이력 불러오기</h4>
 						<button type="button" class="close" data-dismiss="modal">×</button>
 					</div>
 					<div class="modal-body" id="pastRes">
@@ -197,10 +197,11 @@
                                     <div class="row">
                                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                             <div class="dual-list-box-inner">
-                                              
+                                            
                                             <select class="form-control dual_select" id="empListOption" multiple >
+												
 												<c:forEach var="list" items="${empList }">
-													<option value="${list.empId }" class="modal-deptName" id="${list.deptName }">${list.empName } - ${list.deptName }</option>
+													<option value="${list.empId }" class="modal-deptName ${list.empId }"  id="${list.deptName }">${list.empName } - ${list.deptName }</option>
 												</c:forEach>
 												
 											</select>
@@ -336,10 +337,65 @@
     	})
     	////////////////////////////////////////////////////////////  pastReservation List
     	var pastRes = JSON.parse('${pastReservation}');
-    	
+    	console.log(pastRes);
     	for(var i=0; i<pastRes.length; i++){
-    		$("<p></p>").text(i+ ") 회의목적 : " + pastRes[i].resPurpose+", 정보추가 ...").appendTo($("#pastRes"));
+    		$("<p></p>").attr("class","pastId").attr("id",pastRes[i].resId).text("["+pastRes[i].resType+"]  "+pastRes[i].resStartDate+"에 예약하신 '"+pastRes[i].resPurpose+"'이력 불러오기").appendTo($("#pastRes"));
     	}
+    	
+    	$(document).on("click",".pastId",function(e){
+    		
+    		for(var i=0; i<pastRes.length; i++){
+    			
+    			if(pastRes[i].resId == e.currentTarget.id){
+    				$.ajax({
+    	    			url:"/meeting/reservation/pastEquip/"+pastRes[i].resId,
+    	    			method:"post",
+						data:"_csrf=${_csrf.token}",
+    	    			success: function(data){
+    	    				var pastEquip = JSON.parse(data);
+    	    				var N =0;
+    	    				var W = 0;
+    	    				var M = 0;
+    	    				var V = 0;
+    	    				for(var i=0; i<pastEquip.length; i++){
+    	    					if(pastEquip[i].substr(0,1)=='N'){
+    	    						N++;
+    	    					} else if(pastEquip[i].substr(0,1)=='M'){
+    	    						M++;
+    	    					} else if(pastEquip[i].substr(0,1)=='V'){
+    	    						V++;
+    	    					} else if(pastEquip[i].substr(0,1)=='W'){
+    	    						W++;
+    	    					}
+    	    				}
+    	    				console.log(N);
+    	    				$("#equipElement").val("빔프로젝터 ("+V +"),화이트보드 ("+W+"),마이크 ("+M+"),노트북 ("+N+")")
+	    	    			// $("<input class='form-control' id='N' name='N' type='text' value='노트북 대여 수량 : " + equipList['N'] + "'readonly>").appendTo($inputDiv);
+    	    				$("#N").val("노트북 대여 수량 : "+N);
+    	    				$("#M").val("마이크 대여 수량 : "+M);
+    	    				$("#V").val("빔프로젝터 대여 수량 : "+V);
+    	    				$("#W").val("화이트보드 대여 수량 : "+W);
+    	    			}
+    	    		})
+    				
+    				$("#resPurpose").val(pastRes[i].resPurpose);
+    				$("#resType").val(pastRes[i].resType);
+    				$("#resOutside").val(pastRes[i].resOutside);
+    				
+    				if(pastRes[i].resSnack==1){
+    					$("#resSnack").prop("checked", true);
+    				} else{
+    					$("#resSnack").prop("checked", false);
+    				}
+    				
+    				if(pastRes[i].resNW==1){
+    					$("#resNetwork").prop("checked",true);
+    				} else{
+    					$("#resNetwork").prop("checked",false);
+    				}
+    			}
+    		}
+    	})
     	
     	////////////////////////////////////////////////////////////참석자명단 id : empList-modal-body
     	/* 
@@ -395,8 +451,7 @@
         var equipList = JSON.parse('${equipList}') ;
     	
     	$("#equipElement").val("빔프로젝터 ("+equipList['V']+"),화이트보드 ("+equipList['W']+"),마이크 ("+equipList['M']+"),노트북 ("+equipList['N']+")")
-		var test = "빔프로젝터 (1),화이트보드 (1),마이크 (1),노트북 (3)";
-    	
+		
     	for(var i=0; i<Object.keys(equipList).length; i++){
     		var $inputDiv = $("<div></div>").attr("class","input-group");
     		
@@ -568,7 +623,7 @@
              		} else{
              			$label = $("<button type='button'></button>").attr("class","btn btn-primary btn-sm").attr("id",changeTime).attr("style","width:100%;height:100%;border: 2px solid #ced4da;font-size:0.3rem;").text(changeTime);
              		}
-             	} 
+             	}
            		var $secondLabel = $label.appendTo($(".btn-group-time"))
                 var $input = $("<input>").attr("type","checkbox").attr("autocomplete","off").appendTo($secondLabel);
      			
@@ -584,6 +639,11 @@
               }
                
         }
+    	
+    	$(document).on("click",".btn-sm",function(){
+    		console.log($("#resEndDate").val());
+    		$("#resEndDate").focus();
+    	})
         //변경
        //$("<div style='width:100%;height:100%'></div>").html("<p>9&emsp;&emsp;10&emsp;&emsp;11&emsp;&emsp;12&emsp;&emsp;13&emsp;&emsp;14&emsp;&emsp;15&emsp;&emsp;16&emsp;&emsp;17&emsp;&emsp;18</p>").appendTo($(".bs-component"))
         drawTime();
@@ -609,6 +669,7 @@
                var emp = data;
                $('#empId').val(emp.empId);
                $('#resName').val(emp.empName);
+               $("#targetName").text(emp.empName);
             }
          });
         $("#resEndDate").blur(function() {
@@ -636,16 +697,20 @@
                 var end = Number( ($("#resEndDate").val().split("/")[2]).split(" ")[0] );
            	} else{
            		var startMonth = Number( ($("#resStartDate").val().split("-")[1]));
-                var endMonth = Number( ($("#resEndDate").val().split("/")[1]));
+                var endMonth = Number( ($("#resEndDate").val().split("-")[1]));
                 var start = Number( ($("#resStartDate").val().split("-")[2]).split(" ")[0] );
-                var end = Number( ($("#resEndDate").val().split("/")[2]).split(" ")[0] );
+                var end = Number( ($("#resEndDate").val().split("-")[2]).split(" ")[0] );
                 	
            	}
+           	
             var longtime = end - start;
+          
             if( endMonth > startMonth ){
-            	longtime =1;
+            	longtime = 1;
+            } else if(endMonth < startMonth){
+            	longtime = -1;
             }
-            
+     
            	if(longtime >= 1){
            		alert("장기예약입니다. \n(장기예약은 상위관리자의 승인이 필요합니다.)")
            		$("<input>").attr("type","hidden").attr("value","res_0").attr("name","resState").appendTo($("#resForm"));

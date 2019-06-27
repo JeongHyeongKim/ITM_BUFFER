@@ -31,7 +31,11 @@ public interface ReservationDao {
 	public List<ReservationDTO> myListPeriod(String resStartDate);
 	public String resMostRecent();
 	
+	// 이력불러오기
 	public List<Reservation> getPastReservation(String empId);
+	public List<String> getPastAttendee(String empId);
+	public List<String> getPastEquip(String resId);
+	
 	public List<Equipment> getResEquip(String mrId);
 	public String getDeptIdByEmpId(String empId);
 	public int getCostByErId(String mrId);
