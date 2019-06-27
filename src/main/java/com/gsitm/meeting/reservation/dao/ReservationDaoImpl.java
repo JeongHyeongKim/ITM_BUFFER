@@ -14,6 +14,7 @@ import com.gsitm.meeting.users.dto.EmployeeDTO;
 import com.gsitm.meeting.vo.Attendee;
 import com.gsitm.meeting.vo.Equipment;
 import com.gsitm.meeting.vo.EquipmentReservation;
+import com.gsitm.meeting.vo.MeetingRoom;
 import com.gsitm.meeting.vo.Recognition;
 import com.gsitm.meeting.vo.Reservation;
 
@@ -155,6 +156,11 @@ public class ReservationDaoImpl implements ReservationDao {
 	
 	public List<String> getPastEquip(String resId){
 		return session.selectList(namespace +".getPastEquip", resId);
+	}
+
+	public List<MeetingRoom> mrList(String brId) {
+		// TODO Auto-generated method stub
+		return session.selectList(namespace + ".mrList" ,brId);
 	}
 
 }

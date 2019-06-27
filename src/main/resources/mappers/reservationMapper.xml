@@ -11,6 +11,9 @@
 		and r.res_state='res_2'
 		and m.br_id = #{brId}
 	</select>
+	<select id="mrList" resultType="meetingRoomVO" parameterType="string">
+		select mr_name mrName,mr_id mrId from meeting_room where br_id=#{brId}
+	</select>
 	<insert id="writeReservation">
 		insert into reservation (RES_ID,EMP_ID, MR_ID, RES_START_TIME, RES_END_TIME,RES_TIME,RES_PURPOSE,RES_ATTEND_CNT,RES_ADD_REQUEST,RES_STATE,RES_SNACK,RES_TYPE,RES_CANCLE,RES_COST,RES_OUTSIDE)
 		values (#{resId}, #{empId}, #{meId}, #{resStartDate}, #{resEndDate},#{resDate},#{resPurpose},#{resAttendCnt},#{resAddRequest},#{resState},#{resSnack},#{resType},#{resCancle},#{resCost},#{resOutside})

@@ -117,7 +117,6 @@
 									  type : "post",
 									  data:"_csrf=${_csrf.token}",
 									  success:function(){
-										  
 										  location.href= "/meeting/users/mypage"
 									  }, error:function(){
 						                	console.log("error")
@@ -210,7 +209,7 @@
 				</div>
 				
 				<div id="deptCostInfo" style="float:right;text-align:right">
-					<h3 class="tile-title">팀별 회의실 사용 누적금액</h3>
+					<h3 class="tile-title">부서별 회의실 사용 연간 누적금액</h3>
 					<h3 class="tile-title" id="deptCost"></h3>
 				</div>
 			</div>

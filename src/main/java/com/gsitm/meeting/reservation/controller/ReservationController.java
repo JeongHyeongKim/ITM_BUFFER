@@ -34,6 +34,7 @@ public class ReservationController {
 	public String resList(Model model,@PathVariable String brId, Principal principal) {
 		model.addAttribute("deptCost", empService.getDeptCost(principal.getName()));
 		model.addAttribute("resList",resService.resList(brId));
+		model.addAttribute("mrList",resService.mrList(brId));
 		model.addAttribute("branchList",resService.branchList());
 		model.addAttribute("mrTypeList",resService.mrTypeList());
 		model.addAttribute("mrLimitList",resService.mrLimitList());

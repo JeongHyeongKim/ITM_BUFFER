@@ -235,6 +235,7 @@
 <script src="/meeting/resources/js/plugins/jquery-ui.min.js" type="text/javascript"></script>
 <script src="/meeting/resources/js/plugins/jquery.datetimepicker.full.js"></script> 
 <script type="text/javascript" src="/meeting/resources/js/plugins/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@7"></script>
 <script type="text/javascript">
       
       $('#resStartTime').datetimepicker({
@@ -251,6 +252,8 @@
 
 <script>
  $(document).ready(function() { 
+	// var mrList = JSON.parse('${mrList}');
+	//  console.log(mrList);
     $('#calendar').fullCalendar({
         header: {
             left: 'prev,next today',
@@ -274,7 +277,52 @@
                backgroundColor:'#ffc107'
             },
         	</c:forEach> 
-            ]
+            ],
+            
+            dayClick: function(date, allDay, jsEvent, view) {
+            	//주말 선택 금지
+                if(moment(date).format('E')==6 || moment(date).format('E')==7) return false;
+                //과거일 선택 금지
+                if(moment(date).format('YYYY-MM-DD') < moment(new Date()).format('YYYY-MM-DD')) return false;
+                var str="";
+            	var yy=date.format("YYYY");
+            	var mm=date.format("MM");
+            	var dd=date.format("DD");
+            	str = yy+"-"+mm+"-"+dd;
+            	console.log(str);
+            	window.sessionStorage.setItem("currentDate",str);
+            	swal({
+            		  title: '회의실을 선택하세요',
+            		  input: 'select',
+            		   inputOptions: {
+            			   <c:forEach items="${mrList}" var="list2" varStatus="status">
+            			   '${list2.mrId}+${list2.mrName}':'${list2.mrName}',
+            			   </c:forEach> 
+            		  }, 
+            		  inputPlaceholder: '-회의실 선택-',
+            		  showCancelButton: true,
+            		  inputValidator: function (value) {
+            		    return new Promise(function (resolve, reject) {
+            		      if (value !== '') {
+            		    	 window.sessionStorage.setItem("mrName",value.split("+")[1]);
+            		    	 window.sessionStorage.setItem("mrId",value.split("+")[0]);
+            		    	 document.location.href="/meeting/reservation/resWrite/"+value.split("+")[0];
+            		      } else {
+            		        reject('회의실을 선택해주십시오');
+            		      }
+            		    });
+            		  }
+            		}).then(function (result) {
+            			console.log(result);
+            			console.log(result.label);
+            		  if (result.value) {
+            		    swal({
+            		      type: 'success',
+            		      html: '선택한 회의실: ' + result.value
+            		    });
+            		  }
+            		});
+            }
     });
     
     
@@ -286,6 +334,7 @@
         success : function(data){
            var emp = data
            console.log(emp.empName);
+           window.sessionStorage.setItem("empName",emp.empName);
         }
      })
      $('#searchDate').blur(function() {

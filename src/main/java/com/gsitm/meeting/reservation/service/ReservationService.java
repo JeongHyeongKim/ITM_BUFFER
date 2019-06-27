@@ -19,6 +19,7 @@ import com.gsitm.meeting.users.dto.EmployeeDTO;
 import com.gsitm.meeting.vo.Attendee;
 import com.gsitm.meeting.vo.Equipment;
 import com.gsitm.meeting.vo.EquipmentReservation;
+import com.gsitm.meeting.vo.MeetingRoom;
 import com.gsitm.meeting.vo.Recognition;
 import com.gsitm.meeting.vo.Reservation;
 
@@ -343,4 +344,10 @@ public class ReservationService {
 	public String getPastEquip(String resId) {
 		return gson.toJson(resDao.getPastEquip(resId));
 	}
+
+	public List<MeetingRoom> mrList(String brId) {
+		// TODO Auto-generated method stub
+		return resDao.mrList(brId);
+	}
+	
 }
