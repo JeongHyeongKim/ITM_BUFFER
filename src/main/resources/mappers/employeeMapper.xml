@@ -34,8 +34,8 @@
 	</select>
 	
 	<select id="getReservationByEmpId" resultType="com.gsitm.meeting.users.dto.EmployeeDTO$MyPageInfo">
-		select res_id resId, reservation.emp_id empId, reservation.mr_id mrId, mr_name mrName, br_name brName, to_char(res_start_time) resStartTime,
-		to_char(res_end_time) resEndTime, to_char(res_time) resDate, res_purpose resPurpose, res_state resState, res_type resType, res_cost resCost 
+		select res_id resId, reservation.emp_id empId, reservation.mr_id mrId, mr_name mrName, br_name brName, to_char(res_start_time,'YYYY-MM-DD HH24:MI') resStartTime,
+		to_char(res_end_time,'YYYY-MM-DD HH24:MI') resEndTime, to_char(res_time,'YYYY-MM-DD HH24:MI') resDate, res_purpose resPurpose, res_state resState, res_type resType, res_cost resCost 
 		from reservation, branch, meeting_room
 		where reservation.mr_id = meeting_room.mr_id and meeting_room.br_id = branch.br_id and reservation.emp_id = #{empId}
 	</select>
