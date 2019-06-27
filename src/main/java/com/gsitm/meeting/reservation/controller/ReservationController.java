@@ -114,8 +114,10 @@ public class ReservationController {
 	
 	//이후에 users 패키지로 바꾸기
 	@PostMapping("/cancelRes/{resId}")
-	public ResponseEntity<Void> cancelRes(@PathVariable String resId) {
-		
+	public ResponseEntity<Void> cancelRes(@PathVariable String resId,@RequestParam String currentState) {
+		if(currentState.equals("res_2")){
+			resService.minusResCost(resId);
+		}
 		int result = resService.cancelRes(resId);
 		return new ResponseEntity<>(result == 1 ? HttpStatus.OK : HttpStatus.BAD_REQUEST);
 	}

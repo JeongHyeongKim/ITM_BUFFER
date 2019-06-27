@@ -13,7 +13,8 @@
 		var myCost = JSON.parse('${myCost}');
 		var mySchedule = JSON.parse('${mySchedule}');  
 		document.getElementById ( 'cntSchedule' ).innerHTML=mySchedule.length;
-		
+		var currentResCost;
+		var currentDeptId;
 		
 		function drawMySchedule(mySchedule){
 			$("#meetingInfo").empty(); 
@@ -94,13 +95,23 @@
 				var $currentState = $("<td></td>").text(mappingState($list.resState)).appendTo($bodyTrTag);
 				var $changeState = $("<td></td>").appendTo($bodyTrTag);
 				
-				if(($list.resState=="res_0")||($list.resState=="res_1")){
+				if(($list.resState=="res_0")||($list.resState=="res_1")||($list.resState=="res_2")){
 					resId=$list.resId;
 					var $divBtn = $("<div></div>").css("text-align","center").appendTo($changeState);  
-					$("<button id='"+resId+"'></button>").attr("class","btn btn-info btn-sm").text("예약 취소").appendTo($divBtn); 
+					$("<button id='"+resId+"'></button>").attr("class","btn btn-info btn-sm").attr("value",$list.resCost).text("예약 취소").appendTo($divBtn); 
 					 /* 이후 users로 패키지 변경 */
 					$('#'+resId+'').on("click",function(e){
+						currentResId=e.currentTarget.id;
+						console.log(myInfo);
 						
+						for(var i =0; i<myInfo.length;i++){
+							if(myInfo[i].resId==currentResId){
+								currentResCost = myInfo[i].resCost;
+								currentDeptId=myInfo[i].deptId;
+								currentState = myInfo[i].resState;
+								console.log(currentState);
+							}
+						}
 						swal({
 		    	      		title: "삭제하시겠습니까?",
 		    	      		text: "삭제 시,해당 예약 정보 복원 불가",
@@ -115,7 +126,7 @@
 		    	      			$.ajax({
 									  url : "/meeting/reservation/cancelRes/"+resId,
 									  type : "post",
-									  data:"_csrf=${_csrf.token}",
+									  data:"_csrf=${_csrf.token}"+"&currentState="+currentState,
 									  success:function(){
 										  location.href= "/meeting/users/mypage"
 									  }, error:function(){

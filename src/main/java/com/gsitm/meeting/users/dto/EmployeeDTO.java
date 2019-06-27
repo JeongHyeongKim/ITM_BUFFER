@@ -21,6 +21,7 @@ public class EmployeeDTO {
 		private String resType;
 		private int resCost;
 		private String empEmail;
+		private String deptId;
 	}
 	
 	@Data
