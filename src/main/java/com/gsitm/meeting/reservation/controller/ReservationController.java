@@ -62,11 +62,12 @@ public class ReservationController {
 		} else {
 			res.setResSnack(Integer.parseInt(resSnack));
 		}
-		if(resNetwork==null) {
-			res.setResNW(0);
+		if(resNetwork.equals("on")) {
+			resNetwork = "1";
 		} else {
-			res.setResNW(Integer.parseInt(resNetwork));
+			resNetwork = "0";
 		}
+		res.setResNW(Integer.parseInt(resNetwork));
 		res.setResType(resType);
 		res.setResState(resState);
 		res.setResOutside(Integer.parseInt(resOutside));

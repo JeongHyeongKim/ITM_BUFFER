@@ -89,7 +89,7 @@
 			$.each(myInfo, function(i, $list) {
 				var $bodyTrTag= $("<tr></tr>").appendTo($bodyTag);
 				$("<td></td>").text($list.resDate).appendTo($bodyTrTag);
-				$("<td></td>").text($list.resStartTime).appendTo($bodyTrTag);
+				$("<td></td>").text($list.resStartTime+" ~ "+$list.resEndTime).appendTo($bodyTrTag);
 				$("<td></td>").text(($list.brName) + " - " + ($list.mrName)).appendTo($bodyTrTag);
 				var $currentState = $("<td></td>").text(mappingState($list.resState)).appendTo($bodyTrTag);
 				var $changeState = $("<td></td>").appendTo($bodyTrTag);
