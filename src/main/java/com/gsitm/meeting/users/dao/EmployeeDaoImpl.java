@@ -96,4 +96,9 @@ public class EmployeeDaoImpl implements EmployeeDao{
 		return session.selectOne(namespace + ".CurrentInfoByMrId", mrId);
 	}
 	//
+
+	@Override
+	public void initFailureCnt(String empId) {
+		session.update(namespace + ".initFailureCnt", empId);
+	}
 }

@@ -170,4 +170,10 @@ public class RecognitionDaoImpl implements RecognitionDao{
 		return session.selectList(namespace+".recogList");
 	}
 
+	@Override
+	public void insertCertification(String empId, String empPnum) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
