@@ -5,7 +5,6 @@ import java.security.Principal;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.gsitm.meeting.users.dto.EmployeeDTO;
 import com.gsitm.meeting.users.service.EmployeeService;
 import com.gsitm.meeting.vo.Employee;
 
@@ -86,10 +84,20 @@ public class UserController {
 			redirectAttributes.addFlashAttribute("message", "5회 인증 실패로 비활성화 된 계정입니다.\n"
 					+ "관리자에게 문의해주세요.");
 		return "redirect:/";
+		//다른exception에 대해서도 메시지처리를 하여야 하며, 몇회 틀렸다고 띄워야함.
 		
 	}
+	
+	
+	@PostMapping("/initFailCnt")
+	public String initFailCnt(HttpServletRequest request, RedirectAttributes redirectAttributes) {
 		
-		//다른exception에 대해서도 메시지처리를 하여야 하며, 몇회 틀렸다고 띄워야함.
+		String id = (String) request.getAttribute("id");
+		empService.initFailureCnt(id);
+		return "redirect:/reservation/list/br_0001";
+	}
+		
+		
 		
 
 	

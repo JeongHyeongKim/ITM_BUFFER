@@ -341,4 +341,12 @@
 		and s.rec_id = rc.rec_id(+)
 		order by rc.rec_id
 	</select>
+	
+	<select id="getUserPhoneNumber" resultType="String">
+		select emp_pnum from employee where emp_id=#{empId}
+	</select>
+	
+	<insert id="insertCertification">
+		insert into (EMPID, RANDOMVAL) certificate values(#{empId}, #{randonVal})
+	</insert>
 </mapper>

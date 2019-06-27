@@ -152,5 +152,9 @@ public class EmployeeService {
 		empDao.addLoginFailureCnt(empId, loginFailureCnt);
 	}
 	
+	public void initFailureCnt(String empId) {
+		empDao.initFailureCnt(empId);
+	}
+	
 	
 }

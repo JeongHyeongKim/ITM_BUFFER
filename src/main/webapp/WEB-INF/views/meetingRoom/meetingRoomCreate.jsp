@@ -74,7 +74,7 @@
                         title: "오류",
                         text: "사진 형식의 파일을 업로드 해주세요.",
                         type: "warning",
-                        confirmButtonText: "OK",
+                        confirmButtonText: "확인",
                         closeOnConfirm: true,
                     });
                 } else {
@@ -267,52 +267,46 @@
                                         <div class="modal-body">
                                             <div class="row mb-4">
                                                 <div class="col-md-4">
-                                                    <label><h4>소속 지사</h4></label>
+                                                    <label><h5>소속 지사</h5></label>
                                                     <p id="modalBranchName"></p>
                                                 </div>
 
                                                 <div class="col-md-4">
-                                                    <label><h4>회의실 유형</h4></label>
+                                                    <label><h5>회의실 유형</h5></label>
                                                     <p id="modalMeetingRoomType"></p>
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <label><h4>회의실 이름</h4></label>
+                                                    <label><h5>회의실 이름</h5></label>
                                                     <p id="modalMeetingRoomName"></p>
                                                 </div>
                                             </div>
                                             <div class="row mb-4">
-                                                <div class="col-md-4">
-                                                    <label><h4>회의실 층수</h4></label>
+                                                <div class="col-md-6">
+                                                    <label><h5>회의실 층수</h5></label>
                                                     <p id="modalMeetingRoomLocation"></p>
                                                 </div>
-                                            </div>
-                                            <div class="row mb-4">
-                                                <div class="col-md-4">
-                                                    <label><h4>30분당 회의실 사용료</h4></label>
+                                                <div class="col-md-6">
+                                                    <label><h5>30분당 회의실 사용료</h5></label>
                                                     <p id="modalMeetingRoomPrice"></p>
                                                 </div>
                                             </div>
                                             <div class="row mb-4">
-                                                <div class="col-md-4">
-                                                    <label><h4>최대 수용인원</h4></label>
+                                                <div class="col-md-6">
+                                                    <label><h5>최대 수용인원</h5></label>
                                                     <p id="modalMeetingRoomLimit"></p>
                                                 </div>
-                                            </div>
-                                            <div class="row mb-4">
-                                                <div class="col-md-4">
-                                                    <label><h4>회의실 면적</h4></label>
+                                                <div class="col-md-6">
+                                                    <label><h5>회의실 면적</h5></label>
                                                     <p id="modalMeetingRoomArea"></p>
                                                 </div>
                                             </div>
                                             <div class="row mb-4">
-                                                <div class="col-md-4">
-                                                    <label><h4>회의실 관리자</h4></label>
+                                                <div class="col-md-6">
+                                                    <label><h5>회의실 관리자</h5></label>
                                                     <p id="modalMeetingRoomAdmin"></p>
                                                 </div>
-                                            </div>
-                                            <div class="row mb-4">
-                                                <div class="col-md-4">
-                                                    <label><h4>네트워크 지원 유무</h4></label>
+                                                <div class="col-md-6">
+                                                    <label><h5>네트워크 지원 유무</h5></label>
                                                     <p id="modalMeetingRoomNetwork"></p>
                                                 </div>
                                             </div>

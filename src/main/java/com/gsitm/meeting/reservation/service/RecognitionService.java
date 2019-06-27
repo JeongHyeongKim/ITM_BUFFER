@@ -9,19 +9,21 @@ import java.util.Map;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
 import com.gsitm.meeting.reservation.dao.RecognitionDaoImpl;
 import com.gsitm.meeting.reservation.dto.AttendeeDTO;
 import com.gsitm.meeting.reservation.dto.RecognitionDTO.EmpAuthority;
-import com.gsitm.meeting.vo.Attendee;
-import com.gsitm.meeting.vo.Equipment;
 import com.gsitm.meeting.vo.EquipmentReservation;
+
+import net.nurigo.java_sdk.Coolsms;
+import net.nurigo.java_sdk.api.Message;
+import net.nurigo.java_sdk.exceptions.CoolsmsException;
 
 @Service
 public class RecognitionService {
@@ -212,6 +214,7 @@ public class RecognitionService {
 		List<String> empList = new ArrayList<String>(Arrays.asList(empString.split(",")));
 		System.out.println(empList);
 		boolean param=false;
+		
 		for(int i=0;i<empList.size();i++) {
 			if(param==false) { // admin to user
 				if(empList.get(i).equals("A")) {
@@ -261,5 +264,31 @@ public class RecognitionService {
 		
 		return gson.toJson(recDao.recogList());
 	}
+	
+	public void sendSMS(String userPhoneNumber, String empId) throws Exception { 
+
+		String api_key = "";
+		String api_secret = "";
+
+	    Message coolsms = new Message(api_key, api_secret);
+
+	    double randomValue = Math.random();
+	    int randomInteger = (int)(randomValue*999999)+100000;
+	    
+	    HashMap<String, String> params = new HashMap<String, String>();
+	    params.put("to", "");
+	    params.put("from", userPhoneNumber);
+	    params.put("type", "SMS");
+	    params.put("text", "[GSITM 회의실관리 시스템] 인증번호를 이메일에 입력해주세요. 인증번호 : "+randomInteger);
+	    //recDao.insertCertification(empId, String.valueOf(randomInteger)); // 인증해야하는 부분
+	    try {
+	      JSONObject obj = (JSONObject) coolsms.send(params);
+	      System.out.println(obj.toString());
+	    } catch (CoolsmsException e) {
+	      System.out.println(e.getMessage());
+	      System.out.println(e.getCode());
+	    }
+	}
+	
 
 }

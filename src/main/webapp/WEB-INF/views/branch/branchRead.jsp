@@ -39,7 +39,7 @@
                     title: "오류",
                     text: missingList + "을(를) 입력해주세요.",
                     type: "warning",
-                    confirmButtonText: "OK",
+                    confirmButtonText: "확인",
                     closeOnConfirm: true,
                 });
             } else {
@@ -59,11 +59,11 @@
                     title: "오류",
                     text: "사진 형식의 파일을 업로드 해주세요.",
                     type: "warning",
-                    confirmButtonText: "OK",
+                    confirmButtonText: "확인",
                     closeOnConfirm: true,
                 });
             } else {
-                imgChanged = true;
+               
                 if (this.files && this.files[0]) {
                     var reader = new FileReader();
 
@@ -179,21 +179,21 @@
                                     </div>
                                     <div class="modal-body">
                                         <div class="row mb-4">
-                                            <div class="col-md-4">
-                                                <label>지사 이름</label>
-                                                <h5 id="modalBranchName"></h5>
+                                            <div class="col-md-10">
+                                                <label><h5>지사 이름</h5></label>
+                                                <p id="modalBranchName"></p>
                                             </div>
                                         </div>
                                         <div class="row mb-4">
-                                            <div class="col-md-4">
-                                                <label>지사 주소</label>
-                                                <h5 id="modalBranchLocation"></h5>
+                                            <div class="col-md-10">
+                                                <label><h5>지사 주소</h5></label>
+                                                <p id="modalBranchLocation"></p>
                                             </div>
                                         </div>
                                         <div class="row mb-4">
-                                            <div class="col-md-4">
-                                                <label>대표 번호</label>
-                                                <h5 id="modalBranchTel"></h5>
+                                            <div class="col-md-10">
+                                                <label><h5>대표 번호</h5></label>
+                                                <p id="modalBranchTel"></p>
                                             </div>
                                         </div>
                                         <div class="modal-footer" style="margin-top:20px">

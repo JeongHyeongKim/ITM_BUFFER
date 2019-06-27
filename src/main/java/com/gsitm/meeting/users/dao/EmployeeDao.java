@@ -31,6 +31,8 @@ public interface EmployeeDao {
 	
 	public void pwdInsert(String newPwd);
 	
+	public void initFailureCnt(String empId);
+	
 	//윤영이거
 	public List<EmployeeDTO.AvailableMeetingDate> availableMeetingDate(String availableDate, String mrId);
 	public EmployeeDTO.CurrentInfoByMrId CurrentInfoByMrId(String mrId);
