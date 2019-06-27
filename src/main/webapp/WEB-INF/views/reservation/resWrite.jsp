@@ -641,9 +641,9 @@
                
         }
     	var splitDate = resStartDate.split("-")[2];
-    	var transDate = 0;
+    	var transDate = splitDate.split(" ")[0];
     	console.log(resStartDate);
-    	console.log(transDate)
+    	console.log(transDate-1)
     	timeAJAX(resStartDate);
     	drawTime();
     	$(document).on("click",".btn-sm",function(){
