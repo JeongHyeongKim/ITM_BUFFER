@@ -238,7 +238,10 @@ public class ReservationService {
 		String[] splitDate = currentDate.split("-");
 		String year = splitDate[0].substring(1,5);
 		String month = splitDate[1];
-		String day = splitDate[2].substring(0, 2);
+		String day = Integer.toString((Integer.parseInt((splitDate[2].substring(0, 2)))+1));
+		if(day.length()==1) {
+			day = "0"+day;
+		}
 		String date = year+"-"+month+"-"+day;
 		return date;
 	}
