@@ -202,7 +202,7 @@
                                             
                                             <select class="form-control dual_select" id="empListOption" multiple >
 												
-												<c:forEach var="list" items="${empList }">
+												<c:forEach var="list" items="${empList }" begin="0">
 													<option value="${list.empId }" class="modal-deptName ${list.empId }"  id="${list.deptName }">${list.empName } - ${list.deptName }</option>
 												</c:forEach>
 												
@@ -297,7 +297,6 @@
     	$(document).on("click",".close",function(e){
     		console.log(e.currentTarget.id);
     		newDeptName.splice(newDeptName.indexOf(e.currentTarget.id),1);
-    		
     	})
     	
     	$("#btnEmpList").on("click",function(){
@@ -504,7 +503,8 @@
     	})
     	//////////////////////////////////////////////////////////////////////////////////////////
         var resStartDate = sessionStorage.getItem("currentDate");
-        resStartDate;
+        /* 
+    	resStartDate;
         
         var now = new Date();
 
@@ -515,7 +515,7 @@
         var min = now.getMinutes()>9 ?''+now.getMinutes() : '0'+now.getMinutes(); 
         var today = year + '/' + mon + '/' + day+" "+hh+":"+min;
     	
-        //////////////////////////////////////////////////////////////////////////////////
+ */        //////////////////////////////////////////////////////////////////////////////////
     	// 시간버튼클릭시 배열에 해당시간 입력후 중복제거 
         var selectTimes = [];
         var sendTimes = [];
@@ -651,10 +651,15 @@
              	}
      			changeTime = splitHourTime+ ":"+splitMinTime;
               }
-               
+             
              var currentTime = new Date();
-             var getCurrentTime = currentTime.getFullyear()
-             console.log(currentTime.getDate());
+             var currentMonth = String(currentTime.getMonth() +1);
+             if(currentMonth.length==1){
+            	 currentMonth = "0"+currentMonth;
+             }
+             var getCurrentTime = currentTime.getFullYear()+"-"+currentMonth+"-"+currentTime.getDate();
+             
+             if(sessionStorage.getItem())
         }
     	var splitDate = resStartDate.split("-")[2];
     	var transDate = splitDate.split(" ")[0]-1;
@@ -674,7 +679,6 @@
 
         	// 자동높이 사용여부 : 사용하지 않을시 기본값은 false
         	autoHeight : true,
-
         	loop : true, // 슬라이드 반복
         	
         });
