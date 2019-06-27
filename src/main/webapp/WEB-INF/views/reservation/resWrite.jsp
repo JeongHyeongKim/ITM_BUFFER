@@ -50,7 +50,7 @@
                         <div class="form-group col-md-3">
                             <label class="control-label">회의 구분</label>&emsp;<button class="btn btn-info dropdown-toggle" style="display:inline; width:10px; height:10px;" id="btnGroupDrop3" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"></button>
                             <div style="width:100%;">
-                            <input style="padding:0.275rem 0.60rem;font-size:0.875rem; ling-height:1.5; background-clip:padding-box;border:2px solid #ced4da;border-radius:4px;"id="resType" placeholder="직접입력" type="text" name="resType" autocomplete="off" >
+                            <input class="form-control" id="resType" placeholder="직접입력" type="text" name="resType" autocomplete="off" >
                            
                             
                             <div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end" style="position: absolute; transform: translate3d(-124px, 35px, 0px); top: 0px; left: 0px; will-change: transform;">
@@ -519,16 +519,15 @@
     	// 시간버튼클릭시 배열에 해당시간 입력후 중복제거 
         var selectTimes = [];
         var sendTimes = [];
-    	
+    	console.log(resStartDate)
         $(document).on('click', '.btn-outline-secondary', function(e){
-    		var rsd = $("#resStartDate").val();
-	    	var red = $("#resEndDate").val();
+        	var rsd = $("#resStartDate").val();
+        	var red = $("#resEndDate").val();
 	    
 			if(rsd.includes("-") && red.includes("-")){
 	    		
 	    		if(selectTimes.length==1){
-	    			console.log("check")
-	    			console.log(selectTimes)
+	    			
 	    			var startTime = $("#resStartDate").val();
 	           		var startMonth = Number( ($("#resStartDate").val().split("-")[1]));
 	                var endMonth = Number( ($("#resEndDate").val().split("-")[1]));
@@ -670,8 +669,7 @@
             	 currentDay = "0"+currentDay;
              }
              var getCurrentTime = currentTime.getFullYear()+"-"+currentMonth+"-"+currentDay;
-             console.log(getCurrentTime)
-            
+             
              if(sessionStorage.getItem("currentDateUse").includes("-")){
             	 if( (sessionStorage.getItem("currentDateUse")==getCurrentTime && $("#resStartDate").val()==getCurrentTime ) ){
             		 console.log("세션있고 현재날짜가 오늘날짜")
@@ -702,7 +700,7 @@
              }
         }
         function drawBtn(data){
-        	console.log(data)
+        	
         	$(data).removeClass("btn btn-outline-secondary btn-sm");
         	$(data).addClass("btn btn-warning btn-sm");
         }
@@ -732,7 +730,7 @@
         	
         });
         ///////////////////////////////////////////////////////////////////////
-   
+		   
         $('#resStartDate').val(resStartDate);
         $('#resMrName').val(sessionStorage.getItem("mrName"));
         $('#mrId').val(sessionStorage.getItem("mrId"));
@@ -828,7 +826,7 @@
         
         function timeAJAX(data){
         	var mrId = sessionStorage.getItem("mrId");
-    		console.log(data)
+    		
     		var availableDate = JSON.stringify(data);
     		$.ajax({
     			url:"/meeting/reservation/available/"+mrId+"/"+availableDate,

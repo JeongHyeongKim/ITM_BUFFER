@@ -2,6 +2,9 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<style>
+	.fc-past:hover{cursor: no-drop;}
+</style>
 <script>
 	$(function(){
 
@@ -114,7 +117,7 @@
 	                <div class="form-group col-md-3"></div>
 	                <div class="form-group col-md-3"></div>
 	                <div class="form-group col-md-3" style="display:inline-block;">
-	                	<button class="btn btn-info" type="button" data-toggle="modal" data-target="#reservation"><i class="fa fa-fw fa-lg fa-check-circle"></i>바로 예약</button>
+	                	
 	                  	<input class="btn btn-primary" type="submit" value="검색"/>
 	                </div> 
 	              </form>
@@ -291,6 +294,7 @@
             	str = yy+"-"+mm+"-"+dd;
             	console.log(str);
             	window.sessionStorage.setItem("currentDate",str);
+            	sessionStorage.setItem("currentDateUse",str);
             	swal({
             		  title: '회의실을 선택하세요',
             		  input: 'select',
