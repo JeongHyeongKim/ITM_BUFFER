@@ -20,7 +20,7 @@
 	</update>
 	
 	<update id="lockAccount">
-		update employee set enabled = 'disabled' where emp_id = #{id}
+		update employee set enabled =0 where emp_id = #{id}
 	</update>
 	
 	<select id="getCurrentId" resultType="employeeVO">

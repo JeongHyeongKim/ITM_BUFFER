@@ -35,6 +35,7 @@ public class UserController {
 	public String login(HttpServletRequest request, HttpSession session, Model model) {
 		//model.addAttribute("message", request.getAttribute("message"));
 		//session.removeAttribute("message");
+		/*empService.pwdEncoderTest();*/
 		return "login";
 	}
 	
