@@ -39,7 +39,7 @@
 
     <script>
         $(function() {
-            var imgChanged = false;
+
             var meetingRoom = JSON.parse('${meetingRoom}');
             //잠시 저장하기 위한 임시 버퍼	
 
@@ -88,11 +88,11 @@
                         title: "오류",
                         text: "사진 형식의 파일을 업로드 해주세요.",
                         type: "warning",
-                        confirmButtonText: "OK",
+                        confirmButtonText: "확인",
                         closeOnConfirm: true,
                     });
                 } else {
-                    imgChanged = true;
+
                     if (this.files && this.files[0]) {
                         var reader = new FileReader();
 
@@ -131,8 +131,6 @@
                     missingList = missingList + "회의실 면적, ";
                 if ($("#empNameSelectBox").children(":selected").attr("id") == null)
                     missingList = missingList + "회의실 관리자, ";
-                if (imgChanged == false)
-                    missingList = missingList + "회의실 사진, ";
                 console.log(missingList.index);
                 if (missingList != "") {
                     missingList = missingList.substr(0, missingList.length - 2);
@@ -237,7 +235,7 @@
                                             <option value="mr_type_1" id="대회의실">대회의실</option>
                                             <option value="mr_type_2" id="교육실">교육실</option>
                                         </select>
-                                    </div>
+                                    </div> 
                                     <div class="col-md-4">
                                         <input class="form-control" id="mrName" name="mrName" type="text" placeholder="회의실 이름을 입력해주세요">
                                     </div>
@@ -296,54 +294,54 @@
 
                                         <div class="modal-body">
                                             <div class="row mb-4">
-                                                <div class="col-md-4">
-                                                    <label>소속 지사</label>
-                                                    <h5 id="modalBranchName"></h5>
+                                                <div class="col-md-10">
+                                                    <label><h5>소속 지사</h5></label>
+                                                    <p id="modalBranchName"></p>
                                                 </div>
 
-                                                <div class="col-md-4">
-                                                    <label>회의실 유형</label>
-                                                    <h5 id="modalMeetingRoomType"></h5>
+                                                <div class="col-md-10">
+                                                    <label><h5>회의실 유형</h5></label>
+                                                    <p id="modalMeetingRoomType"></p>
                                                 </div>
-                                                <div class="col-md-4">
-                                                    <label>회의실 이름</label>
-                                                    <h5 id="modalMeetingRoomName"></h5>
-                                                </div>
-                                            </div>
-                                            <div class="row mb-4">
-                                                <div class="col-md-4">
-                                                    <label>회의실 층수</label>
-                                                    <h5 id="modalMeetingRoomLocation"></h5>
+                                                <div class="col-md-10">
+                                                    <label><h5>회의실 이름</h5></label>
+                                                    <p id="modalMeetingRoomName"></p>
                                                 </div>
                                             </div>
                                             <div class="row mb-4">
-                                                <div class="col-md-4">
-                                                    <label>30분당 회의실 사용료</label>
-                                                    <h5 id="modalMeetingRoomPrice"></h5>
+                                                <div class="col-md-10">
+                                                    <label><h5>회의실 층수</h5></label>
+                                                    <p id="modalMeetingRoomLocation"></p>
                                                 </div>
                                             </div>
                                             <div class="row mb-4">
-                                                <div class="col-md-4">
-                                                    <label>최대 수용인원</label>
-                                                    <h5 id="modalMeetingRoomLimit"></h5>
+                                                <div class="col-md-10">
+                                                    <label><h5>30분당 회의실 사용료</h5></label>
+                                                    <p id="modalMeetingRoomPrice"></p>
                                                 </div>
                                             </div>
                                             <div class="row mb-4">
-                                                <div class="col-md-4">
-                                                    <label>회의실 면적</label>
-                                                    <h5 id="modalMeetingRoomArea"></h5>
+                                                <div class="col-md-10">
+                                                    <label><h5>최대 수용인원</h5></label>
+                                                    <p id="modalMeetingRoomLimit"></p>
                                                 </div>
                                             </div>
                                             <div class="row mb-4">
-                                                <div class="col-md-4">
-                                                    <label>회의실 관리자</label>
-                                                    <h5 id="modalMeetingRoomAdmin"></h5>
+                                                <div class="col-md-10">
+                                                    <label><h5>회의실 면적</h5></label>
+                                                    <p id="modalMeetingRoomArea"></p>
                                                 </div>
                                             </div>
                                             <div class="row mb-4">
-                                                <div class="col-md-4">
-                                                    <label>네트워크 지원 유무</label>
-                                                    <h5 id="modalMeetingRoomNetwork"></h5>
+                                                <div class="col-md-10">
+                                                    <label><h5>회의실 관리자</h5></label>
+                                                    <p id="modalMeetingRoomAdmin"></p>
+                                                </div>
+                                            </div>
+                                            <div class="row mb-4">
+                                                <div class="col-md-10">
+                                                    <label><h5>네트워크 지원 유무</h5></label>
+                                                    <p id="modalMeetingRoomNetwork"></p>
                                                 </div>
                                             </div>
                                             <div class="modal-footer" style="margin-top:20px">

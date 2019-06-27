@@ -54,7 +54,7 @@
                     title: "오류",
                     text: missingList + "을(를) 입력해주세요.",
                     type: "warning",
-                    confirmButtonText: "OK",
+                    confirmButtonText: "확인",
                     closeOnConfirm: true,
                 });
             } else {
@@ -167,26 +167,26 @@
                                 <!-- Modal content-->
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h4 class="modal-title" style="text-align:center;">아래 내용이 맞습니까?</h4>
+                                        <h3 class="modal-title" style="text-align:center;">아래 내용이 맞습니까?</h3>
                                         <button type="button" class="close" data-dismiss="modal">×</button>
                                     </div>
                                     <div class="modal-body">
                                         <div class="row mb-4">
-                                            <div class="col-md-4">
-                                                <label>지사 이름</label>
-                                                <h5 id="modalBranchName"></h5>
+                                            <div class="col-md-12">
+                                                <label><h4>지사 이름</h4></label>
+                                                <p id="modalBranchName"></p>
                                             </div>
                                         </div>
                                         <div class="row mb-4">
-                                            <div class="col-md-4">
-                                                <label>지사 주소</label>
-                                                <h5 id="modalBranchLocation"></h5>
+                                            <div class="col-md-10">
+                                                <label><h4>지사 주소</h4></label>
+                                                <p id="modalBranchLocation"></p>
                                             </div>
                                         </div>
                                         <div class="row mb-4">
-                                            <div class="col-md-4">
-                                                <label>대표 번호</label>
-                                                <h5 id="modalBranchTel"></h5>
+                                            <div class="col-md-12">
+                                                <label><h4>대표 번호</h4></label>
+                                                <p id="modalBranchTel"></p>
                                             </div>
                                         </div>
                                         <div class="modal-footer" style="margin-top:20px">

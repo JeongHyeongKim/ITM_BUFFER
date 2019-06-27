@@ -28,8 +28,8 @@
             text: "삭제 시,해당 회의실 정보 복원 불가",
             type: "warning",
             showCancelButton: true,
-            confirmButtonText: "네, 삭제하겠습니다",
-            cancelButtonText: "아뇨, 취소하겠습니다",
+            confirmButtonText: "예",
+            cancelButtonText: "아니오",
             closeOnConfirm: false,
             closeOnCancel: true
         }, function(isConfirm) {
