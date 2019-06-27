@@ -223,16 +223,16 @@ public class RecognitionService {
 					param=true;
 					continue;
 				}else {
-					//recDao.updateAuthorityAdminToUser(empList.get(i));
+					recDao.updateAuthorityAdminToUser(empList.get(i));
 				}
 			}else if(param==true) {  // user to admin
 				//recDao.updateAuthorityUserToAdmin(empList.get(i));
 				String userEmail=recDao.getUserEmail(empList.get(i));
 				MimeMessage message = mailSender.createMimeMessage();
 				try {
-					
+					System.out.println("UserEmail : " + userEmail);
 					MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
-					messageHelper.setFrom("admin@gsitm.com");
+					messageHelper.setFrom("maladroit1@likelion.org");
 					messageHelper.setTo(userEmail);
 					messageHelper.setSubject("[GSITM 회의실 예약 시스템]관리자 본인 인증");
 					MakeAdminChangeEmail html = new MakeAdminChangeEmail(empList.get(i)); // 사번으로 메일 만든다.
@@ -316,13 +316,15 @@ public class RecognitionService {
 		
 		String result = recDao.infoContrast(empId, randomVal);
 		
-		if(result.equals(empId)) {//성공
-			System.out.println("success");
-			recDao.deleteCertification(empId);
-			return 1;
-		}else {
+		if(result==null) {//성공
 			System.out.println("fail");
 			return 0;
+			
+		}else {
+			System.out.println("success");
+			recDao.updateAuthorityUserToAdmin(empId);
+			recDao.deleteCertification(empId);
+			return 1;
 		}
 	}
 	
