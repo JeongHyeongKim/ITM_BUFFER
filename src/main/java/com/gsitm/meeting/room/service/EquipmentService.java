@@ -35,11 +35,11 @@ public class EquipmentService {
 		if(eqCode.equals("N")) {
 			seqNum=eqDao.getRecentSeqNoteBook();
 		}else if(eqCode.equals("V")) {
-			seqNum=eqDao.getRecentSeqNoteBook();
+			seqNum=eqDao.getRecentSeqBeamProject();
 		}else if(eqCode.equals("W")) {
-			seqNum=eqDao.getRecentSeqNoteBook();
+			seqNum=eqDao.getRecentSeqWhiteBoard();
 		}else if(eqCode.equals("M")) {
-			seqNum=eqDao.getRecentSeqNoteBook();
+			seqNum=eqDao.getRecentSeqMike();
 		}
 		newNum=splitSeq(seqNum);
 		Equipment equipment = new Equipment(newNum,mrId);
