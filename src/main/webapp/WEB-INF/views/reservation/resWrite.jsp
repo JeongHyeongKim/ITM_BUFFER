@@ -75,6 +75,15 @@
                         </div>
                         <div class="form-group col-md-3"></div>
                         <div class="form-group col-md-3"></div>
+                        <div class="form-group col-md-12">
+						<div class="bs-component"  style="width:100%;height:100%">		
+	                    	
+							<div class="btn-group btn-group-toggle btn-group-time" style="width:100%;height:100%" data-toggle="buttons">
+								
+							</div>
+							
+						</div>
+						</div>
                         <div class="form-group col-md-3">
                             <label class="control-label">사용 목적</label>
                             <input class="form-control" placeholder="회의 목적을 작성해주십시오" type="text" id="resPurpose" name="resPurpose" autocomplete="off">
@@ -115,16 +124,8 @@
                         <div class="form-group col-md-3"></div>
                         <div class="form-group col-md-3"></div>
                         <div class="form-group col-md-3"></div>
-	                        
-	                    <div class="bs-component"  style="width:100%;height:100%">		
-	                    	
-							<div class="btn-group btn-group-toggle btn-group-time" style="width:100%;height:100%" data-toggle="buttons">
-								
-							</div>
-							
-						</div>
 
-						<div class="form-group col-md-3" style="padding-top:50px;text-align:right">
+						<div class="form-group col-md-3" style="padding-top:50px; text-align:right">
                             <input class="btn btn-info" id="sendForm" type="button" value="예약 신청"/>
                         </div>
                   </form>
@@ -337,7 +338,7 @@
     	})
     	////////////////////////////////////////////////////////////  pastReservation List
     	var pastRes = JSON.parse('${pastReservation}');
-    	console.log(pastRes);
+    	
     	for(var i=0; i<pastRes.length; i++){
     		$("<p></p>").attr("class","pastId").attr("id",pastRes[i].resId).text("["+pastRes[i].resType+"]  "+pastRes[i].resStartDate+"에 예약하신 '"+pastRes[i].resPurpose+"'이력 불러오기").appendTo($("#pastRes"));
     	}
@@ -353,7 +354,7 @@
 						data:"_csrf=${_csrf.token}",
     	    			success: function(data){
     	    				var pastEquip = JSON.parse(data);
-    	    				var N =0;
+    	    				var N = 0;
     	    				var W = 0;
     	    				var M = 0;
     	    				var V = 0;
@@ -621,7 +622,7 @@
              			$label = $("<button type='button'></button>").attr("class","btn btn-warning btn-sm").attr("id",changeTime).attr("style","width:100%;height:100%;border: 2px solid #ced4da;font-size:0.3rem;").attr("disabled","").text(changeTime);  
              			break;
              		} else{
-             			$label = $("<button type='button'></button>").attr("class","btn btn-primary btn-sm").attr("id",changeTime).attr("style","width:100%;height:100%;border: 2px solid #ced4da;font-size:0.3rem;").text(changeTime);
+             			$label = $("<button type='button'></button>").attr("class","btn btn-outline-secondary btn-sm").attr("id",changeTime).attr("style","width:100%;height:100%;border: 2px solid #ced4da;font-size:0.3rem;").text(changeTime);
              		}
              	}
            		var $secondLabel = $label.appendTo($(".btn-group-time"))
@@ -639,14 +640,20 @@
               }
                
         }
-    	
+    	var splitDate = resStartDate.split("-")[2];
+    	var transDate = 0;
+    	console.log(resStartDate);
+    	console.log(transDate)
+    	timeAJAX(resStartDate);
+    	drawTime();
     	$(document).on("click",".btn-sm",function(){
-    		console.log($("#resEndDate").val());
-    		$("#resEndDate").focus();
+    		if($("#resEndDate").val()==""){
+    			$("#resEndDate").focus();	
+    		}
     	})
         //변경
        //$("<div style='width:100%;height:100%'></div>").html("<p>9&emsp;&emsp;10&emsp;&emsp;11&emsp;&emsp;12&emsp;&emsp;13&emsp;&emsp;14&emsp;&emsp;15&emsp;&emsp;16&emsp;&emsp;17&emsp;&emsp;18</p>").appendTo($(".bs-component"))
-        drawTime();
+        
         new Swiper('.swiper-container', {
 
         	// 자동높이 사용여부 : 사용하지 않을시 기본값은 false
@@ -724,8 +731,7 @@
            	/////////////////////////////////////////////cost계산
            	var t1 = $("#resStartDate").val();
            	var t2 = $("#resEndDate").val();
-           	
-           	
+  
         });
         
         
@@ -736,6 +742,7 @@
              format:'Y-m-d',
         	onSelectDate: function(data) {
         		$("#startTime").val(JSON.stringify(data));
+        		console.log(JSON.stringify(data));
         		timeAJAX(data);
         	}
         });
@@ -743,6 +750,7 @@
         	timepicker:false,
             format:'Y-m-d',
         	onSelectDate: function(data) {
+        		console.log(JSON.stringify(data));
 				$("<input>").attr("type","hidden").attr("name","resEndDate").attr("value",JSON.stringify(data)).appendTo($("#resForm"));
         		timeAJAX(data);
         	}

@@ -191,10 +191,10 @@ public class ReservationService {
  			Attendee temp = null;
  			for(int j=0; j<mainDeptIdList.size(); j++) { 
  				if(deptId.equals(mainDeptIdList.get(j))) {
- 					temp = new Attendee(nextId, empListArray[i], "att_type_0", deptId, cost/mainDeptList.length, res.getEmpId());
+ 					temp = new Attendee(nextId, empListArray[i], "att_type_0", deptId, cost/mainDeptList.length);
  					break;
  				} else {
- 					temp = new Attendee(nextId, empListArray[i], "att_type_1", deptId, 0, res.getEmpId());
+ 					temp = new Attendee(nextId, empListArray[i], "att_type_1", deptId, 0);
  				}
  			}
  			sendAttendee.add(temp);

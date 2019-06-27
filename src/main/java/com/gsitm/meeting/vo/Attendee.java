@@ -14,5 +14,5 @@ public class Attendee {
 	private String attendType;
 	private String deptId;
 	private int deptCost;
-	private String resEmpId;
+	
 }

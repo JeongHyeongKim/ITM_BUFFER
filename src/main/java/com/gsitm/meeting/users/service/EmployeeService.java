@@ -87,13 +87,13 @@ public class EmployeeService {
 	
 	//윤영
 	public String availableMeetingDate(String availableDate, String mrId) throws ParseException {
-		
+		System.out.println(availableDate);
 		String[] splitDate = availableDate.split("-");
 		String year = splitDate[0].substring(3, 5);
 		String month = splitDate[1];
 		String day = Integer.toString((Integer.parseInt(splitDate[2].substring(0, 2)) + 1));
 		String transDate = year + "/" + month + "/" + day;
-		
+		System.out.println(transDate);
 		List<EmployeeDTO.AvailableMeetingDate> result = empDao.availableMeetingDate(transDate, mrId);
 		List<String[]> resultTime = new ArrayList<>();
 		for(int i=0; i<result.size(); i++) {
@@ -106,7 +106,7 @@ public class EmployeeService {
 			
 			resultTime.add(calcTime(mod,startDate));
 		}
-		
+		System.out.println(resultTime);
 		return gson.toJson(resultTime);
 	}
 	
