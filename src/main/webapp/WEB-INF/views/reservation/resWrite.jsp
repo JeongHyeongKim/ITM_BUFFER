@@ -400,41 +400,7 @@
     	})
     	
     	////////////////////////////////////////////////////////////참석자명단 id : empList-modal-body
-    	/* 
-    	var empList = JSON.parse('${empList}');
     	
-    	var deptList = [];
-    	
-    	// deptList 중복제거
-    	for(var i=0; i<empList.length; i++){
-    		if(deptList.contains(empList[i].deptName)){
-    			const idx = deptList.indexOf(empList[i].deptName) 
-    			if (idx > -1) deptList.splice(idx, 1)
-    		} else{
-    			deptList.push(empList[i].deptName);
-    		}	
-    	}
-    	 */
-    	// model 화면에 deptList출력
-    	/* 
-    	for(var i=0; i<deptList.length; i++){
-    		
-    		var $backDiv = $("<div></div>").attr("class","col-md-12").appendTo($("#empListOption"));
-    		var $colsix = $("<div></div>").attr("class","col-md-6").appendTo($backDiv);
-    		// div정렬중 ///////////////////////////////////
-    		$("<p></p>").attr("id",deptList[i]).attr("class","col-md-6").attr("class","showDept").text("> "+deptList[i]).appendTo($colsix);
-    		for(var j=0; j<empList.length; j++){
-    			if(empList[j].deptName == deptList[i]){
-    				var $deptDiv = $("<div></div>").attr("id","child"+deptList[i]).appendTo($backDiv);
-    				$("<p></p>").text(empList[j].empName).appendTo($deptDiv);	
-    			}
-    		}
-    		$("#child"+deptList[i]).hide();
-    	}
-    	$(".showDept").on("click",function(e){
-    		$("#child"+e.currentTarget.id).toggle();
-    	})
-    	 */
     	///////////////////////////////////////////////////////////////회의구분 선택자
     	$("#resType1").on("click",function(){
     		$("#resType").attr("value",$("#resType1").text());
@@ -635,7 +601,7 @@
         ///////////////////////////////////////////////////////////////////////////////// 
         function drawTime(){
         	 $(".btn-group").empty();
-        	 var changeTime = "09:30";
+        	 var changeTime = "09:00"; 
              var splitMinTime = changeTime.substr(3,5);
              var splitHourTime = changeTime.substr(0,2);
              var aTime = new Array(); 
@@ -661,7 +627,7 @@
              }
              
              // 시간뿌리기
-             for(var i=0; i<18; i++){
+             for(var i=0; i<19; i++){
              	
              	for(var j=0; j<newTimes.length; j++){ 
              		var $label ;
@@ -686,6 +652,9 @@
      			changeTime = splitHourTime+ ":"+splitMinTime;
               }
                
+             var currentTime = new Date();
+             var getCurrentTime = currentTime.getFullyear()
+             console.log(currentTime.getDate());
         }
     	var splitDate = resStartDate.split("-")[2];
     	var transDate = splitDate.split(" ")[0]-1;
