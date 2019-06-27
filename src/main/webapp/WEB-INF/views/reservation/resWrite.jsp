@@ -659,7 +659,7 @@
              }
              var getCurrentTime = currentTime.getFullYear()+"-"+currentMonth+"-"+currentTime.getDate();
              
-             if(sessionStorage.getItem())
+             // if(sessionStorage.getItem())
         }
     	var splitDate = resStartDate.split("-")[2];
     	var transDate = splitDate.split(" ")[0]-1;
