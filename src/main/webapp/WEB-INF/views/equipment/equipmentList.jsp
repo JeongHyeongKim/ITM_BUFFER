@@ -158,6 +158,29 @@ function saveEqId(param){
                             </c:forEach>
                         </tbody>
                     </table>
+                    <div class="row">
+          <div class="col-lg-12">
+            <h4>전체 기자재 현황</h4>
+          </div>
+        </div>
+                    <div class="row">
+          <div class="col-lg-4">
+            <div class="bs-component">
+              <ul class="list-group">
+                <li class="list-group-item" id="cntN" >노트북(N)</li>
+                <li class="list-group-item" id="cntV" >빔프로젝터(V)</li>
+                <li class="list-group-item" id="cntM" >마이크(M)</li>
+                <li class="list-group-item" id="cntW">화이트보드(WB)</li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-lg-4">
+          </div>
+          <div class="col-lg-4">
+          </div>
+        </div>
+
+            
                 </div>
             </div>
         </div>
@@ -168,7 +191,57 @@ function saveEqId(param){
 <script src="/meeting/resources/js/plugins/sb-admin-datatables.min.js"></script>
 <script type="text/javascript">
     $('#sampleTable').DataTable();
+
+
+    var cntN=0;
+	var cntM=0;
+	var cntV=0;
+	var cntW=0;  
+	var col=$('#sampleTable').DataTable().column(1, {search:'applied'}).data(); 
+	console.log(col);
+	for(var i=0;i<col.length;i++){ 
+		if(col[i]=="N")
+			cntN++;
+		else if(col[i]=="M")
+			cntM++;
+		else if(col[i]=="V")
+			cntV++;
+		else if(col[i]=="WB")
+			cntW++;
+	}
+	$("#cntN").html("노트북(N) : "+cntN);
+	$("#cntM").html("마이크(M) : "+cntM);
+	$("#cntV").html("빔프로젝터(V) : "+cntV);
+	$("#cntW").html("화이트보드(WB) : "+cntW);
+	
+	
+    $('#sampleTable').on( 'search.dt', function () {
+    	var cntN=0;
+    	var cntM=0;
+    	var cntV=0;
+    	var cntW=0;  
+    	var col=$('#sampleTable').DataTable().column(1, {search:'applied'}).data(); 
+    	console.log(col);
+    	for(var i=0;i<col.length;i++){ 
+    		if(col[i]=="N")
+    			cntN++;
+    		else if(col[i]=="M")
+    			cntM++;
+    		else if(col[i]=="V")
+    			cntV++;
+    		else if(col[i]=="WB")
+    			cntW++;
+    	}
+    	$("#cntN").html("노트북(N) : "+cntN);
+    	$("#cntM").html("마이크(M) : "+cntM);
+    	$("#cntV").html("빔프로젝터(V) : "+cntV);
+    	$("#cntW").html("화이트보드(WB) : "+cntW);
+    	
+    	
+    	}).dataTable();
     
+    //console.log(a);
+    //console.log(b); 
     $("#branchSelect").change(function() {
     	console.log("branch is selected!");
         if ($("#branchSelect option:selected").val() != "none") {
@@ -192,6 +265,8 @@ function saveEqId(param){
             });
         }
     });
+    
+    
 </script>
 
 <script type="text/javascript" src="/meeting/resources/js/plugins/bootstrap-notify.min.js"></script>
