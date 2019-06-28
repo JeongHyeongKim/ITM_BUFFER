@@ -93,7 +93,7 @@
                         </div>
                         <div class="form-group col-md-3">
                             <label class="control-label">참석 인원 명단 <a data-target="#empList" data-toggle="modal">&emsp;<button type="button" class="btn btn-secondary" style="width:10px; height:10px;">+</button></a></label>
-                            <input class="form-control" type="text" id="attendeeList" autocomplete="off">
+                            <input class="form-control" type="text" id="attendeeList" autocomplete="off" readonly="readonly">
                         </div>
                         <div class="form-group col-md-3">
                             <label class="control-label">외부인 참석 인원 수</label>
@@ -251,6 +251,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.0/js/swiper.min.js"></script>
 <script src="/meeting/resources/js/duallistbox/jquery.bootstrap-duallistbox-reservation.js"></script>
 <script src="/meeting/resources/js/duallistbox/duallistbox.active.js"></script>
+<script type="text/javascript" src="/meeting/resources/js/plugins/sweetalert.min.js"></script>
 <script>
     $(document).ready(function() {
 
@@ -584,16 +585,44 @@
         ////////////////////////////////////////////////////////////////////////////////// 
 
         $("#sendForm").on("click", function() {
-            var form = $("#resForm").serialize();
+        	if($("#resType").val()== ""){
+        		swal({
+        			title:"입력정보오류",
+        			text:"회의구분을 입력하세요"
+        		})
+        	} else if($("#resStartDate").val().length !=16 ){
+        		swal({
+        			title:"입력정보오류",
+        			text:"시작시간을 선택하세요"
+        		})
+        		
+        	} else if($("#resEndDate").val().length != 16){
+        		swal({
+        			title:"입력정보오류",
+        			text:"종료시간을 선택하세요"
+        		})
+        		
+        	} else if($("#resPurpose").val()==""){
+        		swal({
+        			title:"입력정보오류",
+        			text:"회의목적을 입력하세요"
+        		})
+        	} else if($("#res"))
+        	
+        	
+        	else{
+        		 var form = $("#resForm").serialize();
 
-            $.ajax({
-                url: "/meeting/reservation/writeReservation",
-                data: form,
-                method: "post",
-                success: function() {
-                    location.href = "/meeting/users/mypage";
-                }
-            })
+                 $.ajax({
+                     url: "/meeting/reservation/writeReservation",
+                     data: form,
+                     method: "post",
+                     success: function() {
+                         location.href = "/meeting/users/mypage";
+                     }
+                 })
+        	}
+           
         })
         //////////////////////////////////////////////////////////////
         $("#resStartDate").on("focus", function() {
