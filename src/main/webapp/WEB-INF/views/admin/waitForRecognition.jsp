@@ -3,7 +3,6 @@
 
 <script type="text/javascript">
 	$(function(){
-		
 		var resId;
 		var myInfo = JSON.parse('${resList}');
 		var branchList = JSON.parse('${branchList}');
@@ -189,8 +188,8 @@
 				}
 					
 				if(myInfo[i].resId == resId){
-
-						var resAddRequest = myInfo[i].resAddRequest;
+						
+						var resAddRequest ="없음";
 						if(myInfo[i].resAddRequest==(" ")){
 							resAddRequest = "없음";
 						}
@@ -351,9 +350,7 @@
         	    	var pageInfo = JSON.parse(data);
 					  drawPage(pageInfo);
 					  $("#dataTable").DataTable();
-					  $("#dataTable").DataTable({
-						  "order":[[0,"desc"]]
-					  })
+					  
         	    }
         	   })
 			   
