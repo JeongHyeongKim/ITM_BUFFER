@@ -20,7 +20,7 @@
 			$("#meetingInfo").empty(); 
 			var $meetingInfo = $("#meetingInfo");
 			if(mySchedule.length==0){
-				$("<h3></h3>").attr("class","tile-title").text("예정된 회의실 예약 일정이 없습니다").appendTo($meetingInfo);
+				$("<h4></h4>").attr("class","tile-title").text("예정된 회의가 없습니다.").appendTo($meetingInfo);
 			}
 			$.each(mySchedule, function(i, $list) {	
 				if(i==0){
@@ -220,7 +220,7 @@
 				</div>
 				
 				<div id="deptCostInfo" style="float:right;text-align:right">
-					<h3 class="tile-title">부서별 회의실 사용 연간 누적금액</h3>
+					<h4 class="tile-title">부서별 연간 누적금액</h4>
 					<h3 class="tile-title" id="deptCost"></h3>
 				</div>
 			</div>

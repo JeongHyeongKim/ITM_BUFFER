@@ -11,7 +11,7 @@
     var pluginName = 'bootstrapDualListbox',
         defaults = {
             bootstrap2Compatible: false,
-            filterTextClear: 'show all',
+            filterTextClear: false,
             filterPlaceHolder: '이름 또는 부서를 입력하세요',
             moveSelectedLabel: 'Move selected',
             moveAllLabel: 'Move all',
@@ -19,8 +19,8 @@
             removeAllLabel: 'Remove all',
             moveOnSelect: true,                                                                 // true/false (forced true on androids, see the comment later)
             preserveSelectionOnMove: false,                                                     // 'all' / 'moved' / false
-            selectedListLabel: '관리자 목록',                                                           // 'string', false
-            nonSelectedListLabel: '사용자 목록',                                                        // 'string', false
+            selectedListLabel: false,                                                           // 'string', false
+            nonSelectedListLabel: false,                                                        // 'string', false
             helperSelectNamePostfix: '_helper',                                                 // 'string_of_postfix' / false
             selectorMinimalHeight: 100,
             showFilterInputs: true,                                                             // whether to show filter inputs
@@ -28,7 +28,7 @@
             selectedFilter: '',                                                                 // string, filter the selected options
             infoText: '{0}명',                                                        // text when all options are visible / false for no info text
             infoTextFiltered: '<span class="label label-warning">Filtered</span> {0} from {1}', // when not all of the options are visible due to the filter
-            infoTextEmpty: 'Empty list',                                                        // when there are no options present in the list
+            infoTextEmpty: '0명',                                                        // when there are no options present in the list
             filterOnValues: false,                                                              // filter by selector's values, boolean
             sortByInputOrder: false
         },
