@@ -78,7 +78,13 @@
             	var yy=date.format("YYYY");
             	var mm=date.format("MM");
             	var dd=date.format("DD");
+            	console.log(dd.length)
+            	console.log(dd)
+            	if(dd.length==1){
+            		dd = "0"+dd;
+            	}
             	str = yy+"-"+mm+"-"+dd;
+            	console.log(str)
             	swal({
               		title: "예약 신청",
               		text: str+"에 예약을 진행하시겠습니까?",
@@ -93,6 +99,7 @@
               		var sessionMrId = sessionStorage.getItem("mrId");
               		mrId+=sessionMrId; 
               		if (isConfirm) {
+              			sessionStorage.setItem("currentDateUse",str);
               			window.sessionStorage.setItem("currentDate",str);	
               			document.location.href="/meeting/reservation/resWrite/"+mrId;
               		} else {

@@ -44,7 +44,7 @@ public class ReservationController {
 	@PostMapping("/writeReservation")
 	public String writeReservation(Model model, String mrId,@RequestParam(required=false) String resPurpose, 
 			@RequestParam(required=false)String resAddRequest, String resStartDate, String resEndDate, 
-			@RequestParam(required=false) String resSnack, String resType, String resOutside, String equipElement, 
+			@RequestParam(required=false) String resSnack, String resType, @RequestParam(required=false) String resOutside, String equipElement, 
 			Principal principal, String times, String empList, String resState, String mainDept, 
 			@RequestParam(required=false) String resNetwork) {
 		

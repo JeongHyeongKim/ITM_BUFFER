@@ -94,7 +94,7 @@
                         </div>
                         <div class="form-group col-md-3">
                             <label class="control-label">외부인 참석 인원 수</label>
-                            <input class="form-control" min="1" type="number" name="resOutside" id="resOutside" autocomplete="off">
+                            <input class="form-control" min="1" type="number" name="resOutside" id="resOutside" autocomplete="off" value="0">
                         </div>
                         <div class="form-group col-md-3">
                         </div>
@@ -598,7 +598,15 @@
         		}
         	})
         })
+        //////////////////////////////////////////////////////////////
+        $("#resStartDate").on("focus",function(){
+        	sessionStorage.setItem("currentDateUse"," ");
+        })
+        
+        
         ///////////////////////////////////////////////////////////////////////////////// 
+        
+        
         function drawTime(){
         	 $(".btn-group").empty();
         	 var changeTime = "09:00"; 
@@ -657,14 +665,55 @@
              if(currentMonth.length==1){
             	 currentMonth = "0"+currentMonth;
              }
-             var getCurrentTime = currentTime.getFullYear()+"-"+currentMonth+"-"+currentTime.getDate();
-             
-             // if(sessionStorage.getItem())
+             var currentDay = String(currentTime.getDate());
+             if(currentDay.length==1){
+            	 currentDay = "0"+currentDay;
+             }
+             var getCurrentTime = currentTime.getFullYear()+"-"+currentMonth+"-"+currentDay;
+             console.log(getCurrentTime)
+            
+             if(sessionStorage.getItem("currentDateUse").includes("-")){
+            	 if( (sessionStorage.getItem("currentDateUse")==getCurrentTime && $("#resStartDate").val()==getCurrentTime ) ){
+            		 console.log("세션있고 현재날짜가 오늘날짜")
+            		 console.log(getCurrentTime)
+            		 var currentHour = new Date();
+            		 ctrHour = String(currentHour.getHours());
+            		
+            		 if(ctrHour.length==1){
+            			
+            			 ctrHour = "0"+ctrHour;
+            		 }
+            		 ctrMinute = currentHour.getMinutes();
+            		
+            		 if(ctrMinute>=0 && ctrMinute<=30){
+            			 ctrMinute = "00";
+            		 } else{
+            			 ctrMinute = "30";
+            		 }
+            		 console.log(ctrHour+":"+ctrMinute); 
+            		 var resultHour = "#"+ctrHour+":"+ctrMinute;
+            		drawBtn(resultHour)
+            	 }
+             } else{
+            	 if(  $("#resStartDate").val()==getCurrentTime){
+            		 console.log("세션없고 현재날짜로만")
+            		 console.log(getCurrentTime)
+            	 }
+             }
+        }
+        function drawBtn(data){
+        	console.log(data)
+        	$(data).removeClass("btn btn-outline-secondary btn-sm");
+        	$(data).addClass("btn btn-warning btn-sm");
         }
     	var splitDate = resStartDate.split("-")[2];
     	var transDate = splitDate.split(" ")[0]-1;
+    	
+    	if(String(transDate).length==1){
+    		transDate = "0"+transDate;
+    	}
     	var resultDate = resStartDate.split("-")[0]+"-"+resStartDate.split("-")[1]+"-"+transDate+" "+"09:00";
-   
+   		
     	timeAJAX(resultDate);
     	drawTime();
     	$(document).on("click",".btn-sm",function(){
@@ -779,7 +828,7 @@
         
         function timeAJAX(data){
         	var mrId = sessionStorage.getItem("mrId");
-    		
+    		console.log(data)
     		var availableDate = JSON.stringify(data);
     		$.ajax({
     			url:"/meeting/reservation/available/"+mrId+"/"+availableDate,
